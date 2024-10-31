@@ -1,3 +1,5 @@
+'use client';
+
 import { styled } from '@mui/material'
 import isHotkey from 'is-hotkey'
 import { useCallback, useMemo } from 'react'
@@ -8,7 +10,7 @@ import {
     Transforms,
 } from 'slate'
 import { withHistory } from 'slate-history'
-import { Editable, Slate, useSlate, withReact, ReactEditor, useSelected, useFocused } from 'slate-react'
+import { Editable, Slate, useSlate, withReact, ReactEditor, useSelected, useFocused,useSlateStatic } from 'slate-react'
 import { MenuButton } from './EditorUI'
 import HOTKEYS from "./hotkeys.js"
 import TopMenu from "./TopMenu"
@@ -25,12 +27,26 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
     outlineColor: theme.palette.divider,
 }));
 
-const TextEditor = ({ initialValue }) => {
+const TextEditor = ({ onChange, ...props }) => {
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), [])
     return (
-        <Slate editor={editor} initialValue={initialValue}>
+        <Slate
+            editor={editor}
+            onChange={value => {
+                const isAstChange = editor.operations.some(
+                    op => 'set_selection' !== op.type
+                )
+                if (isAstChange) {
+                    // Save the value to Local Storage.
+                    const content = JSON.stringify(value)
+                    if (onChange)
+                        onChange(content);
+                }
+            }}
+            {...props}
+        >
             <TopMenu />
             <StyledEditable
                 renderElement={renderElement}
@@ -253,7 +269,7 @@ const isImageUrl = url => {
     return imageExtensions.includes(ext)
 }
 const InsertImageButton = ({ Icon }) => {
-    const editor = useSlate()
+    const editor = useSlateStatic()
     return (
         <MenuButton
             onMouseDown={event => {
@@ -271,7 +287,7 @@ const InsertImageButton = ({ Icon }) => {
     )
 }
 const Image = ({ attributes, children, element }) => {
-    const editor = useSlate()
+    const editor = useSlateStatic()
     const path = ReactEditor.findPath(editor, element)
     const selected = useSelected()
     const focused = useFocused()
@@ -292,7 +308,12 @@ const Image = ({ attributes, children, element }) => {
                     }}
                 />
                 <IconButton
-                    onClick={() => Transforms.removeNodes(editor, { at: path })}
+                    onClick={(e) => {
+                        console.log(e);
+                        e.preventDefault();
+                        Transforms.removeNodes(editor, { at: path })
+                    }}
+                    onPointerDown={e=>e.preventDefault()}
                     style={{
                         display: selected && focused ? 'revert-layer' : 'none',
                         position: "absolute",

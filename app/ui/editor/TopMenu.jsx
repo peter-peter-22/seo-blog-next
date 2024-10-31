@@ -1,3 +1,5 @@
+'use client';
+
 import { BlockButton, MarkButton, InsertImageButton } from "./TextEditor"
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
