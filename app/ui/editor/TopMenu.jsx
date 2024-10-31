@@ -1,4 +1,4 @@
-import { BlockButton, MarkButton } from "./TextEditor"
+import { BlockButton, MarkButton, InsertImageButton } from "./TextEditor"
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
@@ -16,6 +16,7 @@ import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
 import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
+import ImageIcon from '@mui/icons-material/Image';
 
 export default function TopMenu() {
     return (
@@ -36,6 +37,7 @@ export default function TopMenu() {
                     <BlockButton format="center" Icon={<FormatAlignCenter />} />
                     <BlockButton format="right" Icon={<FormatAlignRight />} />
                     <BlockButton format="justify" Icon={<FormatAlignJustify />} />
+                    <InsertImageButton Icon={<ImageIcon />} />
                 </Paper>
             </Box>
         </Box>
