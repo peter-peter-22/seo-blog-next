@@ -12,7 +12,6 @@ export default function ArticleEditor() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(contentRef.current);
     publishArticle(contentRef.current);
   }
 

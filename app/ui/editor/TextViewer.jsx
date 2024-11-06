@@ -14,7 +14,6 @@ const StyledEditable = styled(Editable)({
 export default function TextViewer({ slateProps, editorProps }) {
     const editor = useMemo(() => withImages(withReact(createEditor())), []);
     return (
-        <ReadonlyContext.Provider value={true}>
             <Slate
                 editor={editor}
                 {...slateProps}
@@ -25,6 +24,5 @@ export default function TextViewer({ slateProps, editorProps }) {
                     {...editorProps}
                 />
             </Slate >
-        </ReadonlyContext.Provider>
     )
 }

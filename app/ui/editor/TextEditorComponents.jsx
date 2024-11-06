@@ -13,8 +13,6 @@ import { MenuButton } from './EditorUI';
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify']
 
-const ReadonlyContext = React.createContext(true);
-
 const toggleBlock = (editor, format) => {
     const isActive = isBlockActive(
         editor,
@@ -173,5 +171,5 @@ const MarkButton = ({ format, Icon }) => {
     )
 }
 
-export { BlockButton, Element, Leaf, MarkButton, ReadonlyContext };
+export { BlockButton, Element, Leaf, MarkButton };
 

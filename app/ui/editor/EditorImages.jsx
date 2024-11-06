@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {
     Transforms
 } from 'slate'
-import { ReactEditor, useFocused, useSelected, useSlateStatic } from 'slate-react'
+import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
 import { MenuButton } from './EditorUI'
 import { ReadonlyContext } from './TextEditorComponents'
 import React from "react";
@@ -82,7 +82,7 @@ const StyledImage = styled(Image)({
 })
 
 const DisplayedImage = (props) => {
-    const isReadonly = React.useContext(ReadonlyContext);
+    const isReadonly = useReadOnly();
     return isReadonly ? <ViewImage {...props} /> : <EditorImage {...props} />;
 }
 

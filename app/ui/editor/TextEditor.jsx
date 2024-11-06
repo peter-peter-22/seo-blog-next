@@ -8,7 +8,7 @@ import { withHistory } from 'slate-history';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withImages } from './EditorImages';
 import HOTKEYS from "./hotkeys.js";
-import { Element, Leaf, ReadonlyContext } from "./TextEditorComponents";
+import { Element, Leaf } from "./TextEditorComponents";
 import TopMenu from "./TopMenu";
 
 const StyledEditable = styled(Editable)(({ theme }) => ({
@@ -29,7 +29,6 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
 export default function TextEditor({ onChange, slateProps, editorProps }) {
     const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
     return (
-        <ReadonlyContext.Provider value={false}>
             <Slate
                 editor={editor}
                 onChange={value => {
@@ -62,6 +61,5 @@ export default function TextEditor({ onChange, slateProps, editorProps }) {
                     {...editorProps}
                 />
             </Slate >
-        </ReadonlyContext.Provider>
     )
 }
