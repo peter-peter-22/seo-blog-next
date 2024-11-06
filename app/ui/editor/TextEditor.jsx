@@ -38,9 +38,8 @@ export default function TextEditor({ onChange, slateProps, editorProps }) {
                     )
                     if (isAstChange) {
                         // Save the value to Local Storage.
-                        const content = JSON.stringify(value);
                         if (onChange)
-                            onChange(content);
+                            onChange(value);
                     }
                 }}
                 {...slateProps}

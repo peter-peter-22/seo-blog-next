@@ -5,6 +5,7 @@ import { InsertImageButton } from "./EditorImages";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
+import React from "react";
 
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
@@ -21,7 +22,7 @@ import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
 import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
 import ImageIcon from '@mui/icons-material/Image';
 
-export default function TopMenu() {
+const TopMenu = () => {
     return (
         <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
             <Toolbar />
@@ -46,3 +47,5 @@ export default function TopMenu() {
         </Box>
     )
 }
+
+export default TopMenu;
