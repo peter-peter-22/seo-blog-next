@@ -1,26 +1,39 @@
 'use client';
 
-import { useMemo } from "react";
+import React from "react";
 import TextEditor from "./TextEditor";
+import EditorBottomMenu from "./bottomMenu/EditorBottomMenu";
 
 export default function ArticleEditor() {
-  const initialValue = useMemo(
-    () =>
-      JSON.parse(localStorage.getItem('content')) || [
-        {
-          type: 'paragraph',
-          children: [{ text: 'A line of text in a paragraph.' }],
-        },
-      ],
-    []
-  )
+  const initialValue = React.useMemo(getInitialValue, []);
 
   return (
-    <TextEditor
-      initialValue={initialValue}
-      onChange={value => {
-        localStorage.setItem('content', value)
-      }}
-    />
+    <form>
+      <TextEditor
+        slateProps={{
+          initialValue,
+        }}
+        onChange={value => {
+          localStorage.setItem('content', value)
+        }}
+      />
+      <EditorBottomMenu />
+    </form>
   );
+}
+
+const defaultValue = [
+  {
+    type: 'paragraph',
+    children: [{ text: '' }],
+  },
+];
+
+function getInitialValue() {
+  try {
+    return JSON.parse(localStorage.getItem('content')) || defaultValue;
+  }
+  catch {
+    return defaultValue;
+  }
 }

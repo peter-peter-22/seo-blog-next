@@ -16,7 +16,7 @@ export default function Home() {
         Article editor
       </Typography>
       <Typography>
-        Images can be uploaded only via external url. To use your own images here, use a cloud service like google drive.
+        The last state of the article is saved locally and it persists if the page is reloaded.
       </Typography>
       <Box sx={{ fontFamily: 'var(--font-roboto)' }}>
         <NoSSR>

@@ -1,6 +1,7 @@
 'use client';
 
-import { BlockButton, MarkButton, InsertImageButton } from "./TextEditor"
+import { BlockButton, MarkButton } from "./TextEditorComponents"
+import { InsertImageButton } from "./EditorImages";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
