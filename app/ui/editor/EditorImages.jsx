@@ -74,9 +74,10 @@ const InsertImageButton = ({ Icon }) => {
     )
 }
 
-const StyledImage = styled(Image)({
+const StyledImage = styled("img")({
     display: "block",
     maxWidth: "100%",
+    height:300,
     width: "auto",
     objectFit: "cover",
 })
@@ -103,9 +104,6 @@ function EditorImage({ attributes, children, element }) {
                 <StyledImage
                     src={element.url}
                     alt={element.url}
-                    unoptimized
-                    width="600"
-                    height="300"
                     sx={{
                         boxShadow: showMenu && `0 0 0 3px theme.palette.primary.main`
                     }}
@@ -139,8 +137,6 @@ function ViewImage({ attributes, children, element }) {
             {children}
             <StyledImage
                 src={element.url}
-                width="600"
-                height="300"
                 alt={element.url}
             />
         </div>
