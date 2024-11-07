@@ -171,5 +171,5 @@ const MarkButton = ({ format, Icon }) => {
     )
 }
 
-export { BlockButton, Element, Leaf, MarkButton };
+export { BlockButton, Element, Leaf, MarkButton,toggleMark };
 

@@ -8,7 +8,7 @@ import { withHistory } from 'slate-history';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withImages } from './EditorImages';
 import HOTKEYS from "./hotkeys.js";
-import { Element, Leaf } from "./TextEditorComponents";
+import { Element, Leaf, toggleMark } from "./TextEditorComponents";
 import TopMenu from "./TopMenu";
 
 const StyledEditable = styled(Editable)(({ theme }) => ({
@@ -29,37 +29,37 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
 export default function TextEditor({ onChange, slateProps, editorProps }) {
     const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
     return (
-            <Slate
-                editor={editor}
-                onChange={value => {
-                    const isAstChange = editor.operations.some(
-                        op => 'set_selection' !== op.type
-                    )
-                    if (isAstChange) {
-                        // Save the value to Local Storage.
-                        if (onChange)
-                            onChange(value);
+        <Slate
+            editor={editor}
+            onChange={value => {
+                const isAstChange = editor.operations.some(
+                    op => 'set_selection' !== op.type
+                )
+                if (isAstChange) {
+                    // Save the value to Local Storage.
+                    if (onChange)
+                        onChange(value);
+                }
+            }}
+            {...slateProps}
+        >
+            <TopMenu />
+            <StyledEditable
+                renderElement={Element}
+                renderLeaf={Leaf}
+                spellCheck
+                autoFocus
+                onKeyDown={event => {
+                    for (const hotkey in HOTKEYS) {
+                        if (isHotkey(hotkey, event)) {
+                            event.preventDefault()
+                            const mark = HOTKEYS[hotkey]
+                            toggleMark(editor, mark)
+                        }
                     }
                 }}
-                {...slateProps}
-            >
-                <TopMenu />
-                <StyledEditable
-                    renderElement={Element}
-                    renderLeaf={Leaf}
-                    spellCheck
-                    autoFocus
-                    onKeyDown={event => {
-                        for (const hotkey in HOTKEYS) {
-                            if (isHotkey(hotkey, event)) {
-                                event.preventDefault()
-                                const mark = HOTKEYS[hotkey]
-                                toggleMark(editor, mark)
-                            }
-                        }
-                    }}
-                    {...editorProps}
-                />
-            </Slate >
+                {...editorProps}
+            />
+        </Slate >
     )
 }
