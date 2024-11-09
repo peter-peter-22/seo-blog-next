@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
 import MenuContents from './MenuContents';
 
-export default () => {
+export default function NavMenu()  {
     const [open, setOpen] = useState(false);
 
     const handleDrawerToggle = () => {

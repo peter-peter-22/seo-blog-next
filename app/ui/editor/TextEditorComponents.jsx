@@ -112,9 +112,10 @@ const Element = ({ attributes, children, element }) => {
         case 'image':
             return <DisplayedImage
                 attributes={attributes}
-                children={children}
                 element={element}
-            />
+            >
+                {children}
+            </DisplayedImage>
         default:
             return (
                 <p style={style} {...attributes}>
@@ -171,5 +172,5 @@ const MarkButton = ({ format, Icon }) => {
     )
 }
 
-export { BlockButton, Element, Leaf, MarkButton,toggleMark };
+export { BlockButton, Element, Leaf, MarkButton, toggleMark };
 

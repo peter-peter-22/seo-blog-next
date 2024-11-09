@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import prisma from "@/utils/db";
 
 const FormSchema = z.object({
     content: z.array(z.object({})),
@@ -27,6 +28,12 @@ export async function publishArticle(data) {
             message: 'Missing Fields. Failed to Create Invoice.',
         };
     }
+
+    await prisma.task.create({
+        data: {
+            content: "test"
+        }
+    });
 
     console.log("ok");
 }

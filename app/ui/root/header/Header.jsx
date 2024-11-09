@@ -16,7 +16,7 @@ function HideOnScroll({ children }) {
     );
 }
 
-export default () => {
+export default function Header()  {
     return (
         <HideOnScroll>
             <AppBar component="nav" sx={{ position: "sticky", top: 0 }}>

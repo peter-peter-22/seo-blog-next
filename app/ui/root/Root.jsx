@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import Footer from './footer/Footer';
 import Header from './header/Header';
-import Stack from '@mui/material/Stack';
 
 export default function Root({ children }) {
     return (
         <Stack sx={{ minHeight: "100dvh" }}>
             <Header />
-            <Box component="main" sx={{ flexGrow: 1 }}>
+            <Container component="main" maxWidth="lg" sx={{ flexGrow: 1 }}>
                 {children}
-            </Box>
+            </Container>
             <Footer />
         </Stack>
     )

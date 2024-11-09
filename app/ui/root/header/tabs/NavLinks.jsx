@@ -13,11 +13,11 @@ function NavItem(name, url) {
 }
 const navItems = [
     new NavItem("Home", "/"),
-    new NavItem("Articles", "/articles"),
+    new NavItem("Articles", "/browse"),
     new NavItem("Authors", "/authors")
 ];
 
-export default () => {
+export default function NavLinks()  {
     const pathname = usePathname();
     return (
         <List>
