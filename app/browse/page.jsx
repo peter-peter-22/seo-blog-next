@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 
 export default async function Home() {
-    const allArticles = await prisma.task.findMany();
+    const allArticles = await prisma.article.findMany();
     return (
         <>
             <Toolbar />
@@ -16,8 +16,11 @@ export default async function Home() {
                 {allArticles.map((article, i) => (
                     <Grid key={i} size={{ xs: 2, sm: 4, md: 4 }}>
                         <Paper>
+                            <Typography variant="h6">
+                                {article.title}
+                            </Typography>
                             <Typography>
-                                {article.content}
+                                {article.desc}
                             </Typography>
                         </Paper>
                     </Grid>

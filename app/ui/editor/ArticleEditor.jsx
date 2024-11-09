@@ -9,31 +9,60 @@ import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Link from 'next/link';
+import TextField from '@mui/material/TextField';
 
 export default function ArticleEditor() {
-  const initialValue = React.useMemo(getInitialValue, []);
-  const contentRef = React.useRef(initialValue);
+  const loadedDraft = React.useMemo(loadDraft, []);
+  const contentRef = React.useRef(loadedDraft);
   const [isPending, startUpload] = useTransition();
+
+  const changeAny = React.useCallback((name, value) => {
+    contentRef.current[name] = value;
+    localStorage.setItem('draft', JSON.stringify(contentRef.current));
+  }, []);
+
+  const handleTextField = React.useCallback((name) => ({
+    onChange: (e) => {
+      changeAny(name, e.target.value);
+    },
+    defaultValue: contentRef.current[name]
+  }), [])
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (isPending)
       return;
     startUpload(async () => {
-     await publishArticle(contentRef.current)
+      const res = await publishArticle(contentRef.current);
+      if (res?.errors)
+        alert(res.message);
     });
   }
 
   return (
     <form onSubmit={onSubmit}>
+      <Toolbar />
+      <TextField
+        id="title"
+        label="Title"
+        variant="standard"
+        fullWidth
+        sx={{ maxWidth: "30em" }}
+        {...handleTextField("title")}
+      />
+      <TextField
+        id="description"
+        label="Description"
+        variant="standard"
+        multiline
+        fullWidth
+        {...handleTextField("desc")}
+      />
       <TextEditor
         slateProps={{
-          initialValue,
+          initialValue: contentRef.current.article,
         }}
-        onChange={value => {
-          contentRef.current = value;
-          localStorage.setItem('content', JSON.stringify(value))
-        }}
+        onChange={value => changeAny("article", value)}
       />
       <Toolbar />
       <Typography>
@@ -50,16 +79,18 @@ export default function ArticleEditor() {
   );
 }
 
-const defaultValue = [
-  {
-    type: 'paragraph',
-    children: [{ text: '' }],
-  },
-];
+const defaultValue = {
+  article: [
+    {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    },
+  ]
+};
 
-function getInitialValue() {
+function loadDraft() {
   try {
-    return JSON.parse(localStorage.getItem('content')) || defaultValue;
+    return JSON.parse(localStorage.getItem('draft')) || defaultValue;
   }
   catch {
     return defaultValue;
