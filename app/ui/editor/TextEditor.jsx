@@ -15,7 +15,6 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
     padding: 10,
     outlineWidth: 1,
     outlineStyle: "auto",
-    fontFamily: 'inherit',
     minHeight: "100vh !important",
     outlineColor: theme.palette.divider,
     transition: theme.transitions.create(['all'], {

@@ -14,11 +14,9 @@ export default function Home() {
       <Typography>
         The last state of the article is saved locally and it persists when the page is reloaded.
       </Typography>
-      <Box sx={{ fontFamily: 'var(--font-roboto)' }}>
-        <NoSSR>
-          <Editor />
-        </NoSSR>
-      </Box>
+      <NoSSR>
+        <Editor />
+      </NoSSR>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+import theme from './lib/theme';
 import Root from "@/app/ui/root/Root";
 import "@/app/css/body.css";
 
