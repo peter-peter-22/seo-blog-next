@@ -18,7 +18,7 @@ export default function NavMenu()  {
         <>
             <IconButton
                 color="inherit"
-                aria-label="open drawer"
+                aria-label="open drawer left"
                 edge="start"
                 onClick={handleDrawerToggle}
                 sx={{ mr: 2 }}

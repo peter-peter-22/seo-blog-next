@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import NavMenu from './tabs/NavMenu';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
+import UserMenu from './user/UserMenu';
 
 function HideOnScroll({ children }) {
     const trigger = useScrollTrigger();
@@ -16,7 +17,7 @@ function HideOnScroll({ children }) {
     );
 }
 
-export default function Header()  {
+export default function Header() {
     return (
         <HideOnScroll>
             <AppBar component="nav" sx={{ position: "sticky", top: 0 }}>
@@ -29,6 +30,7 @@ export default function Header()  {
                     >
                         MUI
                     </Typography>
+                    <UserMenu />
                 </Toolbar>
             </AppBar>
         </HideOnScroll>

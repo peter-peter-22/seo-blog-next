@@ -5,6 +5,15 @@ const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-roboto)',
   },
+  components: {
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth:30
+        },
+      },
+    },
+  },
 });
 
 export default theme;

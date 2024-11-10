@@ -10,6 +10,7 @@ import { withImages } from './EditorImages';
 import HOTKEYS from "./hotkeys.js";
 import { Element, Leaf, toggleMark } from "./TextEditorComponents";
 import TopMenu from "./TopMenu";
+import Card from '@mui/material/Card';
 
 const StyledEditable = styled(Editable)(({ theme }) => ({
     padding: 10,
@@ -43,22 +44,24 @@ export default function TextEditor({ onChange, slateProps, editorProps }) {
             {...slateProps}
         >
             <TopMenu />
-            <StyledEditable
-                renderElement={Element}
-                renderLeaf={Leaf}
-                spellCheck
-                autoFocus
-                onKeyDown={event => {
-                    for (const hotkey in HOTKEYS) {
-                        if (isHotkey(hotkey, event)) {
-                            event.preventDefault()
-                            const mark = HOTKEYS[hotkey]
-                            toggleMark(editor, mark)
+            <Card>
+                <StyledEditable
+                    renderElement={Element}
+                    renderLeaf={Leaf}
+                    spellCheck
+                    autoFocus
+                    onKeyDown={event => {
+                        for (const hotkey in HOTKEYS) {
+                            if (isHotkey(hotkey, event)) {
+                                event.preventDefault()
+                                const mark = HOTKEYS[hotkey]
+                                toggleMark(editor, mark)
+                            }
                         }
-                    }
-                }}
-                {...editorProps}
-            />
+                    }}
+                    {...editorProps}
+                />
+            </Card>
         </Slate >
     )
 }

@@ -10,6 +10,8 @@ import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Link from 'next/link';
 import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -42,22 +44,26 @@ export default function ArticleEditor() {
   return (
     <form onSubmit={onSubmit}>
       <Toolbar />
-      <TextField
-        id="title"
-        label="Title"
-        variant="standard"
-        fullWidth
-        sx={{ maxWidth: "30em" }}
-        {...handleTextField("title")}
-      />
-      <TextField
-        id="description"
-        label="Description"
-        variant="standard"
-        multiline
-        fullWidth
-        {...handleTextField("desc")}
-      />
+      <Card>
+        <CardContent>
+          <TextField
+            id="title"
+            label="Title"
+            variant="standard"
+            fullWidth
+            sx={{ maxWidth: "30em" }}
+            {...handleTextField("title")}
+          />
+          <TextField
+            id="description"
+            label="Description"
+            variant="standard"
+            multiline
+            fullWidth
+            {...handleTextField("desc")}
+          />
+        </CardContent>
+      </Card>
       <TextEditor
         slateProps={{
           initialValue: contentRef.current.article,
@@ -65,17 +71,21 @@ export default function ArticleEditor() {
         onChange={value => changeAny("article", value)}
       />
       <Toolbar />
-      <Typography>
-        Publish the article to make it visible for the readers.
-      </Typography>
-      <Typography>
-        The article remains editable after publishing.
-      </Typography>
-      <Stack spacing={2} direction="row">
-        <Button variant="outlined" LinkComponent={Link} href="/">Cancel</Button>
-        <Button variant="contained" type="submit" disabled={isPending}>Publish</Button>
-      </Stack>
-    </form>
+      <Card>
+        <CardContent>
+          <Typography>
+            Publish the article to make it visible for the readers.
+          </Typography>
+          <Typography>
+            The article remains editable after publishing.
+          </Typography>
+          <Stack spacing={2} direction="row">
+            <Button variant="outlined" LinkComponent={Link} href="/">Cancel</Button>
+            <Button variant="contained" type="submit" disabled={isPending}>Publish</Button>
+          </Stack>
+        </CardContent>
+      </Card>
+    </form >
   );
 }
 
