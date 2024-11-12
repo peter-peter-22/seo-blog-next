@@ -1,6 +1,6 @@
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import NavLinks from './NavLinks';
+import MenuNavLinks from './MenuNavLinks';
 
 export default function MenuContents()  {
     return (
@@ -9,7 +9,7 @@ export default function MenuContents()  {
                 MUI
             </Typography>
             <Divider />
-            <NavLinks />
+            <MenuNavLinks />
         </>
     )
 }

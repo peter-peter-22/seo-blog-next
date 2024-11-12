@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
-import MenuContents from "@/app/ui/root/header/tabs/MenuContents";
+import UserMenuContents from './UserMenuContents';
 
 export default function UserMenu() {
     const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function UserMenu() {
                 }}
             >
                 <Box onClick={handleDrawerToggle} sx={{ width: 240 }}>
-                    <MenuContents />
+                    <UserMenuContents />
                 </Box>
             </Drawer>
         </>

@@ -7,17 +7,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-function NavItem(name, url) {
+export function NavItem(name, url) {
     this.name = name;
     this.url = url;
 }
-const navItems = [
-    new NavItem("Home", "/"),
-    new NavItem("Articles", "/browse"),
-    new NavItem("Authors", "/authors")
-];
 
-export default function NavLinks()  {
+export default function NavLinks({navItems})  {
     const pathname = usePathname();
     return (
         <List>
