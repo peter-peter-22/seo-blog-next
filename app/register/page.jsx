@@ -1,17 +1,21 @@
 "use client";
 
 import { useActionState } from 'react';
-import {  register } from '../lib/authActions';
+import { register } from '../lib/authActions';
+import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
+    const searchParams = useSearchParams()
+    const redirect = searchParams.get("callbackUrl") || "/profile";
+
     const [errorState, formAction, isPending] = useActionState(
         register,
-        undefined,
     );
 
     return (
-        <form action={formAction}>
+        <form action={formAction}  >
             {errorState?.message && <p>{errorState.message}</p>}
+            <input type="hidden" name="redirectTo" value={redirect} />
             <input
                 type="text"
                 name="username"

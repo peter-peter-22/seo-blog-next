@@ -52,5 +52,5 @@ export const { auth, signIn, signOut } = NextAuth({
                 return newUser;
             },
         }),
-    ]
+    ],
 });

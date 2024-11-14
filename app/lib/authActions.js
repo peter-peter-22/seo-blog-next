@@ -1,6 +1,8 @@
 "use server";
 
 import { signIn, signOut } from '@/auth';
+import { redirect } from 'next/navigation';
+import { AuthError } from 'next-auth';
 
 export async function login(
     prevState,
@@ -35,14 +37,18 @@ export async function signOutAction() {
     }
 }
 function handleAuthError(err) {
-    switch (err.type) {
-        case 'CredentialsSignin':
-            return 'Invalid credentials.';
-        case "CallbackRouteError":
-            return formatErrorMessage(err.cause?.err);
-        default:
-            return "Something went wrong";
+    if (err instanceof AuthError) {
+        switch (err.type) {
+            case 'CredentialsSignin':
+                return 'Invalid credentials.';
+            case "CallbackRouteError":
+                return formatErrorMessage(err.cause?.err);
+            default:
+                return "Something went wrong";
+        }
     }
+    console.log("REDIRECT:\n",err.digest);
+    throw err;//make redirect work
 }
 
 function formatErrorMessage(err) {
