@@ -16,7 +16,6 @@ const FormSchema = z.object({
 
 export async function publishArticle(data) {
     // Validate form fields using Zod
-    console.log(data);
     const validatedFields = FormSchema.safeParse(data);
 
     // If form validation fails, return errors early. Otherwise, continue.

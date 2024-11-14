@@ -110,7 +110,6 @@ function EditorImage({ attributes, children, element }) {
                 />
                 <Fab
                     onClick={(e) => {
-                        console.log(e);
                         e.preventDefault();
                         Transforms.removeNodes(editor, { at: path })
                     }}
