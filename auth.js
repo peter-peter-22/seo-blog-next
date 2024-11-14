@@ -4,9 +4,10 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import "@/app/lib/zodErrors";
+import prisma from './utils/db';
 
 async function getUser(username) {
-    return undefined;
+    return (await prisma.user.findFirst({ where: { username } }))
 }
 
 export const { auth, signIn, signOut } = NextAuth({
@@ -16,16 +17,18 @@ export const { auth, signIn, signOut } = NextAuth({
             id: "login",
             async authorize(credentials) {
                 const parsedCredentials = z
-                    .object({ username: z.string().min(3), password: z.string().min(6) })
+                    .object({
+                        username: z.string().min(3),
+                        password: z.string().min(6)
+                    })
                     .parse(credentials);
 
-                if (parsedCredentials.success) {
-                    const { username, password } = parsedCredentials.data;
-                    const user = await getUser(username);
-                    if (!user) return null;
-                    const passwordsMatch = await bcrypt.compare(password, user.password);
-                    if (passwordsMatch) return user;
-                }
+                const { username, password } = parsedCredentials;
+                const user = await getUser(username);
+                if (!user) return null;
+                const passwordsMatch = await bcrypt.compare(password, user.password_hash);
+                if (passwordsMatch) return user;
+
                 return null;
             },
         }),
@@ -39,15 +42,15 @@ export const { auth, signIn, signOut } = NextAuth({
                     })
                     .parse(credentials);
 
-                const { username, password } = parsedCredentials.data;
-                console.log("successfully registered");
-                return null;
-                //const user = await getUser(username);
-                //if (!user) return null;
-                //const passwordsMatch = await bcrypt.compare(password, user.password);
-                //if (passwordsMatch) return user;
-                return null;
+                const { username, password } = parsedCredentials;
+                const newUser = await prisma.user.create({
+                    data: {
+                        username,
+                        password_hash: bcrypt.hashSync(password, 10),
+                    }
+                });
+                return newUser;
             },
         }),
-    ],
+    ]
 });

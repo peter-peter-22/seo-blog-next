@@ -1,11 +1,12 @@
 "use client";
 
 import { useActionState } from 'react';
-import { login } from '../lib/authActions';
+import {  register } from '../lib/authActions';
 
 export default function Page() {
     const [errorState, formAction, isPending] = useActionState(
-        login,
+        register,
+        undefined,
     );
 
     return (

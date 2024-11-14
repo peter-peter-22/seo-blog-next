@@ -3,9 +3,9 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      //const isLoggedIn = !!auth?.user;
-      return false;
+    authorized({ auth }) {
+      const isLoggedIn = !!auth?.user;
+      return isLoggedIn;
     },
   },
   providers: [], // Add providers with an empty array for now

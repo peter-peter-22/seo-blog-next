@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 
 export async function login(
     prevState,
@@ -10,12 +10,7 @@ export async function login(
         await signIn('login', formData);
     }
     catch (err) {
-        switch (err.type) {
-            case 'CredentialsSignin':
-                return 'Invalid credentials.';
-            default:
-                return 'Something went wrong.';
-        }
+        return handleAuthError(err);
     }
 }
 
@@ -27,12 +22,26 @@ export async function register(
         await signIn('register', formData);
     }
     catch (err) {
-        switch (err.type) {
-            case 'CredentialsSignin':
-                return 'Invalid credentials.';
-            default:
-                return formatErrorMessage(err.cause.err);
-        }
+        return handleAuthError(err);
+    }
+}
+
+export async function signOutAction() {
+    try {
+        await signOut();
+    }
+    catch (err) {
+        return handleAuthError(err);
+    }
+}
+function handleAuthError(err) {
+    switch (err.type) {
+        case 'CredentialsSignin':
+            return 'Invalid credentials.';
+        case "CallbackRouteError":
+            return formatErrorMessage(err.cause?.err);
+        default:
+            return "Something went wrong";
     }
 }
 

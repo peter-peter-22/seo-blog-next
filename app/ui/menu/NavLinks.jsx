@@ -7,22 +7,24 @@ import ListItemText from '@mui/material/ListItemText';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export function NavItem(name, url) {
+export function NavItem(name, url, onClick) {
     this.name = name;
     this.url = url;
+    this.onClick = onClick;
 }
 
-export default function NavLinks({navItems})  {
+export default function NavLinks({ navItems }) {
     const pathname = usePathname();
     return (
         <List>
-            {navItems.map(({ name, url }, i) => (
+            {navItems.map(({ name, url, onClick }, i) => (
                 <Link
                     href={url}
                     style={{
                         color: "unset",
                         textDecoration: "unset",
                     }}
+                    onClick={onClick}
                     key={i}
                 >
                     <ListItem disablePadding>
