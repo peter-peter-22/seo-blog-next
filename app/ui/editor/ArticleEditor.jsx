@@ -5,13 +5,15 @@ import TextEditor from "./TextEditor";
 import { useTransition } from 'react';
 import { publishArticle } from "./actions/publishArticle";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Link from 'next/link';
 import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { CancelButton, SubmitButton } from '@/app/ui/forms/components/FormButtons';
+import FieldContainer from '@/app/ui/forms/components/FieldContainer';
+import FormTextField from '@/app/ui/forms/components/FormTextField';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -45,7 +47,7 @@ export default function ArticleEditor() {
     <form onSubmit={onSubmit}>
       <Card>
         <CardContent>
-          <Stack spacing={1}>
+          <FieldContainer>
             <TextField
               id="title"
               label="Title"
@@ -60,7 +62,7 @@ export default function ArticleEditor() {
               fullWidth
               {...handleTextField("desc")}
             />
-          </Stack>
+          </FieldContainer>
         </CardContent>
       </Card>
       <TextEditor
@@ -79,8 +81,8 @@ export default function ArticleEditor() {
             The article remains editable after publishing.
           </Typography>
           <Stack spacing={2} direction="row">
-            <Button variant="outlined" LinkComponent={Link} href="/">Cancel</Button>
-            <Button variant="contained" type="submit" disabled={isPending}>Publish</Button>
+            <CancelButton LinkComponent={Link} href="/">Cancel</CancelButton>
+            <SubmitButton disabled={isPending}>Publish</SubmitButton>
           </Stack>
         </CardContent>
       </Card>

@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 import { authConfig } from '@/auth.config';
 import Credentials from 'next-auth/providers/credentials';
-import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import "@/app/lib/zodErrors";
 import prisma from '@/utils/db';
+import { LoginSchema, RegisterSchema } from '@/app/ui/forms/schemas/AuthSchema';
 
 async function getUser(username) {
     return (await prisma.user.findFirst({ where: { username } }))
@@ -16,12 +16,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         Credentials({
             id: "login",
             async authorize(credentials) {
-                const parsedCredentials = z
-                    .object({
-                        username: z.string().min(3),
-                        password: z.string().min(6)
-                    })
-                    .parse(credentials);
+                const parsedCredentials = LoginSchema.parse(credentials);
 
                 const { username, password } = parsedCredentials;
                 const user = await getUser(username);
@@ -35,12 +30,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         Credentials({
             id: "register",
             async authorize(credentials) {
-                const parsedCredentials = z
-                    .object({
-                        username: z.string().min(3),
-                        password: z.string().min(6)
-                    })
-                    .parse(credentials);
+                const parsedCredentials = RegisterSchema.parse(credentials);
 
                 const { username, password } = parsedCredentials;
                 const newUser = await prisma.user.create({
