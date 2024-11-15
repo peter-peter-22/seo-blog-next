@@ -1,8 +1,8 @@
 import Typography from "@mui/material/Typography";
-import ArticleEditor from "../ui/editor/ArticleEditor";
+import ArticleEditor from "../../ui/editor/ArticleEditor";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import EditorSkeleton from "../ui/editor/EditorSkeleton";
+import EditorSkeleton from "../../ui/editor/EditorSkeleton";
 import Toolbar from "@mui/material/Toolbar";
 import { NoSsr } from "@mui/material";
 

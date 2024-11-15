@@ -1,4 +1,5 @@
-import NavLinks,{NavItem} from '@/app/ui/menu/NavLinks';
+import NavLinks, { NavItem } from '@/app/ui/menu/NavLinks';
+import List from '@mui/material/List';
 
 const navItems = [
     new NavItem("Home", "/"),
@@ -6,8 +7,10 @@ const navItems = [
     new NavItem("Authors", "/authors")
 ];
 
-export default function MenuNavLinks()  {
+export default function MenuNavLinks() {
     return (
-        <NavLinks navItems={navItems}/>
+        <List>
+            <NavLinks navItems={navItems} />
+        </List>
     )
 }

@@ -1,16 +1,16 @@
 import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
+import { authConfig } from '@/auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import "@/app/lib/zodErrors";
-import prisma from './utils/db';
+import prisma from '@/utils/db';
 
 async function getUser(username) {
     return (await prisma.user.findFirst({ where: { username } }))
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     providers: [
         Credentials({
