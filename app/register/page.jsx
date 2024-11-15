@@ -13,10 +13,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import FormPasswordField from '../ui/forms/components/FormPasswordField';
+import { useSnackbar } from 'notistack';
 
 export default function Page() {
     const searchParams = useSearchParams();
     const redirect = searchParams.get("callbackUrl") || "/profile";
+    const { enqueueSnackbar } = useSnackbar();
 
     const methods = useForm({
         resolver: zodResolver(RegisterSchema), // Apply the zodResolver
@@ -27,7 +29,7 @@ export default function Page() {
         data.redirectTo = redirect;
         const error = await registerAction(data);
         if (error)
-            alert(error);
+            enqueueSnackbar('error', { variant: "error" });
     }
 
     return (

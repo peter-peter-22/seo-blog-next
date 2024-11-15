@@ -13,6 +13,6 @@ export const RegisterSchema = z
     confirmPassword: z.string()
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: "The passwords do not match",
     path: ["confirmPassword"], // path of error
   });

@@ -6,6 +6,7 @@ import Root from "@/app/ui/root/Root";
 import "@/app/css/body.css";
 import { AuthProvider } from './ui/root/AuthProvider';
 import { auth } from '@/auth'
+import { SnackbarProviderClient } from './ui/root/SnackbarProviderClient';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -27,9 +28,11 @@ export default async function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <AuthProvider value={session}>
-              <Root>
-                {children}
-              </Root>
+              <SnackbarProviderClient maxSnack={3}>
+                <Root>
+                  {children}
+                </Root>
+              </SnackbarProviderClient>
             </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

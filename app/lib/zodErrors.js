@@ -1,4 +1,4 @@
-'use server';
+'use client';
 
 import { z } from "zod";
 
@@ -10,7 +10,7 @@ const customErrorMap = (issue, ctx) => {
     }
     if (issue.code === z.ZodIssueCode.too_big) {
         if (issue.type === "string") {
-            return { message: `The ${issue.path[0]} must be ${issue.inclusive ? "maximum" : "less than"} ${issue.minimum} characters long.` };
+            return { message: `The ${issue.path[0]} must be ${issue.inclusive ? "maximum" : "less than"} ${issue.maximum} characters long.` };
         }
     }
     return { message: ctx.defaultError };
