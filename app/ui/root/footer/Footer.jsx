@@ -16,9 +16,9 @@ const links = [
     new NamedLink("User lincense", "/"),
 ];
 
-export default function Footer() {
+export default function Footer({props}) {
     return (
-        <Card>
+        <Card {...props}>
             <CardContent>
                 <Stack direction="row" spacing={1} sx={{ flexWrap: true, justifyContent: "center" }}>
                     {links.map((link, i) => (
@@ -27,7 +27,7 @@ export default function Footer() {
                         </Link>
                     ))}
                 </Stack>
-                <Divider sx={{my:2}}/>
+                <Divider sx={{ my: 2 }} />
                 <Typography color="text.secondary" sx={{ textAlign: "center" }}>Created by Peter in 2024</Typography>
             </CardContent>
         </Card>

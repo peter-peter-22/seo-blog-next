@@ -4,16 +4,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavButton from './NavButton';
 
-export function NavItem(name, url) {
+export function NavItem(name, url, Icon, onClick) {
     this.name = name;
     this.url = url;
+    this.Icon = Icon;
+    this.onClick = onClick;
 }
 
 export default function NavLinks({ navItems }) {
     const pathname = usePathname();
     return (
         <>
-            {navItems.map(({ name, url }, i) => (
+            {navItems.map(({ name, url, ...props }, i) => (
                 <Link
                     href={url}
                     style={{
@@ -25,6 +27,7 @@ export default function NavLinks({ navItems }) {
                     <NavButton
                         name={name}
                         active={pathname === url}
+                        {...props}
                     />
                 </Link>
             ))}
