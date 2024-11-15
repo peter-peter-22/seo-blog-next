@@ -41,12 +41,18 @@ function handleAuthError(err) {
             case 'CredentialsSignin':
                 return 'Invalid credentials.';
             case "CallbackRouteError":
-                return err.cause?.err.toString();
+                return formatErrorMessage(err.cause?.err);
             default:
                 return "Something went wrong";
         }
     }
     throw err;//make redirect work
+}
+
+function formatErrorMessage(err) {
+    if (err.name === "ZodError")
+        return "At least one field is invalid.";
+    return err.toString();
 }
 
 //function handleAuthError(err) {
