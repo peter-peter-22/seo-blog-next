@@ -40,7 +40,7 @@ export default function Page() {
                             <FormTextField name="username" label="Username" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
                             <SubmitButton disabled={isSubmitting}>
-                                Submit
+                                Login
                             </SubmitButton>
                         </FieldContainer>
                     </FormProvider>

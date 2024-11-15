@@ -3,9 +3,7 @@
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
-export async function loginAction(
-    data
-) {
+export async function loginAction(data) {
     try {
         await signIn('login', data);
     }
@@ -14,12 +12,9 @@ export async function loginAction(
     }
 }
 
-export async function register(
-    prevState,
-    formData
-) {
+export async function registerAction(data) {
     try {
-        await signIn('register', formData);
+        await signIn('register', data);
     }
     catch (err) {
         return handleAuthError(err);
