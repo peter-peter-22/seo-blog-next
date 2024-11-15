@@ -1,8 +1,10 @@
 import Typography from "@mui/material/Typography";
 import ArticleEditor from "../ui/editor/ArticleEditor";
-import NoSSR from "../ui/NoSSR";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import EditorSkeleton from "../ui/editor/EditorSkeleton";
+import Toolbar from "@mui/material/Toolbar";
+import { NoSsr } from "@mui/material";
 
 export default function Home() {
   return (
@@ -17,9 +19,11 @@ export default function Home() {
           </Typography>
         </CardContent>
       </Card  >
-      <NoSSR>
+      <Toolbar />
+      <NoSsr fallback={ <EditorSkeleton />}>
         <ArticleEditor />
-      </NoSSR>
+      </NoSsr>
+     
     </>
   );
 }

@@ -9,8 +9,13 @@ const theme = createTheme({
     MuiListItemIcon: {
       styleOverrides: {
         root: {
-          minWidth:30
+          minWidth: 30
         },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'standard', 
       },
     },
   },

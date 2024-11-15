@@ -43,25 +43,24 @@ export default function ArticleEditor() {
 
   return (
     <form onSubmit={onSubmit}>
-      <Toolbar />
       <Card>
         <CardContent>
-          <TextField
-            id="title"
-            label="Title"
-            variant="standard"
-            fullWidth
-            sx={{ maxWidth: "30em" }}
-            {...handleTextField("title")}
-          />
-          <TextField
-            id="description"
-            label="Description"
-            variant="standard"
-            multiline
-            fullWidth
-            {...handleTextField("desc")}
-          />
+          <Stack spacing={1}>
+            <TextField
+              id="title"
+              label="Title"
+              fullWidth
+              sx={{ maxWidth: "30em" }}
+              {...handleTextField("title")}
+            />
+            <TextField
+              id="description"
+              label="Description"
+              multiline
+              fullWidth
+              {...handleTextField("desc")}
+            />
+          </Stack>
         </CardContent>
       </Card>
       <TextEditor
