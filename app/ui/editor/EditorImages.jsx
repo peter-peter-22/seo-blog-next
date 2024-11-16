@@ -5,7 +5,8 @@ import {
     Transforms
 } from 'slate'
 import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
-import { MenuButton } from './EditorUI'
+import { MenuButton } from './EditorUI';
+import Zoom from '@mui/material/Zoom';
 
 const withImages = editor => {
     const { insertData, isVoid } = editor
@@ -74,7 +75,7 @@ const InsertImageButton = ({ Icon }) => {
 const StyledImage = styled("img")({
     display: "block",
     maxWidth: "100%",
-    height:300,
+    height: 300,
     width: "auto",
     objectFit: "cover",
 })
@@ -101,28 +102,30 @@ function EditorImage({ attributes, children, element }) {
                 <StyledImage
                     src={element.url}
                     alt={element.url}
-                    sx={{
-                        boxShadow: showMenu && `0 0 0 3px theme.palette.primary.main`
-                    }}
+                    sx={theme => ({
+                        transition: theme.transitions.create(['all'], {
+                            duration: theme.transitions.duration.shorter,
+                        }),
+                        boxShadow: showMenu && `0 0 0 3px ${theme.palette.primary.main}`
+                    })}
                 />
-                <Fab
-                    onClick={(e) => {
-                        e.preventDefault();
-                        Transforms.removeNodes(editor, { at: path })
-                    }}
-                    onPointerDown={e => e.preventDefault()}
-                    style={{
-                        display: !showMenu && "none"
-                    }}
-                    sx={{
-                        position: "absolute",
-                        top: "0.5em",
-                        left: "0.5em",
-                    }}
-                    size="small"
-                >
-                    <ClearIcon />
-                </Fab>
+                <Zoom in={showMenu}>
+                    <Fab
+                        onClick={(e) => {
+                            e.preventDefault();
+                            Transforms.removeNodes(editor, { at: path })
+                        }}
+                        onPointerDown={e => e.preventDefault()}
+                        sx={{
+                            position: "absolute",
+                            top: "0.5em",
+                            left: "0.5em",
+                        }}
+                        size="small"
+                    >
+                        <ClearIcon />
+                    </Fab>
+                </Zoom>
             </div>
         </div>
     )
