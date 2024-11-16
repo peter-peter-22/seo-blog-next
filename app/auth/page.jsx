@@ -9,17 +9,16 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { PrimaryButton, SecondaryButton } from '../ui/forms/components/FormButtons';
-import { purple } from '@mui/material/colors';
+import { signIn } from 'next-auth/react';
+import { useSuccessUrl } from '@/app/auth/authUtilities';
 
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function Page() {
-    const searchParams = useSearchParams();
-    const redirect = searchParams.get("callbackUrl") || "/profile";
+    const successUrl = useSuccessUrl();
 
     return (
         <Container maxWidth="xs" >
@@ -27,11 +26,10 @@ export default function Page() {
                 <CardContent>
                     <Typography variant='h5'>Choose a way to authenticate</Typography>
                     <Divider sx={{ my: 2 }} />
-                    <Stack alignItems="center">
+                    <Stack alignItems="center" sx={{ "& Button": { width: 200 } }}>
                         <Button
-                            variant="contained"
-                            sx={{ backgroundColor: purple.A700 }}
                             startIcon={<GitHubIcon />}
+                            onClick={() => signIn("github", { callbackUrl: successUrl })}
                         >
                             Github
                         </Button>
@@ -46,14 +44,14 @@ export default function Page() {
                     <Stack direction="row" justifyContent={"space-between"} sx={{ width: "100%" }}>
                         <SecondaryButton
                             LinkComponent={Link}
-                            href={`/auth/login?callbackUrl=${redirect}`}
+                            href={`/auth/login?callbackUrl=${successUrl}`}
                             startIcon={<LoginIcon />}
                         >
                             Login
                         </SecondaryButton>
                         <PrimaryButton
                             LinkComponent={Link}
-                            href={`/auth/register?callbackUrl=${redirect}`}
+                            href={`/auth/register?callbackUrl=${successUrl}`}
                             startIcon={<PersonAddIcon />}
                         >
                             Register

@@ -1,5 +1,6 @@
 "use client";
 
+import { useSuccessUrl } from '@/app/auth/authUtilities';
 import { formatAuthError } from '@/app/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton } from '@/app/ui/forms/components/FormButtons';
@@ -12,14 +13,12 @@ import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
 export default function Page() {
-    const searchParams = useSearchParams();
-    const successUrl = searchParams.get("callbackUrl") || "/profile";
+    const successUrl = useSuccessUrl();
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
 

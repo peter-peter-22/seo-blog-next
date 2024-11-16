@@ -4,8 +4,7 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth }) {
-      const isLoggedIn = !!auth?.user;
-      return isLoggedIn;
+      return !!auth?.user;
     },
   },
   providers: [], // Add providers with an empty array for now
