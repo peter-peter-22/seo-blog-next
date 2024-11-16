@@ -14,11 +14,13 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import FormPasswordField from '../ui/forms/components/FormPasswordField';
 import { useSnackbar } from 'notistack';
+import { useSession } from 'next-auth/react';
 
 export default function Page() {
     const searchParams = useSearchParams();
     const redirect = searchParams.get("callbackUrl") || "/profile";
     const { enqueueSnackbar } = useSnackbar();
+    const session = useSession();
 
     const methods = useForm({
         resolver: zodResolver(LoginSchema), // Apply the zodResolver
@@ -29,7 +31,8 @@ export default function Page() {
         data.redirectTo = redirect;
         const error = await loginAction(data);
         if (error)
-            enqueueSnackbar(error, { variant: "error" });
+            return enqueueSnackbar(error, { variant: "error" });
+        await session.update();
     }
 
     return (

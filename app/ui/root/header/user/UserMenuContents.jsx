@@ -3,7 +3,7 @@ import { signOutAction } from "@/app/actions/authActions";
 import { useCallback } from "react";
 import List from '@mui/material/List';
 import NavButton from "@/app/ui/menu/NavButton";
-import { useSession } from 'next-auth/react';
+import { useSession,getSession } from 'next-auth/react';
 
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -24,7 +24,8 @@ export default function UserMenuContents() {
     const isLoggedIn = session.status === "authenticated";
     const logout = useCallback(async () => {
         await signOutAction();
-        session.update();
+        await getSession();
+        //await session.update();
     }, []);
     return (
         <List>
