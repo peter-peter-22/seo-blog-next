@@ -1,7 +1,7 @@
 'use client';
 
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { CancelButton, SubmitButton } from '@/app/ui/forms/components/FormButtons';
+import { SecondaryButton, PrimaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,8 +64,8 @@ export default function ArticleEditor() {
                 The article remains editable after publishing.
               </Typography>
               <Stack spacing={2} direction="row">
-                <CancelButton LinkComponent={Link} href="/profile">Cancel</CancelButton>
-                <SubmitButton disabled={isSubmitting}>Publish</SubmitButton>
+                <SecondaryButton LinkComponent={Link} href="/profile">Cancel</SecondaryButton>
+                <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
               </Stack>
             </FieldContainer>
           </CardContent>

@@ -11,11 +11,13 @@ export default function Root({ children }) {
         <Stack sx={{ minHeight: "100dvh", bgcolor: blueGrey[50] }}>
             <Header />
             <Container component="main" maxWidth="lg" sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                <Box sx={{ flexGrow: 1 }}>
+                <Stack sx={{ flexGrow: 1 }}>
                     <Toolbar />
-                    {children}
+                    <Box sx={{ flexGrow: 1 }}>
+                        {children}
+                    </Box>
                     <Toolbar />
-                </Box>
+                </Stack>
                 <Box sx={{ marginTop: "auto" }}>
                     <Footer />
                     <Toolbar />

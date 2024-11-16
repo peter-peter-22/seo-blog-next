@@ -1,13 +1,13 @@
 import Button from "@mui/material/Button";
 
-export function CancelButton(props) {
+export function SecondaryButton(props) {
     return (
         <Button variant="outlined" {...props}>{props.children}</Button>
     )
 }
 
-export function SubmitButton(props) {
+export function PrimaryButton(props) {
     return (
-        <Button variant="contained" type="submit" {...props}>{props.children}</Button>
+        <Button variant="contained" {...props}>{props.children}</Button>
     )
 }
