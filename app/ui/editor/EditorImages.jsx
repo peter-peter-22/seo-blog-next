@@ -1,14 +1,11 @@
 import ClearIcon from '@mui/icons-material/Clear'
 import { styled } from '@mui/material'
 import Fab from '@mui/material/Fab'
-import Image from 'next/image'
 import {
     Transforms
 } from 'slate'
 import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
 import { MenuButton } from './EditorUI'
-import { ReadonlyContext } from './TextEditorComponents'
-import React from "react";
 
 const withImages = editor => {
     const { insertData, isVoid } = editor

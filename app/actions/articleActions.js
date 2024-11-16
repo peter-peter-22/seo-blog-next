@@ -1,22 +1,13 @@
 'use server';
 
-import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import prisma from "@/utils/db";
-
-const FormSchema = z.object({
-    article: z.array(z.object({})),
-    title: z.string(),
-    desc: z.string()
-    //title: z.string({
-    //    invalid_type_error: 'Please select a customer.',
-    //}),
-});
+import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 
 export async function publishArticle(data) {
     // Validate form fields using Zod
-    const validatedFields = FormSchema.safeParse(data);
+    const validatedFields = PublishArticleSchema.safeParse(data);
 
     // If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
@@ -30,7 +21,7 @@ export async function publishArticle(data) {
     await prisma.article.create({
         data: {
             title: data.title,
-            desc: data.desc,
+            desc: data.description,
             content: data.article
         }
     });

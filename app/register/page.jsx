@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Container from '@mui/material/Container';
 import { useSearchParams } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
-import { registerAction } from '../lib/authActions';
+import { registerAction } from '../actions/authActions';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';

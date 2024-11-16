@@ -1,4 +1,5 @@
 import { styled } from '@mui/material';
+import Card from '@mui/material/Card';
 import isHotkey from 'is-hotkey';
 import { useMemo } from 'react';
 import {
@@ -10,7 +11,6 @@ import { withImages } from './EditorImages';
 import HOTKEYS from "./hotkeys.js";
 import { Element, Leaf, toggleMark } from "./TextEditorComponents";
 import TopMenu from "./TopMenu";
-import Card from '@mui/material/Card';
 
 const StyledEditable = styled(Editable)(({ theme }) => ({
     padding: 10,
@@ -26,7 +26,7 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
     }
 }));
 
-export default function TextEditor({ onChange, slateProps, editorProps }) {
+export default function RichTextEditor({ onChange, slateProps, editorProps }) {
     const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
     return (
         <Slate
@@ -49,7 +49,6 @@ export default function TextEditor({ onChange, slateProps, editorProps }) {
                     renderElement={Element}
                     renderLeaf={Leaf}
                     spellCheck
-                    autoFocus
                     onKeyDown={event => {
                         for (const hotkey in HOTKEYS) {
                             if (isHotkey(hotkey, event)) {

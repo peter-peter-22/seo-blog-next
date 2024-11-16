@@ -1,5 +1,5 @@
 import NavLinks, { NavItem } from "@/app/ui/menu/NavLinks"
-import { signOutAction } from "@/app/lib/authActions";
+import { signOutAction } from "@/app/actions/authActions";
 import { useCallback } from "react";
 import List from '@mui/material/List';
 import NavButton from "@/app/ui/menu/NavButton";

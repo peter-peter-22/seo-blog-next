@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
-export default function FormTextField({ name, ...props }) {
+export default function FormTextField({ name,registerProps, ...props }) {
     const { register, formState: { errors } } = useFormContext();
     const myError = errors[name]?.message;
     return (
@@ -9,7 +9,7 @@ export default function FormTextField({ name, ...props }) {
             <TextField
                 error={!!myError}
                 helperText={myError}
-                {...register(name)}
+                {...register(name,registerProps)}
                 {...props}
             />
         </>
