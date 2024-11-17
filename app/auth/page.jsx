@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider } from '@mui/material';
+import  Divider  from '@mui/material/Divider';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +16,7 @@ import { useSuccessUrl } from '@/app/auth/authUtilities';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -32,6 +33,12 @@ export default function Page() {
                             onClick={() => signIn("github", { callbackUrl: successUrl })}
                         >
                             Github
+                        </Button>
+                        <Button
+                            startIcon={<GoogleIcon />}
+                            onClick={() => signIn("google", { callbackUrl: successUrl })}
+                        >
+                            Google
                         </Button>
                     </Stack>
                 </CardContent>

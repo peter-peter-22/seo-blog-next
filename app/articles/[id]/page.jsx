@@ -1,6 +1,6 @@
 import ArticleViewer from "@/app/ui/editor/ArticleViewer";
 import prisma from "@/utils/db";
-import { Toolbar } from "@mui/material";
+import  Toolbar  from "@mui/material/Toolbar";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from "@mui/material/Typography";

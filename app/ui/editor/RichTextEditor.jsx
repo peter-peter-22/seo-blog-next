@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import isHotkey from 'is-hotkey';
 import { useMemo } from 'react';

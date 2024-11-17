@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import EditorSkeleton from "../../ui/editor/EditorSkeleton";
 import Toolbar from "@mui/material/Toolbar";
-import { NoSsr } from "@mui/material";
+import NoSsr from "@mui/material/NoSsr";
 
 export default function Home() {
   return (
@@ -20,10 +20,10 @@ export default function Home() {
         </CardContent>
       </Card  >
       <Toolbar />
-      <NoSsr fallback={ <EditorSkeleton />}>
+      <NoSsr fallback={<EditorSkeleton />}>
         <ArticleEditor />
       </NoSsr>
-     
+
     </>
   );
 }

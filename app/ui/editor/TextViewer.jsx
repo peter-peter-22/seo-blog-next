@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useMemo } from 'react';
 import {
     createEditor
@@ -14,15 +14,15 @@ const StyledEditable = styled(Editable)({
 export default function TextViewer({ slateProps, editorProps }) {
     const editor = useMemo(() => withImages(withReact(createEditor())), []);
     return (
-            <Slate
-                editor={editor}
-                {...slateProps}
-            >
-                <StyledEditable
-                    renderElement={Element}
-                    renderLeaf={Leaf}
-                    {...editorProps}
-                />
-            </Slate >
+        <Slate
+            editor={editor}
+            {...slateProps}
+        >
+            <StyledEditable
+                renderElement={Element}
+                renderLeaf={Leaf}
+                {...editorProps}
+            />
+        </Slate >
     )
 }

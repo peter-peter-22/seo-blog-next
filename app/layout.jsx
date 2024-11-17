@@ -5,7 +5,7 @@ import theme from './lib/theme';
 import Root from "@/app/ui/root/Root";
 import "@/app/css/body.css";
 import { AuthProvider } from './ui/root/AuthProvider';
-import { auth } from '@/app/auth/auth'
+import { auth } from '@/auth'
 import { SnackbarProviderClient } from './ui/root/SnackbarProviderClient';
 
 const roboto = Roboto({

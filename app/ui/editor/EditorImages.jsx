@@ -1,5 +1,5 @@
 import ClearIcon from '@mui/icons-material/Clear'
-import { styled } from '@mui/material'
+import  {styled}  from '@mui/material/styles'
 import Fab from '@mui/material/Fab'
 import {
     Transforms

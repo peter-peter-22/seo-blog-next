@@ -7,6 +7,9 @@ import NavMenu from './tabs/NavMenu';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import UserMenu from './user/UserMenu';
+import Image from 'next/image';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
 
 function HideOnScroll({ children }) {
     const trigger = useScrollTrigger();
@@ -17,19 +20,31 @@ function HideOnScroll({ children }) {
     );
 }
 
+const Logo = styled(Image)({
+    borderRadius: 5
+})
+
 export default function Header() {
     return (
         <HideOnScroll>
             <AppBar component="nav" sx={{ position: "sticky", top: 0 }}>
                 <Toolbar>
                     <NavMenu />
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
-                    </Typography>
+                    <Stack alignItems="center" sx={{ flexGrow: 1 }}>
+                        <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                            <Logo
+                                src="/icon.jpg"
+                                width={30}
+                                height={30}
+                                alt="Logo"
+                            />
+                            <Typography
+                                variant="h6"
+                            >
+                                Textmine
+                            </Typography>
+                        </Stack>
+                    </Stack>
                     <UserMenu />
                 </Toolbar>
             </AppBar>
