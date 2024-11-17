@@ -1,5 +1,8 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
+import NextLink from 'next/link';
+
+const FixLink = props => <NextLink {...props} />;
 
 const theme = createTheme({
   typography: {
@@ -15,9 +18,20 @@ const theme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        variant: 'standard', 
+        variant: 'standard',
       },
     },
+    MuiLink: {
+      defaultProps: {
+        underline: "hover",
+        component: FixLink
+      }
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: FixLink
+      }
+    }
   },
 });
 

@@ -1,22 +1,21 @@
 "use client";
 
-import  Divider  from '@mui/material/Divider';
-import Card from '@mui/material/Card';
+import { useSuccessUrl } from '@/app/auth/authUtilities';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Link from 'next/link';
-import { PrimaryButton, SecondaryButton } from '../ui/forms/components/FormButtons';
 import { signIn } from 'next-auth/react';
-import { useSuccessUrl } from '@/app/auth/authUtilities';
+import { PrimaryButton, SecondaryButton } from '../ui/forms/components/FormButtons';
 
-import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -50,14 +49,12 @@ export default function Page() {
                     <Divider sx={{ my: 2 }} />
                     <Stack direction="row" justifyContent={"space-between"} sx={{ width: "100%" }}>
                         <SecondaryButton
-                            LinkComponent={Link}
                             href={`/auth/login?callbackUrl=${successUrl}`}
                             startIcon={<LoginIcon />}
                         >
                             Login
                         </SecondaryButton>
                         <PrimaryButton
-                            LinkComponent={Link}
                             href={`/auth/register?callbackUrl=${successUrl}`}
                             startIcon={<PersonAddIcon />}
                         >

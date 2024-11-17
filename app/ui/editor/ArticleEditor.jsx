@@ -1,7 +1,7 @@
 'use client';
 
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { SecondaryButton, PrimaryButton } from '@/app/ui/forms/components/FormButtons';
+import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +10,6 @@ import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from 'next/link';
 import React, { useCallback } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import RichTextEditorForm from "./RichTextEditorForm";
@@ -64,7 +63,7 @@ export default function ArticleEditor() {
                 The article remains editable after publishing.
               </Typography>
               <Stack spacing={2} direction="row">
-                <SecondaryButton LinkComponent={Link} href="/profile">Cancel</SecondaryButton>
+                <SecondaryButton  href="/profile">Cancel</SecondaryButton>
                 <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
               </Stack>
             </FieldContainer>

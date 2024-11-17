@@ -16,13 +16,13 @@ const links = [
     new NamedLink("User lincense", "/"),
 ];
 
-export default function Footer({props}) {
+export default function Footer({ props }) {
     return (
         <Card {...props}>
             <CardContent>
                 <Stack direction="row" spacing={1} sx={{ flexWrap: true, justifyContent: "center" }}>
                     {links.map((link, i) => (
-                        <Link key={i} href={link.url} underline="hover" color="text.secondary">
+                        <Link key={i} href={link.url} color="text.secondary">
                             {link.name}
                         </Link>
                     ))}
