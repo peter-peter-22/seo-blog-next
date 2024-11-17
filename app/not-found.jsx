@@ -1,11 +1,7 @@
-import ErrorIcon from '@mui/icons-material/Error';
-import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 export default function NotFound() {
     return (

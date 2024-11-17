@@ -19,7 +19,6 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
-
     return (
         <Container maxWidth="xs" >
             <Card>
