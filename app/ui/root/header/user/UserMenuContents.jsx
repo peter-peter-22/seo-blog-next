@@ -1,10 +1,12 @@
 import NavLinks, { NavItem } from "@/app/ui/menu/NavLinks";
 import List from '@mui/material/List';
 import { signOut, useSession } from 'next-auth/react';
+import Divider from '@mui/material/Divider';
 
 import CreateIcon from '@mui/icons-material/Create';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import UserProfile from "./UserProfile";
 
 const navItems = [
     new NavItem("Authenticate", "/auth", <LoginIcon />),
@@ -21,6 +23,8 @@ export default function UserMenuContents() {
 
     return (
         <List>
+            {isLoggedIn&&<UserProfile user={session.data.user} />}
+            <Divider component="li" />
             <NavLinks navItems={isLoggedIn ? navItemsAuth : navItems} />
         </List>
     )
