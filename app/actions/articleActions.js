@@ -4,25 +4,29 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import prisma from "@/utils/db";
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import authOrThrow from '../auth/authOrThrow';
 
 export async function publishArticle(data) {
-    // Validate form fields using Zod
-    const validatedFields = PublishArticleSchema.safeParse(data);
+    let redirectUrl;
+    try {
+        const session = await authOrThrow();
 
-    // If form validation fails, return errors early. Otherwise, continue.
-    if (!validatedFields.success) {
-        console.log(validatedFields.error);
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Create Invoice.',
-        };
+        // Validate form fields using Zod
+        PublishArticleSchema.parse(data);
+
+        const created = await prisma.article.create({
+            data: {
+                title: data.title,
+                desc: data.description,
+                content: data.article,
+                authorID: session.user.id
+            }
+        });
+        redirectUrl = `/articles/${created.id}`;
     }
-
-    await prisma.article.create({
-        data: {
-            title: data.title,
-            desc: data.description,
-            content: data.article
-        }
-    });
+    catch (err) {
+        return err.toString();
+    }
+    if (redirectUrl)
+        redirect(redirectUrl);
 }

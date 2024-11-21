@@ -1,3 +1,5 @@
+"use client";
+
 import { styled } from '@mui/material/styles';
 import { useMemo } from 'react';
 import {
@@ -5,7 +7,7 @@ import {
 } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withImages } from './EditorImages';
-import { Element, Leaf, ReadonlyContext } from "./TextEditorComponents";
+import { Element, Leaf } from "./TextEditorComponents";
 
 const StyledEditable = styled(Editable)({
     fontFamily: 'inherit',

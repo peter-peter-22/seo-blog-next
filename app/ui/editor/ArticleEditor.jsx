@@ -13,18 +13,25 @@ import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import RichTextEditorForm from "./RichTextEditorForm";
+import { publishArticle } from '@/app/actions/articleActions';
+import { useSnackbar } from 'notistack';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: zodResolver(PublishArticleSchema), // Apply the zodResolver
     defaultValues: loadedDraft
   });
-  const { handleSubmit, formState: { isSubmitting }, getValues } = methods;
+  const { handleSubmit, formState: { isSubmitting } } = methods;
 
   const onSubmit = useCallback(async (data) => {
-    console.log(data);
+    const err = await publishArticle(data);
+    if (err)
+      enqueueSnackbar(err, { variant: "error" });
+    else
+      enqueueSnackbar("Article published", { variant: "success" });
   });
 
   return (
@@ -63,7 +70,7 @@ export default function ArticleEditor() {
                 The article remains editable after publishing.
               </Typography>
               <Stack spacing={2} direction="row">
-                <SecondaryButton  href="/profile">Cancel</SecondaryButton>
+                <SecondaryButton href="/profile">Cancel</SecondaryButton>
                 <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
               </Stack>
             </FieldContainer>

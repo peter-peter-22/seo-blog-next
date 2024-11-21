@@ -10,9 +10,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
+import formatDate from "../ui/utilities/formatDate";
 
 export default async function Page() {
-    const allArticles = await prisma.article.findMany();
+    const allArticles = await prisma.article.findMany({
+        include:
+        {
+            author: {
+                select: {
+                    username: true
+                }
+            }
+        }
+    });
     return (
         <>
             <Card>
@@ -38,17 +48,17 @@ export default async function Page() {
                                         <ListItemIcon>
                                             <PersonIcon />
                                         </ListItemIcon>
-                                        <ListItemText secondary="author" />
+                                        <ListItemText secondary={article.author.username} />
                                     </ListItem>
 
                                     <ListItem disablePadding>
                                         <ListItemIcon>
                                             <CalendarMonthIcon />
                                         </ListItemIcon>
-                                        <ListItemText secondary="2020202020" />
+                                        <ListItemText secondary={formatDate(article.createdAt)} />
                                     </ListItem>
 
-                                    <Typography>
+                                    <Typography sx={{overflowWrap:"break-word"}}>
                                         {article.desc}
                                     </Typography>
 

@@ -13,6 +13,7 @@ export default function RichTextEditorForm({ name, onChange }) {
                 control={control}
                 name={name}
                 onChange={onChange}
+                value={"test"}
                 render={({ field }) => {
                     const { value, onChange } = field;
                     return <RichTextEditorMemo
@@ -20,7 +21,6 @@ export default function RichTextEditorForm({ name, onChange }) {
                             initialValue: value ?? fallbackValue,
                         }}
                         onChange={onChange}
-
                     />
                 }}
             />
