@@ -13,17 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article{
-  id String @id @default(uuid())
-  title String
-  desc String
-  content Json
+model Article {
+  id        String   @id @default(uuid())
+  title     String
+  desc      String
+  content   Json
   createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorID], references: [id])
+  authorID  String
 }
 
-model User{
-  id String @id @default(uuid())
-  username String
-  password_hash String
-  created DateTime @default(now())
+model User {
+  id           String    @id @default(uuid())
+  username     String
+  passwordHash String?
+  created      DateTime  @default(now())
+  githubId     Int?
+  gmail        String?
+  Article      Article[]
 }
