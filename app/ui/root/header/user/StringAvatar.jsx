@@ -23,16 +23,6 @@ function stringToColor(string) {
     return color;
 }
 
-function stringAvatar(name, addSx) {
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-            ...addSx
-        },
-        children: getMonogram(name),
-    };
-}
-
 function getMonogram(name) {
     const split = name.split(' ');
     let monogram;
@@ -43,10 +33,10 @@ function getMonogram(name) {
     return monogram.toUpperCase();
 }
 
-function StringAvatar({ name = "-" }) {
+function StringAvatar({ name = "-",sx,...props}) {
     const monogram = getMonogram(name)
     return (
-        <Avatar sx={{ bgcolor: stringToColor(name) }} alt={{ name }}>
+        <Avatar sx={{ bgcolor: stringToColor(name),...sx }} alt={{ name }} {...props}>
             {monogram}
         </Avatar>
     );
