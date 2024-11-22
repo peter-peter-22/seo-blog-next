@@ -37,7 +37,7 @@ export default function Page() {
     }
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{p:0}}>
             <Card sx={{ my: "auto" }}>
                 <CardContent>
                     <FormProvider {...methods}>

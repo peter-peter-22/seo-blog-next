@@ -20,7 +20,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 export default function Page() {
     const successUrl = useSuccessUrl();
     return (
-        <Container maxWidth="xs" >
+        <Container maxWidth="xs" sx={{p:0}}>
             <Card>
                 <CardContent>
                     <Typography variant='h5'>Choose a way to authenticate</Typography>
