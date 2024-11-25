@@ -27,6 +27,9 @@ export const authConfig = {
       }
       return token;
     },
+    authorized({ auth }) {
+      return !!auth?.user;
+    },
   },
   providers: [], // Add providers with an empty array for now
 }
