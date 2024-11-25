@@ -23,7 +23,6 @@ export default function Home() {
       <NoSsr fallback={<EditorSkeleton />}>
         <ArticleEditor />
       </NoSsr>
-
     </>
   );
 }

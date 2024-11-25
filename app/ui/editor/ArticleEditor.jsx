@@ -15,6 +15,7 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import RichTextEditorForm from "./RichTextEditorForm";
 import { publishArticle } from '@/app/actions/articleActions';
 import { useSnackbar } from 'notistack';
+import CardActions from '@mui/material/CardActions';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -69,12 +70,12 @@ export default function ArticleEditor() {
               <Typography>
                 The article remains editable after publishing.
               </Typography>
-              <Stack spacing={2} direction="row">
-                <SecondaryButton href="/profile">Cancel</SecondaryButton>
-                <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
-              </Stack>
             </FieldContainer>
           </CardContent>
+          <CardActions>
+              <SecondaryButton href="/profile">Cancel</SecondaryButton>
+              <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
+          </CardActions>
         </Card>
       </form >
     </FormProvider>
