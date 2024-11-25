@@ -23,7 +23,8 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
     }),
     "&:focus": {
         outlineColor: theme.palette.primary.light,
-    }
+    },
+    fontFamily:"var(--font-roboto)"
 }));
 
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {

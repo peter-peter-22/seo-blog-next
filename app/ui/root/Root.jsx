@@ -10,7 +10,7 @@ export default function Root({ children }) {
     return (
         <Stack sx={{ minHeight: "100dvh", bgcolor: blueGrey[50] }}>
             <Header />
-            <Container component="main" maxWidth="lg" sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+            <Container component="main" maxWidth="md" sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
                 <Stack sx={{ flexGrow: 1 }}>
                     <Toolbar />
                     <Box sx={{ flexGrow: 1 }}>

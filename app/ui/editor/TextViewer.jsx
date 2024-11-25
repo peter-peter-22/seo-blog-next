@@ -10,7 +10,7 @@ import { withImages } from './EditorImages';
 import { Element, Leaf } from "./TextEditorComponents";
 
 const StyledEditable = styled(Editable)({
-    fontFamily: 'inherit',
+    fontFamily:"var(--font-roboto)"
 });
 
 export default function TextViewer({ slateProps, editorProps }) {
