@@ -28,15 +28,3 @@ export default function NavLinks({ navItems }) {
         </>
     )
 }
-
-function ToggleLink() {
-    return (
-        <Link
-            href={url}
-            style={{
-                color: "unset",
-                textDecoration: "unset",
-            }}
-        ></Link>
-    )
-}
