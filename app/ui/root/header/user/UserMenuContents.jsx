@@ -10,7 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
 const navItems = [
-    new NavItem("Authenticate", undefined, <LoginIcon />,signIn),
+    new NavItem("Authenticate", "/auth/signIn", <LoginIcon />),
 ];
 
 const navItemsAuth = [
