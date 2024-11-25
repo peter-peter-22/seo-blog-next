@@ -13,22 +13,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article {
-  id        String   @id @default(uuid())
-  title     String
-  desc      String
-  content   Json
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+ 
   createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorID], references: [id])
-  authorID  String
+  updatedAt DateTime @updatedAt
 }
 
-model User {
-  id           String    @id @default(uuid())
-  username     String
-  passwordHash String?
-  created      DateTime  @default(now())
-  githubId     Int?
-  gmail        String?
-  Article      Article[]
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

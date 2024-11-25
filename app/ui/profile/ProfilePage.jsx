@@ -3,11 +3,12 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import formatDate from "../utilities/formatDate";
 import Box from "@mui/material/Box";
-import StringAvatar from "../root/header/user/StringAvatar";
 import Divider from "@mui/material/Divider";
 import Toolbar from "@mui/material/Toolbar";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import HybridAvatar from "./HybridAvatar";
+import CardActions from '@mui/material/CardActions';
 
 export default function ProfilePage({ user, isMe }) {
     return (
@@ -16,13 +17,14 @@ export default function ProfilePage({ user, isMe }) {
                 display: { xs: "block", sm: "none" }
             }}>
                 <Box boxShadow={2} sx={{ borderRadius: "100%", width: "fit-content", mx: "auto" }}>
-                    <StringAvatar
-                        name={user.username}
+                    <HybridAvatar
+                        user={user}
                         sx={{
                             width: 100,
                             height: 100,
                             fontSize: 50,
                             border: 5,
+                            borderColor: "background.default"
                         }}
                     />
                 </Box>
@@ -33,10 +35,10 @@ export default function ProfilePage({ user, isMe }) {
                     <Stack direction="row" spacing={2}>
                         <Box sx={{ flexGrow: 1 }}>
                             <Typography variant="h5">
-                                {user.username}
+                                {user.name}
                             </Typography>
                             <Typography color="text.secondary">
-                                Joined at {formatDate(user.created)}
+                                Joined at {formatDate(user.createdAt)}
                             </Typography>
                             <Divider />
                             <Typography >
@@ -46,8 +48,8 @@ export default function ProfilePage({ user, isMe }) {
                         <Box sx={{
                             display: { xs: "none", sm: "block" }
                         }}>
-                            <StringAvatar
-                                name={user.username}
+                            <HybridAvatar
+                                user={user}
                                 sx={{
                                     width: 100,
                                     height: 100,
@@ -56,12 +58,14 @@ export default function ProfilePage({ user, isMe }) {
                             />
                         </Box>
                     </Stack>
-                    {isMe &&
+                </CardContent>
+                {isMe &&
+                    <CardActions>
                         <Button>
                             Edit
                         </Button>
-                    }
-                </CardContent>
+                    </CardActions>
+                }
             </Card>
             <Toolbar />
             <Card>
