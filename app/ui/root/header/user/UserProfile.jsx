@@ -1,17 +1,16 @@
-import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import StringAvatar from './StringAvatar';
+import HybridAvatar from '@/app/ui/profile/HybridAvatar';
 
 export default function UserProfile({ user }) {
     return (
         <ListItem alignItems="flex-start">
             <ListItemAvatar>
-                <StringAvatar name={user.username} />
+                <HybridAvatar user={user} />
             </ListItemAvatar>
             <ListItemText
-                primary={user.username}
+                primary={user.name}
                 secondary={"Journalist"}
             />
         </ListItem>
