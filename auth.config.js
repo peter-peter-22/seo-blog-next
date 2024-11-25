@@ -2,7 +2,7 @@ import prisma from '@/utils/db';
 
 export const authConfig = {
   pages: {
-    signIn: '/auth',
+    signIn: '/auth/signIn',
   },
   session: {
     strategy: 'jwt'

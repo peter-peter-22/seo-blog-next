@@ -16,21 +16,27 @@ export default function NavLinks({ navItems }) {
     return (
         <>
             {navItems.map(({ name, url, ...props }, i) => (
-                <Link
-                    href={url}
-                    style={{
-                        color: "unset",
-                        textDecoration: "unset",
-                    }}
+                <NavButton
                     key={i}
-                >
-                    <NavButton
-                        name={name}
-                        active={pathname === url}
-                        {...props}
-                    />
-                </Link>
+                    name={name}
+                    active={pathname === url}
+                    href={url}
+                    component={url && Link}
+                    {...props}
+                />
             ))}
         </>
+    )
+}
+
+function ToggleLink() {
+    return (
+        <Link
+            href={url}
+            style={{
+                color: "unset",
+                textDecoration: "unset",
+            }}
+        ></Link>
     )
 }

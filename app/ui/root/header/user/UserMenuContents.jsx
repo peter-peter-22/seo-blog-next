@@ -1,6 +1,6 @@
 import NavLinks, { NavItem } from "@/app/ui/menu/NavLinks";
 import List from '@mui/material/List';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useSession,signIn } from 'next-auth/react';
 import Divider from '@mui/material/Divider';
 import UserProfile from "./UserProfile";
 
@@ -10,13 +10,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
 const navItems = [
-    new NavItem("Authenticate", "/auth", <LoginIcon />),
+    new NavItem("Authenticate", undefined, <LoginIcon />,signIn),
 ];
 
 const navItemsAuth = [
     new NavItem("Profile", "/profile", <PersonIcon />),
     new NavItem("Write", "/profile/write", <CreateIcon />),
-    new NavItem("Logout", "#", <LogoutIcon />, signOut),
+    new NavItem("Logout", undefined, <LogoutIcon />, signOut),
 ];
 
 export default function UserMenuContents() {
