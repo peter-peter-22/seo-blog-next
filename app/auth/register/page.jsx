@@ -16,6 +16,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
+import { crendentialsRegisterAction } from '@/app/actions/emailActions';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -28,16 +29,15 @@ export default function Page() {
     const { handleSubmit, formState: { isSubmitting } } = methods;
 
     const onSubmit = async (data) => {
-        const { error } = await signIn("register", { ...data, redirect: false });
+        const error = await crendentialsRegisterAction(data);
         if (error) {
-            const formated = formatAuthError(error);
-            return enqueueSnackbar(formated, { variant: "error" });
+            return enqueueSnackbar(error, { variant: "error" });
         }
-        router.push(successUrl);
+        //router.push(successUrl);
     }
 
     return (
-        <Container maxWidth="sm" sx={{p:0}}>
+        <Container maxWidth="sm" sx={{ p: 0 }}>
             <Card sx={{ my: "auto" }}>
                 <CardContent>
                     <FormProvider {...methods}>
