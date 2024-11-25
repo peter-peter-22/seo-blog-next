@@ -10,9 +10,9 @@ export const LoginProvider = Credentials({
         const parsedCredentials = LoginSchema.parse(credentials);
 
         const { username, password } = parsedCredentials;
-        const user = await prisma.user.findFirst({ where: { username } });
+        const user = await prisma.user.findFirst({ where: { name:username } });
         if (!user) return null;
-        const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
+        const passwordsMatch = await bcrypt.compare(password, user.password);
         if (!passwordsMatch)
             return;
         return user;
@@ -27,8 +27,8 @@ export const RegisterProvider = Credentials({
         const { username, password } = parsedCredentials;
         const newUser = await prisma.user.create({
             data: {
-                username,
-                passwordHash: bcrypt.hashSync(password, 10),
+                name: username,
+                password: bcrypt.hashSync(password, 10),
             }
         });
         return newUser;
