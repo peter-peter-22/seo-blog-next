@@ -7,11 +7,13 @@ import { baseUrl } from "@/app/lib/serverInfo";
 import prisma from "@/utils/db";
 import bcrypt from 'bcrypt';
 
-export async function crendentialsRegisterAction(credentials) {
+export async function crendentialsRegisterAction(credentials, callbackUrl) {
     try {
         const parsedCredentials = RegisterSchema.parse(credentials);
         let { username, password, email } = parsedCredentials;
-        password=bcrypt.hashSync(password,10);
+        if (!callbackUrl || typeof (callbackUrl) != String)
+            callbackUrl = "/profile";
+        password = bcrypt.hashSync(password, 10);
 
         const { code } = await prisma.emailVerifications.upsert({
             where: {
@@ -24,14 +26,14 @@ export async function crendentialsRegisterAction(credentials) {
             },
             update: {
                 username,
-                password,
+                password
             },
             select: {
                 code: true
             }
         });
 
-        const body = createEmail("verifyEmail", { url: `${baseUrl}/auth/register/verifyEmail/${email}/${code}` });
+        const body = createEmail("verifyEmail", { url: `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}` });
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",
             subject: "Email verification",
@@ -39,17 +41,6 @@ export async function crendentialsRegisterAction(credentials) {
         });
     }
     catch (err) {
-        console.error(err);
         return err.toString();
-    }
-}
-
-export async function test() {
-    try {
-        const emailHtml = createEmail("verifyEmail", { url: baseUrl, });
-        console.log(emailHtml);
-    }
-    catch (err) {
-        console.error(err);
     }
 }

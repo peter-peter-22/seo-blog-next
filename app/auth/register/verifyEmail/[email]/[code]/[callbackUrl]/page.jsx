@@ -1,20 +1,19 @@
+import BigIcon from "@/app/ui/components/BigIcon";
 import prisma from "@/utils/db";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import BigIcon from "@/app/ui/components/BigIcon";
-import { useSuccessUrl } from "@/app/auth/authUtilities";
 
 export default async function Page(props) {
     const params = await props.params;
     const email = decodeURIComponent(params.email);
     const code = decodeURIComponent(params.code);
-    const redirect = "/profile";
-    
-    const firstSignIn="/profile/newUser";
-    const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${redirect}`);
+    const redirect = decodeURIComponent(params.callbackUrl);
+
+    const firstSignIn = "/profile/newUser";
+    const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${encodeURIComponent(redirect)}`);
 
     const registrationSession = (await prisma.emailVerifications.findMany({
         where: {
