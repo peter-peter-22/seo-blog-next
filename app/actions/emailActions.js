@@ -5,11 +5,13 @@ import { sendCompanyEmail } from "@/app/lib/emails/sendEmail";
 import { createEmail } from "@/app/lib/emails/createHtmlEmail";
 import { baseUrl } from "@/app/lib/serverInfo";
 import prisma from "@/utils/db";
+import bcrypt from 'bcrypt';
 
 export async function crendentialsRegisterAction(credentials) {
     try {
         const parsedCredentials = RegisterSchema.parse(credentials);
-        const { username, password, email } = parsedCredentials;
+        let { username, password, email } = parsedCredentials;
+        password=bcrypt.hashSync(password,10);
 
         const { code } = await prisma.emailVerifications.upsert({
             where: {
