@@ -29,9 +29,12 @@ export async function crendentialsRegisterAction(credentials) {
             }
         });
 
-        console.log(code);
-        return;
-        const body = createEmail("verifyEmail", { url: `baseUrl/auth/register/verifyEmail/${code}` });
+        const query = new URLSearchParams({
+            redirect: "redirect",
+        });
+        console.log(query.toString());
+
+        const body = createEmail("verifyEmail", { url: `${baseUrl}/auth/register/verifyEmail/${email}/${code}` });
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",
             subject: "Email verification",

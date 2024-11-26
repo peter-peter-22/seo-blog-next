@@ -64,5 +64,5 @@ model EmailVerifications {
   updatedAt DateTime @updatedAt @default(now())
   password  String
   redirect  String?
-  code      String   @default(uuid())
+  code      String  @default(uuid())
 }
