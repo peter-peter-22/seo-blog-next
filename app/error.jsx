@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
+import BigIcon from "@/app/ui/components/BigIcon";
 
 export default function Error({
     error,
@@ -17,7 +18,9 @@ export default function Error({
 
     return (
         <Stack alignItems="center" spacing={2}>
-            <ErrorOutlineIcon color="disabled" sx={{ fontSize: 80 }} />
+            <BigIcon>
+                <ErrorOutlineIcon />
+            </BigIcon>
             <Typography variant="h4">Something went wrong</Typography>
             <Typography>{error.toString()}</Typography>
             <Button onClick={reset}>Try again</Button>

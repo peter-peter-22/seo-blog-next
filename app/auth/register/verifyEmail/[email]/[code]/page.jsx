@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import BigIcon from "@/app/ui/components/BigIcon";
 
 export default async function Page(props) {
     const params = await props.params;
@@ -40,9 +41,11 @@ export default async function Page(props) {
     }
 
     return (
-        isCorrect ? (
+        true ? (
             <Stack alignItems="center" spacing={2}>
-                <CheckCircleOutlineIcon color="disabled" sx={{ fontSize: 80 }} />
+                <BigIcon>
+                    <CheckCircleOutlineIcon />
+                </BigIcon>
                 <Typography variant="h4">
                     Registration successful
                 </Typography>
@@ -53,7 +56,9 @@ export default async function Page(props) {
             </Stack>
         ) : (
             <Stack alignItems="center" spacing={2}>
-                <ErrorOutlineIcon color="disabled" sx={{ fontSize: 80 }} />
+                <BigIcon>
+                    <ErrorOutlineIcon />
+                </BigIcon>
                 {isExpired ? (
                     <>
                         <Typography variant="h4">
