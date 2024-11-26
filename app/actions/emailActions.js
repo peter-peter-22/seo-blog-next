@@ -4,13 +4,34 @@ import { RegisterSchema } from "../ui/forms/schemas/AuthSchema";
 import { sendCompanyEmail } from "@/app/lib/emails/sendEmail";
 import { createEmail } from "@/app/lib/emails/createHtmlEmail";
 import { baseUrl } from "@/app/lib/serverInfo";
+import prisma from "@/utils/db";
 
 export async function crendentialsRegisterAction(credentials) {
     try {
         const parsedCredentials = RegisterSchema.parse(credentials);
-        const { username, password,email } = parsedCredentials;
+        const { username, password, email } = parsedCredentials;
 
-        const body = createEmail("verifyEmail", { url: baseUrl, });
+        const { code } = await prisma.emailVerifications.upsert({
+            where: {
+                email
+            },
+            create: {
+                username,
+                password,
+                email
+            },
+            update: {
+                username,
+                password,
+            },
+            select: {
+                code: true
+            }
+        });
+
+        console.log(code);
+        return;
+        const body = createEmail("verifyEmail", { url: `baseUrl/auth/register/verifyEmail/${code}` });
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",
             subject: "Email verification",
@@ -18,6 +39,7 @@ export async function crendentialsRegisterAction(credentials) {
         });
     }
     catch (err) {
+        console.error(err);
         return err.toString();
     }
 }

@@ -31,7 +31,7 @@ export default function Page() {
         if (error) {
             return enqueueSnackbar(error, { variant: "error" });
         }
-        //router.push(successUrl);
+        router.push("/auth/register/emailSent");
     }
 
     const testAction = async () => {
