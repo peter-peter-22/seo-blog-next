@@ -17,7 +17,6 @@ export async function sendCompanyEmail(options) {
 }
 
 async function sendMailAsync(mailOptions) {
-    return console.log(mailOptions);
     return new Promise(resolve => {
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
