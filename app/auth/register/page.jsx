@@ -1,7 +1,6 @@
 "use client";
 
-import { crendentialsRegisterAction, test } from '@/app/actions/emailActions';
-import { useSuccessUrl } from '@/app/auth/authUtilities';
+import { crendentialsRegisterAction } from '@/app/actions/emailActions';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormPasswordField from '@/app/ui/forms/components/FormPasswordField';
