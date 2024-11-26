@@ -1,12 +1,16 @@
 import prisma from "@/utils/db";
-import { redirect } from "next/navigation";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 export default async function Page(props) {
     const params = await props.params;
     const email = decodeURIComponent(params.email);
     const code = decodeURIComponent(params.code);
 
-    const registrationSession = (await prisma.emailVerifications.findMany({
+    const registrationSession = (await prisma.emailVerifications.deleteMany({
         where: {
             email,
             code
@@ -37,13 +41,42 @@ export default async function Page(props) {
 
     return (
         isCorrect ? (
-            "success"
+            <Stack alignItems="center" spacing={2}>
+                <CheckCircleOutlineIcon color="disabled" sx={{ fontSize: 80 }} />
+                <Typography variant="h4">
+                    Registration successful
+                </Typography>
+                <Typography>
+                    Now you can sign in.
+                </Typography>
+                <Button href="/auth/login">Sign in</Button>
+            </Stack>
         ) : (
-            isExpired ? (
-                "expired"
-            ) : (
-                "incorrect code or email"
-            )
+            <Stack alignItems="center" spacing={2}>
+                <ErrorOutlineIcon color="disabled" sx={{ fontSize: 80 }} />
+                {isExpired ? (
+                    <>
+                        <Typography variant="h4">
+                            Expired
+                        </Typography>
+                        <Typography>
+                            The verification code is valid for 5 minutes.
+                        </Typography>
+                        <Button href="/auth/register">Try again</Button>
+                    </>
+                ) : (
+                    <>
+                        <Typography variant="h4">
+                            Incorrect code.
+                        </Typography>
+                        <Typography>
+                            The code is valid only once.
+                        </Typography>
+                        <Button href="/auth/register">Try again</Button>
+                        <Button href="/auth/login">Sign in</Button>
+                    </>
+                )}
+            </Stack>
         )
     );
 }

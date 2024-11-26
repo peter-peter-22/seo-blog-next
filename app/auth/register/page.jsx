@@ -17,7 +17,6 @@ import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 
 export default function Page() {
-    const successUrl = useSuccessUrl();
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
 
@@ -32,10 +31,6 @@ export default function Page() {
             return enqueueSnackbar(error, { variant: "error" });
         }
         router.push("/auth/register/emailSent");
-    }
-
-    const testAction = async () => {
-        await test();
     }
 
     return (
