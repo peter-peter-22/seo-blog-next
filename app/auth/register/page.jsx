@@ -16,7 +16,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
-import { crendentialsRegisterAction } from '@/app/actions/emailActions';
+import { crendentialsRegisterAction, test } from '@/app/actions/emailActions';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -36,6 +36,10 @@ export default function Page() {
         //router.push(successUrl);
     }
 
+    const testAction = async () => {
+        await test();
+    }
+
     return (
         <Container maxWidth="sm" sx={{ p: 0 }}>
             <Card sx={{ my: "auto" }}>
@@ -53,6 +57,9 @@ export default function Page() {
                     </FormProvider>
                 </CardContent>
             </Card>
+            <PrimaryButton onClick={testAction}>
+                test
+            </PrimaryButton>
         </Container>
     );
 }

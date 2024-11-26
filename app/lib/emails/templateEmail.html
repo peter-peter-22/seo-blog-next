@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            margin: 0px;
+            font-family: 'Roboto';
+        }
+
+        .container {
+            background-color: #ECEFF1;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
+        p {
+            margin: 10px 0px;
+        }
+
+        .paper {
+            margin: 30px 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        a.button {
+            color: white;
+            background-color: #1976D2;
+            text-decoration: none;
+            padding: 10px;
+            display: inline-block;
+            margin: 10px 0px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            background-color: rgb(192, 192, 192);
+        }
+
+        header {
+            background-color: #1976D2;
+            color: white;
+            padding: 10px;
+            font-size: 22px
+        }
+
+        footer a{
+            color: #838383 !important;
+        }
+
+        footer {
+            margin: 0 auto;
+            width: fit-content;
+        }
+    </style>
+</head>
+
+<body style="margin: 0px;font-family: 'Roboto';">
+    <div class="container">
+        <header>
+            <img src="http://localhost:3000/icon.jpg" style="height:50px;border-radius: 10px;margin:auto;display:block">
+            <p style="text-align: center;font-weight: bold;">Textmine</p>
+        </header>
+        <main style="font-size: 16px">
+            <div class="paper">
+                {{{content}}}
+            </div>
+        </main>
+        <footer>
+            <a href="#" style="color: #838383">
+                privacy policy
+            </a>
+        </footer>
+    </div>
+</body>
+
+</html>
