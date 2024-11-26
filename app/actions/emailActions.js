@@ -8,7 +8,7 @@ import { baseUrl } from "@/app/lib/serverInfo";
 export async function crendentialsRegisterAction(credentials) {
     try {
         const parsedCredentials = RegisterSchema.parse(credentials);
-        const { username, password } = parsedCredentials;
+        const { username, password,email } = parsedCredentials;
 
         const body = createEmail("verifyEmail", { url: baseUrl, });
         await sendCompanyEmail({

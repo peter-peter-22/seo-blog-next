@@ -1,7 +1,7 @@
 "use client";
 
+import { crendentialsRegisterAction, test } from '@/app/actions/emailActions';
 import { useSuccessUrl } from '@/app/auth/authUtilities';
-import { formatAuthError } from '@/app/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormPasswordField from '@/app/ui/forms/components/FormPasswordField';
@@ -12,11 +12,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
-import { crendentialsRegisterAction, test } from '@/app/actions/emailActions';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -48,6 +46,7 @@ export default function Page() {
                         <FieldContainer component="form" onSubmit={handleSubmit(onSubmit)} >
                             <Typography variant='h5'>Register</Typography>
                             <FormTextField name="username" label="Username" fullWidth />
+                            <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
                             <FormPasswordField name="confirmPassword" label="Confirm Password" fullWidth />
                             <PrimaryButton type={"submit"} disabled={isSubmitting}>
@@ -57,9 +56,6 @@ export default function Page() {
                     </FormProvider>
                 </CardContent>
             </Card>
-            <PrimaryButton onClick={testAction}>
-                test
-            </PrimaryButton>
         </Container>
     );
 }
