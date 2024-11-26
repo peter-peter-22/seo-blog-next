@@ -43,7 +43,7 @@ export default function Page() {
                     <FormProvider {...methods}>
                         <FieldContainer component="form" onSubmit={handleSubmit(onSubmit)} >
                             <Typography variant='h5'>Login</Typography>
-                            <FormTextField name="username" label="Username" fullWidth />
+                            <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
                             <PrimaryButton type={"submit"} disabled={isSubmitting}>
                                 Login

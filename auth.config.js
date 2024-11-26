@@ -5,6 +5,7 @@ export const authConfig = {
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/auth/signIn',
+    newUser: "/profile/newUser"
   },
   session: {
     strategy: 'jwt'
