@@ -2,11 +2,16 @@
 
 import prisma from "@/utils/db";
 import { UpdateProfileSchema } from "@/app/ui/forms/schemas/ProfileSchema";
+import authOrThrow from "../auth/authOrThrow";
 
 export async function updateProfileAction(values) {
     try {
         values = UpdateProfileSchema.parse(values);
         const { id, name, description, image } = values;
+
+        const session = await authOrThrow();
+        if (session.user.id !== id)
+            throw new Error("This is not your profile");
 
         const updatedUser = await prisma.user.update({
             where: {
@@ -17,13 +22,13 @@ export async function updateProfileAction(values) {
                 description,
                 image
             },
-            select:{
-                name:true,
-                image:true
+            select: {
+                name: true,
+                image: true
             }
         });
 
-        return {  updatedUser };
+        return { updatedUser };
     }
     catch (err) {
         return { error: err.toString() };
