@@ -16,7 +16,7 @@ export const authConfig = {
       session.user = token.user;
       return session;
     },
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       // Attach user data to the JWT when they sign in
       if (user) {
         token.user = {
@@ -25,6 +25,15 @@ export const authConfig = {
           email: user.email,
           image: user.image,
         };
+      }
+
+      //update the user when session.update is called on the client
+      if (trigger === "update") {
+        token.user = {
+          ...token.user,
+          name: session.name,
+          image:session.image
+        }
       }
       return token;
     },

@@ -1,7 +1,7 @@
 import NavLinks, { NavItem } from "@/app/ui/menu/NavLinks";
-import List from '@mui/material/List';
-import { signOut, useSession,signIn } from 'next-auth/react';
 import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import { signOut, useSession } from 'next-auth/react';
 import UserProfile from "./UserProfile";
 
 import CreateIcon from '@mui/icons-material/Create';

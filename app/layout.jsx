@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <AuthProvider value={session}>
+            <AuthProvider session={session}>
               <SnackbarProviderClient maxSnack={3}>
                 <Root>
                   {children}
