@@ -1,8 +1,10 @@
 "use server";
 
 import prisma from "@/utils/db";
-import { UpdateProfileSchema } from "@/app/ui/forms/schemas/ProfileSchema";
-import authOrThrow from "../auth/authOrThrow";
+import { ChangePasswordSchema, UpdateProfileSchema } from "@/app/ui/forms/schemas/ProfileSchema";
+import authOrThrow from "@/app/auth/authOrThrow";
+import { bcryptSalt } from "@/app/auth/authSettings";
+import bcrypt from 'bcrypt';
 
 export async function updateProfileAction(values) {
     try {
@@ -32,5 +34,27 @@ export async function updateProfileAction(values) {
     }
     catch (err) {
         return { error: err.toString() };
+    }
+}
+
+export async function changePasswordAction(data) {
+    try {
+        ChangePasswordSchema.parse(data);
+        const { password } = data;
+
+        const session = await authOrThrow();
+        const id = session.user.id;
+
+        await prisma.user.update({
+            where: {
+                id
+            },
+            data: {
+                password: bcrypt.hashSync(password, bcryptSalt)
+            }
+        })
+    }
+    catch (err) {
+        return err.toString();
     }
 }
