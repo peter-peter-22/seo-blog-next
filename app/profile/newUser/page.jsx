@@ -4,7 +4,6 @@ import { useSuccessUrl } from '@/app/auth/authUtilities';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';
-import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";
@@ -32,11 +31,9 @@ export default function Page() {
                     <Typography color="text.secondary">
                         The profile can be updated at any time.
                     </Typography>
-                    <Box sx={{ my: 2 }}>
-                        <FieldContainer  >
+                        <FieldContainer  margin>
                             < UpdateProfile />
                         </FieldContainer>
-                    </Box>
                 </CardContent>
                 <CardActions>
                     <Button type={"submit"} disabled={isSubmitting}>

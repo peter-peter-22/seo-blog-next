@@ -4,15 +4,14 @@ import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
-import { FormProvider } from 'react-hook-form';
-import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { FormProvider } from 'react-hook-form';
 
 export default function Page() {
     const router = useRouter()
@@ -28,11 +27,9 @@ export default function Page() {
                         Editing profile
                     </Typography>
                     <Divider />
-                    <Box sx={{ my: 2 }}>
-                        <FieldContainer  >
+                        <FieldContainer  margin>
                             < UpdateProfile />
                         </FieldContainer>
-                    </Box>
                 </CardContent>
                 <CardActions>
                     <PrimaryButton type={"submit"} disabled={isSubmitting}>

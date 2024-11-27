@@ -64,6 +64,9 @@ export default function ProfilePage({ user, isMe }) {
                         <Button href="/profile/edit">
                             Edit
                         </Button>
+                        <Button href="/profile/changePassword">
+                            Change password
+                        </Button>
                     </CardActions>
                 }
             </Card>
