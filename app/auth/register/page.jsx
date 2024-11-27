@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSuccessUrl } from '../authUtilities';
+import CardActions from '@mui/material/CardActions';
 
 export default function Page() {
     const { enqueueSnackbar } = useSnackbar();
@@ -33,7 +34,7 @@ export default function Page() {
     const { handleSubmit, formState: { isSubmitting, errors } } = methods;
 
     const onSubmit = async (data) => {
-        const error = await crendentialsRegisterAction(data,successUrl);
+        const error = await crendentialsRegisterAction(data, successUrl);
         if (error) {
             return enqueueSnackbar(error, { variant: "error" });
         }
@@ -42,21 +43,23 @@ export default function Page() {
 
     return (
         <Container maxWidth="sm" sx={{ p: 0 }}>
-            <Card sx={{ my: "auto" }}>
+            <Card sx={{ my: "auto" }} component="form" onSubmit={handleSubmit(onSubmit)} >
                 <CardContent>
                     <FormProvider {...methods}>
-                        <FieldContainer component="form" onSubmit={handleSubmit(onSubmit)} >
+                        <FieldContainer >
                             <Typography variant='h5'>Register</Typography>
                             <FormTextField name="username" label="Username" fullWidth />
                             <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
                             <FormPasswordField name="confirmPassword" label="Confirm Password" fullWidth />
-                            <PrimaryButton type={"submit"} disabled={isSubmitting}>
-                                Register
-                            </PrimaryButton>
                         </FieldContainer>
                     </FormProvider>
                 </CardContent>
+                <CardActions>
+                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                        Register
+                    </PrimaryButton>
+                </CardActions>
             </Card>
         </Container>
     );

@@ -8,6 +8,7 @@ import FormPasswordField from '@/app/ui/forms/components/FormPasswordField';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { LoginSchema } from '@/app/ui/forms/schemas/AuthSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
+import CardActions from '@mui/material/CardActions';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
@@ -37,20 +38,22 @@ export default function Page() {
     }
 
     return (
-        <Container maxWidth="sm" sx={{p:0}}>
-            <Card sx={{ my: "auto" }}>
+        <Container maxWidth="sm" sx={{ p: 0 }}>
+            <Card sx={{ my: "auto" }} component="form" onSubmit={handleSubmit(onSubmit)}>
                 <CardContent>
                     <FormProvider {...methods}>
-                        <FieldContainer component="form" onSubmit={handleSubmit(onSubmit)} >
+                        <FieldContainer  >
                             <Typography variant='h5'>Login</Typography>
                             <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
-                            <PrimaryButton type={"submit"} disabled={isSubmitting}>
-                                Login
-                            </PrimaryButton>
                         </FieldContainer>
                     </FormProvider>
                 </CardContent>
+                <CardActions>
+                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                        Login
+                    </PrimaryButton>
+                </CardActions>
             </Card>
         </Container>
     );
