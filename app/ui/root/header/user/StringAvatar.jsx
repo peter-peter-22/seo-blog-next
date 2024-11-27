@@ -26,7 +26,7 @@ function stringToColor(string) {
 function getMonogram(name) {
     const split = name.split(' ');
     let monogram;
-    if (split.length > 1)
+    if (split.length > 1 && split[1].length>0)
         monogram = split[0][0] + split[1][0];
     else
         monogram = name.substring(0, 2);
