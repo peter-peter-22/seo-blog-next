@@ -1,9 +1,8 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import prisma from "@/utils/db";
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import prisma from "@/utils/db";
+import { redirect } from 'next/navigation';
 import authOrThrow from '../auth/authOrThrow';
 
 export async function publishArticle(data) {

@@ -8,7 +8,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     providers: [
         LoginProvider,
-        GithubProvider,
-        GoogleProvider
+        GithubProvider({
+            allowDangerousEmailAccountLinking: true,
+        }),
+        GoogleProvider({
+            allowDangerousEmailAccountLinking: true,
+        })
     ],
 });

@@ -1,5 +1,5 @@
 import "@/app/lib/zodErrors";
-import { LoginSchema, VerifySchema } from '@/app/ui/forms/schemas/AuthSchema';
+import { LoginSchema } from '@/app/ui/forms/schemas/AuthSchema';
 import prisma from '@/utils/db';
 import bcrypt from 'bcrypt';
 import Credentials from 'next-auth/providers/credentials';
