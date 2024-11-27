@@ -1,21 +1,23 @@
 "use client";
 
-import { useSuccessUrl } from '@/app/auth/authUtilities';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
+import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';
 import Box from '@mui/material/Box';
-import Button from "@mui/material/Button";
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
 import { FormProvider } from 'react-hook-form';
+import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
-    const successUrl = useSuccessUrl();
-    const { onSubmit, methods } = useProfileEditorForm();
+    const router = useRouter()
+    const onSuccess=useCallback(()=>{router.push("/profile")},[]);
+    const { onSubmit, methods } = useProfileEditorForm(onSuccess);
     const { handleSubmit, formState: { isSubmitting } } = methods;
 
     return (
@@ -23,15 +25,9 @@ export default function Page() {
             <FormProvider {...methods}>
                 <CardContent>
                     <Typography variant="h4">
-                        Welcome!
+                        Editing profile
                     </Typography>
                     <Divider />
-                    <Typography >
-                        Are you okay with this profile?
-                    </Typography>
-                    <Typography color="text.secondary">
-                        The profile can be updated at any time.
-                    </Typography>
                     <Box sx={{ my: 2 }}>
                         <FieldContainer  >
                             < UpdateProfile />
@@ -39,12 +35,12 @@ export default function Page() {
                     </Box>
                 </CardContent>
                 <CardActions>
-                    <Button type={"submit"} disabled={isSubmitting}>
+                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
                         Update
-                    </Button>
-                    <Button href={successUrl}>
-                        Finish
-                    </Button>
+                    </PrimaryButton>
+                    <SecondaryButton href={"/profile"}>
+                        Cancel
+                    </SecondaryButton>
                 </CardActions>
             </FormProvider>
         </Card>

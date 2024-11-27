@@ -61,7 +61,7 @@ export default function ProfilePage({ user, isMe }) {
                 </CardContent>
                 {isMe &&
                     <CardActions>
-                        <Button>
+                        <Button href="/profile/edit">
                             Edit
                         </Button>
                     </CardActions>
