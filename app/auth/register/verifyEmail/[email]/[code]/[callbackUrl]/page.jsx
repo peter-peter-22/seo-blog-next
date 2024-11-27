@@ -15,7 +15,7 @@ export default async function Page(props) {
     const firstSignIn = "/profile/newUser";
     const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${encodeURIComponent(redirect)}`);
 
-    const registrationSession = (await prisma.emailVerifications.findMany({
+    const registrationSession = (await prisma.emailVerifications.deleteMany({
         where: {
             email,
             code
