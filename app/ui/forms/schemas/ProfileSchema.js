@@ -1,17 +1,18 @@
 import { z } from 'zod';
+import { username, password } from './fields/profileFields';
 
 export const UpdateProfileSchema = z
     .object({
         id: z.string(),
-        name: z.string(),
+        name: username,
         description: z.string().nullable(),
         image: z.string().url().or(z.literal("")).nullable()
     });
 
 export const ChangePasswordSchema = z
     .object({
-        password: z.string().min(6).max(100),
-        confirmPassword: z.string(),
+        password,
+        confirmPassword: password,
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "The passwords do not match",

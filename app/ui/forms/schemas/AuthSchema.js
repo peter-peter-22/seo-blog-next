@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { username,password } from './fields/profileFields';
 
 export const LoginSchema = z
   .object({
@@ -8,9 +9,9 @@ export const LoginSchema = z
 
 export const RegisterSchema = z
   .object({
-    username: z.string().min(3).max(30),
-    password: z.string().min(6).max(100),
-    confirmPassword: z.string(),
+    username,
+    password,
+    confirmPassword:password,
     email: z.string().email()
   })
   .refine((data) => data.password === data.confirmPassword, {
