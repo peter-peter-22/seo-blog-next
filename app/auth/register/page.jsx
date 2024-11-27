@@ -16,6 +16,7 @@ import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSuccessUrl } from '../authUtilities';
 import CardActions from '@mui/material/CardActions';
+import ForgotPasswordButton from '../ForgotPasswordButton';
 
 export default function Page() {
     const { enqueueSnackbar } = useSnackbar();
@@ -24,12 +25,6 @@ export default function Page() {
 
     const methods = useForm({
         resolver: zodResolver(RegisterSchema), // Apply the zodResolver
-        defaultValues: {
-            username: "new user",
-            email: "gfdifgjiugfdjiudfgjjiu@gmail.com",
-            password: "123456",
-            confirmPassword: "123456"
-        }
     });
     const { handleSubmit, formState: { isSubmitting, errors } } = methods;
 
@@ -52,6 +47,7 @@ export default function Page() {
                             <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
                             <FormPasswordField name="confirmPassword" label="Confirm Password" fullWidth />
+                            <ForgotPasswordButton />
                         </FieldContainer>
                     </FormProvider>
                 </CardContent>
