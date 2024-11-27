@@ -1,5 +1,5 @@
 import ClearIcon from '@mui/icons-material/Clear'
-import  {styled}  from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import Fab from '@mui/material/Fab'
 import {
     Transforms
@@ -7,6 +7,8 @@ import {
 import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
 import { MenuButton } from './EditorUI';
 import Zoom from '@mui/material/Zoom';
+import isUrl from 'is-url'
+import imageExtensions from 'image-extensions'
 
 const withImages = editor => {
     const { insertData, isVoid } = editor
@@ -45,13 +47,13 @@ const insertImage = (editor, url) => {
         children: [{ text: '' }],
     })
 }
-const isImageUrl = url => {
-    return true;
-
-    //if (!url) return false
-    //if (!isUrl(url)) return false
-    //const ext = new URL(url).pathname.split('.').pop()
-    //return imageExtensions.includes(ext)
+const isImageUrl = (url, checkExtension = true) => {
+    if (!url) return false
+    if (!isUrl(url)) return false
+    if (!checkExtension)
+        return true;
+    const ext = new URL(url).pathname.split('.').pop()
+    return imageExtensions.includes(ext)
 }
 const InsertImageButton = ({ Icon }) => {
     const editor = useSlateStatic()
@@ -60,7 +62,7 @@ const InsertImageButton = ({ Icon }) => {
             onMouseDown={event => {
                 event.preventDefault()
                 const url = window.prompt('Enter the URL of the image:')
-                if (url && !isImageUrl(url)) {
+                if (url && !isImageUrl(url,false)) {
                     alert('URL is not an image')
                     return
                 }
