@@ -17,6 +17,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
+import ForgotPasswordButton from '../ForgotPasswordButton';
 
 export default function Page() {
     const successUrl = useSuccessUrl();
@@ -46,6 +47,7 @@ export default function Page() {
                             <Typography variant='h5'>Login</Typography>
                             <FormTextField name="email" label="Email" fullWidth />
                             <FormPasswordField name="password" label="Password" fullWidth />
+                            <ForgotPasswordButton />
                         </FieldContainer>
                     </FormProvider>
                 </CardContent>

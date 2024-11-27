@@ -20,7 +20,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 export default function Page() {
     const successUrl = useSuccessUrl();
     return (
-        <Container maxWidth="xs" sx={{p:0}}>
+        <Container maxWidth="xs" sx={{ p: 0 }}>
             <Card>
                 <CardContent>
                     <Typography variant='h5'>Choose a way to authenticate</Typography>
@@ -44,7 +44,7 @@ export default function Page() {
             <Toolbar />
             <Card>
                 <CardContent>
-                    <Typography variant='h5'>Anonymous methods</Typography>
+                    <Typography variant='h5'>Email</Typography>
                     <Divider sx={{ my: 2 }} />
                     <Stack direction="row" justifyContent={"space-between"} sx={{ width: "100%" }}>
                         <SecondaryButton
