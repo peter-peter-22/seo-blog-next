@@ -1,5 +1,5 @@
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
+import { styled } from '@mui/material/styles';
 import isHotkey from 'is-hotkey';
 import { useMemo } from 'react';
 import {
@@ -7,9 +7,11 @@ import {
 } from 'slate';
 import { withHistory } from 'slate-history';
 import { Editable, Slate, withReact } from 'slate-react';
+import Element from './components/Element';
+import Leaf from './components/Leaf';
+import { toggleMark } from "./components/HandleMarks";
 import { withImages } from './EditorImages';
 import HOTKEYS from "./hotkeys.js";
-import { Element, Leaf, toggleMark } from "./TextEditorComponents";
 import TopMenu from "./TopMenu";
 
 const StyledEditable = styled(Editable)(({ theme }) => ({

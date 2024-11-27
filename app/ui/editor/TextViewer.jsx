@@ -7,7 +7,8 @@ import {
 } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withImages } from './EditorImages';
-import { Element, Leaf } from "./TextEditorComponents";
+import Element from './components/Element';
+import Leaf from './components/Leaf';
 
 const StyledEditable = styled(Editable)({
     fontFamily:"var(--font-roboto)"
