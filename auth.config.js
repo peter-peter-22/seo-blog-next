@@ -28,6 +28,7 @@ export const authConfig = {
       }
 
       //update the user when session.update is called on the client
+      //change only the safe values
       if (trigger === "update") {
         token.user = {
           ...token.user,
