@@ -7,7 +7,6 @@ export async function updateProfileAction(values) {
     try {
         values = UpdateProfileSchema.parse(values);
         const { id, name, description, image } = values;
-        console.log(id);
 
         const updatedUser = await prisma.user.update({
             where: {

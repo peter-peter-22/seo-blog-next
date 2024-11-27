@@ -16,6 +16,7 @@ import RichTextEditorForm from "./RichTextEditorForm";
 import { publishArticle } from '@/app/actions/articleActions';
 import { useSnackbar } from 'notistack';
 import CardActions from '@mui/material/CardActions';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -73,8 +74,8 @@ export default function ArticleEditor() {
             </FieldContainer>
           </CardContent>
           <CardActions>
-              <SecondaryButton href="/profile">Cancel</SecondaryButton>
-              <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
+            <SecondaryButton href="/profile">Cancel</SecondaryButton>
+            <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
           </CardActions>
         </Card>
       </form >
@@ -104,5 +105,11 @@ function loadDraft() {
 function SaveDraft() {
   const { watch } = useFormContext();
   const allValues = watch();
-  localStorage.setItem('draft', JSON.stringify(allValues));
+  const debounced = useDebouncedCallback(
+    (values) => {
+      localStorage.setItem('draft', JSON.stringify(values));
+    },
+    500
+  );
+  debounced(allValues);
 }
