@@ -6,6 +6,7 @@ import { createEmail } from "@/app/lib/emails/createHtmlEmail";
 import { baseUrl } from "@/app/lib/serverInfo";
 import prisma from "@/utils/db";
 import bcrypt from 'bcrypt';
+import { bcryptSalt } from "@/app/auth/authSettings";
 
 export async function crendentialsRegisterAction(credentials, callbackUrl) {
     try {
@@ -13,7 +14,7 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
         let { username, password, email } = parsedCredentials;
         if (!callbackUrl || typeof (callbackUrl) != String)
             callbackUrl = "/profile";
-        password = bcrypt.hashSync(password, 10);
+        password = bcrypt.hashSync(password, bcryptSalt);
 
         const { code } = await prisma.emailVerifications.upsert({
             where: {
