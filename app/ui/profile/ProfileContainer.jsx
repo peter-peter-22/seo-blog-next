@@ -7,7 +7,8 @@ export default async function ProfileContainer({ userId, isMe }) {
         select: {
             name: true,
             createdAt: true,
-            image:true
+            image:true,
+            description:true
         }
     });
     return <ProfilePage user={user} isMe={isMe} />

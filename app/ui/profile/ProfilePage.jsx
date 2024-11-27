@@ -42,7 +42,7 @@ export default function ProfilePage({ user, isMe }) {
                             </Typography>
                             <Divider />
                             <Typography >
-                                description
+                                {user.description}
                             </Typography>
                         </Box>
                         <Box sx={{

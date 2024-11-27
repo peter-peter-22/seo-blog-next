@@ -8,9 +8,8 @@ import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 
 //all hooks and values to handle the update profile form
-export default function useProfileEditorForm(onSuccess) {
+export default function useProfileEditorForm({ onSuccess, user }) {
     const session = useSession();
-    const user = session.data.user;
     const { enqueueSnackbar } = useSnackbar();
 
     const methods = useForm({
