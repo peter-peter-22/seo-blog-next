@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import isHotkey from 'is-hotkey';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
     createEditor
 } from 'slate';
@@ -15,23 +15,15 @@ import HOTKEYS from "./hotkeys.js";
 import TopMenu from "./TopMenu";
 import { withInlines } from './components/modules/EditorUrls';
 import { onKeyDown as inlineOnKeyDown } from './components/modules/EditorUrls';
+import placeholder from './components/modules/placeholder';
 
-const StyledEditable = styled(Editable)(({ theme }) => ({
-    padding: 10,
-    outlineWidth: 1,
-    outlineStyle: "auto",
+const StyledEditable = styled(Editable)({
+    fontFamily: "var(--font-roboto)",
+    outline: "none",
     minHeight: "100vh !important",
-    outlineColor: theme.palette.divider,
-    transition: theme.transitions.create(['all'], {
-        duration: theme.transitions.duration.shorter,
-    }),
-    "&:focus": {
-        outlineColor: theme.palette.primary.light,
-    },
-    fontFamily: "var(--font-roboto)"
-}));
+});
 
-const hotkeysOnKeyDown = (event,editor) => {
+const hotkeysOnKeyDown = (event, editor) => {
     for (const hotkey in HOTKEYS) {
         if (isHotkey(hotkey, event)) {
             event.preventDefault()
@@ -59,18 +51,39 @@ export default function RichTextEditor({ onChange, slateProps, editorProps }) {
             {...slateProps}
         >
             <TopMenu />
-            <Card>
-                <StyledEditable
-                    renderElement={Element}
-                    renderLeaf={Leaf}
-                    spellCheck
-                    onKeyDown={event => {
-                        hotkeysOnKeyDown(event,editor);
-                        inlineOnKeyDown(event,editor);
-                    }}
-                    {...editorProps}
-                />
-            </Card>
+            <EditableWithBackground editor={editor} editorProps={editorProps}/>
         </Slate >
+    )
+}
+
+//separate this component to prevent the focused state change from re-rendering other components
+function EditableWithBackground({ editor,editorProps }) {
+    const [focused, setFocused] = useState(false);
+    return (
+        <Card
+            sx={theme => ({
+                p: 1,
+                borderColor: focused ? theme.palette.primary.light : "transparent",
+                borderRadius: 1,
+                borderStyle: "solid",
+                transition: theme.transitions.create(['all'], {
+                    duration: theme.transitions.duration.shorter,
+                }),
+            })}
+        >
+            <StyledEditable
+                renderElement={Element}
+                renderLeaf={Leaf}
+                spellCheck
+                onKeyDown={event => {
+                    hotkeysOnKeyDown(event, editor);
+                    inlineOnKeyDown(event, editor);
+                }}
+                {...editorProps}
+                {...placeholder()}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+            />
+        </Card>
     )
 }
