@@ -1,18 +1,17 @@
 "use client";
 
-import { isKeyHotkey } from 'is-hotkey'
-import isUrl from 'is-url'
-import { useMemo } from 'react'
+import Link from '@mui/material/Link';
+import { isKeyHotkey } from 'is-hotkey';
+import isUrl from 'is-url';
+import { useMemo } from 'react';
 import {
     Editor,
     Range,
     Element as SlateElement,
     Transforms
-} from 'slate'
-import { useSelected, useSlate } from 'slate-react'
-import { MenuButton } from '../../EditorUI'
-import { styled } from '@mui/material/styles'
-import Link from '@mui/material/Link';
+} from 'slate';
+import { useSelected, useSlate } from 'slate-react';
+import { MenuButton } from '../../EditorUI';
 
 export const onKeyDown = (event, editor) => {
     const { selection } = editor
