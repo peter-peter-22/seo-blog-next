@@ -34,7 +34,7 @@ const hotkeysOnKeyDown = (event, editor) => {
 }
 
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {
-    const editor = useMemo(() => withInlines(withImages(withHistory(withReact(createEditor())))), []);
+    const editor = useMemo(() => withImages(withInlines(withHistory(withReact(createEditor())))), []);
     return (
         <Slate
             editor={editor}
@@ -51,13 +51,13 @@ export default function RichTextEditor({ onChange, slateProps, editorProps }) {
             {...slateProps}
         >
             <TopMenu />
-            <EditableWithBackground editor={editor} editorProps={editorProps}/>
+            <EditableWithBackground editor={editor} editorProps={editorProps} />
         </Slate >
     )
 }
 
 //separate this component to prevent the focused state change from re-rendering other components
-function EditableWithBackground({ editor,editorProps }) {
+function EditableWithBackground({ editor, editorProps }) {
     const [focused, setFocused] = useState(false);
     return (
         <Card
