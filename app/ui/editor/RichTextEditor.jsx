@@ -10,9 +10,11 @@ import { Editable, Slate, withReact } from 'slate-react';
 import Element from './components/Element';
 import Leaf from './components/Leaf';
 import { toggleMark } from "./components/HandleMarks";
-import { withImages } from './EditorImages';
+import { withImages } from './components/modules/EditorImages';
 import HOTKEYS from "./hotkeys.js";
 import TopMenu from "./TopMenu";
+import { withInlines } from './components/modules/EditorUrls';
+import { onKeyDown as inlineOnKeyDown } from './components/modules/EditorUrls';
 
 const StyledEditable = styled(Editable)(({ theme }) => ({
     padding: 10,
@@ -26,11 +28,21 @@ const StyledEditable = styled(Editable)(({ theme }) => ({
     "&:focus": {
         outlineColor: theme.palette.primary.light,
     },
-    fontFamily:"var(--font-roboto)"
+    fontFamily: "var(--font-roboto)"
 }));
 
+const hotkeysOnKeyDown = (event,editor) => {
+    for (const hotkey in HOTKEYS) {
+        if (isHotkey(hotkey, event)) {
+            event.preventDefault()
+            const mark = HOTKEYS[hotkey]
+            toggleMark(editor, mark)
+        }
+    }
+}
+
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {
-    const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
+    const editor = useMemo(() => withInlines(withImages(withHistory(withReact(createEditor())))), []);
     return (
         <Slate
             editor={editor}
@@ -53,13 +65,8 @@ export default function RichTextEditor({ onChange, slateProps, editorProps }) {
                     renderLeaf={Leaf}
                     spellCheck
                     onKeyDown={event => {
-                        for (const hotkey in HOTKEYS) {
-                            if (isHotkey(hotkey, event)) {
-                                event.preventDefault()
-                                const mark = HOTKEYS[hotkey]
-                                toggleMark(editor, mark)
-                            }
-                        }
+                        hotkeysOnKeyDown(event,editor);
+                        inlineOnKeyDown(event,editor);
                     }}
                     {...editorProps}
                 />

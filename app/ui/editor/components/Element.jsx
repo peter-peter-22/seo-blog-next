@@ -1,6 +1,7 @@
 'use client';
 
-import { DisplayedImage } from '../EditorImages';
+import { DisplayedImage } from './modules/EditorImages';
+import { LinkComponent } from './modules/EditorUrls';
 
 const Element = ({ attributes, children, element }) => {
     const style = { textAlign: element.align }
@@ -48,6 +49,14 @@ const Element = ({ attributes, children, element }) => {
             >
                 {children}
             </DisplayedImage>
+        case 'link':
+            return <LinkComponent
+                attributes={attributes}
+                element={element}
+                style={style}
+            >
+                {children}
+            </LinkComponent>
         default:
             return (
                 <p style={style} {...attributes}>

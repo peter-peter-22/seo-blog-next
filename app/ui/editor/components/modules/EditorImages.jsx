@@ -5,10 +5,10 @@ import {
     Transforms
 } from 'slate'
 import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
-import { MenuButton } from './EditorUI';
 import Zoom from '@mui/material/Zoom';
 import isUrl from 'is-url'
 import imageExtensions from 'image-extensions'
+import { MenuButton } from '../../EditorUI'
 
 const withImages = editor => {
     const { insertData, isVoid } = editor

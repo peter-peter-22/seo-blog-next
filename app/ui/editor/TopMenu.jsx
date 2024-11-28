@@ -1,7 +1,8 @@
 'use client';
 
-import { BlockButton, MarkButton } from "./components/HandleMarks"
-import { InsertImageButton } from "./EditorImages";
+import { BlockButton, MarkButton } from "./components/HandleMarks";
+import { InsertImageButton } from "./components/modules/EditorImages";
+import { AddLinkButton, RemoveLinkButton } from "./components/modules/EditorUrls";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
@@ -21,6 +22,8 @@ import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
 import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
 import ImageIcon from '@mui/icons-material/Image';
+import LinkIcon from '@mui/icons-material/Link';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 const TopMenu = () => {
     return (
@@ -31,6 +34,8 @@ const TopMenu = () => {
                     <MarkButton format="bold" Icon={<FormatBold />} />
                     <MarkButton format="italic" Icon={<FormatItalic />} />
                     <MarkButton format="underline" Icon={<FormatUnderlined />} />
+                    <AddLinkButton Icon={<LinkIcon />} />
+                    <RemoveLinkButton Icon={<LinkOffIcon />} />
                     <MarkButton format="code" Icon={<Code />} />
                     <BlockButton format="heading-one" Icon={<LooksOne />} />
                     <BlockButton format="heading-two" Icon={<LooksTwo />} />
