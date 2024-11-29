@@ -3,6 +3,7 @@
 import { BlockButton, MarkButton } from "./components/HandleMarks";
 import { InsertImageButton } from "./components/modules/EditorImages";
 import { AddLinkButton, RemoveLinkButton } from "./components/modules/EditorUrls";
+import { InsertVideoButton } from "./components/modules/EditorVideo";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
@@ -47,6 +48,7 @@ const TopMenu = () => {
                     <BlockButton format="right" Icon={<FormatAlignRight />} />
                     <BlockButton format="justify" Icon={<FormatAlignJustify />} />
                     <InsertImageButton Icon={<ImageIcon />} />
+                    <InsertVideoButton Icon={<ImageIcon />} />
                 </Paper>
             </Box>
         </Box>

@@ -2,6 +2,7 @@
 
 import { DisplayedImage } from './modules/EditorImages';
 import { LinkComponent } from './modules/EditorUrls';
+import { VideoElement } from './modules/EditorVideo';
 
 const Element = ({ attributes, children, element }) => {
     const style = { textAlign: element.align }
@@ -57,6 +58,13 @@ const Element = ({ attributes, children, element }) => {
             >
                 {children}
             </LinkComponent>
+        case 'video':
+            return <VideoElement
+                attributes={attributes}
+                element={element}
+            >
+                {children}
+            </VideoElement>
         default:
             return (
                 <p style={style} {...attributes}>

@@ -16,6 +16,7 @@ import TopMenu from "./TopMenu";
 import { withInlines } from './components/modules/EditorUrls';
 import { onKeyDown as inlineOnKeyDown } from './components/modules/EditorUrls';
 import placeholder from './components/modules/placeholder';
+import { withEmbeds } from './components/modules/EditorVideo';
 
 const StyledEditable = styled(Editable)({
     fontFamily: "var(--font-roboto)",
@@ -34,7 +35,7 @@ const hotkeysOnKeyDown = (event, editor) => {
 }
 
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {
-    const editor = useMemo(() => withImages(withInlines(withHistory(withReact(createEditor())))), []);
+    const editor = useMemo(() => withEmbeds(withImages(withInlines(withHistory(withReact(createEditor()))))), []);
     return (
         <Slate
             editor={editor}
