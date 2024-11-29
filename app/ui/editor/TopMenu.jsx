@@ -25,6 +25,7 @@ import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
 import ImageIcon from '@mui/icons-material/Image';
 import LinkIcon from '@mui/icons-material/Link';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 const TopMenu = () => {
     return (
@@ -48,7 +49,7 @@ const TopMenu = () => {
                     <BlockButton format="right" Icon={<FormatAlignRight />} />
                     <BlockButton format="justify" Icon={<FormatAlignJustify />} />
                     <InsertImageButton Icon={<ImageIcon />} />
-                    <InsertVideoButton Icon={<ImageIcon />} />
+                    <InsertVideoButton Icon={<OndemandVideoIcon />} />
                 </Paper>
             </Box>
         </Box>
