@@ -52,6 +52,7 @@ export default function ArticleEditor() {
                 name="description"
                 label="Description"
                 multiline
+                minRows={2}
                 fullWidth
               />
             </FieldContainer>
