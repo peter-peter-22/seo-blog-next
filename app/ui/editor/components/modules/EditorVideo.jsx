@@ -6,10 +6,17 @@ import {
   withReact,
   useSlateStatic,
   ReactEditor,
+  useReadOnly,
+  useSelected,
+  useFocused
 } from 'slate-react';
 import { MenuButton } from '../../EditorUI';
 import { videoUrlFormatters } from './VideoTypes';
 import isUrl from 'is-url'
+import { styled } from '@mui/material/styles';
+import Zoom from '@mui/material/Zoom';
+import Fab from '@mui/material/Fab'
+import ClearIcon from '@mui/icons-material/Clear'
 
 const insertVideo = (editor, url) => {
   const parsedUrl = processUrl(url);
@@ -73,17 +80,60 @@ export const withEmbeds = editor => {
   return editor
 }
 
-export const VideoElement = ({ attributes, children, element }) => {
-  const editor = useSlateStatic()
+export const VideoElement = (props) => {
+  const isReadonly = useReadOnly();
+  return isReadonly ? <VideoElementView {...props} /> : <VideoElementEdit {...props} />;
+}
+
+const IFrameContainer = styled("div")({
+  padding: '75% 0 0 0',
+  position: 'relative',
+})
+
+function VideoElementView({ attributes, children, element }) {
   const { url } = element
   return (
     <div {...attributes}>
       <div contentEditable={false}>
-        <div
-          style={{
-            padding: '75% 0 0 0',
-            position: 'relative',
-          }}
+        <IFrameContainer>
+          <iframe
+            src={url}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            style={{
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        </IFrameContainer>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+function VideoElementEdit({ attributes, children, element }) {
+  const editor = useSlateStatic()
+  const { url } = element;
+  const selected = useSelected()
+  const focused = useFocused()
+  const showMenu = selected && focused;
+  const path = ReactEditor.findPath(editor, element)
+
+  return (
+    <div {...attributes}>
+      <div contentEditable={false}>
+        <IFrameContainer
+          sx={theme => ({
+            transition: theme.transitions.create(['all'], {
+              duration: theme.transitions.duration.shorter,
+            }),
+            boxShadow: showMenu && `0 0 0 3px ${theme.palette.primary.main}`
+          })}
         >
           <iframe
             src={url}
@@ -98,7 +148,24 @@ export const VideoElement = ({ attributes, children, element }) => {
               height: '100%',
             }}
           />
-        </div>
+          <Zoom in={showMenu}>
+            <Fab
+              onClick={(e) => {
+                e.preventDefault();
+                Transforms.removeNodes(editor, { at: path })
+              }}
+              onPointerDown={e => e.preventDefault()}
+              sx={{
+                position: "absolute",
+                top: "0.5em",
+                left: "0.5em",
+              }}
+              size="small"
+            >
+              <ClearIcon />
+            </Fab>
+          </Zoom>
+        </IFrameContainer>
       </div>
       {children}
     </div>
