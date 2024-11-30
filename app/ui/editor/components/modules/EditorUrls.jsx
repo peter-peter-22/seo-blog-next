@@ -57,7 +57,7 @@ export const withInlines = editor => {
         if (text && isUrl(text)) {
             wrapLink(editor, text)
         } else {
-            insertData(data)
+            insertData(data)//pass the insert to the next plugin
         }
     }
     return editor

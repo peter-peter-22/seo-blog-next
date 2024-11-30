@@ -11,8 +11,7 @@ import imageExtensions from 'image-extensions'
 import { MenuButton } from '../../EditorUI'
 
 const withImages = editor => {
-    // const { insertData, isVoid } = editor
-    const { isVoid } = editor
+    const { isVoid,insertData } = editor
     editor.isVoid = element => {
         return element.type === 'image' ? true : isVoid(element)
     }
@@ -35,9 +34,9 @@ const withImages = editor => {
         if (isImageUrl(text)) {
             insertImage(editor, text)
         }
-        //else {
-        //    insertData(data)
-        //}
+        else {
+            insertData(data)//pass the insert to the next plugin
+        }
     }
     return editor
 }

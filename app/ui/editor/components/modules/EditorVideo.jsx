@@ -69,12 +69,15 @@ const processUrl = (url) => {
 }
 
 export const withEmbeds = editor => {
-  const { isVoid } = editor
+  const { isVoid,insertData } = editor
   editor.isVoid = element => (element.type === 'video' ? true : isVoid(element))
   editor.insertData = data => {
     const text = data.getData('text/plain');
     if (isVideoUrl(text)) {
       insertVideo(editor, text)
+    }
+    else {
+      insertData(data)//pass the insert to the next plugin
     }
   }
   return editor
