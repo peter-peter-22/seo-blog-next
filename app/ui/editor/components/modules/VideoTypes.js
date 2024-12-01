@@ -3,25 +3,6 @@ function VideoUrlFormatter(isCorrect, formatter) {
     this.formatter = formatter;
 }
 
-//const isYoutubeEmbed = (url) => {
-//  return url.includes("youtube.com/embed");
-//}
-
-//const isVimeoEmbed = (url) => {
-//
-//  return url.includes("player.vimeo.com/video");
-//}
-
-//const formatYoutubeEmbed = url => {
-//  let videoId = url.match(/(?<=\/embed\/)[^&]+/g);
-//  return `https://www.youtube.com/embed/${videoId}`;
-//}
-
-//const formatVimeoEmbed = url => {
-//  let videoId = url.match(/(?<=\/embed\/)[^&]+/g);
-//  return `https://player.vimeo.com/video/${videoId}`;
-//}  
-
 export const videoUrlFormatters = [
     new VideoUrlFormatter(
         //youtube
