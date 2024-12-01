@@ -57,7 +57,7 @@ export const withInlines = editor => {
         if (text && isUrl(text)) {
             wrapLink(editor, text)
         } else {
-            insertData(data)//pass the insert to the next plugin
+            insertData(data)//pass the insert to the next
         }
     }
     return editor
@@ -230,7 +230,6 @@ export const AddLinkButton = ({ Icon }) => {
     const editor = useSlate()
     return (
         <MenuButton
-            active={isLinkActive(editor)}
             onMouseDown={event => {
                 event.preventDefault()
                 const url = window.prompt('Enter the URL of the link:')
