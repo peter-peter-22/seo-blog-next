@@ -30,6 +30,7 @@
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-hook-form": "^7.53.2",
+    "react-syntax-highlighter": "^15.6.1",
     "slate": "^0.110.2",
     "slate-history": "^0.110.3",
     "slate-react": "^0.110.3",

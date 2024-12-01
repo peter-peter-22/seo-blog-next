@@ -11,7 +11,7 @@ import imageExtensions from 'image-extensions'
 import { MenuButton } from '../../EditorUI'
 
 const withImages = editor => {
-    const { isVoid,insertData } = editor
+    const { isVoid, insertData } = editor
     editor.isVoid = element => {
         return element.type === 'image' ? true : isVoid(element)
     }

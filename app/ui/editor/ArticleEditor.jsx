@@ -59,7 +59,7 @@ export default function ArticleEditor() {
           </CardContent>
         </Card>
         <RichTextEditorForm
-          name="article"
+          name="content"
         />
         <Toolbar />
         <Card>
@@ -75,6 +75,7 @@ export default function ArticleEditor() {
           </CardContent>
           <CardActions>
             <SecondaryButton href="/profile">Cancel</SecondaryButton>
+            <SecondaryButton href="/profile/write/preview">Preview</SecondaryButton>
             <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
           </CardActions>
         </Card>
@@ -92,7 +93,7 @@ const defaultValue = {
   ]
 };
 
-function loadDraft() {
+export function loadDraft() {
   try {
     return JSON.parse(localStorage.getItem('draft')) || defaultValue;
   }

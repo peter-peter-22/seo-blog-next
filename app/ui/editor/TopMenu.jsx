@@ -4,6 +4,7 @@ import { BlockButton, MarkButton } from "./components/HandleMarks";
 import { InsertImageButton } from "./components/modules/EditorImages";
 import { AddLinkButton, RemoveLinkButton } from "./components/modules/EditorUrls";
 import { InsertVideoButton } from "./components/modules/EditorVideo";
+import { ToggleCodeButton } from "./components/modules/codeblock/CodeBlock";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
@@ -38,7 +39,6 @@ const TopMenu = () => {
                     <MarkButton format="underline" Icon={<FormatUnderlined />} />
                     <AddLinkButton Icon={<LinkIcon />} />
                     <RemoveLinkButton Icon={<LinkOffIcon />} />
-                    <MarkButton format="code" Icon={<Code />} />
                     <BlockButton format="heading-one" Icon={<LooksOne />} />
                     <BlockButton format="heading-two" Icon={<LooksTwo />} />
                     <BlockButton format="block-quote" Icon={<FormatQuote />} />
@@ -48,6 +48,7 @@ const TopMenu = () => {
                     <BlockButton format="center" Icon={<FormatAlignCenter />} />
                     <BlockButton format="right" Icon={<FormatAlignRight />} />
                     <BlockButton format="justify" Icon={<FormatAlignJustify />} />
+                    <ToggleCodeButton  Icon={<Code />} />
                     <InsertImageButton Icon={<ImageIcon />} />
                     <InsertVideoButton Icon={<OndemandVideoIcon />} />
                 </Paper>

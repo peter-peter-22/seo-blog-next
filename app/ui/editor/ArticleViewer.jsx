@@ -26,8 +26,7 @@ export default function ArticleViewer({ article }) {
                         <ListItemIcon>
                             <PersonIcon />
                         </ListItemIcon>
-                        
-                            <ListItemText secondary={<Link href={`/authors/${article.author.id}`} color="inherit">{article.author.username}</Link>} />
+                        <ListItemText secondary={<Link href={`/authors/${article.author.id}`} color="inherit">{article.author.username}</Link>} />
                     </ListItem>
 
                     <ListItem disablePadding>

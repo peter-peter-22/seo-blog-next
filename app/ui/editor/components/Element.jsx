@@ -3,6 +3,7 @@
 import { DisplayedImage } from './modules/EditorImages';
 import { LinkComponent } from './modules/EditorUrls';
 import { VideoElement } from './modules/EditorVideo';
+import { CodeElement } from './modules/codeblock/CodeBlock';
 
 const Element = ({ attributes, children, element }) => {
     const style = { textAlign: element.align }
@@ -65,6 +66,13 @@ const Element = ({ attributes, children, element }) => {
             >
                 {children}
             </VideoElement>
+        case "code":
+            return <CodeElement
+                attributes={attributes}
+                element={element}
+            >
+                {children}
+            </CodeElement>
         default:
             return (
                 <p style={style} {...attributes}>
