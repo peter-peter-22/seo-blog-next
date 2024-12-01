@@ -35,6 +35,7 @@ const hotkeysOnKeyDown = (event, editor) => {
 }
 
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {
+    console.log("render");
     const editor = useMemo(() => withEmbeds(withImages(withInlines(withHistory(withReact(createEditor()))))), []);
     return (
         <Slate
