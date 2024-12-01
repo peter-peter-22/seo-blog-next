@@ -52,7 +52,7 @@ export default async function Page() {
                                                 <HybridAvatar user={article.user} />
                                             </ListItemAvatar>
                                             <ListItemText
-                                                primary={<Link href={`/authors/${article.user.id}`} color="inherit">{article.user.name}</Link>}
+                                                primary={article.user.name}
                                                 secondary={formatDate(article.createdAt)}
                                             />
                                         </ListItem>
