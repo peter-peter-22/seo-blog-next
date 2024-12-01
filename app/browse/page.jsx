@@ -1,30 +1,21 @@
-import prisma from "@/utils/db";
+import HybridAvatar from '@/app/ui/profile/HybridAvatar';
+import formatDate from "@/app/ui/utilities/formatDate";
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid2';
-import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import HybridAvatar from '@/app/ui/profile/HybridAvatar';
-import formatDate from "@/app/ui/utilities/formatDate";
+import getFilteredArticles from './getFilteredArticles';
+import Chip from '@mui/material/Chip';
+import { CardActions, Divider, Stack } from '@mui/material';
 
 export default async function Page() {
-    const allArticles = await prisma.article.findMany({
-        include:
-        {
-            user: {
-                select: {
-                    name: true,
-                    image: true
-                }
-            }
-        }
-    });
+    const articles = await getFilteredArticles();
     return (
         <>
             <Card>
@@ -36,7 +27,7 @@ export default async function Page() {
             </Card>
             <Toolbar />
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                {allArticles.map((article, i) => (
+                {articles.map((article, i) => (
                     <Grid key={i} size={{ xs: 2, sm: 4, md: 4 }}>
                         <Card sx={{ height: "100%" }}>
                             <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
@@ -63,6 +54,11 @@ export default async function Page() {
                                     </Typography>
 
                                 </CardContent>
+                                <CardActions>
+                                    <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+                                        {article.tags.map((tag, i) => <Chip key={i} label={tag} size="small" />)}
+                                    </Stack>
+                                </CardActions>
                             </CardActionArea>
                         </Card>
                     </Grid>
