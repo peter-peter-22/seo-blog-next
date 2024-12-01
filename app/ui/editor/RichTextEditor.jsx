@@ -12,11 +12,12 @@ import Leaf from './components/Leaf';
 import { toggleMark } from "./components/HandleMarks";
 import { withImages } from './components/modules/EditorImages';
 import HOTKEYS from "./hotkeys.js";
-import TopMenu from "./TopMenu";
+import TopMenu from './Toolbar/TopMenu';
 import { withInlines } from './components/modules/EditorUrls';
 import { onKeyDown as inlineOnKeyDown } from './components/modules/EditorUrls';
 import placeholder from './components/modules/placeholder';
 import { withEmbeds } from './components/modules/EditorVideo';
+import { HoveringMenu } from './Toolbar/HoveringMenu';
 
 const StyledEditable = styled(Editable)({
     fontFamily: "var(--font-roboto)",
@@ -35,7 +36,6 @@ const hotkeysOnKeyDown = (event, editor) => {
 }
 
 export default function RichTextEditor({ onChange, slateProps, editorProps }) {
-    console.log("render");
     const editor = useMemo(() => withEmbeds(withImages(withInlines(withHistory(withReact(createEditor()))))), []);
     return (
         <Slate
@@ -53,6 +53,7 @@ export default function RichTextEditor({ onChange, slateProps, editorProps }) {
             {...slateProps}
         >
             <TopMenu />
+            <HoveringMenu />
             <EditableWithBackground editor={editor} editorProps={editorProps} />
         </Slate >
     )

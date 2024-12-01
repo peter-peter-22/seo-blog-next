@@ -1,31 +1,30 @@
 'use client';
 
-import { BlockButton, MarkButton } from "./components/HandleMarks";
-import { InsertImageButton } from "./components/modules/EditorImages";
-import { AddLinkButton, RemoveLinkButton } from "./components/modules/EditorUrls";
-import { InsertVideoButton } from "./components/modules/EditorVideo";
-import { ToggleCodeButton } from "./components/modules/codeblock/CodeBlock";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Paper from "@mui/material/Paper";
-import React from "react";
+import { BlockButton, MarkButton } from "../components/HandleMarks";
+import { InsertImageButton } from "../components/modules/EditorImages";
+import { AddLinkButton, RemoveLinkButton } from "../components/modules/EditorUrls";
+import { InsertVideoButton } from "../components/modules/EditorVideo";
+import { ToggleCodeButton } from "../components/modules/codeblock/CodeBlock";
+import { ToolbarBackground } from "./Components";
 
+import Code from '@mui/icons-material/Code';
+import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
+import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
+import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft';
+import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
-import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
-import Code from '@mui/icons-material/Code';
-import LooksOne from '@mui/icons-material/LooksOne';
-import LooksTwo from '@mui/icons-material/LooksTwo';
-import FormatQuote from '@mui/icons-material/FormatQuote';
-import FormatListNumbered from '@mui/icons-material/FormatListNumbered';
 import FormatListBulleted from '@mui/icons-material/FormatListBulleted';
-import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRight from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify';
+import FormatListNumbered from '@mui/icons-material/FormatListNumbered';
+import FormatQuote from '@mui/icons-material/FormatQuote';
+import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
 import ImageIcon from '@mui/icons-material/Image';
 import LinkIcon from '@mui/icons-material/Link';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
+import LooksOne from '@mui/icons-material/LooksOne';
+import LooksTwo from '@mui/icons-material/LooksTwo';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 const TopMenu = () => {
@@ -33,7 +32,7 @@ const TopMenu = () => {
         <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
             <Toolbar />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Paper sx={{ m: 1, border: 1, borderColor: "divider" }}>
+                <ToolbarBackground>
                     <MarkButton format="bold" Icon={<FormatBold />} />
                     <MarkButton format="italic" Icon={<FormatItalic />} />
                     <MarkButton format="underline" Icon={<FormatUnderlined />} />
@@ -51,7 +50,7 @@ const TopMenu = () => {
                     <ToggleCodeButton  Icon={<Code />} />
                     <InsertImageButton Icon={<ImageIcon />} />
                     <InsertVideoButton Icon={<OndemandVideoIcon />} />
-                </Paper>
+                </ToolbarBackground>
             </Box>
         </Box>
     )
