@@ -16,8 +16,8 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String    @default("New User")
-  description   String?   
-  email         String   @unique
+  description   String?
+  email         String    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -25,6 +25,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Article Article[]
 }
 
 model Account {
@@ -54,4 +56,15 @@ model EmailVerifications {
   updatedAt DateTime @default(now()) @updatedAt
   password  String
   code      String   @default(uuid())
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  content     Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }

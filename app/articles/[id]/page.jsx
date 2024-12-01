@@ -6,10 +6,11 @@ export default async function Page(props) {
     const article = await prisma.article.findUnique({
         where: { id: id },
         include: {
-            author: {
+            user: {
                 select: {
                     id: true,
-                    username: true
+                    name: true,
+                    image:true
                 }
             }
         }

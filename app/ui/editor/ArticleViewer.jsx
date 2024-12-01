@@ -35,10 +35,10 @@ export default function ArticleViewer({ article }) {
                     <List>
                         <ListItem disablePadding>
                             <ListItemAvatar>
-                                <HybridAvatar user={article.author} />
+                                <HybridAvatar user={article.user} />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={<Link href={`/authors/${article.author.id}`} color="inherit">{article.author.name}</Link>}
+                                primary={<Link href={`/authors/${article.user.id}`} color="inherit">{article.user.name}</Link>}
                                 secondary={formatDate(article.createdAt)}
                             />
                         </ListItem>

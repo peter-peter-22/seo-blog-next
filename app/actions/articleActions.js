@@ -16,9 +16,9 @@ export async function publishArticle(data) {
         const created = await prisma.article.create({
             data: {
                 title: data.title,
-                desc: data.description,
-                content: data.article,
-                authorID: session.user.id
+                description: data.description,
+                content: data.content,
+                userId: session.user.id
             }
         });
         redirectUrl = `/articles/${created.id}`;
