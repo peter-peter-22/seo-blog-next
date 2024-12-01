@@ -1,24 +1,26 @@
 import prisma from "@/utils/db";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PersonIcon from '@mui/icons-material/Person';
-import Toolbar from "@mui/material/Toolbar";
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid2';
+import Link from '@mui/material/Link';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
+import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import formatDate from "../ui/utilities/formatDate";
+import HybridAvatar from '@/app/ui/profile/HybridAvatar';
+import formatDate from "@/app/ui/utilities/formatDate";
 
 export default async function Page() {
     const allArticles = await prisma.article.findMany({
         include:
         {
-            author: {
+            user: {
                 select: {
-                    username: true
+                    name: true,
+                    image: true
                 }
             }
         }
@@ -44,22 +46,20 @@ export default async function Page() {
                                         {article.title}
                                     </Typography>
 
-                                    <ListItem disablePadding>
-                                        <ListItemIcon>
-                                            <PersonIcon />
-                                        </ListItemIcon>
-                                        <ListItemText secondary={article.author.username} />
-                                    </ListItem>
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemAvatar>
+                                                <HybridAvatar user={article.user} />
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={<Link href={`/authors/${article.user.id}`} color="inherit">{article.user.name}</Link>}
+                                                secondary={formatDate(article.createdAt)}
+                                            />
+                                        </ListItem>
+                                    </List>
 
-                                    <ListItem disablePadding>
-                                        <ListItemIcon>
-                                            <CalendarMonthIcon />
-                                        </ListItemIcon>
-                                        <ListItemText secondary={formatDate(article.createdAt)} />
-                                    </ListItem>
-
-                                    <Typography sx={{overflowWrap:"break-word"}}>
-                                        {article.desc}
+                                    <Typography sx={{ overflowWrap: "break-word" }}>
+                                        {article.description}
                                     </Typography>
 
                                 </CardContent>
