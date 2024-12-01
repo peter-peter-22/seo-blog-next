@@ -9,7 +9,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import TextViewer from "./TextViewer";
 import formatDate from '../utilities/formatDate';
-import { Link } from '@mui/material';
+import Link from '@mui/material/Link';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import HybridAvatar from '../profile/HybridAvatar';
+import CardActions from '@mui/material/CardActions';
+import IconButton from '@mui/material/IconButton';
+
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
 export default function ArticleViewer({ article }) {
     return (
@@ -19,23 +30,37 @@ export default function ArticleViewer({ article }) {
                     <Typography variant="h4">
                         {article.title}
                     </Typography>
+                    <Divider />
                     <Typography >
-                        {article.desc}
+                        {article.description}
                     </Typography>
-                    <ListItem disablePadding>
-                        <ListItemIcon>
-                            <PersonIcon />
-                        </ListItemIcon>
-                        <ListItemText secondary={<Link href={`/authors/${article.author.id}`} color="inherit">{article.author.username}</Link>} />
-                    </ListItem>
 
-                    <ListItem disablePadding>
-                        <ListItemIcon>
-                            <CalendarMonthIcon />
-                        </ListItemIcon>
-                        <ListItemText secondary={formatDate(article.createdAt)} />
-                    </ListItem>
+                    <List>
+                        <ListItem disablePadding>
+                            <ListItemAvatar>
+                                <HybridAvatar user={article.author} />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={<Link href={`/authors/${article.author.id}`} color="inherit">{article.author.name}</Link>}
+                                secondary={formatDate(article.createdAt)}
+                            />
+                        </ListItem>
+                    </List>
                 </CardContent>
+                <CardActions>
+                    <IconButton>
+                        <ThumbUpIcon />
+                    </IconButton>
+                    <IconButton>
+                        <ThumbDownIcon />
+                    </IconButton>
+                    <IconButton>
+                        <PersonAddIcon />
+                    </IconButton>
+                    <IconButton>
+                        <PersonRemoveIcon />
+                    </IconButton>
+                </CardActions>
             </Card>
             <Toolbar />
             <Card>
