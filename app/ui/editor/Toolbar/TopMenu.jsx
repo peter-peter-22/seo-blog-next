@@ -34,24 +34,28 @@ const TopMenu = () => {
             <Toolbar />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <ToolbarBackground>
-                    <MarkButton format="bold" Icon={<FormatBold />} />
-                    <MarkButton format="italic" Icon={<FormatItalic />} />
-                    <MarkButton format="underline" Icon={<FormatUnderlined />} />
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <AddLinkButton Icon={<LinkIcon />} />
-                    <RemoveLinkButton Icon={<LinkOffIcon />} />
-                    <BlockButton format="heading-one" Icon={<LooksOne />} />
-                    <BlockButton format="heading-two" Icon={<LooksTwo />} />
-                    <BlockButton format="block-quote" Icon={<FormatQuote />} />
-                    <BlockButton format="numbered-list" Icon={<FormatListNumbered />} />
-                    <BlockButton format="bulleted-list" Icon={<FormatListBulleted />} />
-                    <BlockButton format="left" Icon={<FormatAlignLeft />} />
-                    <BlockButton format="center" Icon={<FormatAlignCenter />} />
-                    <BlockButton format="right" Icon={<FormatAlignRight />} />
-                    <BlockButton format="justify" Icon={<FormatAlignJustify />} />
-                    <ToggleCodeButton  Icon={<Code />} />
-                    <InsertImageButton Icon={<ImageIcon />} />
-                    <InsertVideoButton Icon={<OndemandVideoIcon />} />
+                    <Box sx={{ display: "flex", justifyContent: "center", width: "fit-content" }}>
+                        <MarkButton format="bold" Icon={<FormatBold />} />
+                        <MarkButton format="italic" Icon={<FormatItalic />} />
+                        <MarkButton format="underline" Icon={<FormatUnderlined />} />
+                        <BlockButton format="heading-one" Icon={<LooksOne />} />
+                        <BlockButton format="heading-two" Icon={<LooksTwo />} />
+                        <BlockButton format="block-quote" Icon={<FormatQuote />} />
+                        <Divider orientation="vertical" variant="middle" flexItem />
+                        <BlockButton format="numbered-list" Icon={<FormatListNumbered />} />
+                        <BlockButton format="bulleted-list" Icon={<FormatListBulleted />} />
+                        <Divider orientation="vertical" variant="middle" flexItem />
+                        <BlockButton format="left" Icon={<FormatAlignLeft />} />
+                        <BlockButton format="center" Icon={<FormatAlignCenter />} />
+                        <BlockButton format="right" Icon={<FormatAlignRight />} />
+                        <BlockButton format="justify" Icon={<FormatAlignJustify />} />
+                        <Divider orientation="vertical" variant="middle" flexItem />
+                        <AddLinkButton Icon={<LinkIcon />} />
+                        <RemoveLinkButton Icon={<LinkOffIcon />} />
+                        <ToggleCodeButton Icon={<Code />} />
+                        <InsertImageButton Icon={<ImageIcon />} />
+                        <InsertVideoButton Icon={<OndemandVideoIcon />} />
+                    </Box>
                 </ToolbarBackground>
             </Box>
         </Box>
