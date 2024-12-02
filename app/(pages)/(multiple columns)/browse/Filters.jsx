@@ -12,8 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm, } from 'react-hook-form';
-import FormSelect from '../ui/forms/components/FormSelect';
-import FormTextField from '../ui/forms/components/FormTextField';
+import FormSelect from '@/app/ui/forms/components/FormSelect';
+import FormTextField from '@/app/ui/forms/components/FormTextField';
 
 export default function Filters({ defaultValues }) {
     const { enqueueSnackbar } = useSnackbar();
@@ -22,14 +22,14 @@ export default function Filters({ defaultValues }) {
         resolver: zodResolver(UpdateProfileSchema), // Apply the zodResolver
         defaultValues: { ...defaultValues, sortMode: defaultValues?.sortMode ?? "desc" }//give a fallback value to sortMode
     });
-    const { handleSubmit,watch, formState: { isSubmitting } } = methods;
+    const { handleSubmit, watch, formState: { isSubmitting } } = methods;
 
     const onSubmit = async (data) => {
         console.log(data);
     }
 
     return (
-        <Card component="form" onSubmit={handleSubmit(onSubmit)}>
+        <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{width:240}}>
             <FormProvider {...methods}>
                 <CardContent>
                     <Typography variant="h4">
