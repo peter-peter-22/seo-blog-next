@@ -1,6 +1,7 @@
 'use client';
 
 import Box from "@mui/material/Box";
+import Divider from '@mui/material/Divider';
 import Toolbar from "@mui/material/Toolbar";
 import { BlockButton, MarkButton } from "../components/HandleMarks";
 import { InsertImageButton } from "../components/modules/EditorImages";
@@ -36,6 +37,7 @@ const TopMenu = () => {
                     <MarkButton format="bold" Icon={<FormatBold />} />
                     <MarkButton format="italic" Icon={<FormatItalic />} />
                     <MarkButton format="underline" Icon={<FormatUnderlined />} />
+                    <Divider orientation="vertical" variant="middle" flexItem />
                     <AddLinkButton Icon={<LinkIcon />} />
                     <RemoveLinkButton Icon={<LinkOffIcon />} />
                     <BlockButton format="heading-one" Icon={<LooksOne />} />
