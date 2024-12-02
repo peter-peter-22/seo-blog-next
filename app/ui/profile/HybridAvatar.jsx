@@ -1,5 +1,5 @@
 import Avatar from "@mui/material/Avatar";
-import StringAvatar from "@/app/ui/root/header/user/StringAvatar";
+import StringAvatar from "@/app/ui/layout/header/user/StringAvatar";
 
 export default function HybridAvatar({ user: { image, name },...props }) {
     return (
