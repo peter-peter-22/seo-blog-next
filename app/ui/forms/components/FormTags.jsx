@@ -1,12 +1,12 @@
 "use client";
 
 import Autocomplete from '@mui/material/Autocomplete';
-import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import Chip from '@mui/material/Chip';
 
-export default function FormTags({ name, options = [], label, ...props }) {
+export default function FormTags({ name, options = [], label, controllerProps, ...props }) {
     const { control, formState: { errors } } = useFormContext();
     const myError = errors[name]?.message;
     return (
@@ -27,14 +27,6 @@ export default function FormTags({ name, options = [], label, ...props }) {
                     value={value ?? []}
                     onChange={handleChange}
                     {...field}
-                    renderTags={(value, getTagProps) =>
-                        value.map((option, index) => {
-                            const { key, ...tagProps } = getTagProps({ index });
-                            return (
-                                <Chip variant="outlined" size='small' label={option} key={key} {...tagProps} />
-                            );
-                        })
-                    }
                     renderInput={(params) => (
                         < TextField
                             {...params}
@@ -43,6 +35,14 @@ export default function FormTags({ name, options = [], label, ...props }) {
                             helperText={myError}
                         />
                     )}
+                    renderTags={(value, getTagProps) =>
+                        value.map((option, index) => {
+                            const { key, ...tagProps } = getTagProps({ index });
+                            return (
+                                <Chip variant="outlined" size='small' label={option} key={key} {...tagProps} />
+                            );
+                        })
+                    }
                 />
             }}
         />

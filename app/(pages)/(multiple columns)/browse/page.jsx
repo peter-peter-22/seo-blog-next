@@ -1,8 +1,14 @@
+import Filters from "@/app/(pages)/(multiple columns)/browse/Filters";
+import Tags from '@/app/ui/components/articles/Tags';
+import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
+import { MultipleColumns } from '@/app/ui/layout/Layouts';
 import HybridAvatar from '@/app/ui/profile/HybridAvatar';
 import formatDate from "@/app/ui/utilities/formatDate";
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,15 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import getFilteredArticles from './getFilteredArticles';
-import Chip from '@mui/material/Chip';
-import CardActions from '@mui/material/CardActions';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Filters from "@/app/(pages)/(multiple columns)/browse/Filters";
-import { MultipleColumns } from '@/app/ui/layout/Layouts';
 import People from './People';
-import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
-import Tags from '@/app/ui/components/articles/Tags';
 
 export default async function Page({ searchParams }) {
     searchParams=BrowseSchema.parse(searchParams);

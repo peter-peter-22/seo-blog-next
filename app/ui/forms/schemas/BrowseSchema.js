@@ -9,3 +9,5 @@ export const BrowseSchema = z
         sortMode: z.enum(["acs", "desc"]).catch("desc"),
         tags: urlArray.optional().catch([])
     });
+
+export const SearchTextSchema = z.coerce.string().catch("");
