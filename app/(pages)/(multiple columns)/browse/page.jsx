@@ -18,8 +18,10 @@ import Stack from '@mui/material/Stack';
 import Filters from "@/app/(pages)/(multiple columns)/browse/Filters";
 import { MultipleColumns } from '@/app/ui/layout/Layouts';
 import People from './People';
+import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
 
 export default async function Page({ searchParams }) {
+    searchParams=BrowseSchema.parse(searchParams);
     const articles = await getFilteredArticles(searchParams);
     const count = 999;
     return (

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export default function People() {
     return (
-        <Card sx={{maxWidth:300}}>
+        <Card sx={{maxWidth:240}}>
             <CardContent>
                 <Typography variant="h4">
                     Relevant authors

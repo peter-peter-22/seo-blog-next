@@ -1,9 +1,8 @@
 import prisma from "@/utils/db";
-import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
 
 export default async function getFilteredArticles(searchParams) {
-    //getting and validating the inputs
-    const { text, author, sort, sortMode, tags } = BrowseSchema.parse(searchParams);
+    //getting the inputs
+    const { text, author, sort, sortMode, tags } = searchParams;
 
     //creating filter objects
     const textFilter = text && {

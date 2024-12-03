@@ -1,10 +1,11 @@
 import { z } from 'zod';
+import { urlArray } from './fields/urlArray';
 
 export const BrowseSchema = z
     .object({
-        text: z.string().trim().optional(),
-        author: z.string().optional(),
-        sort: z.enum(["createdAt"]).optional(),
-        sortMode: z.enum(["acs", "desc"]).optional(),
-        tags: z.array(z.string()).optional()
+        text: z.string().trim().catch(""),
+        author: z.string().catch(""),
+        sort: z.enum(["createdAt"]).catch("createdAt"),
+        sortMode: z.enum(["acs", "desc"]).catch("desc"),
+        tags: urlArray.optional().catch([])
     });
