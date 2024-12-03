@@ -26,7 +26,7 @@ export default async function getFilteredArticles(searchParams) {
     };
     const tagFilter = tags && tags.length > 0 && {
         tags: {
-            hasSome: tags,
+            hasEvery: tags,
         }
     };
 
