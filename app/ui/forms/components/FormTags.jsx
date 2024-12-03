@@ -6,11 +6,9 @@ import TextField from '@mui/material/TextField';
 import { useCallback, useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export default function FormTags({ name, label, ...props }) {
+export default function FormTags({ name, options = [], label, ...props }) {
     const { control, formState: { errors } } = useFormContext();
     const myError = errors[name]?.message;
-
-    const options = useMemo(() => ["option1", "option2"], []);
     return (
         <Controller
             name={name}
@@ -38,7 +36,7 @@ export default function FormTags({ name, label, ...props }) {
                         })
                     }
                     renderInput={(params) => (
-                        <TextField
+                        < TextField
                             {...params}
                             label={label}
                             error={!!myError}
