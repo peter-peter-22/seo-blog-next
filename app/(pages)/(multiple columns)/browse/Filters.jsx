@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import { FormProvider, useForm, } from 'react-hook-form';
 import FormSelect from '@/app/ui/forms/components/FormSelect';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
+import FormTags from '@/app/ui/forms/components/FormTags';
 
 export default function Filters({ defaultValues }) {
     const { enqueueSnackbar } = useSnackbar();
@@ -29,7 +30,7 @@ export default function Filters({ defaultValues }) {
     }
 
     return (
-        <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{width:240}}>
+        <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
             <FormProvider {...methods}>
                 <CardContent>
                     <Typography variant="h4">
@@ -39,15 +40,17 @@ export default function Filters({ defaultValues }) {
                     <FieldContainer margin>
                         <FormTextField name={"text"} label={"Text"} fullWidth />
 
-                        <FormSelect name="sort" Label="Sorting" hasNone>
+                        <FormSelect name="sort" label="Sorting" hasNone>
                             <MenuItem value={"createdAt"}>Date of creation</MenuItem>
                             <MenuItem value={"viewCount"}>Views</MenuItem>
                         </FormSelect>
 
-                        <FormSelect name="sortMode" Label="Direction" disabled={!watch("sort")}>
+                        <FormSelect name="sortMode" label="Direction" disabled={!watch("sort")}>
                             <MenuItem value={"desc"}>Descending</MenuItem>
                             <MenuItem value={"asc"}>Ascending</MenuItem>
                         </FormSelect>
+
+                        <FormTags name="tags" Label />
 
                     </FieldContainer>
                 </CardContent>

@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import { Controller, useFormContext } from 'react-hook-form';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function FormSelect({ name, children, Label, sx, hasNone, ...props }) {
+export default function FormSelect({ name, children, label, sx, hasNone, ...props }) {
     const { control, formState: { errors } } = useFormContext();
     const myError = errors[name]?.message;
 
@@ -16,7 +16,7 @@ export default function FormSelect({ name, children, Label, sx, hasNone, ...prop
             sx={{ minWidth: 120, ...sx }}
             {...props}
         >
-            <InputLabel id={name}>{Label}</InputLabel>
+            <InputLabel id={name}>{label}</InputLabel>
             <Controller
                 name={name}
                 id={name}
