@@ -1,7 +1,5 @@
 "use client";
 
-import { styled } from '@mui/material/styles';
-import { useCallback } from 'react';
 import {
     Editor,
     Node,
@@ -9,10 +7,9 @@ import {
     Element as SlateElement,
     Transforms
 } from 'slate';
-import { ReactEditor, useReadOnly, useSlate, useSlateStatic } from 'slate-react';
+import { useReadOnly, useSlate } from 'slate-react';
 import { MenuButton } from '../../../EditorUI';
-import { lastUsedLanguage } from './CodeEditor';
-import { CodeElementEditor } from './CodeEditor';
+import { CodeElementEditor, lastUsedLanguage } from './CodeEditor';
 import CodeHighlighter from './CodeHighlighter';
 
 export const CodeElement = (props) => {

@@ -1,20 +1,15 @@
 "use client"
 
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
 import { useCallback } from 'react';
 import {
-    Editor,
-    Node,
-    Range,
-    Element as SlateElement,
     Transforms
 } from 'slate';
-import { ReactEditor, useReadOnly, useSlate, useSlateStatic } from 'slate-react';
-import CodeHighlighter from './CodeHighlighter';
+import { ReactEditor, useSlateStatic } from 'slate-react';
 
 const languages = [
     "text",
@@ -40,8 +35,10 @@ function loadLastUsedLanguage() {
 }
 
 export const lastUsedLanguage = {
-    value: loadLastUsedLanguage(),
+    value:undefined,
     get() {
+        if (!this.value)
+            this.value = loadLastUsedLanguage()
         return this.value;
     },
     set(newValue) {
@@ -78,7 +75,7 @@ export function CodeElementEditor({ attributes, children, element }) {
 
     return (
         <div {...attributes}>
-            <FormControl sx={{  minWidth: 120 }} size="small" contentEditable={false}>
+            <FormControl sx={{ minWidth: 120 }} size="small" contentEditable={false}>
                 <InputLabel id="language">Language</InputLabel>
                 <Select
                     labelId="language"
