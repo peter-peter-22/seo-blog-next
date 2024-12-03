@@ -1,6 +1,5 @@
 "use client";
 
-import { getTagsAction } from '@/app/actions/browseActions';
 import ParamsWithArray from '@/app/lib/ParamsWithArray';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
@@ -12,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
 import Divider from "@mui/material/Divider";
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
@@ -32,7 +30,6 @@ export default function Filters({ defaultValues }) {
     const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [defaultValues]);
 
     const onSubmit = async (data) => {
-        console.log(data);
         const searchParams = ParamsWithArray(data)
         router.push(`?${searchParams.toString()}`);
     }

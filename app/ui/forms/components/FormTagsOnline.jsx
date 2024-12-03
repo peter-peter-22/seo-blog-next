@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import FormTags from "./FormTags";
-import { useDebouncedCallback } from 'use-debounce';
-import Chip from '@mui/material/Chip';
 import { getTagsAction } from '@/app/actions/browseActions';
+import { useCallback, useMemo, useState } from "react";
+import { useDebouncedCallback } from 'use-debounce';
+import FormTags from "./FormTags";
 
 export default function FormTagsOnline(props) {
     const [fullOptions, setFullOptions] = useState([]);
