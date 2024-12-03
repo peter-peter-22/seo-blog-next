@@ -69,3 +69,8 @@ model Article {
   updatedAt   DateTime  @default(now()) @updatedAt
   tags        String[]
 }
+
+model Topic {
+  name String @id
+  count Int @default(0)
+}
