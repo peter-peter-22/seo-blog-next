@@ -53,5 +53,7 @@ export default async function getFilteredArticles(searchParams) {
                 [sort]: sortMode
             }
         ],
+        skip:0,
+        take:10
     }));
 }
