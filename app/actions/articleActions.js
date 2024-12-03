@@ -18,7 +18,8 @@ export async function publishArticle(data) {
                 title: data.title,
                 description: data.description,
                 content: data.content,
-                userId: session.user.id
+                userId: session.user.id,
+                tags:data.tags
             }
         });
         redirectUrl = `/articles/${created.id}`;

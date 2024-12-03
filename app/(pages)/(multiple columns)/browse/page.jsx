@@ -19,6 +19,7 @@ import Filters from "@/app/(pages)/(multiple columns)/browse/Filters";
 import { MultipleColumns } from '@/app/ui/layout/Layouts';
 import People from './People';
 import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
+import Tags from '@/app/ui/components/articles/Tags';
 
 export default async function Page({ searchParams }) {
     searchParams=BrowseSchema.parse(searchParams);
@@ -70,9 +71,7 @@ export default async function Page({ searchParams }) {
 
                                         </CardContent>
                                         <CardActions>
-                                            <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
-                                                {article.tags.map((tag, i) => <Chip key={i} label={tag} size="small" />)}
-                                            </Stack>
+                                            <Tags tags={article.tags}/>
                                         </CardActions>
                                     </CardActionArea>
                                 </Card>

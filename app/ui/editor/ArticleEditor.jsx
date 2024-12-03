@@ -16,6 +16,8 @@ import React, { useCallback } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from 'use-debounce';
 import RichTextEditorForm from "./RichTextEditorForm";
+import FormTags from '../forms/components/FormTags';
+import { defaultArticle } from './defaultArticle';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -55,6 +57,7 @@ export default function ArticleEditor() {
                 minRows={2}
                 fullWidth
               />
+              <FormTags name="tags" label="Tags" fullWidth />
             </FieldContainer>
           </CardContent>
         </Card>
@@ -84,21 +87,12 @@ export default function ArticleEditor() {
   );
 }
 
-const defaultValue = {
-  article: [
-    {
-      type: 'paragraph',
-      children: [{ text: '' }],
-    },
-  ]
-};
-
 export function loadDraft() {
   try {
-    return JSON.parse(localStorage.getItem('draft')) || defaultValue;
+    return JSON.parse(localStorage.getItem('draft')) || defaultArticle;
   }
   catch {
-    return defaultValue;
+    return defaultArticle;
   }
 }
 

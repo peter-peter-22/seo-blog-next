@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
 import TextViewer from "./TextViewer";
+import Tags from '../components/articles/Tags';
+import { defaultArticle } from './defaultArticle';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -43,6 +45,8 @@ export default function ArticleViewer({ article }) {
                             />
                         </ListItem>
                     </List>
+
+                    <Tags tags={article.tags ?? []} />
                 </CardContent>
                 <CardActions>
                     <IconButton>
@@ -64,7 +68,7 @@ export default function ArticleViewer({ article }) {
                 <CardContent>
                     <TextViewer
                         slateProps={{
-                            initialValue: article.content
+                            initialValue: article.content ?? defaultArticle
                         }}
                         editorProps={{
                             readOnly: true
