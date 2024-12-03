@@ -27,7 +27,7 @@ export default function Filters({ defaultValues }) {
     });
     const { handleSubmit, formState: { isSubmitting }, reset } = methods;
 
-    const handleReset = useCallback(() => { reset(defaultValues) }, [defaultValues]);
+    const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [defaultValues]);
 
     const onSubmit = async (data) => {
         const searchParams = ParamsWithArray(data)
