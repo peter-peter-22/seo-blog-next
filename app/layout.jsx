@@ -7,6 +7,7 @@ import "@/app/css/body.css";
 import { AuthProvider } from './ui/layout/AuthProvider';
 import { auth } from '@/auth'
 import { SnackbarProviderClient } from './ui/layout/SnackbarProviderClient';
+import ScrollToTop from './ui/components/pagination/ScrollToTop';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -25,6 +26,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.variable}>
+        <ScrollToTop />
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <AuthProvider session={session}>
