@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
+import { Fragment } from 'react';
 
 export default function People({ articles }) {
     let users = articles.map(article => article.user);
@@ -23,10 +24,10 @@ export default function People({ articles }) {
 
             <List>
                 {users.map((user, key) => (
-                    <>
-                        <ProfileListItem user={user} key={key} />
+                    <Fragment key={key}>
+                        <ProfileListItem user={user} />
                         <Divider variant="inset" component="li" />
-                    </>
+                    </Fragment>
                 ))}
             </List>
 

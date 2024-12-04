@@ -1,6 +1,6 @@
 "use client";
 
-import ParamsWithArray from '@/app/lib/ParamsWithArray';
+import FormatQuery from '@/app/lib/FormatQuery';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormSelect from '@/app/ui/forms/components/FormSelect';
@@ -30,7 +30,8 @@ export default function Filters({ defaultValues }) {
     const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [defaultValues]);
 
     const onSubmit = async (data) => {
-        const searchParams = ParamsWithArray(data)
+        const searchParams = FormatQuery(data)
+        searchParams.delete("p");//reset the pagination when a new search happens
         router.push(`?${searchParams.toString()}`);
     }
 

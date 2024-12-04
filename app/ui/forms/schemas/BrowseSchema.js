@@ -7,7 +7,8 @@ export const BrowseSchema = z
         author: z.string().catch(""),
         sort: z.enum(["createdAt"]).catch("createdAt"),
         sortMode: z.enum(["acs", "desc"]).catch("desc"),
-        tags: urlArray.catch([])
+        tags: urlArray.catch([]),
+        p: z.coerce.number().int().min(1).catch(1)
     });
 
 export const SearchTextSchema = z.coerce.string().catch("");

@@ -18,9 +18,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import getFilteredArticles from './getFilteredArticles';
 import People from './People';
+import BottomPagination from "@/app/ui/components/pagination/BottomPagination";
 
 export default async function Page({ searchParams }) {
-    searchParams=BrowseSchema.parse(searchParams);
+    searchParams = BrowseSchema.parse(searchParams);
     const articles = await getFilteredArticles(searchParams);
     const count = 999;
     return (
@@ -69,17 +70,18 @@ export default async function Page({ searchParams }) {
 
                                         </CardContent>
                                         <CardActions>
-                                            <Tags tags={article.tags}/>
+                                            <Tags tags={article.tags} />
                                         </CardActions>
                                     </CardActionArea>
                                 </Card>
                             </Grid>
                         ))}
                     </Grid>
+                    <BottomPagination searchParams={searchParams} count={10} />
                 </>
             }
             Right={
-                <People articles={articles}/>
+                <People articles={articles} />
             }
         />
     );
