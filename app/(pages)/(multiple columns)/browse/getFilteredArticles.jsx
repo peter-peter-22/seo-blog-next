@@ -4,6 +4,11 @@ export default async function getFilteredArticles(searchParams, itemsPerPage) {
     //getting the inputs
     const { text, author, sort, sortMode, tags, page } = searchParams;
 
+    //limit max offset
+    const offset = itemsPerPage * (page - 1);
+    if (offset > 10000)
+        throw new Error("Searching this deep in not permitted");
+
     //creating filter objects
     const textFilter = text && {
         OR: [
@@ -54,7 +59,7 @@ export default async function getFilteredArticles(searchParams, itemsPerPage) {
             { [sort]: sortMode },
             { id: "desc" }
         ],
-        skip: itemsPerPage * (page - 1),
+        skip: offset,
         take: itemsPerPage
     }));
 }
