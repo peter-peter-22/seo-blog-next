@@ -5,11 +5,9 @@ import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Link from 'next/link';
 
-export default function NextPagination({ searchParams, count, ...props }) {
+export default function NextPagination({ searchParams, ...props }) {
   return (
     <Pagination
-      page={searchParams.page}
-      count={count}
       {...props}
       renderItem={(item) => (
         <PaginationItem

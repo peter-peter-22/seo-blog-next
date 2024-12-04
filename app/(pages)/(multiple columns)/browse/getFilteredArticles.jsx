@@ -1,6 +1,8 @@
 import prisma from "@/utils/db";
 
-export default async function getFilteredArticles(searchParams, itemsPerPage) {
+export default async function getFilteredArticles(searchParams) {
+    const itemsPerPage = 12;
+
     //getting the inputs
     const { text, author, sort, sortMode, tags, page } = searchParams;
 
@@ -34,32 +36,43 @@ export default async function getFilteredArticles(searchParams, itemsPerPage) {
             hasEvery: tags,
         }
     };
+    const where = {
+        AND: [
+            { ...textFilter },
+            { ...authorFilter },
+            { ...tagFilter }
+        ]
+    }
 
     //fetch
-    return (await prisma.article.findMany({
-        where: {
-            AND: [
-                { ...textFilter },
-                { ...authorFilter },
-                { ...tagFilter }
-            ]
-        },
-        include:
-        {
-            user: {
-                select: {
-                    name: true,
-                    image: true,
-                    id: true,
-                    description: true
+    const [articles, count] = await Promise.all([
+        prisma.article.findMany({
+            where,
+            include:
+            {
+                user: {
+                    select: {
+                        name: true,
+                        image: true,
+                        id: true,
+                        description: true
+                    }
                 }
-            }
-        },
-        orderBy: [
-            { [sort]: sortMode },
-            { id: "desc" }
-        ],
-        skip: offset,
-        take: itemsPerPage
-    }));
+            },
+            orderBy: [
+                { [sort]: sortMode },
+                { id: "desc" }
+            ],
+            skip: offset,
+            take: itemsPerPage
+        }),
+        prisma.article.count({
+            where
+        }),
+    ]);
+
+    //calculate page count
+    const pages = Math.ceil(count / itemsPerPage);
+
+    return { page, pages, articles, count };
 }

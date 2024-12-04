@@ -31,7 +31,7 @@ export default function Filters({ defaultValues }) {
 
     const onSubmit = async (data) => {
         const searchParams = FormatQuery(data)
-        searchParams.delete("p");//reset the pagination when a new search happens
+        searchParams.delete("page");//reset the pagination when a new search happens
         router.push(`?${searchParams.toString()}`);
     }
 

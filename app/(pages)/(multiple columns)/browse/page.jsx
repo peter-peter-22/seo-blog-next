@@ -21,10 +21,8 @@ import People from './People';
 import BottomPagination from "@/app/ui/components/pagination/BottomPagination";
 
 export default async function Page({ searchParams }) {
-    const itemsPerPage=12;
     searchParams = BrowseSchema.parse(searchParams);
-    const articles = await getFilteredArticles(searchParams,itemsPerPage);
-    const count = 999;
+    const { page, pages, articles, count } = await getFilteredArticles(searchParams);
     return (
         <MultipleColumns
             Left={<Filters defaultValues={searchParams} />}
@@ -78,7 +76,7 @@ export default async function Page({ searchParams }) {
                             </Grid>
                         ))}
                     </Grid>
-                    <BottomPagination searchParams={searchParams} count={10} />
+                    <BottomPagination searchParams={searchParams} count={pages} page={page} />
                 </>
             }
             Right={
