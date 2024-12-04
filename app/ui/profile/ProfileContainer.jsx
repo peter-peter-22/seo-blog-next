@@ -1,5 +1,6 @@
 import ProfilePage from "./ProfilePage";
 import prisma from "@/utils/db"
+import { getTagsAction } from "@/app/actions/browseActions";
 
 export default async function ProfileContainer({ userId, isMe }) {
     const user = await prisma.user.findUnique({
@@ -11,5 +12,7 @@ export default async function ProfileContainer({ userId, isMe }) {
             description:true
         }
     });
+    const tags=await getTagsAction("");
+    user.tags=tags;
     return <ProfilePage user={user} isMe={isMe} />
 }
