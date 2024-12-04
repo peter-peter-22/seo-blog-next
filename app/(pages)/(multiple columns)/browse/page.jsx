@@ -30,7 +30,7 @@ export default async function Page({ searchParams }) {
                 <>
                     <Card>
                         <CardContent>
-                            <Typography variant="h4">
+                            <Typography variant="h5">
                                 Browse articles
                             </Typography>
                             <Divider />
@@ -79,7 +79,7 @@ export default async function Page({ searchParams }) {
                 </>
             }
             Right={
-                <People />
+                <People articles={articles}/>
             }
         />
     );

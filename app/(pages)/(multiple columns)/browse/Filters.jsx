@@ -38,7 +38,7 @@ export default function Filters({ defaultValues }) {
         <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
             <FormProvider {...methods}>
                 <CardContent>
-                    <Typography variant="h4">
+                    <Typography variant="h5">
                         Filters
                     </Typography>
                     <Divider />

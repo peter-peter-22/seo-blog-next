@@ -44,7 +44,9 @@ export default async function getFilteredArticles(searchParams) {
             user: {
                 select: {
                     name: true,
-                    image: true
+                    image: true,
+                    id:true,
+                    description:true
                 }
             }
         },

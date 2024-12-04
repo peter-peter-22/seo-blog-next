@@ -15,6 +15,7 @@ import formatDate from '../utilities/formatDate';
 import TextViewer from "./TextViewer";
 import Tags from '../components/articles/Tags';
 import { defaultArticle } from './defaultArticle';
+import getProfileLink from '@/app/ui/components/users/getProfileLink';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -40,7 +41,7 @@ export default function ArticleViewer({ article }) {
                                 <HybridAvatar user={article.user} />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={<Link href={`/authors/${article.user.id}`} color="inherit">{article.user.name}</Link>}
+                                primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
                                 secondary={formatDate(article.createdAt)}
                             />
                         </ListItem>
