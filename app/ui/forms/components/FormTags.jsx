@@ -39,7 +39,7 @@ export default function FormTags({ name, options = [], label, controllerProps, .
                         value.map((option, index) => {
                             const { key, ...tagProps } = getTagProps({ index });
                             return (
-                                <Chip variant="outlined" size='small' label={option} key={key} {...tagProps} />
+                                <Chip size='small' label={option} key={key} {...tagProps} />
                             );
                         })
                     }
