@@ -8,13 +8,13 @@ import Link from 'next/link';
 export default function NextPagination({ searchParams, count, ...props }) {
   return (
     <Pagination
-      page={searchParams.p}
+      page={searchParams.page}
       count={count}
       {...props}
       renderItem={(item) => (
         <PaginationItem
           component={Link}
-          href={`?${FormatQuery({ ...searchParams, p: item.page }).toString()}`}
+          href={`?${FormatQuery({ ...searchParams, page: item.page }).toString()}`}
           {...item}
         />
       )}

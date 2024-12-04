@@ -21,8 +21,9 @@ import People from './People';
 import BottomPagination from "@/app/ui/components/pagination/BottomPagination";
 
 export default async function Page({ searchParams }) {
+    const itemsPerPage=12;
     searchParams = BrowseSchema.parse(searchParams);
-    const articles = await getFilteredArticles(searchParams);
+    const articles = await getFilteredArticles(searchParams,itemsPerPage);
     const count = 999;
     return (
         <MultipleColumns

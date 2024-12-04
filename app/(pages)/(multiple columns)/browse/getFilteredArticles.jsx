@@ -1,8 +1,8 @@
 import prisma from "@/utils/db";
 
-export default async function getFilteredArticles(searchParams) {
+export default async function getFilteredArticles(searchParams, itemsPerPage) {
     //getting the inputs
-    const { text, author, sort, sortMode, tags } = searchParams;
+    const { text, author, sort, sortMode, tags, page } = searchParams;
 
     //creating filter objects
     const textFilter = text && {
@@ -45,17 +45,16 @@ export default async function getFilteredArticles(searchParams) {
                 select: {
                     name: true,
                     image: true,
-                    id:true,
-                    description:true
+                    id: true,
+                    description: true
                 }
             }
         },
         orderBy: [
-            {
-                [sort]: sortMode
-            }
+            { [sort]: sortMode },
+            { id: "desc" }
         ],
-        skip:0,
-        take:10
+        skip: itemsPerPage * (page - 1),
+        take: itemsPerPage
     }));
 }

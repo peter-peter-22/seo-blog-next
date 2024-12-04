@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { urlArray } from './fields/urlArray';
+import { urlArray, urlPage } from './fields/urlFields';
 
 export const BrowseSchema = z
     .object({
@@ -8,7 +8,7 @@ export const BrowseSchema = z
         sort: z.enum(["createdAt"]).catch("createdAt"),
         sortMode: z.enum(["acs", "desc"]).catch("desc"),
         tags: urlArray.catch([]),
-        p: z.coerce.number().int().min(1).catch(1)
+        page: urlPage
     });
 
 export const SearchTextSchema = z.coerce.string().catch("");
