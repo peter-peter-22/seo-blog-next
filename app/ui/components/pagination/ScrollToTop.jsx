@@ -9,5 +9,4 @@ export default function ScrollToTop() {
     useEffect(() => {
         window.scrollTo({ top: 0 });
     }, [pathname, params])
-    return <></>
 }
