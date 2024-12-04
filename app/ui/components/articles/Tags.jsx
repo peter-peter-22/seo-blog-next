@@ -1,10 +1,10 @@
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import TagContainer from './TagContainer';
 
-export default function Tags({tags}) {
+export default function Tags({ tags }) {
     return (
-        <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+        <TagContainer>
             {tags.map((tag, i) => <Chip key={i} label={tag} size="small" />)}
-        </Stack>
+        </TagContainer>
     )
 }
