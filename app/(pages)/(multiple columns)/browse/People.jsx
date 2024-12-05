@@ -14,7 +14,7 @@ export default function People({ articles }) {
         index === self.findIndex((otherUser) => otherUser.id === user.id)
     );
     return (
-        <Card sx={{ maxWidth: 240 }}>
+        <Card sx={{ width: 240 }} component="nav">
             <CardContent>
                 <Typography variant="h5">
                     Relevant authors

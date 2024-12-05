@@ -37,43 +37,45 @@ export default function Filters({ defaultValues }) {
 
     return (
         <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
-            <FormProvider {...methods}>
-                <CardContent>
-                    <Typography variant="h5">
-                        Filters
-                    </Typography>
-                    <Divider />
-                    <FieldContainer margin>
+            <nav>
+                <FormProvider {...methods}>
+                    <CardContent>
+                        <Typography variant="h5">
+                            Filters
+                        </Typography>
+                        <Divider />
+                        <FieldContainer margin>
 
-                        <FormTextField name={"text"} label={"Text"} fullWidth />
+                            <FormTextField name={"text"} label={"Text"} fullWidth />
 
-                        <FormSelect name="sort" label="Sorting">
-                            <MenuItem value={"createdAt"}>Date of creation</MenuItem>
-                            <MenuItem value={"viewCount"}>Views</MenuItem>
-                        </FormSelect>
+                            <FormSelect name="sort" label="Sorting">
+                                <MenuItem value={"createdAt"}>Date of creation</MenuItem>
+                                <MenuItem value={"viewCount"}>Views</MenuItem>
+                            </FormSelect>
 
-                        <FormSelect name="sortMode" label="Direction">
-                            <MenuItem value={"desc"}>Descending</MenuItem>
-                            <MenuItem value={"asc"}>Ascending</MenuItem>
-                        </FormSelect>
+                            <FormSelect name="sortMode" label="Direction">
+                                <MenuItem value={"desc"}>Descending</MenuItem>
+                                <MenuItem value={"asc"}>Ascending</MenuItem>
+                            </FormSelect>
 
-                        <FormTagsOnline
-                            name="tags"
-                            label="Tags"
-                            fullWidth
-                        />
+                            <FormTagsOnline
+                                name="tags"
+                                label="Tags"
+                                fullWidth
+                            />
 
-                    </FieldContainer>
-                </CardContent>
-                <CardActions>
-                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
-                        Search
-                    </PrimaryButton>
-                    <SecondaryButton onClick={handleReset}>
-                        Clear
-                    </SecondaryButton>
-                </CardActions>
-            </FormProvider>
+                        </FieldContainer>
+                    </CardContent>
+                    <CardActions>
+                        <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                            Search
+                        </PrimaryButton>
+                        <SecondaryButton onClick={handleReset}>
+                            Clear
+                        </SecondaryButton>
+                    </CardActions>
+                </FormProvider>
+            </nav>
         </Card>
     )
 }

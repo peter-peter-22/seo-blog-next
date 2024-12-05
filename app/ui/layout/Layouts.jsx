@@ -3,9 +3,9 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
-export function SingleColumn({ Main }) {
+export function SingleColumn({ Main, ...props }) {
     return (
-        <MainContainer>
+        <MainContainer {...props}>
             {Main}
         </MainContainer>
     )
@@ -13,7 +13,7 @@ export function SingleColumn({ Main }) {
 
 function SideColumn({ children }) {
     return (
-        <Container component={"nav"} sx={{ flex: 1 }} >{children}</Container>
+        <Container sx={{ flex: 1 }} >{children}</Container>
     )
 }
 
@@ -26,7 +26,7 @@ export function MultipleColumns({ Left, Main, Right }) {
                 </Box>
             </SideColumn>
             <Divider orientation="vertical" flexItem />
-            <MainContainer sx={{ flexShrink: 0, display: "flex", flexDirection: "column", m: 0 }}>
+            <MainContainer sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }}>
                 {Main}
             </MainContainer>
             <Divider orientation="vertical" flexItem />
@@ -38,6 +38,33 @@ export function MultipleColumns({ Left, Main, Right }) {
         </Stack>
     )
 }
+
+
+
+export function MultipleColumnsAssymetric({ Left, Main, Right }) {
+    return (
+        <Stack direction="row" justifyContent={"center"}>
+            {Left && <>
+                <Container sx={{ width: "fit-content", m: 0 }}>
+                    {Left}
+                </Container>
+                <Divider orientation="vertical" flexItem />
+            </>}
+
+            <MainContainer sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }} >
+                {Main}
+            </MainContainer>
+
+            {Right && <>
+                <Divider orientation="vertical" flexItem />
+                <Container sx={{ width: "fit-content", m: 0 }}>
+                    {Right}
+                </Container>
+            </>}
+        </Stack>
+    )
+}
+
 
 export function MainContainer({ children, ...props }) {
     return (
