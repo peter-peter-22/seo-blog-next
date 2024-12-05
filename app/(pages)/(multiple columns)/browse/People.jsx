@@ -1,7 +1,5 @@
 import ProfileList from '@/app/ui/components/users/ProfileList';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
@@ -21,12 +19,6 @@ export default function People({ articles }) {
             </CardContent>
 
             <ProfileList items={users} />
-
-            <CardActions>
-                <Button>
-                    Show more
-                </Button>
-            </CardActions>
         </Box>
     )
 }
