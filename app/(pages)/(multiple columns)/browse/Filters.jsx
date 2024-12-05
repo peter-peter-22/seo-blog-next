@@ -8,7 +8,7 @@ import FormTagsOnline from '@/app/ui/forms/components/FormTagsOnline';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { BrowseSchema } from '@/app/ui/forms/schemas/BrowseSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
-import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
@@ -36,7 +36,7 @@ export default function Filters({ defaultValues }) {
     }
 
     return (
-        <Card component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
             <nav>
                 <FormProvider {...methods}>
                     <CardContent>
@@ -76,6 +76,6 @@ export default function Filters({ defaultValues }) {
                     </CardActions>
                 </FormProvider>
             </nav>
-        </Card>
+        </Box>
     )
 }

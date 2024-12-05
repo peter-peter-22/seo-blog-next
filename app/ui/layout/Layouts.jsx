@@ -39,8 +39,6 @@ export function MultipleColumns({ Left, Main, Right }) {
     )
 }
 
-
-
 export function MultipleColumnsAssymetric({ Left, Main, Right }) {
     return (
         <Stack direction="row" justifyContent={"center"}>
