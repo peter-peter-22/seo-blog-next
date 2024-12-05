@@ -21,10 +21,16 @@ export default function DisplayAuthors({ page, pages, users, count, searchParams
                 </CardContent>
             </Card>
             <Toolbar />
-            <Card>
-                <ProfileList items={users} />
-            </Card>
-            <BottomPagination searchParams={searchParams} count={pages} page={page} />
+            {count > 0 ? (<>
+                <Card>
+                    <ProfileList items={users} />
+                </Card>
+                <BottomPagination searchParams={searchParams} count={pages} page={page} />
+            </>) : (
+                <Typography color="text.secondary" sx={{textAlign:"center"}}>
+                    No results
+                </Typography>
+            )}
         </>
     )
 }
