@@ -30,43 +30,51 @@ export default function DisplayArticles({ page, pages, articles, count, searchPa
                 </CardContent>
             </Card>
             <Toolbar />
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, browserMax: 3 }}>
-                {articles.map((article, i) => (
-                    <Grid key={i} size={1}>
-                        <Card >
-                            <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
-                                <CardContent>
+            {count > 0 ? (
+                <>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, browserMax: 3 }}>
+                        {articles.map((article, i) => (
+                            <Grid key={i} size={1}>
+                                <Card >
+                                    <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
+                                        <CardContent>
 
-                                    <Typography variant="h6">
-                                        {article.title}
-                                    </Typography>
+                                            <Typography variant="h6">
+                                                {article.title}
+                                            </Typography>
 
-                                    <List>
-                                        <ListItem disablePadding>
-                                            <ListItemAvatar>
-                                                <HybridAvatar user={article.user} />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={article.user.name}
-                                                secondary={formatDate(article.createdAt)}
-                                            />
-                                        </ListItem>
-                                    </List>
+                                            <List>
+                                                <ListItem disablePadding>
+                                                    <ListItemAvatar>
+                                                        <HybridAvatar user={article.user} />
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={article.user.name}
+                                                        secondary={formatDate(article.createdAt)}
+                                                    />
+                                                </ListItem>
+                                            </List>
 
-                                    <Typography sx={{ overflowWrap: "break-word" }}>
-                                        {article.description}
-                                    </Typography>
+                                            <Typography sx={{ overflowWrap: "break-word" }}>
+                                                {article.description}
+                                            </Typography>
 
-                                </CardContent>
-                                <CardActions>
-                                    <Tags tags={article.tags} />
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Tags tags={article.tags} />
+                                        </CardActions>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-            </Grid>
-            <BottomPagination searchParams={searchParams} count={pages} page={page} />
+                    <BottomPagination searchParams={searchParams} count={pages} page={page} />
+                </>
+            ) : (
+                <Typography color="text.secondary" sx={{ textAlign: "center" }}>
+                    No results
+                </Typography>
+            )}
         </>
     )
 }
