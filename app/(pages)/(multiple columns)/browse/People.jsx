@@ -1,6 +1,6 @@
 import ProfileListItem from '@/app/ui/components/users/ProfileListItem';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
@@ -14,7 +14,7 @@ export default function People({ articles }) {
         index === self.findIndex((otherUser) => otherUser.id === user.id)
     );
     return (
-        <Card sx={{ width: 240 }} component="nav">
+        <Box sx={{ width: 240 }} component="nav">
             <CardContent>
                 <Typography variant="h5">
                     Relevant authors
@@ -36,6 +36,6 @@ export default function People({ articles }) {
                     Show more
                 </Button>
             </CardActions>
-        </Card>
+        </Box>
     )
 }

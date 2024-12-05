@@ -31,7 +31,7 @@ export function SideDrawer({ anchor, Content, ToggleButton }) {
                 }}
                 open={open}
                 onClose={() => { setOpen(false) }}
-                sx={{ backgroundColor: 'none' }}
+                sx={{ overflowY: "scroll" }}
             >
                 {Content}
             </Drawer>
