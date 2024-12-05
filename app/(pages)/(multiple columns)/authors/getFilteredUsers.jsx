@@ -37,6 +37,12 @@ export default async function getFilteredUsers(searchParams) {
                 { [sort]: sortMode },
                 { id: "desc" }
             ],
+            select: {
+                name: true,
+                id: true,
+                description: true,
+                image: true
+            },
             skip: offset,
             take: itemsPerPage
         }),
