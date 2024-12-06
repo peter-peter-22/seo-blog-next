@@ -1,6 +1,7 @@
 'use client';
 
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Divider from '@mui/material/Divider';
 import Toolbar from "@mui/material/Toolbar";
 import { BlockButton, MarkButton } from "../components/HandleMarks";
@@ -33,8 +34,8 @@ const TopMenu = () => {
         <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
             <Toolbar />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <ToolbarBackground>
-                    <Box sx={{ display: "flex", justifyContent: "center", width: "fit-content" }}>
+                <ToolbarBackground >
+                    <Box sx={{ display: "flex", justifyContent: "center", width: "fit-content", flexWrap: "wrap" }}>
                         <MarkButton format="bold" Icon={<FormatBold />} />
                         <MarkButton format="italic" Icon={<FormatItalic />} />
                         <MarkButton format="underline" Icon={<FormatUnderlined />} />
