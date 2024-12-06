@@ -37,7 +37,7 @@ export default function AuthorFilters({ defaultValues }) {
     }
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
             <nav>
                 <FormProvider {...methods}>
                     <CardContent>

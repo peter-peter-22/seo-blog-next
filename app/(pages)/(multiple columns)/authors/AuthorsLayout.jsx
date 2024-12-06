@@ -10,21 +10,15 @@ import AuthorFilters from "./AuthorFilters";
 
 export default function AuthorsLayout({ query, searchParams }) {
     const leftBreakpoint = "md";
-    const rightBreakpoint = "lg";
 
     const LeftDrawer = <AuthorFilters defaultValues={searchParams} />
-    const RightDrawer = <p>right</p>
     const fields = {
         LeftDrawer,
-        RightDrawer,
         Main: <DisplayAuthors {...query} searchParams={searchParams} />,
-        Right: <Card>{RightDrawer}</Card>,
         Left: <Card>{LeftDrawer}</Card>,
         LeftButton: BasicDrawerButton({ Icon: <FilterAltIcon /> }),
-        RightButton: BasicDrawerButton({ Icon: <PeopleAltIcon /> }),
         leftBreakpoint,
-        rightBreakpoint
     }
 
-    return <ResponsiveLayout {...fields} />
+    return <ResponsiveLayout {...fields} symmetricWidth={240} />
 }
