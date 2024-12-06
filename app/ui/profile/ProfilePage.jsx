@@ -12,7 +12,6 @@ import CardActions from '@mui/material/CardActions';
 import TagContainer from "../components/articles/TagContainer";
 import Chip from "@mui/material/Chip";
 import Link from "next/link";
-import getTagLink from "../components/articles/getTagLink";
 
 export default function ProfilePage({ user, isMe }) {
     return (
@@ -65,13 +64,13 @@ export default function ProfilePage({ user, isMe }) {
                 </CardContent>
                 <CardActions>
                     <TagContainer>
-                        {user.tags.map((tag, i) => (
+                        {user.AuthorTag.map((tag, i) => (
                             <Chip
                                 label={`${tag.name} - ${tag.count}`}
                                 clickable
                                 component={Link}
                                 size="small"
-                                href={getTagLink(tag.name)}
+                                href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
                             />
                         ))}
                     </TagContainer>
