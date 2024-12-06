@@ -61,20 +61,25 @@ export default function ProfilePage({ user, isMe }) {
                             />
                         </Box>
                     </Stack>
+                    {user.AuthorTag && user.AuthorTag.length > 0 ? (
+                        <TagContainer sx={{mt:1}}>
+                            {user.AuthorTag.map((tag, i) => (
+                                <Chip
+                                    label={`${tag.name} - ${tag.count}`}
+                                    clickable
+                                    component={Link}
+                                    size="small"
+                                    href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
+                                    key={i}
+                                />
+                            ))}
+                        </TagContainer>
+                    ) : (
+                        <Typography color="text.secondary">No articles yet</Typography>
+                    )}
                 </CardContent>
-                <CardActions>
-                    <TagContainer>
-                        {user.AuthorTag.map((tag, i) => (
-                            <Chip
-                                label={`${tag.name} - ${tag.count}`}
-                                clickable
-                                component={Link}
-                                size="small"
-                                href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
-                            />
-                        ))}
-                    </TagContainer>
-                    {isMe &&
+                {isMe &&
+                    <CardActions>
                         <>
                             <Button href="/profile/edit">
                                 Edit
@@ -83,8 +88,8 @@ export default function ProfilePage({ user, isMe }) {
                                 Change password
                             </Button>
                         </>
-                    }
-                </CardActions>
+                    </CardActions>
+                }
             </Card>
             <Toolbar />
             <Card>

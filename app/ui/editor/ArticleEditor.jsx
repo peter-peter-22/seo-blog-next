@@ -18,6 +18,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import RichTextEditorForm from "./RichTextEditorForm";
 import FormTags from '../forms/components/FormTags';
 import { defaultArticle } from './defaultArticle';
+import FormTagsOnline from '../forms/components/FormTagsOnline';
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -57,7 +58,7 @@ export default function ArticleEditor() {
                 minRows={2}
                 fullWidth
               />
-              <FormTags name="tags" label="Tags" fullWidth />
+              <FormTagsOnline name="tags" label="Tags" fullWidth />
             </FieldContainer>
           </CardContent>
         </Card>
