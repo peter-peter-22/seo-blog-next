@@ -1,6 +1,8 @@
+import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Chip from "@mui/material/Chip";
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
@@ -12,10 +14,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
-import TextViewer from "./TextViewer";
-import Tags from '../components/articles/Tags';
 import { defaultArticle } from './defaultArticle';
-import getProfileLink from '@/app/ui/components/users/getProfileLink';
+import TextViewer from "./TextViewer";
+import TagContainer from "../components/articles/TagContainer";
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -47,7 +48,24 @@ export default function ArticleViewer({ article }) {
                         </ListItem>
                     </List>
 
-                    <Tags tags={article.tags ?? []} />
+                    {article.tags && article.tags.length>0 ? (
+                        <TagContainer>
+                            {article.tags.map((tag, i) => (
+                                <Chip
+                                    key={i}
+                                    label={tag}
+                                    size="small"
+                                    clickable
+                                    component={Link}
+                                    href={`/browse?${new URLSearchParams({ tags: tag }).toString()}`}
+                                />
+                            ))}
+                        </TagContainer>
+                    ) : (
+                        <Typography color="text.secondary">Untagged</Typography>
+                    )
+                    }
+
                 </CardContent>
                 <CardActions>
                     <IconButton>
