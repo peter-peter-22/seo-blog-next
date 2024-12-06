@@ -7,6 +7,7 @@ export default async function ProfileContainer({ userId, isMe }) {
     const user = await prisma.user.findUnique({
         where: { id: userId },
         select: {
+            id: true,
             name: true,
             createdAt: true,
             image: true,

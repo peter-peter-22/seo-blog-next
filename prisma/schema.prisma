@@ -26,7 +26,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Article Article[]
+  Article   Article[]
+  AuthorTag AuthorTag[]
 }
 
 model Account {
@@ -59,18 +60,27 @@ model EmailVerifications {
 }
 
 model Article {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   title       String
   description String
   content     Json
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
   tags        String[]
 }
 
 model Topic {
-  name String @id
-  count Int @default(0)
+  name  String @id
+  count Int    @default(0)
+}
+
+model AuthorTag {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  name   String
+  count  Int    @default(0)
+
+  @@id([userId, name])
 }
