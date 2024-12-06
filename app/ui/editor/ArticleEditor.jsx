@@ -15,10 +15,9 @@ import { useSnackbar } from 'notistack';
 import React, { useCallback } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from 'use-debounce';
-import RichTextEditorForm from "./RichTextEditorForm";
-import FormTags from '../forms/components/FormTags';
-import { defaultArticle } from './defaultArticle';
 import FormTagsOnline from '../forms/components/FormTagsOnline';
+import { defaultArticle } from './defaultArticle';
+import RichTextEditorForm from "./RichTextEditorForm";
 
 export default function ArticleEditor() {
   const loadedDraft = React.useMemo(loadDraft, []);
@@ -34,8 +33,10 @@ export default function ArticleEditor() {
     const err = await publishArticle(data);
     if (err)
       enqueueSnackbar(err, { variant: "error" });
-    else
+    else {
       enqueueSnackbar("Article published", { variant: "success" });
+      localStorage.removeItem("draft");//delete the draft after publishing
+    }
   });
 
   return (
