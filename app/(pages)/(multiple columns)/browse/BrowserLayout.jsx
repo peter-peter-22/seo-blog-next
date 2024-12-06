@@ -24,8 +24,8 @@ export default function BrowserLayout({ query, searchParams }) {
         LeftButton: BasicDrawerButton({ Icon: <FilterAltIcon /> }),
         RightButton: BasicDrawerButton({ Icon: <PeopleAltIcon /> }),
         leftBreakpoint,
-        rightBreakpoint
+        rightBreakpoint,
     }
 
-    return <ResponsiveLayout {...fields} />
+    return <ResponsiveLayout {...fields} symmetricWidth={240}/>
 }

@@ -50,50 +50,44 @@ export function DrawerButtonContainer({ children, anchor }) {
     )
 }
 
-export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, rightBreakpoint, leftBreakpoint, LeftButton, RightButton, symmetricWidth }) {
+export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, rightBreakpoint, leftBreakpoint, LeftButton, RightButton }) {
     const theme = useTheme();
-    const showLeft = useMediaQuery(theme.breakpoints.up(leftBreakpoint ?? "xs"));
-    const showRight = useMediaQuery(theme.breakpoints.up(rightBreakpoint ?? "xs"));
+    const showLeft = useMediaQuery(theme.breakpoints.up(leftBreakpoint));
+    const showRight = useMediaQuery(theme.breakpoints.up(rightBreakpoint));
 
     return <>
         <Stack direction="row" justifyContent={"center"}>
-            <Box sx={{ flex: symmetricWidth && 1, display: "flex" }}>
-                {Left &&
-                    <Stack
-                        direction="row"
-                        sx={theme => ({
-                            [theme.breakpoints.down(leftBreakpoint)]: { display: "none" },
-                            ml: "auto"
-                        })}
-                    >
-                        <Container sx={{ width: "fit-content", m: 0, minWidth: symmetricWidth }}>
-                            {Left}
-                        </Container>
-                        <Divider orientation="vertical" />
-                    </Stack>
-                }
-            </Box>
+            {Left &&
+                <Stack
+                    direction="row"
+                    sx={theme => ({
+                        [theme.breakpoints.down(leftBreakpoint)]: { display: "none" }
+                    })}
+                >
+                    <Container sx={{ m: 0 }}>
+                        {Left}
+                    </Container>
+                    <Divider orientation="vertical" />
+                </Stack>
+            }
 
             <MainContainer sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }} >
                 {Main}
             </MainContainer>
 
-            <Box sx={{ flex: symmetricWidth && 1, display: "flex", minWidth: symmetricWidth }}>
-                {Right &&
-                    <Stack
-                        direction="row"
-                        sx={theme => ({
-                            [theme.breakpoints.down(rightBreakpoint)]: { display: "none" },
-                            mr: "auto"
-                        })}
-                    >
-                        <Divider orientation="vertical" />
-                        <Container sx={{ width: "fit-content", m: 0, minWidth: symmetricWidth }}>
-                            {Right}
-                        </Container>
-                    </Stack>
-                }
-            </Box>
+            {Right &&
+                <Stack
+                    direction="row"
+                    sx={theme => ({
+                        [theme.breakpoints.down(rightBreakpoint)]: { display: "none" }
+                    })}
+                >
+                    <Divider orientation="vertical" />
+                    <Container sx={{  m: 0 }}>
+                        {Right}
+                    </Container>
+                </Stack>
+            }
         </Stack>
         <NoSsr>
             {LeftDrawer && !showLeft && <SideDrawer anchor="left" Content={LeftDrawer} ToggleButton={LeftButton} />}
