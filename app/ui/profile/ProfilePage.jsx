@@ -76,7 +76,6 @@ export default function ProfilePage({ user, isMe }) {
                     </TagContainer>
                     {isMe &&
                         <>
-                            <Divider />
                             <Button href="/profile/edit">
                                 Edit
                             </Button>
