@@ -19,8 +19,8 @@ import FormTagsOnline from '../forms/components/FormTagsOnline';
 import { defaultArticle } from './defaultArticle';
 import RichTextEditorForm from "./RichTextEditorForm";
 
-export default function ArticleEditor() {
-  const loadedDraft = React.useMemo(loadDraft, []);
+export default function ArticleEditor({ updating }) {
+  const loadedDraft = React.useMemo(() => loadDraft(updating), []);
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
@@ -34,14 +34,14 @@ export default function ArticleEditor() {
     if (err)
       enqueueSnackbar(err, { variant: "error" });
     else {
-      enqueueSnackbar("Article published", { variant: "success" });
-      localStorage.removeItem("draft");//delete the draft after publishing
+      enqueueSnackbar(updating ? "Article updated" : "Article published", { variant: "success" });
+      localStorage.removeItem(getDraftName(updating));//delete the draft after publishing
     }
   });
 
   return (
     <FormProvider {...methods}>
-      <SaveDraft />
+      <SaveDraft updating={updating} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -79,9 +79,9 @@ export default function ArticleEditor() {
             </FieldContainer>
           </CardContent>
           <CardActions>
-            <SecondaryButton href="/profile">Cancel</SecondaryButton>
-            <SecondaryButton href="/profile/write/preview">Preview</SecondaryButton>
-            <PrimaryButton disabled={isSubmitting} type="submit">Publish</PrimaryButton>
+            <SecondaryButton href={updating ? `/articles/${loadedDraft.id}` : "/profile"}>Cancel</SecondaryButton>
+            <SecondaryButton href={updating ? "/profile/write/preview/update" : "/profile/write/preview"}>Preview</SecondaryButton>
+            <PrimaryButton disabled={isSubmitting} type="submit">{updating ? "Update" : "Publish"}</PrimaryButton>
           </CardActions>
         </Card>
       </form >
@@ -89,9 +89,9 @@ export default function ArticleEditor() {
   );
 }
 
-export function loadDraft() {
+export function loadDraft(updating) {
   try {
-    return JSON.parse(localStorage.getItem('draft')) || defaultArticle;
+    return JSON.parse(localStorage.getItem(getDraftName(updating))) || defaultArticle;
   }
   catch {
     return defaultArticle;
@@ -99,14 +99,18 @@ export function loadDraft() {
 }
 
 //the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
-function SaveDraft() {
+function SaveDraft({ updating }) {
   const { watch } = useFormContext();
   const allValues = watch();
   const debounced = useDebouncedCallback(
     (values) => {
-      localStorage.setItem('draft', JSON.stringify(values));
+      localStorage.setItem(getDraftName(updating), JSON.stringify(values));
     },
     500
   );
   debounced(allValues);
+}
+
+export function getDraftName(updating) {
+  return updating ? 'updateDraft' : 'draft';
 }

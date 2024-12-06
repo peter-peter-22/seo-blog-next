@@ -1,28 +1,7 @@
-import Typography from "@mui/material/Typography";
-import ArticleEditor from "@/app/ui/editor/ArticleEditor";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import EditorSkeleton from "@/app/ui/editor/EditorSkeleton";
-import Toolbar from "@mui/material/Toolbar";
-import NoSsr from "@mui/material/NoSsr";
+import EditorPage from "./EditorPage";
 
-export default function Home() {
+export default function Page() {
   return (
-    <>
-      <Card>
-        <CardContent>
-          <Typography variant="h4">
-            Article editor
-          </Typography>
-          <Typography>
-            The last state of the article is saved locally and it persists when the page is reloaded.
-          </Typography>
-        </CardContent>
-      </Card  >
-      <Toolbar />
-      <NoSsr fallback={<EditorSkeleton />}>
-        <ArticleEditor />
-      </NoSsr>
-    </>
+    <EditorPage />
   );
 }

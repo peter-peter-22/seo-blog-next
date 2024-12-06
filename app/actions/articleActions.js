@@ -13,15 +13,8 @@ export async function publishArticle(data) {
         // Validate form fields using Zod
         PublishArticleSchema.parse(data);
 
-        const created = await prisma.article.create({
-            data: {
-                title: data.title,
-                description: data.description,
-                content: data.content,
-                userId: session.user.id,
-                tags:data.tags
-            }
-        });
+        const created = await createOrUpdate(data, session);
+
         redirectUrl = `/articles/${created.id}`;
     }
     catch (err) {
@@ -29,4 +22,29 @@ export async function publishArticle(data) {
     }
     if (redirectUrl)
         redirect(redirectUrl);
+}
+
+async function createOrUpdate(data, session) {
+    const { title, description, content, id, tags } = data;
+    console.log(id);
+    const values = {
+        title,
+        description,
+        content,
+        userId: session.user.id,
+        tags
+    }
+    if (id) {
+        return await prisma.article.update({
+            where: {
+                id
+            },
+            data: values
+        });
+    }
+    else {
+        return await prisma.article.create({
+            data: values
+        });
+    }
 }

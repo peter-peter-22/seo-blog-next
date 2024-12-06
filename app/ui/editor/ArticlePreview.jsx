@@ -4,11 +4,11 @@ import { loadDraft } from "./ArticleEditor";
 import ArticleViewer from "./ArticleViewer";
 import { useSession } from "next-auth/react";
 
-export default function ArticlePreview() {
-    const loadedDraft = loadDraft();
+export default function ArticlePreview({ updating }) {
+    const loadedDraft = loadDraft(updating);
     const session = useSession();
     loadedDraft.user = session.data.user;
-    loadedDraft.createdAt=new Date();
+    loadedDraft.createdAt = new Date();
     return (
         <ArticleViewer article={loadedDraft} />
     )
