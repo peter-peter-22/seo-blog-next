@@ -10,6 +10,6 @@ export default function ArticlePreview({ updating }) {
     loadedDraft.user = session.data.user;
     loadedDraft.createdAt = new Date();
     return (
-        <ArticleViewer article={loadedDraft} />
+        <ArticleViewer article={loadedDraft} preview={true}/>
     )
 }

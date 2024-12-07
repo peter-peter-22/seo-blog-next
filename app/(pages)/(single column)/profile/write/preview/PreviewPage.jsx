@@ -8,7 +8,7 @@ import ArticlePreview from "@/app/ui/editor/ArticlePreview";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
-export default function UpdatePage({ updating }) {
+export default function PreviewPage({ updating }) {
     return (
         <>
             <Card>

@@ -17,13 +17,14 @@ import formatDate from '../utilities/formatDate';
 import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
 import TagContainer from "../components/articles/TagContainer";
+import Stack from '@mui/material/Stack';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
-export default function ArticleViewer({ article }) {
+export default function ArticleViewer({ article, preview }) {
     return (
         <>
             <Card>
@@ -48,7 +49,7 @@ export default function ArticleViewer({ article }) {
                         </ListItem>
                     </List>
 
-                    {article.tags && article.tags.length>0 ? (
+                    {article.tags && article.tags.length > 0 ? (
                         <TagContainer>
                             {article.tags.map((tag, i) => (
                                 <Chip
@@ -67,20 +68,30 @@ export default function ArticleViewer({ article }) {
                     }
 
                 </CardContent>
-                <CardActions>
-                    <IconButton>
-                        <ThumbUpIcon />
-                    </IconButton>
-                    <IconButton>
-                        <ThumbDownIcon />
-                    </IconButton>
-                    <IconButton>
-                        <PersonAddIcon />
-                    </IconButton>
-                    <IconButton>
-                        <PersonRemoveIcon />
-                    </IconButton>
-                </CardActions>
+                {!preview &&
+                    <Stack direction="row" sx={{ flexWrap: "wrap",justifyContent:"space-between" }}>
+                        <CardActions>
+                            <IconButton>
+                                <ThumbUpIcon />
+                            </IconButton>
+                            <Typography>999</Typography>
+                            <Divider orientation='vertical' flexItem variant="middle" />
+                            <Typography>999</Typography>
+                            <IconButton>
+                                <ThumbDownIcon />
+                            </IconButton>
+                        </CardActions>
+                        <CardActions>
+                            <IconButton>
+                                <PersonAddIcon />
+                            </IconButton>
+                            <Typography>999</Typography>
+                            <IconButton>
+                                <PersonRemoveIcon />
+                            </IconButton>
+                        </CardActions>
+                    </Stack>
+                }
             </Card>
             <Toolbar />
             <Card>

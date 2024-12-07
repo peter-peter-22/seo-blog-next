@@ -1,6 +1,6 @@
-import UpdatePage from "./PreviewPage";
+import PreviewPage from "./PreviewPage";
 export default function Page() {
     return (
-        <UpdatePage />
+        <PreviewPage />
     );
 }
