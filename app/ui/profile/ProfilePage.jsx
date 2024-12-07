@@ -12,8 +12,9 @@ import CardActions from '@mui/material/CardActions';
 import TagContainer from "../components/articles/TagContainer";
 import Chip from "@mui/material/Chip";
 import Link from "next/link";
+import ArticleRow from "../components/articles/ArticleRow";
 
-export default function ProfilePage({ user, isMe }) {
+export default function ProfilePage({ user, recentArticles, popularArticles, isMe }) {
     return (
         <>
             <Box sx={{
@@ -62,7 +63,7 @@ export default function ProfilePage({ user, isMe }) {
                         </Box>
                     </Stack>
                     {user.AuthorTag && user.AuthorTag.length > 0 ? (
-                        <TagContainer sx={{mt:1}}>
+                        <TagContainer sx={{ mt: 1 }}>
                             {user.AuthorTag.map((tag, i) => (
                                 <Chip
                                     label={`${tag.name} - ${tag.count}`}
@@ -92,25 +93,9 @@ export default function ProfilePage({ user, isMe }) {
                 }
             </Card>
             <Toolbar />
-            <Card>
-                <CardContent>
-                    <Typography variant="h5">
-                        Recent articles
-                    </Typography>
-                    <Divider />
-
-                </CardContent>
-            </Card>
+            <ArticleRow title="Recent articles" articles={recentArticles} filters={{author:user.id}} />
             <Toolbar />
-            <Card>
-                <CardContent>
-                    <Typography variant="h5">
-                        Top articles
-                    </Typography>
-                    <Divider />
-
-                </CardContent>
-            </Card>
+            <ArticleRow title="Top articles" articles={popularArticles} />
         </>
     )
 }
