@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 
 export function SingleColumn({ Main, ...props }) {
     return (
-        <MainContainer {...props}>
+        <MainContainer component="main" {...props}>
             {Main}
         </MainContainer>
     )
@@ -10,7 +10,7 @@ export function SingleColumn({ Main, ...props }) {
 
 export function MainContainer({ children, ...props }) {
     return (
-        <Container component="main" maxWidth="md" {...props}>
+        <Container  maxWidth="md" {...props}>
             {children}
         </Container>
     )

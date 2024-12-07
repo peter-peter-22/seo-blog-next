@@ -10,18 +10,18 @@ function NamedLink(name, url) {
     this.url = url;
 }
 
-const links = [
+export const footerLinks = [
     new NamedLink("Privacy policy", "/"),
     new NamedLink("Cookie policy", "/"),
     new NamedLink("User lincense", "/"),
 ];
 
-export default function Footer({ props }) {
+export default function Footer(props) {
     return (
         <Card {...props}>
             <CardContent>
                 <Stack direction="row" spacing={1} sx={{ flexWrap: true, justifyContent: "center" }}>
-                    {links.map((link, i) => (
+                    {footerLinks.map((link, i) => (
                         <Link key={i} href={link.url} color="text.secondary">
                             {link.name}
                         </Link>
