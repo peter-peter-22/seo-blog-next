@@ -1,10 +1,10 @@
 'use client';
 
-import { publishArticle } from '@/app/actions/articleActions';
+import { publishOrUpdateArticle } from '@/app/actions/articleActions';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
-import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import { PublishArticleSchema, UpdateArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -24,13 +24,13 @@ export default function ArticleEditor({ updating }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: zodResolver(PublishArticleSchema), // Apply the zodResolver
+    resolver: zodResolver(updating ? UpdateArticleSchema : PublishArticleSchema), // Apply the zodResolver
     defaultValues: loadedDraft
   });
   const { handleSubmit, formState: { isSubmitting } } = methods;
 
   const onSubmit = useCallback(async (data) => {
-    const err = await publishArticle(data);
+    const err = await publishOrUpdateArticle(data,updating);
     if (err)
       enqueueSnackbar(err, { variant: "error" });
     else {

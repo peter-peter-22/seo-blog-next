@@ -1,19 +1,20 @@
 'use server';
 
-import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import { PublishArticleSchema, UpdateArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
 import { redirect } from 'next/navigation';
 import authOrThrow from '../auth/authOrThrow';
 
-export async function publishArticle(data) {
+export async function publishOrUpdateArticle(data, updating) {
     let redirectUrl;
     try {
         const session = await authOrThrow();
 
         // Validate form fields using Zod
-        PublishArticleSchema.parse(data);
+        const Schema = updating ? UpdateArticleSchema : PublishArticleSchema;
+        Schema.parse(data);
 
-        const created = await createOrUpdate(data, session);
+        const created = await createOrUpdate(data, session, updating);
 
         redirectUrl = `/articles/${created.id}`;
     }
@@ -35,12 +36,18 @@ async function createOrUpdate(data, session) {
         tags
     }
     if (id) {
-        return await prisma.article.update({
-            where: {
-                id
-            },
-            data: values
-        });
+        try {
+            return await prisma.article.update({
+                where: {
+                    id,
+                    userId: session.user.id
+                },
+                data: values
+            });
+        }
+        catch (err) {
+            throw new Error(err.meta?.cause ?? err)
+        }
     }
     else {
         return await prisma.article.create({
