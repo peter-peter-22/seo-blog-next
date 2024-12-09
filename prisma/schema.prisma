@@ -28,6 +28,8 @@ model User {
 
   Article   Article[]
   AuthorTag AuthorTag[]
+
+  VerifiedLike VerifiedLike[]
 }
 
 model Account {
@@ -60,15 +62,25 @@ model EmailVerifications {
 }
 
 model Article {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title       String
-  description String
-  content     Json
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  tags        String[]
+  id                     String   @id @default(cuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title                  String
+  description            String
+  content                Json
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @default(now()) @updatedAt
+  tags                   String[]
+  verifiedLikeCount      Int      @default(0)
+  unverifiedLikeCount    Int      @default(0)
+  likeCount              Int      @default(0)
+  verifiedDislikeCount   Int      @default(0)
+  unverifiedDislikeCount Int      @default(0)
+  dislikeCount           Int      @default(0)
+
+  VerifiedLike VerifiedLike[]
+
+  UnverifiedLike UnverifiedLike[]
 }
 
 model Topic {
@@ -83,4 +95,25 @@ model AuthorTag {
   count  Int    @default(0)
 
   @@id([userId, name])
+}
+
+model VerifiedLike {
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  isDislike Boolean
+
+  @@id([userId, articleId])
+  @@index([articleId, isDislike])
+}
+
+model UnverifiedLike {
+  ip        String
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  isDislike Boolean
+
+  @@id([ip, articleId])
+  @@index([articleId, isDislike])
 }

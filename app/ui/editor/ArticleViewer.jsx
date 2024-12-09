@@ -1,28 +1,23 @@
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Chip from "@mui/material/Chip";
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
+import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
 import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
-import TagContainer from "../components/articles/TagContainer";
-import Stack from '@mui/material/Stack';
-
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ArticleLikes from '../profile/reactions/ArticleLikes';
+import FollowButtons from '../profile/reactions/FollowButtons';
 
 export default function ArticleViewer({ article, preview }) {
     return (
@@ -69,27 +64,9 @@ export default function ArticleViewer({ article, preview }) {
 
                 </CardContent>
                 {!preview &&
-                    <Stack direction="row" sx={{ flexWrap: "wrap",justifyContent:"space-between" }}>
-                        <CardActions>
-                            <IconButton>
-                                <ThumbUpIcon />
-                            </IconButton>
-                            <Typography>999</Typography>
-                            <Divider orientation='vertical' flexItem variant="middle" />
-                            <Typography>999</Typography>
-                            <IconButton>
-                                <ThumbDownIcon />
-                            </IconButton>
-                        </CardActions>
-                        <CardActions>
-                            <IconButton>
-                                <PersonAddIcon />
-                            </IconButton>
-                            <Typography>999</Typography>
-                            <IconButton>
-                                <PersonRemoveIcon />
-                            </IconButton>
-                        </CardActions>
+                    <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
+                        <ArticleLikes article={article} />
+                        <FollowButtons user={article.user} />
                     </Stack>
                 }
             </Card>
