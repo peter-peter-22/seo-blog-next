@@ -78,6 +78,9 @@ model Article {
   verifiedDislikeCount   Int      @default(0)
   unverifiedDislikeCount Int      @default(0)
   dislikeCount           Int      @default(0)
+  verifiedViewCount      Int      @default(0)
+  unverifiedViewCount    Int      @default(0)
+  viewCount              Int      @default(0)
 
   VerifiedLike VerifiedLike[]
 
