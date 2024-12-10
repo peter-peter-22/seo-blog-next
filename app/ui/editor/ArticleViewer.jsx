@@ -21,6 +21,7 @@ import FollowButtons from '../profile/reactions/FollowButtons';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import formatNumber from '../utilities/formatNumber';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function ArticleViewer({ article, preview }) {
     return (
@@ -47,7 +48,9 @@ export default function ArticleViewer({ article, preview }) {
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemIcon>
-                                <VisibilityIcon />
+                                <Tooltip title="View count">
+                                    <VisibilityIcon />
+                                </Tooltip>
                             </ListItemIcon>
                             <ListItemText>
                                 <Typography color="text.secondary">
@@ -56,7 +59,6 @@ export default function ArticleViewer({ article, preview }) {
                             </ListItemText>
                         </ListItem>
                     </List>
-
 
                     {article.tags && article.tags.length > 0 ? (
                         <TagContainer>

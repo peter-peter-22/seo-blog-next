@@ -8,6 +8,7 @@ import { useCallback, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { followAction } from '@/app/actions/followActions';
 import { useTransition } from 'react';
+import Tooltip from '@mui/material/Tooltip';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -48,7 +49,15 @@ export default function FollowButtons({ userId, isFollowed, followerCount: origi
         <CardActions>
             <Typography>{formatNumber(localCount)}</Typography>
             <IconButton onClick={toggleFollow}>
-                {isFollowing ? <PersonRemoveIcon /> : <PersonAddIcon />}
+                {isFollowing ? (
+                    <Tooltip title="Click to unfollow this author">
+                        <PersonRemoveIcon />
+                    </Tooltip>
+                ) : (
+                    <Tooltip title="Click to follow this author">
+                        <PersonAddIcon />
+                    </Tooltip>
+                )}
             </IconButton>
         </CardActions>
     )

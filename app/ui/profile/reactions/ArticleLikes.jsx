@@ -8,6 +8,7 @@ import formatNumber from '@/app/ui/utilities/formatNumber';
 import { useTransition, useCallback, useState } from 'react';
 import { likeAction } from '@/app/actions/likeActions';
 import { useSnackbar } from 'notistack';
+import Tooltip from '@mui/material/Tooltip';
 
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -63,18 +64,22 @@ export default function ArticleLikes({ article }) {
 
     return (
         <CardActions>
-            <IconButton
-                color={localLikeState === true ? "primary" : "default"}
-                onClick={handleLike(true)}
-            >
-                <ThumbUpIcon />
-            </IconButton>
+            <Tooltip title={localLikeState === true ? "Remove like" : "Like"}>
+                <IconButton
+                    color={localLikeState === true ? "primary" : "default"}
+                    onClick={handleLike(true)}
+                >
+                    <ThumbUpIcon />
+                </IconButton>
+            </Tooltip>
             <Typography>{formatNumber(localLikes)}</Typography>
             <Divider orientation='vertical' flexItem variant="middle" />
             <Typography>{formatNumber(localDislikes)}</Typography>
-            <IconButton color={localLikeState === false ? "primary" : "default"} onClick={handleLike(false)}>
-                <ThumbDownIcon />
-            </IconButton>
+            <Tooltip title={localLikeState === false ? "Remove dislike" : "Dislike"}>
+                <IconButton color={localLikeState === false ? "primary" : "default"} onClick={handleLike(false)}>
+                    <ThumbDownIcon />
+                </IconButton>
+            </Tooltip>
         </CardActions>
     )
 }
