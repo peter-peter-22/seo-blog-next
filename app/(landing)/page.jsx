@@ -11,7 +11,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 export default function Page() {
     return (
-        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
+        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", bgcolor: "background.default" }} component="main">
             <Box sx={{ flexGrow: 1, position: "relative", justifyContent: "center", alignItems: "center", display: "flex" }}>
                 <LogoSvg sx={{ opacity: 0.1, position: 'absolute', height: "100%", width: "auto", maxWidth: "100%", top: 0, right: 0 }} />
                 <MainContainer sx={{ height: "100%" }}>
