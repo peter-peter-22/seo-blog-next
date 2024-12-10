@@ -49,11 +49,11 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER verified_view_count_trigger
-AFTER INSERT OR UPDATE OR DELETE ON "VerifiedView"
+AFTER INSERT OR DELETE ON "VerifiedView"
 FOR EACH ROW
 EXECUTE FUNCTION update_verified_view_count();
 
 CREATE TRIGGER unverified_view_count_trigger
-AFTER INSERT OR UPDATE OR DELETE ON "UnverifiedView"
+AFTER INSERT OR DELETE ON "UnverifiedView"
 FOR EACH ROW
 EXECUTE FUNCTION update_unverified_view_count();
