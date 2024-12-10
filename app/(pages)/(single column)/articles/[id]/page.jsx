@@ -32,15 +32,21 @@ export default async function Page(props) {
                     select: {
                         id: true,
                         name: true,
-                        image: true
-                    }
+                        image: true,
+                        followerCount: true,
+                        Followers: {
+                            where: {
+                                followerId: session?.user?.id ?? null
+                            }
+                        },
+                    },
                 },
                 ...likedByUserQuery
             }
         }),
         updateViews(id, session)
     ]);
-
+    console.log(article);
     if (!article)
         notFound();
 

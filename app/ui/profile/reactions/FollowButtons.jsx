@@ -12,7 +12,7 @@ import { useTransition } from 'react';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
-export default function FollowButtons({ userId, isFollowed, originalCount=0 }) {
+export default function FollowButtons({ userId, isFollowed, followerCount: originalCount = 0 }) {
     const [isFollowing, setFollowing] = useState(isFollowed);
     const [pending, startFollowAction] = useTransition();
     const { enqueueSnackbar } = useSnackbar();
@@ -27,7 +27,7 @@ export default function FollowButtons({ userId, isFollowed, originalCount=0 }) {
                 try {
                     await followAction({
                         userId,
-                        isFollowing
+                        setFollowing: newValue
                     });
                     setFollowing(newValue);
                 }

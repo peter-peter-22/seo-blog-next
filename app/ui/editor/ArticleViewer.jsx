@@ -80,7 +80,11 @@ export default function ArticleViewer({ article, preview }) {
                 {!preview &&
                     <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
                         <ArticleLikes article={article} />
-                        <FollowButtons user={article.user} />
+                        <FollowButtons
+                            userId={article.user.id}
+                            isFollowed={!!article.user.Followers?.[0]}
+                            followerCount={article.user.followerCount}
+                        />
                     </Stack>
                 }
             </Card>

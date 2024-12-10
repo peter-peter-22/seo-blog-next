@@ -1,9 +1,8 @@
 "use server";
 
+import { auth } from "@/auth";
 import prisma from "@/utils/db";
 import { LikeSchema } from "../ui/forms/schemas/LikeSchema";
-import { headers } from 'next/headers';
-import { auth } from "@/auth";
 import getIp from "./general/getIp";
 
 export async function likeAction(data) {
@@ -17,10 +16,6 @@ export async function likeAction(data) {
 
 async function handleUnverifiedLike(data) {
     const { isLike, isDislike, articleId } = data;
-
-    //get headers
-    const requestHeaders = headers();
-    const allHeaders = Object.fromEntries(requestHeaders.entries());
 
     //get ip
     const ip = getIp();
