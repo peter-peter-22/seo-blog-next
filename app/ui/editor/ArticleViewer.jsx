@@ -18,6 +18,9 @@ import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
 import ArticleLikes from '../profile/reactions/ArticleLikes';
 import FollowButtons from '../profile/reactions/FollowButtons';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import formatNumber from '../utilities/formatNumber';
 
 export default function ArticleViewer({ article, preview }) {
     return (
@@ -42,7 +45,18 @@ export default function ArticleViewer({ article, preview }) {
                                 secondary={formatDate(article.createdAt)}
                             />
                         </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemIcon>
+                                <VisibilityIcon />
+                            </ListItemIcon>
+                            <ListItemText>
+                                <Typography color="text.secondary">
+                                    {formatNumber(article.viewCount)}
+                                </Typography>
+                            </ListItemText>
+                        </ListItem>
                     </List>
+
 
                     {article.tags && article.tags.length > 0 ? (
                         <TagContainer>
