@@ -31,7 +31,7 @@ export default function ArticleLikes({ article }) {
                         isLike: value === true,
                         isDislike: value === false
                     });
-                    setLocalLikeState(newValue);
+                    setLocalLikeState(value);
                 }
                 catch (err) {
                     enqueueSnackbar(err.toString(), { variant: "error" });
