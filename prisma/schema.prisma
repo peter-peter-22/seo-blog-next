@@ -30,6 +30,7 @@ model User {
   AuthorTag AuthorTag[]
 
   VerifiedLike VerifiedLike[]
+  VerifiedView VerifiedView[]
 }
 
 model Account {
@@ -81,6 +82,8 @@ model Article {
   VerifiedLike VerifiedLike[]
 
   UnverifiedLike UnverifiedLike[]
+  VerifiedView   VerifiedView[]
+  UnverifiedView UnverifiedView[]
 }
 
 model Topic {
@@ -98,11 +101,12 @@ model AuthorTag {
 }
 
 model VerifiedLike {
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   articleId String
-  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   isDislike Boolean
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@id([userId, articleId])
   @@index([articleId, isDislike])
@@ -111,9 +115,29 @@ model VerifiedLike {
 model UnverifiedLike {
   ip        String
   articleId String
-  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   isDislike Boolean
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@id([ip, articleId])
   @@index([articleId, isDislike])
+}
+
+model VerifiedView {
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  articleId String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([articleId, userId])
+}
+
+model UnverifiedView {
+  ip        String
+  articleId String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([articleId, ip])
 }

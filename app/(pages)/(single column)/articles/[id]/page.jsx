@@ -24,19 +24,22 @@ export default async function Page(props) {
         }
     }
 
-    const article = await prisma.article.findUnique({
-        where: { id: id },
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    name: true,
-                    image: true
-                }
-            },
-            ...likedByUserQuery
-        }
-    });
+    const [article] = await Promise.all([
+        prisma.article.findUnique({
+            where: { id },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true
+                    }
+                },
+                ...likedByUserQuery
+            }
+        }),
+        updateViews(id, session)
+    ]);
 
     if (!article)
         notFound();
@@ -50,3 +53,31 @@ export default async function Page(props) {
         </>
     );
 }
+
+async function updateViews(articleId, session) {
+    //add the view entry if does not exists to the right table depending on the authentication
+    try {
+        if (session?.user) {
+            await prisma.verifiedView.create({
+                data: {
+                    articleId,
+                    userId: session.user.id
+                }
+            })
+        }
+        else {
+            await prisma.unverifiedView.create({
+                data: {
+                    articleId,
+                    ip: getIp()
+                }
+            })
+        }
+    }
+    catch (err) {
+        if (err.code === 'P2002') {
+            //unique constraint error, this view entry already exists, do nothing
+        }
+        else throw err;
+    }
+} 
