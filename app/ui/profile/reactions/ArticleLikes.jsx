@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import formatNumber from '@/app/ui/utilities/formatNumber';
 import { useTransition, useCallback, useState } from 'react';
 import { likeAction } from '@/app/actions/likeActions';
+import { useSnackbar } from 'notistack';
 
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import { useSnackbar } from 'notistack';
 
 export default function ArticleLikes({ article }) {
     const likeOfUser = article.VerifiedLike?.[0] || article.UnverifiedLike?.[0];
@@ -31,6 +31,7 @@ export default function ArticleLikes({ article }) {
                         isLike: value === true,
                         isDislike: value === false
                     });
+                    setLocalLikeState(newValue);
                 }
                 catch (err) {
                     enqueueSnackbar(err.toString(), { variant: "error" });
@@ -45,11 +46,11 @@ export default function ArticleLikes({ article }) {
     if (localLikeState !== originalLikeState) {
         if (localLikeState === true && !originalLikeState)
             localLikes++;
-        if (!localLikeState && originalLikeState === true)
+        else if (!localLikeState && originalLikeState === true)
             localLikes--;
         if (localLikeState === false && (originalLikeState === undefined || originalLikeState === true))
             localDislikes++;
-        if ((localLikeState === undefined || localLikeState === true) && originalLikeState === false)
+        else if ((localLikeState === undefined || localLikeState === true) && originalLikeState === false)
             localDislikes--;
     }
 
@@ -58,7 +59,6 @@ export default function ArticleLikes({ article }) {
             return;
         const newValue = localLikeState === value ? undefined : value;
         executeLikeAction(newValue)
-        setLocalLikeState(newValue);
     }, [localLikeState, pending]);
 
     return (

@@ -3,7 +3,6 @@
 import prisma from "@/utils/db";
 import { LikeSchema } from "../ui/forms/schemas/LikeSchema";
 import { headers } from 'next/headers';
-import requestIp from 'request-ip';
 import { auth } from "@/auth";
 import getIp from "./general/getIp";
 
