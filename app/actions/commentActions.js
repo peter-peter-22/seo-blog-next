@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/utils/db";
-import { CommentSchema, UpdateCommentSchema } from "../ui/forms/schemas/CommentSchema";
+import { CommentSchema, DeleteCommentSchema, UpdateCommentSchema } from "../ui/forms/schemas/CommentSchema";
 import authOrThrow from "../auth/authOrThrow";
 
 export async function commentAction(data) {
@@ -64,7 +64,25 @@ export async function updateCommentAction(data) {
         return created;
     }
     catch (err) {
-        console.log(err);
+        if (err.code === "P2025")
+            throw new Error("This comment does not exists, or it is not owned by you.")
+        throw (err);
+    }
+}
+
+export async function deleteCommentAction(data) {
+    const { id } = DeleteCommentSchema.parse(data);
+    const session = await authOrThrow();
+    const userId = session.user.id;
+    try {
+        await prisma.comment.delete({
+            where: {
+                id,
+                userId//check if the user owns this comment
+            },
+        })
+    }
+    catch (err) {
         if (err.code === "P2025")
             throw new Error("This comment does not exists, or it is not owned by you.")
         throw (err);

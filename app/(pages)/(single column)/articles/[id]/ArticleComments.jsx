@@ -28,8 +28,16 @@ export default function ArticleComments({ article }) {
     //replace a comment at an id
     const updateComment = useCallback((updatedComment) => {
         setComments(prev => prev.map(comment => (
-            comment.id===updatedComment.id?updatedComment:comment
+            comment.id === updatedComment.id ? updatedComment : comment
         )))
+    }, [])
+
+    //delete a comment at an id
+    const deleteComment = useCallback((deletedId) => {
+        setComments(prev => prev.filter(comment => (
+            comment.id !== deletedId
+        )))
+        setCommentsMade(prev => prev - 1);
     }, [])
 
     const openCommentDialog = useCallback((options) => () => {
@@ -72,7 +80,11 @@ export default function ArticleComments({ article }) {
                             <List>
                                 {comments.map((comment, i, array) => (
                                     <Fragment key={comment.id}>
-                                        <Comment comment={comment} openCommentDialog={openCommentDialog} />
+                                        <Comment
+                                            comment={comment}
+                                            openCommentDialog={openCommentDialog}
+                                            onDelete={deleteComment}
+                                        />
                                         {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
                                     </Fragment>
                                 ))}

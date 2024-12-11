@@ -1,3 +1,5 @@
+"use client";
+
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import HybridAvatar from '@/app/ui/profile/HybridAvatar';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -7,80 +9,122 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { memo } from 'react';
+import { memo, useCallback, useState, useTransition } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSession } from 'next-auth/react';
 import formatDate from '@/app/ui/utilities/formatDate';
+import { useSnackbar } from 'notistack';
+import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
+import { deleteCommentAction } from '@/app/actions/commentActions';
 
-const Comment = memo(({ comment, openCommentDialog }) => {
+const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
     const session = useSession();
     const userId = session?.data?.user?.id;
-    return (
-        <ListItem
-            secondaryAction={
-                <>
-                    {userId === comment.userId &&
-                        <>
-                            <IconButton
-                                aria-label="delete"
-                                onClick={openCommentDialog()}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
+    const { enqueueSnackbar } = useSnackbar();
+    const [deleting, startDelete] = useTransition();
+    const [dialogOpen, setDialogOpen] = useState(false);
 
-                            <IconButton
-                                aria-label="edit"
-                                onClick={openCommentDialog({ updating: comment })}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                        </>
-                    }
-                    <IconButton
-                        aria-label="reply"
-                        onClick={openCommentDialog({ replyingTo: comment.user })}
-                    >
-                        <CommentIcon />
-                    </IconButton>
-                </>
+    const closeDialog = useCallback(() => {
+        setDialogOpen(false);
+    }, [])
+
+    const deletePromt = useCallback(() => {
+        setDialogOpen(true);
+    }, [])
+
+    const handleDelete = useCallback(() => {
+        startDelete(
+            async () => {
+                try {
+                    await deleteCommentAction({id:comment.id});
+                    enqueueSnackbar("Comment deleted");
+                    onDelete(comment.id);
+                }
+                catch (err) {
+                    enqueueSnackbar(err.toString(), { variant: "error" });
+                }
             }
-           alignItems="flex-start"
-        >
-            <ListItemAvatar>
-                <HybridAvatar user={comment.user} />
-            </ListItemAvatar>
-            <ListItemText
-                primary={<Link href={getProfileLink(comment.user)} color="inherit">{comment.user.name}</Link>}
-                secondary={
+        )
+    }, [])
+
+    return (
+        <>
+            <ListItem
+                secondaryAction={
                     <>
-                        {comment.replyingTo &&
-                            <Typography
-                                color="text.secondary"
-                                variant="body2"
-                                sx={{ mr: 1 }}
-                                component="span"
-                            >
-                                {`To ${comment.replyingTo.name}`}
-                            </Typography>
+                        {userId === comment.userId &&
+                            <>
+                                <IconButton
+                                    aria-label="delete"
+                                    onClick={deletePromt}
+                                    disabled={deleting}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+
+                                <IconButton
+                                    aria-label="edit"
+                                    onClick={openCommentDialog({ updating: comment })}
+                                >
+                                    <EditIcon />
+                                </IconButton>
+                            </>
                         }
-                        <Typography
-                            color="text.primary"
-                            component="span"
+                        <IconButton
+                            aria-label="reply"
+                            onClick={openCommentDialog({ replyingTo: comment.user })}
                         >
-                            {comment.text}
-                        </Typography>
-                        <Typography
-                            component="span"
-                            variant="body2"
-                            sx={{ display: "block" }}
-                        >
-                            {formatDate(comment.createdAt)}
-                        </Typography>
+                            <CommentIcon />
+                        </IconButton>
                     </>
                 }
+                alignItems="flex-start"
+            >
+                <ListItemAvatar>
+                    <HybridAvatar user={comment.user} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={<Link href={getProfileLink(comment.user)} color="inherit">{comment.user.name}</Link>}
+                    secondary={
+                        <>
+                            {comment.replyingTo &&
+                                <Typography
+                                    color="text.secondary"
+                                    variant="body2"
+                                    sx={{ mr: 1 }}
+                                    component="span"
+                                >
+                                    {`To ${comment.replyingTo.name}`}
+                                </Typography>
+                            }
+                            <Typography
+                                color="text.primary"
+                                component="span"
+                            >
+                                {comment.text}
+                            </Typography>
+                            <Typography
+                                component="span"
+                                variant="body2"
+                                sx={{ display: "block" }}
+                            >
+                                {formatDate(comment.createdAt)}
+                            </Typography>
+                        </>
+                    }
+                />
+            </ListItem>
+            <ConfirmDialog
+                open={dialogOpen}
+                callback={handleDelete}
+                onClose={closeDialog}
+                title={"Do you want to deleted this comment?"}
+                body="The comment cannot be restored after deletion."
+                confirmText="Delete"
+                cancelText="Cancel"
             />
-        </ListItem>
+        </>
     )
 }, (prev, next) => prev.comment === next.comment);
 
