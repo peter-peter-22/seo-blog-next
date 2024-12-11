@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
-export default function FollowButtons({ userId, isFollowed, followerCount: originalCount = 0 }) {
+export default function FollowButtons({ user, isFollowed, followerCount: originalCount = 0 }) {
     const [isFollowing, setFollowing] = useState(isFollowed);
     const [pending, startFollowAction] = useTransition();
     const { enqueueSnackbar } = useSnackbar();
@@ -27,9 +27,13 @@ export default function FollowButtons({ userId, isFollowed, followerCount: origi
             async () => {
                 try {
                     await followAction({
-                        userId,
+                        userId: user.id,
                         setFollowing: newValue
                     });
+                    enqueueSnackbar(
+                        newValue ? `Followed ${user.name}` : `Unfollowed ${user.name}`,
+                        { variant: newValue ? "success" : "default" }
+                    )
                     setFollowing(newValue);
                 }
                 catch (err) {
