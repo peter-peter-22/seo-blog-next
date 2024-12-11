@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { Fragment, useCallback, useState } from 'react';
 import Comment from './Comment';
 import CommentDialog from './CommentDialog';
+import Box from '@mui/material/Box';
 
 export default function ArticleComments({ article }) {
     const [dialog, setDialog] = useState();
@@ -19,7 +20,7 @@ export default function ArticleComments({ article }) {
     const [commentsMade, setCommentsMade] = useState(0);
     const addComments = useCallback((newComment) => {
         setComments(prev => [newComment, ...prev]);
-        setCommentsMade(prev=>prev+1);
+        setCommentsMade(prev => prev + 1);
     }, [])
     const openCommentDialog = useCallback((replyingTo) => () => {
         setDialog(
@@ -47,19 +48,25 @@ export default function ArticleComments({ article }) {
                 </CardActions>
                 {commentCount > 0 && (
                     <>
-                        <List>
-                            {comments.map((comment, i, array) => (
-                                <Fragment key={i}>
-                                    <Comment comment={comment} openCommentDialog={openCommentDialog} />
-                                    {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
-                                </Fragment>
-                            ))}
-                        </List>
-                        <CardActions>
-                            <Button>
-                                Load more
-                            </Button>
-                        </CardActions>
+                        <Divider />
+                        <Box sx={{
+                            maxHeight: 500,
+                            overflowY: "auto"
+                        }}>
+                            <List>
+                                {comments.map((comment, i, array) => (
+                                    <Fragment key={i}>
+                                        <Comment comment={comment} openCommentDialog={openCommentDialog} />
+                                        {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
+                                    </Fragment>
+                                ))}
+                            </List>
+                            <CardActions>
+                                <Button>
+                                    Load more
+                                </Button>
+                            </CardActions>
+                        </Box>
                     </>
                 )}
             </Card>
