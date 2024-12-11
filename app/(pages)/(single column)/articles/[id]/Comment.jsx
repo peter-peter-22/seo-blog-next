@@ -8,15 +8,37 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { useSession } from 'next-auth/react';
 
 const Comment = memo(({ comment, openCommentDialog }) => {
+    const session = useSession();
+    const userId = session?.data?.user?.id;
     return (
         <ListItem
             secondaryAction={
                 <>
+                    {userId === comment.userId &&
+                        <>
+                            <IconButton
+                                aria-label="delete"
+                                onClick={openCommentDialog()}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+
+                            <IconButton
+                                aria-label="edit"
+                                onClick={openCommentDialog({updating:comment})}
+                            >
+                                <EditIcon />
+                            </IconButton>
+                        </>
+                    }
                     <IconButton
                         aria-label="reply"
-                        onClick={openCommentDialog(comment.user)}
+                        onClick={openCommentDialog({replyingTo:comment.user})}
                     >
                         <CommentIcon />
                     </IconButton>

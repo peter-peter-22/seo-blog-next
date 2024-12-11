@@ -19,9 +19,11 @@ export default async function Page(props) {
                     name: true,
                     image: true,
                     followerCount: true,
-                    Followers: {
-                        where: {
-                            followerId: session?.user?.id ?? null
+                    ...session?.user && {
+                        Followers: {
+                            where: {
+                                followerId: session.user.id
+                            }
                         }
                     },
                 },

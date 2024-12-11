@@ -22,9 +22,14 @@ export default function ArticleComments({ article }) {
         setComments(prev => [newComment, ...prev]);
         setCommentsMade(prev => prev + 1);
     }, [])
-    const openCommentDialog = useCallback((replyingTo) => () => {
+    const openCommentDialog = useCallback((options) => () => {
         setDialog(
-            < CommentDialog replyingTo={replyingTo} articleId={article.id} onPublish={addComments} close={closeDialog} />
+            < CommentDialog
+                {...options}
+                articleId={article.id}
+                onPublish={addComments}
+                close={closeDialog}
+            />
         )
     }, [])
     //update the comment count when a new comment is added

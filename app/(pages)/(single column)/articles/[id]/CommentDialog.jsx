@@ -1,4 +1,4 @@
-import { commentAction } from '@/app/actions/commentActions';
+import { commentAction, updateCommentAction } from '@/app/actions/commentActions';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { CommentSchemaClient } from '@/app/ui/forms/schemas/CommentSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,20 +10,27 @@ import Typography from '@mui/material/Typography';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm, } from 'react-hook-form';
 
-export default function CommentDialog({ replyingTo, articleId, onPublish, close }) {
+export default function CommentDialog({ replyingTo, articleId, onPublish, close, updating }) {
     const { enqueueSnackbar } = useSnackbar();
     const methods = useForm({
         resolver: zodResolver(CommentSchemaClient), // Apply the zodResolver
+        defaultValues: { text: updating?.text }
     });
     const { handleSubmit, formState: { isSubmitting } } = methods;
     const onSubmit = async (data) => {
         try {
-            const created=await commentAction({
-                articleId,
-                replyingTo: replyingTo?.id,
-                ...data
-            });
-            enqueueSnackbar("Comment published", { variant: "success" })
+            const created = updating ?
+                await updateCommentAction({
+                    id: updating.id,
+                    ...data
+                })
+                :
+                await commentAction({
+                    articleId,
+                    replyingTo: replyingTo?.id,
+                    ...data
+                });
+            enqueueSnackbar(updating ? "Comment updated" : "Comment published", { variant: "success" })
             onPublish(created);
             close();
         }
@@ -32,13 +39,17 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, close 
         }
     }
 
+    //if updading, choose the replied user of the updated comment
+    //if not, then use the replied user of the new comment
+    const replyingToAny = updating ? updating.replyingTo : replyingTo;
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <DialogContent>
-                    {replyingTo &&
+                    {replyingToAny &&
                         <Typography color="text.secondary">
-                            To {replyingTo.name}
+                            To {replyingToAny.name}
                         </Typography>
                     }
                     <FormTextField
@@ -61,7 +72,7 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, close 
                         variant="filled"
                         type="submit"
                     >
-                        Send
+                        {updating ? "Update" : "Send"}
                     </LoadingButton>
                 </DialogActions>
             </form>
