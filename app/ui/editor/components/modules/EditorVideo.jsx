@@ -1,25 +1,24 @@
-import React, { useMemo } from 'react'
-import { Transforms, createEditor } from 'slate'
+import ClearIcon from '@mui/icons-material/Clear';
+import Fab from '@mui/material/Fab';
+import { styled } from '@mui/material/styles';
+import Zoom from '@mui/material/Zoom';
+import isUrl from 'is-url';
+import { Transforms } from 'slate';
 import {
-  Slate,
-  Editable,
-  withReact,
-  useSlateStatic,
   ReactEditor,
+  useFocused,
   useReadOnly,
   useSelected,
-  useFocused
+  useSlateStatic
 } from 'slate-react';
 import { MenuButton } from '../../EditorUI';
 import { videoUrlFormatters } from './VideoTypes';
-import isUrl from 'is-url'
-import { styled } from '@mui/material/styles';
-import Zoom from '@mui/material/Zoom';
-import Fab from '@mui/material/Fab'
-import ClearIcon from '@mui/icons-material/Clear'
+import { z } from 'zod';
+import TextDialog from '@/app/ui/dialogs/TextDialog'
+import { useCallback, useMemo, useState } from 'react'
 
 const insertVideo = (editor, url) => {
-  const parsedUrl = processUrl(url);
+  const parsedUrl = formatUrl(url);
   const text = { text: '' }
   const image = { type: 'video', url: parsedUrl, children: [text] }
   Transforms.insertNodes(editor, image)
@@ -41,24 +40,47 @@ const isVideoUrl = (url) => {
 
 export const InsertVideoButton = ({ Icon }) => {
   const editor = useSlateStatic()
+  const processUrl = useCallback((url) => {
+    if (!url)
+      return;
+    insertVideo(editor, url);
+    closeDialog();
+  }, [])
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const closeDialog = useCallback(() => {
+    setDialogOpen(false)
+  }, [])
+  const validation = useMemo(() => z.string().url(), [])
+
   return (
-    <MenuButton
-      onMouseDown={event => {
-        event.preventDefault()
-        const url = window.prompt('Enter the URL of the video:')
-        if (!url) {
-          alert('no URL provided');
-          return;
-        }
-        insertVideo(editor, url)
-      }}
-    >
-      {Icon}
-    </MenuButton>
+    <>
+      <MenuButton
+        onMouseDown={event => {
+          event.preventDefault()
+          setDialogOpen(true);
+        }}
+      >
+        {Icon}
+      </MenuButton>
+      <TextDialog
+        open={dialogOpen}
+        title="Enter the URL of the video"
+        textFieldProps={{
+          label: "Url",
+          placeholder: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+          id: "videoUrl"
+        }}
+        confirmText="Add"
+        callback={processUrl}
+        onClose={closeDialog}
+        validation={validation}
+      />
+    </>
   )
 }
 
-const processUrl = (url) => {
+const formatUrl = (url) => {
   if (!url)
     return;
   for (const videoType of videoUrlFormatters) {
@@ -69,7 +91,7 @@ const processUrl = (url) => {
 }
 
 export const withEmbeds = editor => {
-  const { isVoid,insertData } = editor
+  const { isVoid, insertData } = editor
   editor.isVoid = element => (element.type === 'video' ? true : isVoid(element))
   editor.insertData = data => {
     const text = data.getData('text/plain');
