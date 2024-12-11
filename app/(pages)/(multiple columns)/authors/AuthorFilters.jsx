@@ -51,7 +51,8 @@ export default function AuthorFilters({ defaultValues }) {
 
                             <FormSelect name="sort" label="Sorting">
                                 <MenuItem value={"createdAt"}>Date of creation</MenuItem>
-                                <MenuItem value={"viewCount"}>Views</MenuItem>
+                                <MenuItem value={"followerCount"}>Follower count</MenuItem>
+                                <MenuItem value={"articleCount"}>Article count</MenuItem>
                             </FormSelect>
 
                             <FormSelect name="sortMode" label="Direction">
