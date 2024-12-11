@@ -25,11 +25,13 @@ export default function ConfirmDialog({ title, body, callback, confirmText, canc
             <DialogTitle>
                 {title}
             </DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    {body}
-                </DialogContentText>
-            </DialogContent>
+            {body &&
+                <DialogContent>
+                    <DialogContentText>
+                        {body}
+                    </DialogContentText>
+                </DialogContent>
+            }
             <DialogActions>
                 <SecondaryButton onClick={onClose}>{cancelText ?? "Cancel"}</SecondaryButton>
                 <LoadingButton
