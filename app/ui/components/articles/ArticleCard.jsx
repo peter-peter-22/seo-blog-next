@@ -10,6 +10,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
+import ArticleProps from './ArticleProps';
 
 export default function ArticleCard({ article, ...props }) {
     return (
@@ -38,6 +39,9 @@ export default function ArticleCard({ article, ...props }) {
                     </Typography>
 
                 </CardContent>
+                <CardActions>
+                    <ArticleProps article={article} />
+                </CardActions>
                 <CardActions>
                     <Tags tags={article.tags} />
                 </CardActions>
