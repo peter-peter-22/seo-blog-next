@@ -3,14 +3,14 @@
 import Link from '@mui/material/Link';
 import { isKeyHotkey } from 'is-hotkey';
 import isUrl from 'is-url';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
     Editor,
     Range,
     Element as SlateElement,
     Transforms
 } from 'slate';
-import { useSelected, useSlate } from 'slate-react';
+import { useReadOnly, useSelected, useSlate } from 'slate-react';
 import { MenuButton } from '../../EditorUI';
 
 export const onKeyDown = (event, editor) => {
@@ -37,14 +37,10 @@ export const onKeyDown = (event, editor) => {
 }
 
 export const withInlines = editor => {
-    const { insertData, insertText, isInline, isElementReadOnly, isSelectable } =
+    const { insertData, insertText, isInline } =
         editor
     editor.isInline = element =>
-        ['link', 'button', 'badge'].includes(element.type) || isInline(element)
-    editor.isElementReadOnly = element =>
-        element.type === 'badge' || isElementReadOnly(element)
-    editor.isSelectable = element =>
-        element.type !== 'badge' && isSelectable(element)
+        ['link'].includes(element.type) || isInline(element)
     editor.insertText = text => {
         if (text && isUrl(text)) {
             wrapLink(editor, text)
@@ -67,11 +63,6 @@ const insertLink = (editor, url) => {
         wrapLink(editor, url)
     }
 }
-const insertButton = editor => {
-    if (editor.selection) {
-        wrapButton(editor)
-    }
-}
 const isLinkActive = editor => {
     const [link] = Editor.nodes(editor, {
         match: n =>
@@ -79,23 +70,10 @@ const isLinkActive = editor => {
     })
     return !!link
 }
-const isButtonActive = editor => {
-    const [button] = Editor.nodes(editor, {
-        match: n =>
-            !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'button',
-    })
-    return !!button
-}
 const unwrapLink = editor => {
     Transforms.unwrapNodes(editor, {
         match: n =>
             !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'link',
-    })
-}
-const unwrapButton = editor => {
-    Transforms.unwrapNodes(editor, {
-        match: n =>
-            !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'button',
     })
 }
 const wrapLink = (editor, url) => {
@@ -113,23 +91,6 @@ const wrapLink = (editor, url) => {
         Transforms.insertNodes(editor, link)
     } else {
         Transforms.wrapNodes(editor, link, { split: true })
-        Transforms.collapse(editor, { edge: 'end' })
-    }
-}
-const wrapButton = editor => {
-    if (isButtonActive(editor)) {
-        unwrapButton(editor)
-    }
-    const { selection } = editor
-    const isCollapsed = selection && Range.isCollapsed(selection)
-    const button = {
-        type: 'button',
-        children: isCollapsed ? [{ text: 'Edit me!' }] : [],
-    }
-    if (isCollapsed) {
-        Transforms.insertNodes(editor, button)
-    } else {
-        Transforms.wrapNodes(editor, button, { split: true })
         Transforms.collapse(editor, { edge: 'end' })
     }
 }
@@ -160,6 +121,14 @@ export const LinkComponent = ({ attributes, children, element }) => {
         }
         return 'about:blank'
     }, [element.url])
+
+    //prevent the link from opening in edit mode
+    const isReadonly = useReadOnly();
+    const handleClick = useCallback(e => {
+        if (!isReadonly)
+            e.preventDefault();
+    }, [isReadonly])
+
     return (
         <Link
             {...attributes}
@@ -167,63 +136,14 @@ export const LinkComponent = ({ attributes, children, element }) => {
             sx={{
                 boxShadow: selected && "0 0 0 3px #ddd",
             }}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleClick}
         >
             <InlineChromiumBugfix />
             {children}
             <InlineChromiumBugfix />
         </Link>
-    )
-}
-export const EditableButtonComponent = ({ attributes, children }) => {
-    return (
-        /*
-          Note that this is not a true button, but a span with button-like CSS.
-          True buttons are display:inline-block, but Chrome and Safari
-          have a bad bug with display:inline-block inside contenteditable:
-          - https://bugs.webkit.org/show_bug.cgi?id=105898
-          - https://bugs.chromium.org/p/chromium/issues/detail?id=1088403
-          Worse, one cannot override the display property: https://github.com/w3c/csswg-drafts/issues/3226
-          The only current workaround is to emulate the appearance of a display:inline button using CSS.
-        */
-        <span
-            {...attributes}
-            onClick={ev => ev.preventDefault()}
-            // Margin is necessary to clearly show the cursor adjacent to the button
-            style={{
-                margin: "0 0.1em",
-                backgroundColor: "#efefef",
-                padding: "2px 6px",
-                border: "1px solid #767676",
-                borderRadius: 2,
-                fontSize: "0.9em"
-            }}
-        >
-            <InlineChromiumBugfix />
-            {children}
-            <InlineChromiumBugfix />
-        </span>
-    )
-}
-export const BadgeComponent = ({ attributes, children, element }) => {
-    const selected = useSelected()
-    return (
-        <span
-            {...attributes}
-            contentEditable={false}
-            style={{
-                backgroundColor: "green",
-                color: "white",
-                padding: "2px 6px",
-                borderRadius: 2,
-                fontSize: "0.9em",
-                boxShadow: selected && "0 0 0 3px #ddd"
-            }}
-            data-playwright-selected={selected}
-        >
-            <InlineChromiumBugfix />
-            {children}
-            <InlineChromiumBugfix />
-        </span>
     )
 }
 export const AddLinkButton = ({ Icon }) => {
@@ -254,23 +174,5 @@ export const RemoveLinkButton = ({ Icon }) => {
         >
             {Icon}
         </MenuButton>
-    )
-}
-const ToggleEditableButtonButton = () => {
-    const editor = useSlate()
-    return (
-        <Button
-            active
-            onMouseDown={event => {
-                event.preventDefault()
-                if (isButtonActive(editor)) {
-                    unwrapButton(editor)
-                } else {
-                    insertButton(editor)
-                }
-            }}
-        >
-            <Icon>smart_button</Icon>
-        </Button>
     )
 }
