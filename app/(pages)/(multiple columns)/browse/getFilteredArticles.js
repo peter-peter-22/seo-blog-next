@@ -11,36 +11,42 @@ export default async function getFilteredArticles(searchParams) {
     if (offset > 10000)
         throw new Error("Searching this deep in not permitted");
 
-    //creating filter objects
-    const textFilter = text && {
-        OR: [
+    //create the filter that will be used in the article selector and counter
+    const where = {
+        AND: [
             {
-                title: {
-                    contains: text,
-                    mode: 'insensitive'
+                //text filter
+                ...text && {
+                    OR: [
+                        {
+                            title: {
+                                contains: text,
+                                mode: 'insensitive'
+                            }
+                        },
+                        {
+                            description: {
+                                contains: text,
+                                mode: 'insensitive'
+                            }
+                        }
+                    ]
                 }
             },
             {
-                description: {
-                    contains: text,
-                    mode: 'insensitive'
+                //author filter
+                ...author && {
+                    userId: author
+                }
+            },
+            {
+                //tag filter
+                ...tags && tags.length > 0 && {
+                    tags: {
+                        hasEvery: tags,
+                    }
                 }
             }
-        ]
-    };
-    const authorFilter = author && {
-        userId: author
-    };
-    const tagFilter = tags && tags.length > 0 && {
-        tags: {
-            hasEvery: tags,
-        }
-    };
-    const where = {
-        AND: [
-            { ...textFilter },
-            { ...authorFilter },
-            { ...tagFilter }
         ]
     }
 
