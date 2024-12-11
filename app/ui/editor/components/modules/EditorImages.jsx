@@ -1,3 +1,5 @@
+"use client";
+
 import ClearIcon from '@mui/icons-material/Clear'
 import { styled } from '@mui/material/styles'
 import Fab from '@mui/material/Fab'
@@ -9,6 +11,9 @@ import Zoom from '@mui/material/Zoom';
 import isUrl from 'is-url'
 import imageExtensions from 'image-extensions'
 import { MenuButton } from '../../EditorUI'
+import TextDialog from '@/app/ui/dialogs/TextDialog'
+import { useCallback, useMemo, useState } from 'react'
+import { z } from 'zod';
 
 const withImages = editor => {
     const { isVoid, insertData } = editor
@@ -49,30 +54,48 @@ const insertImage = (editor, url) => {
         children: [{ text: '' }],
     })
 }
-const isImageUrl = (url, checkExtension = true) => {
+const isImageUrl = (url) => {
     if (!url) return false
     if (!isUrl(url)) return false
-    if (!checkExtension)
-        return true;
     const ext = new URL(url).pathname.split('.').pop()
     return imageExtensions.includes(ext)
 }
 const InsertImageButton = ({ Icon }) => {
-    const editor = useSlateStatic()
+    const editor = useSlateStatic();
+    const processUrl = useCallback((url) => {
+        url && insertImage(editor, url)
+    }, [])
+
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const closeDialog = useCallback(() => {
+        setDialogOpen(false)
+    }, [])
+    const validation = useMemo(()=>z.string().url(),[])
+
     return (
-        <MenuButton
-            onMouseDown={event => {
-                event.preventDefault()
-                const url = window.prompt('Enter the URL of the image:')
-                if (url && !isImageUrl(url, false)) {
-                    alert('URL is not an image')
-                    return
-                }
-                url && insertImage(editor, url)
-            }}
-        >
-            {Icon}
-        </MenuButton>
+        <>
+            <MenuButton
+                onMouseDown={event => {
+                    event.preventDefault()
+                    setDialogOpen(true);
+                }}
+            >
+                {Icon}
+            </MenuButton>
+            <TextDialog
+                open={dialogOpen}
+                title="Enter the URL of the image"
+                textFieldProps={{
+                    label: "Url",
+                    placeholder: "https://picsum.photos/id/237/200/300",
+                    id: "imageUrl"
+                }}
+                confirmText="Add"
+                callback={processUrl}
+                onClose={closeDialog}
+                validation={validation}
+            />
+        </>
     )
 }
 
