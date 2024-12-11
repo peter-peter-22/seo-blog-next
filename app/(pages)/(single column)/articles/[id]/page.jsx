@@ -57,6 +57,9 @@ export default async function Page(props) {
                         }
                     }
                 },
+                orderBy: [
+                    { createdAt: "desc" }
+                ],
                 take: 20
             },
             _count: {

@@ -11,6 +11,7 @@ import { memo } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSession } from 'next-auth/react';
+import formatDate from '@/app/ui/utilities/formatDate';
 
 const Comment = memo(({ comment, openCommentDialog }) => {
     const session = useSession();
@@ -30,7 +31,7 @@ const Comment = memo(({ comment, openCommentDialog }) => {
 
                             <IconButton
                                 aria-label="edit"
-                                onClick={openCommentDialog({updating:comment})}
+                                onClick={openCommentDialog({ updating: comment })}
                             >
                                 <EditIcon />
                             </IconButton>
@@ -38,12 +39,13 @@ const Comment = memo(({ comment, openCommentDialog }) => {
                     }
                     <IconButton
                         aria-label="reply"
-                        onClick={openCommentDialog({replyingTo:comment.user})}
+                        onClick={openCommentDialog({ replyingTo: comment.user })}
                     >
                         <CommentIcon />
                     </IconButton>
                 </>
             }
+           alignItems="flex-start"
         >
             <ListItemAvatar>
                 <HybridAvatar user={comment.user} />
@@ -67,6 +69,13 @@ const Comment = memo(({ comment, openCommentDialog }) => {
                             component="span"
                         >
                             {comment.text}
+                        </Typography>
+                        <Typography
+                            component="span"
+                            variant="body2"
+                            sx={{ display: "block" }}
+                        >
+                            {formatDate(comment.createdAt)}
                         </Typography>
                     </>
                 }

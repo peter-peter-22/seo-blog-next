@@ -18,11 +18,6 @@ export default async function getFilteredUsers(searchParams) {
             mode: 'insensitive'
         }
     };
-    //const tagFilter = tags && tags.length > 0 && {
-    //    tags: {
-    //        hasEvery: tags,
-    //    }
-    //};
     const where = {
         AND: [
             { ...textFilter },
