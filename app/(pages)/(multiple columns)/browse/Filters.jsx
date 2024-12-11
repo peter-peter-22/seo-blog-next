@@ -50,6 +50,7 @@ export default function Filters({ defaultValues }) {
 
                             <FormSelect name="sort" label="Sorting">
                                 <MenuItem value={"createdAt"}>Date of creation</MenuItem>
+                                <MenuItem value={"likeCount"}>Likes</MenuItem>
                                 <MenuItem value={"viewCount"}>Views</MenuItem>
                             </FormSelect>
 
