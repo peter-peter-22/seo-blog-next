@@ -12,8 +12,12 @@ export default async function ProfileContainer({ userId, isMe }) {
                 createdAt: true,
                 image: true,
                 description: true,
-                AuthorTag: true,
-                articleCount:true
+                AuthorTag: {
+                    orderBy: [
+                        { count: "desc" }
+                    ]
+                },
+                articleCount: true
             }
         }),
         prisma.article.findMany({
