@@ -52,7 +52,7 @@ export default function ArticleComments({ article }) {
         )
     }, [])
     //update the comment count when a new comment is added
-    const commentCount = article._count.Comments + commentsMade;
+    const commentCount = article.commentCount + commentsMade;
     return (
         <>
             <Card>

@@ -87,6 +87,7 @@ model Article {
   verifiedViewCount      Int      @default(0)
   unverifiedViewCount    Int      @default(0)
   viewCount              Int      @default(0)
+  commentCount           Int      @default(0)
 
   VerifiedLike   VerifiedLike[]
   UnverifiedLike UnverifiedLike[]

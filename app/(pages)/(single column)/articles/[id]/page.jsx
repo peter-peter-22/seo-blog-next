@@ -61,9 +61,6 @@ export default async function Page(props) {
                     { createdAt: "desc" }
                 ],
                 take: 20
-            },
-            _count: {
-                select: { Comments: true }
             }
         }
     })
