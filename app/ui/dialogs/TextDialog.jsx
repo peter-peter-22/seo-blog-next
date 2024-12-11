@@ -33,7 +33,10 @@ export default function TextDialog({ title, body, callback, confirmText, cancelT
             fullWidth
             onClose={onClose}
             component={"form"}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => {
+                e.stopPropagation();
+                handleSubmit(onSubmit)(e)
+            }}
             {...props}
         >
             <FormProvider {...methods}>

@@ -63,14 +63,17 @@ const isImageUrl = (url) => {
 const InsertImageButton = ({ Icon }) => {
     const editor = useSlateStatic();
     const processUrl = useCallback((url) => {
-        url && insertImage(editor, url)
+        if (!url)
+            return;
+        insertImage(editor, url);
+        closeDialog();
     }, [])
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {
         setDialogOpen(false)
     }, [])
-    const validation = useMemo(()=>z.string().url(),[])
+    const validation = useMemo(() => z.string().url(), [])
 
     return (
         <>
