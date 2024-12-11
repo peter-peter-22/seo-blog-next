@@ -98,7 +98,7 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
             <Toolbar />
             <ArticleRow title="Recent articles" articles={recentArticles} filters={{ author: user.id }} />
             <Toolbar />
-            <ArticleRow title="Top articles" articles={popularArticles} />
+            <ArticleRow title="Top articles" articles={popularArticles} filters={{ author: user.id, sort: "likeCount" }} />
         </>
     )
 }

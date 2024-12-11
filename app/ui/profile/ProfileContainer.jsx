@@ -35,7 +35,7 @@ export default async function ProfileContainer({ userId, isMe }) {
                 userId,
             },
             orderBy: [
-                { createdAt: "desc" },
+                { likeCount: "desc" },
                 { id: "desc" }
             ],
             take: 6
