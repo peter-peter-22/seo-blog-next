@@ -1,9 +1,10 @@
 "use client";
 
+import TextDialog from '@/app/ui/dialogs/TextDialog';
 import Link from '@mui/material/Link';
 import { isKeyHotkey } from 'is-hotkey';
 import isUrl from 'is-url';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
     Editor,
     Range,
@@ -11,6 +12,7 @@ import {
     Transforms
 } from 'slate';
 import { useReadOnly, useSelected, useSlate } from 'slate-react';
+import { z } from 'zod';
 import { MenuButton } from '../../EditorUI';
 
 export const onKeyDown = (event, editor) => {
@@ -148,17 +150,42 @@ export const LinkComponent = ({ attributes, children, element }) => {
 }
 export const AddLinkButton = ({ Icon }) => {
     const editor = useSlate()
+    const processUrl = useCallback((url) => {
+        if (!url)
+            return;
+        insertLink(editor, url);
+        closeDialog();
+    }, [])
+
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const closeDialog = useCallback(() => {
+        setDialogOpen(false)
+    }, [])
+    const validation = useMemo(() => z.string().url(), [])
     return (
-        <MenuButton
-            onMouseDown={event => {
-                event.preventDefault()
-                const url = window.prompt('Enter the URL of the link:')
-                if (!url) return
-                insertLink(editor, url)
-            }}
-        >
-            {Icon}
-        </MenuButton>
+        <>
+            <MenuButton
+                onMouseDown={event => {
+                    event.preventDefault()
+                    setDialogOpen(true);
+                }}
+            >
+                {Icon}
+            </MenuButton>
+            <TextDialog
+                open={dialogOpen}
+                title="Enter the URL of the image"
+                textFieldProps={{
+                    label: "Url",
+                    placeholder: "https://github.com",
+                    id: "linkUrl"
+                }}
+                confirmText="Add"
+                callback={processUrl}
+                onClose={closeDialog}
+                validation={validation}
+            />
+        </>
     )
 }
 export const RemoveLinkButton = ({ Icon }) => {
