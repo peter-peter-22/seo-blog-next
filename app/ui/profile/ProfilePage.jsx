@@ -63,18 +63,21 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                         </Box>
                     </Stack>
                     {user.AuthorTag && user.AuthorTag.length > 0 ? (
-                        <TagContainer sx={{ mt: 1 }}>
-                            {user.AuthorTag.map((tag, i) => (
-                                <Chip
-                                    label={`${tag.name} - ${tag.count}`}
-                                    clickable
-                                    component={Link}
-                                    size="small"
-                                    href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
-                                    key={i}
-                                />
-                            ))}
-                        </TagContainer>
+                        <>
+                            <Typography color="text.secondary" variant="body2">{user.articleCount} articles</Typography>
+                            <TagContainer sx={{ mt: 1 }}>
+                                {user.AuthorTag.map((tag, i) => (
+                                    <Chip
+                                        label={`${tag.name} - ${tag.count}`}
+                                        clickable
+                                        component={Link}
+                                        size="small"
+                                        href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
+                                        key={i}
+                                    />
+                                ))}
+                            </TagContainer>
+                        </>
                     ) : (
                         <Typography color="text.secondary">No articles yet</Typography>
                     )}
@@ -93,7 +96,7 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                 }
             </Card>
             <Toolbar />
-            <ArticleRow title="Recent articles" articles={recentArticles} filters={{author:user.id}} />
+            <ArticleRow title="Recent articles" articles={recentArticles} filters={{ author: user.id }} />
             <Toolbar />
             <ArticleRow title="Top articles" articles={popularArticles} />
         </>
