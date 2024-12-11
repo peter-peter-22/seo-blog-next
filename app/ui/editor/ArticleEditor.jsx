@@ -24,7 +24,7 @@ export default function ArticleEditor({ updating }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: zodResolver(updating ? UpdateArticleSchema : PublishArticleSchema), // Apply the zodResolver
+    resolver: zodResolver( PublishArticleSchema), // Apply the zodResolver
     defaultValues: loadedDraft
   });
   const { handleSubmit, formState: { isSubmitting } } = methods;

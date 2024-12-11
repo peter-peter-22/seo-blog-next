@@ -1,5 +1,7 @@
 "use client";
 
+import { deleteArticleAction } from '@/app/actions/articleActions';
+import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
 import { getDraftName } from "@/app/ui/editor/ArticleEditor";
 import Button from "@mui/material/Button";
 import Card from '@mui/material/Card';
@@ -8,16 +10,42 @@ import CardContent from '@mui/material/CardContent';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useSnackbar } from 'notistack';
+import { useCallback, useTransition,useState } from "react";
 
 export default function ArticleEditDialog({ article }) {
     const router = useRouter();
+    const { enqueueSnackbar } = useSnackbar();
+    const [deleting, startDelete] = useTransition();
+    const [dialogOpen, setDialogOpen] = useState(false);
 
-    const handleClick = useCallback(() => {
+    const handleEdit = useCallback(() => {
         //copy the article of this page to the draft save then open the editor
         localStorage.setItem(getDraftName(true), JSON.stringify(article));
         router.push("/profile/write/update");
     }, [article])
+
+    const closeDialog = useCallback(() => {
+        setDialogOpen(false);
+    }, [])
+
+    const deletePromt = useCallback(() => {
+        setDialogOpen(true);
+    }, [])
+
+    const handleDelete = useCallback(() => {
+        startDelete(
+            async () => {
+                try {
+                    await deleteArticleAction({id:article.id});
+                    enqueueSnackbar("Article deleted");
+                }
+                catch (err) {
+                    enqueueSnackbar(err.toString(), { variant: "error" });
+                }
+            }
+        )
+    }, [])
 
     return <>
         <Card>
@@ -27,11 +55,23 @@ export default function ArticleEditDialog({ article }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button onClick={handleClick}>
+                <Button onClick={handleEdit}>
                     Edit
+                </Button>
+                <Button onClick={deletePromt} disabled={deleting}>
+                    Delete
                 </Button>
             </CardActions>
         </Card  >
         <Toolbar />
+        <ConfirmDialog
+            open={dialogOpen}
+            callback={handleDelete}
+            onClose={closeDialog}
+            title={"Do you want to deleted this article?"}
+            body="The article cannot be restored after deletion."
+            confirmText="Delete"
+            cancelText="Cancel"
+        />
     </>
 }

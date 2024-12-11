@@ -1,9 +1,10 @@
 'use server';
 
-import { PublishArticleSchema, UpdateArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
 import { redirect } from 'next/navigation';
 import authOrThrow from '../auth/authOrThrow';
+import { revalidatePath } from 'next/cache'
 
 export async function publishOrUpdateArticle(data, updating) {
     let redirectUrl;
@@ -27,7 +28,6 @@ export async function publishOrUpdateArticle(data, updating) {
 
 async function createOrUpdate(data, session) {
     const { title, description, content, id, tags } = data;
-    console.log(id);
     const values = {
         title,
         description,
@@ -53,5 +53,24 @@ async function createOrUpdate(data, session) {
         return await prisma.article.create({
             data: values
         });
+    }
+}
+
+export async function deleteArticleAction(data) {
+    const { id } = DeleteArticleSchema.parse(data);
+    const { user } = await authOrThrow();
+    try {
+        await prisma.article.delete({
+            where: {
+                id,
+                userId: user.id
+            }
+        });
+        revalidatePath(`/articles/${id}`)
+    }
+    catch (err) {
+        if (err.code === "P2025")
+            throw new Error("This article does not exists, or it is not owned by you.")
+        throw (err);
     }
 }
