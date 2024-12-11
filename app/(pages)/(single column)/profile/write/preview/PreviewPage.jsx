@@ -18,7 +18,7 @@ export default function PreviewPage({ updating }) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button href={updating ? "/profile/write/update" : "/profile/write"}>
+                    <Button href={updating ? `/profile/write/update/${updating}` : "/profile/write"}>
                         Back
                     </Button>
                 </CardActions>

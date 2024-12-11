@@ -21,7 +21,7 @@ export default function ArticleEditDialog({ article }) {
     const handleEdit = useCallback(() => {
         //copy the article of this page to the draft save then open the editor
         localStorage.setItem(getDraftName(true), JSON.stringify(article));
-        router.push("/profile/write/update");
+        router.push(`/profile/write/update/${article.id}`);
     }, [article])
 
     const closeDialog = useCallback(() => {

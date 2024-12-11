@@ -2,58 +2,35 @@
 
 import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
-import { redirect } from 'next/navigation';
 import authOrThrow from '../auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
 
-export async function publishOrUpdateArticle(data, updating) {
-    let redirectUrl;
-    try {
-        const session = await authOrThrow();
+export async function publishArticle(data) {
+    await authOrThrow();
 
-        // Validate form fields using Zod
-        const Schema = updating ? UpdateArticleSchema : PublishArticleSchema;
-        Schema.parse(data);
+    // Validate form fields using Zod
+    PublishArticleSchema.parse(data);
 
-        const created = await createOrUpdate(data, session, updating);
+    const created = await prisma.article.create({ data })
 
-        redirectUrl = `/articles/${created.id}`;
-    }
-    catch (err) {
-        return err.toString();
-    }
-    if (redirectUrl)
-        redirect(redirectUrl);
+    return created.id;
 }
 
-async function createOrUpdate(data, session) {
-    const { title, description, content, id, tags } = data;
-    const values = {
-        title,
-        description,
-        content,
-        userId: session.user.id,
-        tags
-    }
-    if (id) {
-        try {
-            return await prisma.article.update({
-                where: {
-                    id,
-                    userId: session.user.id
-                },
-                data: values
-            });
-        }
-        catch (err) {
-            throw new Error(err.meta?.cause ?? err)
-        }
-    }
-    else {
-        return await prisma.article.create({
-            data: values
-        });
-    }
+export async function updateArticle(data) {
+    const session = await authOrThrow();
+
+    // Validate form fields using Zod
+    UpdateArticleSchema.parse(data);
+
+    const created = await prisma.article.update({
+        where: {
+            id: data.id,
+            userId: session.user.id
+        },
+        data
+    });
+
+    return created.id;
 }
 
 export async function deleteArticleAction(data) {
