@@ -18,16 +18,27 @@ export default function ArticleComments({ article }) {
     const closeDialog = useCallback(() => { setDialog() })
     const [comments, setComments] = useState(article.Comments);
     const [commentsMade, setCommentsMade] = useState(0);
-    const addComments = useCallback((newComment) => {
+
+    //add a new comment to the top of the list
+    const addComment = useCallback((newComment) => {
         setComments(prev => [newComment, ...prev]);
         setCommentsMade(prev => prev + 1);
     }, [])
+
+    //replace a comment at an id
+    const updateComment = useCallback((updatedComment) => {
+        setComments(prev => prev.map(comment => (
+            comment.id===updatedComment.id?updatedComment:comment
+        )))
+    }, [])
+
     const openCommentDialog = useCallback((options) => () => {
         setDialog(
             < CommentDialog
                 {...options}
                 articleId={article.id}
-                onPublish={addComments}
+                onPublish={addComment}
+                onUpdate={updateComment}
                 close={closeDialog}
             />
         )
@@ -60,7 +71,7 @@ export default function ArticleComments({ article }) {
                         }}>
                             <List>
                                 {comments.map((comment, i, array) => (
-                                    <Fragment key={i}>
+                                    <Fragment key={comment.id}>
                                         <Comment comment={comment} openCommentDialog={openCommentDialog} />
                                         {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
                                     </Fragment>

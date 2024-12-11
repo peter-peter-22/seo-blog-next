@@ -82,6 +82,6 @@ const Comment = memo(({ comment, openCommentDialog }) => {
             />
         </ListItem>
     )
-}, (prev, next) => prev.comment?.id === next.comment?.id);
+}, (prev, next) => prev.comment === next.comment);
 
 export default Comment;

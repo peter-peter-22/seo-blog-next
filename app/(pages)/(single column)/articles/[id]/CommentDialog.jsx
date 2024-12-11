@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm, } from 'react-hook-form';
 
-export default function CommentDialog({ replyingTo, articleId, onPublish, close, updating }) {
+export default function CommentDialog({ replyingTo, articleId, onPublish, onUpdate, onDelete, close, updating }) {
     const { enqueueSnackbar } = useSnackbar();
     const methods = useForm({
         resolver: zodResolver(CommentSchemaClient), // Apply the zodResolver
@@ -31,7 +31,10 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, close,
                     ...data
                 });
             enqueueSnackbar(updating ? "Comment updated" : "Comment published", { variant: "success" })
-            onPublish(created);
+            if (updating)
+                onUpdate(created)
+            else
+                onPublish(created);
             close();
         }
         catch (err) {
