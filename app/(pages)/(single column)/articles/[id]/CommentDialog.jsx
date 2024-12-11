@@ -8,16 +8,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
 import { useSnackbar } from 'notistack';
+import { useCallback } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
 
-export default function CommentDialog({ replyingTo, articleId, onPublish, onUpdate, onDelete, close, updating }) {
+export default function CommentDialog({ replyingTo, articleId, onPublish, onUpdate, close, updating }) {
     const { enqueueSnackbar } = useSnackbar();
     const methods = useForm({
         resolver: zodResolver(CommentSchemaClient), // Apply the zodResolver
         defaultValues: { text: updating?.text }
     });
     const { handleSubmit, formState: { isSubmitting } } = methods;
-    const onSubmit = async (data) => {
+    const onSubmit = useCallback(async (data) => {
         try {
             const created = updating ?
                 await updateCommentAction({
@@ -40,7 +41,7 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, onUpda
         catch (err) {
             enqueueSnackbar(err.toString(), { variant: "error" })
         }
-    }
+    }, [])
 
     //if updading, choose the replied user of the updated comment
     //if not, then use the replied user of the new comment
