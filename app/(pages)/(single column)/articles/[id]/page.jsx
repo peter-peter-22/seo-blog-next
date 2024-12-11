@@ -9,47 +9,66 @@ export default async function Page(props) {
     const { id } = await props.params;
     const session = await auth();
 
-    //create a prisma selector that will get if the user liked this post depending on the authentication
-    const likedByUserQuery = session?.user ? {
-        VerifiedLike: {
-            where: {
-                userId: session.user.id
-            }
-        }
-    } : {
-        UnverifiedLike: {
-            where: {
-                ip: getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
-            }
-        }
-    }
-
-    const [article] = await Promise.all([
-        prisma.article.findUnique({
-            where: { id },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        image: true,
-                        followerCount: true,
-                        Followers: {
-                            where: {
-                                followerId: session?.user?.id ?? null
-                            }
-                        },
+    //get the article 
+    const article = await prisma.article.findUnique({
+        where: { id },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                    followerCount: true,
+                    Followers: {
+                        where: {
+                            followerId: session?.user?.id ?? null
+                        }
                     },
                 },
-                ...likedByUserQuery
+            },
+            //get if the user like this post depending on the authentication
+            ...session?.user ? {
+                VerifiedLike: {
+                    where: {
+                        userId: session.user.id
+                    }
+                }
+            } : {
+                UnverifiedLike: {
+                    where: {
+                        ip: getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
+                    }
+                }
+            },
+            Comments: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    },
+                    replyingTo: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    }
+                },
+                take: 20
+            },
+            _count: {
+                select: { Comments: true }
             }
-        }),
-        updateViews(id, session)
-    ]);
-    console.log(article);
+        }
+    })
     if (!article)
         notFound();
 
+    //update the viewcount if the article exists
+    updateViews(id, session)
+
+    //get if the user owns this article
     const isMine = article.user.id === session?.user?.id;
 
     return (

@@ -35,6 +35,8 @@ model User {
   VerifiedView VerifiedView[]
   Followers    Follows[]      @relation("Followed")
   Followed     Follows[]      @relation("Follower")
+  Comments     Comment[]      @relation("Commenter")
+  Replies      Comment[]      @relation("Replied")
 }
 
 model Account {
@@ -86,11 +88,11 @@ model Article {
   unverifiedViewCount    Int      @default(0)
   viewCount              Int      @default(0)
 
-  VerifiedLike VerifiedLike[]
-
+  VerifiedLike   VerifiedLike[]
   UnverifiedLike UnverifiedLike[]
   VerifiedView   VerifiedView[]
   UnverifiedView UnverifiedView[]
+  Comments       Comment[]
 }
 
 model Topic {
@@ -156,4 +158,15 @@ model Follows {
   followedId String
 
   @@id([followedId, followerId])
+}
+
+model Comment {
+  id           String  @id @default(cuid())
+  user         User   @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  replyingTo   User?    @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
+  replyingToId String?
+  text         String
+  articleId    String
+  article      Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }

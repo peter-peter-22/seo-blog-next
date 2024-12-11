@@ -1,4 +1,5 @@
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from "@mui/material/Chip";
@@ -7,28 +8,28 @@ import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
+import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
 import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
+import ArticleLikes from '../../(pages)/(single column)/articles/[id]/ArticleLikes';
+import FollowButtons from '../profile/reactions/FollowButtons';
 import formatDate from '../utilities/formatDate';
+import formatNumber from '../utilities/formatNumber';
 import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
-import ArticleLikes from '../profile/reactions/ArticleLikes';
-import FollowButtons from '../profile/reactions/FollowButtons';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import formatNumber from '../utilities/formatNumber';
-import Tooltip from '@mui/material/Tooltip';
+import ArticleComments from '@/app/(pages)/(single column)/articles/[id]/ArticleComments';
 
 export default function ArticleViewer({ article, preview }) {
     return (
         <>
             <Card>
                 <CardContent>
-                    <Typography variant="h4">
+                    <Typography variant="h5">
                         {article.title}
                     </Typography>
                     <Divider />
@@ -83,7 +84,7 @@ export default function ArticleViewer({ article, preview }) {
                     <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
                         <ArticleLikes article={article} />
                         <FollowButtons
-                            userId={article.user.id}
+                            user={article.user}
                             isFollowed={!!article.user.Followers?.[0]}
                             followerCount={article.user.followerCount}
                         />
@@ -103,6 +104,8 @@ export default function ArticleViewer({ article, preview }) {
                     />
                 </CardContent>
             </Card>
+            <Toolbar />
+            <ArticleComments article={article} />
         </>
     );
 }
