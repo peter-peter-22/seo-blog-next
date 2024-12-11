@@ -104,8 +104,12 @@ export default function ArticleViewer({ article, preview }) {
                     />
                 </CardContent>
             </Card>
-            <Toolbar />
-            <ArticleComments article={article} />
+            {!preview &&
+                <>
+                    <Toolbar />
+                    <ArticleComments article={article} />
+                </>
+            }
         </>
     );
 }
