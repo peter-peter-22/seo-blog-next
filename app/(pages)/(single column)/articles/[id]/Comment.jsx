@@ -1,28 +1,28 @@
 "use client";
 
+import { deleteCommentAction } from '@/app/actions/commentActions';
+import { delay } from '@/app/lib/delay';
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
+import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
 import HybridAvatar from '@/app/ui/profile/HybridAvatar';
+import formatDate from '@/app/ui/utilities/formatDate';
 import CommentIcon from '@mui/icons-material/Comment';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { memo, useCallback, useState, useTransition } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import { useSession } from 'next-auth/react';
-import formatDate from '@/app/ui/utilities/formatDate';
 import { useSnackbar } from 'notistack';
-import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
-import { deleteCommentAction } from '@/app/actions/commentActions';
+import { memo, useCallback, useState } from 'react';
 
 const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
     const session = useSession();
     const userId = session?.data?.user?.id;
     const { enqueueSnackbar } = useSnackbar();
-    const [deleting, startDelete] = useTransition();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const closeDialog = useCallback(() => {
@@ -33,19 +33,16 @@ const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
         setDialogOpen(true);
     }, [])
 
-    const handleDelete = useCallback(() => {
-        startDelete(
-            async () => {
-                try {
-                    await deleteCommentAction({id:comment.id});
-                    enqueueSnackbar("Comment deleted");
-                    onDelete(comment.id);
-                }
-                catch (err) {
-                    enqueueSnackbar(err.toString(), { variant: "error" });
-                }
-            }
-        )
+    const handleDelete = useCallback(async () => {
+        try {
+            await delay(1000);
+            await deleteCommentAction({ id: comment.id });
+            enqueueSnackbar("Comment deleted");
+            onDelete(comment.id);
+        }
+        catch (err) {
+            enqueueSnackbar(err.toString(), { variant: "error" });
+        }
     }, [])
 
     return (
@@ -58,7 +55,6 @@ const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
                                 <IconButton
                                     aria-label="delete"
                                     onClick={deletePromt}
-                                    disabled={deleting}
                                 >
                                     <DeleteIcon />
                                 </IconButton>

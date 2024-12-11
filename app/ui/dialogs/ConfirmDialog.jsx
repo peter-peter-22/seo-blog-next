@@ -1,11 +1,24 @@
+"use client";
+
+import LoadingButton from '@mui/lab/LoadingButton';
+import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { PrimaryButton, SecondaryButton } from '../forms/components/FormButtons';
-import Dialog from '@mui/material/Dialog';
+import { useCallback, useTransition } from 'react';
+import { SecondaryButton } from '../forms/components/FormButtons';
 
 export default function ConfirmDialog({ title, body, callback, confirmText, cancelText, onClose, ...props }) {
+    const [pending, startSubmit] = useTransition();
+    const submit = useCallback(() => {
+        startSubmit(
+            async () => {
+                await callback();
+                onClose();
+            }
+        )
+    }, [])
     return (
         <Dialog
             disableRestoreFocus
@@ -24,15 +37,14 @@ export default function ConfirmDialog({ title, body, callback, confirmText, canc
             </DialogContent>
             <DialogActions>
                 <SecondaryButton onClick={onClose}>{cancelText ?? "Cancel"}</SecondaryButton>
-                <PrimaryButton
-                    onClick={() => {
-                        onClose()
-                        callback()
-                    }}
+                <LoadingButton
+                    loading={pending}
+                    variant="contained"
+                    onClick={submit}
                     autoFocus
                 >
                     {confirmText ?? "Confirm"}
-                </PrimaryButton>
+                </LoadingButton>
             </DialogActions>
         </Dialog>
     )

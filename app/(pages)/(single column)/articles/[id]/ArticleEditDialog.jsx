@@ -11,12 +11,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from 'notistack';
-import { useCallback, useTransition,useState } from "react";
+import { useCallback, useState } from "react";
 
 export default function ArticleEditDialog({ article }) {
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const [deleting, startDelete] = useTransition();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleEdit = useCallback(() => {
@@ -33,18 +32,14 @@ export default function ArticleEditDialog({ article }) {
         setDialogOpen(true);
     }, [])
 
-    const handleDelete = useCallback(() => {
-        startDelete(
-            async () => {
-                try {
-                    await deleteArticleAction({id:article.id});
-                    enqueueSnackbar("Article deleted");
-                }
-                catch (err) {
-                    enqueueSnackbar(err.toString(), { variant: "error" });
-                }
-            }
-        )
+    const handleDelete = useCallback(async () => {
+        try {
+            await deleteArticleAction({ id: article.id });
+            enqueueSnackbar("Article deleted");
+        }
+        catch (err) {
+            enqueueSnackbar(err.toString(), { variant: "error" });
+        }
     }, [])
 
     return <>
@@ -58,7 +53,7 @@ export default function ArticleEditDialog({ article }) {
                 <Button onClick={handleEdit}>
                     Edit
                 </Button>
-                <Button onClick={deletePromt} disabled={deleting}>
+                <Button onClick={deletePromt}>
                     Delete
                 </Button>
             </CardActions>
