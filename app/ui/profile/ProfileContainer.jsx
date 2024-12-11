@@ -2,7 +2,7 @@ import prisma from "@/utils/db";
 import { notFound } from "next/navigation";
 import ProfilePage from "./ProfilePage";
 
-export default async function ProfileContainer({ userId, isMe }) {
+export default async function ProfileContainer({ userId, isMe, me }) {
     const [user, recentArticles, popularArticles] = await Promise.all([
         prisma.user.findUnique({
             where: { id: userId },
@@ -12,10 +12,18 @@ export default async function ProfileContainer({ userId, isMe }) {
                 createdAt: true,
                 image: true,
                 description: true,
+                followerCount: true,
                 AuthorTag: {
                     orderBy: [
                         { count: "desc" }
                     ]
+                },
+                ...me && {
+                    Followers: {
+                        where: {
+                            followerId: me.id
+                        }
+                    }
                 },
                 articleCount: true
             }

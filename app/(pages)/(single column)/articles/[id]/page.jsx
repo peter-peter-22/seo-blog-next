@@ -76,7 +76,7 @@ export default async function Page(props) {
     return (
         <>
             {isMine && <ArticleEditDialog article={article} />}
-            <ArticleViewer article={article} />
+            <ArticleViewer article={article} me={session?.user}/>
         </>
     );
 }

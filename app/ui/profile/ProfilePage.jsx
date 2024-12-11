@@ -1,18 +1,19 @@
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
-import CardContent from "@mui/material/CardContent";
-import formatDate from "../utilities/formatDate";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Toolbar from "@mui/material/Toolbar";
-import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import HybridAvatar from "./HybridAvatar";
+import Card from "@mui/material/Card";
 import CardActions from '@mui/material/CardActions';
-import TagContainer from "../components/articles/TagContainer";
+import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import ArticleRow from "../components/articles/ArticleRow";
+import TagContainer from "../components/articles/TagContainer";
+import formatDate from "../utilities/formatDate";
+import FollowProfile from "./FollowProfile";
+import HybridAvatar from "./HybridAvatar";
 
 export default function ProfilePage({ user, recentArticles, popularArticles, isMe }) {
     return (
@@ -62,6 +63,9 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                             />
                         </Box>
                     </Stack>
+                    <FollowProfile
+                        user={user}
+                    />
                     {user.AuthorTag && user.AuthorTag.length > 0 ? (
                         <>
                             <Typography color="text.secondary" variant="body2">{user.articleCount} articles</Typography>

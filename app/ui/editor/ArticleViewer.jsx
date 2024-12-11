@@ -17,7 +17,7 @@ import Typography from "@mui/material/Typography";
 import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
 import ArticleLikes from '../../(pages)/(single column)/articles/[id]/ArticleLikes';
-import FollowButtons from '../profile/reactions/FollowButtons';
+import FollowButtons from '../../(pages)/(single column)/articles/[id]/FollowButtons';
 import formatDate from '../utilities/formatDate';
 import formatNumber from '../utilities/formatNumber';
 import { defaultArticle } from './defaultArticle';
@@ -85,8 +85,6 @@ export default function ArticleViewer({ article, preview }) {
                         <ArticleLikes article={article} />
                         <FollowButtons
                             user={article.user}
-                            isFollowed={!!article.user.Followers?.[0]}
-                            followerCount={article.user.followerCount}
                         />
                     </Stack>
                 }
