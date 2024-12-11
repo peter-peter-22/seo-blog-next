@@ -24,7 +24,8 @@ let theme = createTheme({
     MuiLink: {
       defaultProps: {
         underline: "hover",
-        component: FixLink
+        component: FixLink,
+        variant:"body1"
       }
     },
     MuiButtonBase: {
