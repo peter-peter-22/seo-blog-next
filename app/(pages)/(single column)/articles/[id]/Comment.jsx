@@ -37,6 +37,7 @@ const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
         try {
             await delay(1000);
             await deleteCommentAction({ id: comment.id });
+            closeDialog();
             enqueueSnackbar("Comment deleted");
             onDelete(comment.id);
         }

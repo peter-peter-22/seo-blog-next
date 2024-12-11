@@ -12,12 +12,7 @@ import { SecondaryButton } from '../forms/components/FormButtons';
 export default function ConfirmDialog({ title, body, callback, confirmText, cancelText, onClose, ...props }) {
     const [pending, startSubmit] = useTransition();
     const submit = useCallback(() => {
-        startSubmit(
-            async () => {
-                await callback();
-                onClose();
-            }
-        )
+        startSubmit(callback)
     }, [])
     return (
         <Dialog

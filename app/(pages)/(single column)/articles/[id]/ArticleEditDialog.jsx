@@ -36,6 +36,7 @@ export default function ArticleEditDialog({ article }) {
         try {
             await deleteArticleAction({ id: article.id });
             enqueueSnackbar("Article deleted");
+            closeDialog();
         }
         catch (err) {
             enqueueSnackbar(err.toString(), { variant: "error" });
