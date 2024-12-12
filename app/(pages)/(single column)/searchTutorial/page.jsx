@@ -35,9 +35,9 @@ export default function Page() {
                         Use logical operators to combine terms.
                         <Block>Supported Operators:</Block>
                         <ul>
-                            <li>AND, & (default): Matches documents containing all specified terms.</li>
-                            <li>OR, |: Matches documents containing any of the specified terms.</li>
-                            <li>NOT, !: Excludes documents containing the specified term.</li>
+                            <li>AND: (default): Matches documents containing all specified terms.</li>
+                            <li>OR: Matches documents containing any of the specified terms.</li>
+                            <li>NOT: Excludes documents containing the specified term.</li>
                         </ul>
                         <Block>Examples:</Block>
                         <em>
