@@ -11,40 +11,49 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
 import ArticleProps from './ArticleProps';
+import Stack from '@mui/material/Stack';
 
-export default function ArticleCard({ article, ...props }) {
+export default function ArticleCard({ article,...props }) {
     return (
-        <Card {...props}>
+        <Card sx={{ height: "100%", maxHeight: 400 }} {...props}>
             <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
-                <CardContent>
+                <Stack sx={{ height: "100%" }}>
+                    <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
+                        <Typography variant="h6">
+                            {article.title}
+                        </Typography>
 
-                    <Typography variant="h6">
-                        {article.title}
-                    </Typography>
+                        <List>
+                            <ListItem disablePadding>
+                                <ListItemAvatar>
+                                    <HybridAvatar user={article.user} />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={article.user.name}
+                                    secondary={formatDate(article.createdAt)}
+                                />
+                            </ListItem>
+                        </List>
 
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemAvatar>
-                                <HybridAvatar user={article.user} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={article.user.name}
-                                secondary={formatDate(article.createdAt)}
-                            />
-                        </ListItem>
-                    </List>
+                        <Typography sx={{
+                            overflowWrap: "break-word",
+                            textAlign: 'justify',
+                            overflow: "hidden",
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 6,
+                        }}>
+                            {article.description}
 
-                    <Typography sx={{ overflowWrap: "break-word" }}>
-                        {article.description}
-                    </Typography>
-
-                </CardContent>
-                <CardActions>
-                    <ArticleProps article={article} />
-                </CardActions>
-                <CardActions>
-                    <Tags tags={article.tags} />
-                </CardActions>
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <ArticleProps article={article} />
+                    </CardActions>
+                    <CardActions>
+                        <Tags tags={article.tags} />
+                    </CardActions>
+                </Stack>
             </CardActionArea>
         </Card>
     )

@@ -26,7 +26,7 @@ export default function DisplayArticles({ page, pages, articles, count, searchPa
                 <>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, browserMax: 3 }}>
                         {articles.map((article, i) => (
-                            <Grid key={i} size={1}>
+                            <Grid key={i} size={1} sx={{maxHeight:400}}>
                                 <ArticleCard article={article} />
                             </Grid>
                         ))}
