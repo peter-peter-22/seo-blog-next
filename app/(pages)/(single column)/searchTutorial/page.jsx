@@ -49,6 +49,7 @@ export default function Page() {
                         </em>
                     </>}
                 />
+                <Divider variant="inset" component="li" />
                 <Item
                     primary={<>Grouping with Parentheses</>}
                     secondary={<>
@@ -56,6 +57,7 @@ export default function Page() {
                         <Block>Example: <em>(cat OR dog) AND bird</em></Block>
                     </>}
                 />
+                <Divider variant="inset" component="li" />
                 <Item
                     primary={<>Excluding Words</>}
                     secondary={<>
@@ -63,6 +65,7 @@ export default function Page() {
                         <Block>Example: <em>dog -cat</em></Block>
                     </>}
                 />
+                <Divider variant="inset" component="li" />
                 <Item
                     primary={<>Wildcard Search (Partial Words)</>}
                     secondary={<>
@@ -70,6 +73,7 @@ export default function Page() {
                         <Block>Example: <em>ca*</em></Block>
                     </>}
                 />
+                <Divider variant="inset" component="li" />
                 <Item
                     primary={<>Stop Words and Language Support</>}
                     secondary={<>
