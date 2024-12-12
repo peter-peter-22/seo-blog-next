@@ -8,7 +8,7 @@ export default async function getFilteredArticles(searchParams) {
 
     //limit max offset
     const offset = itemsPerPage * (page - 1);
-    if (offset > 10000)
+    if (offset > 1000)
         throw new Error("Searching this deep in not permitted");
 
     //create the filter that will be used in the article selector and counter

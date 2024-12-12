@@ -8,7 +8,7 @@ export default async function getFilteredUsers(searchParams) {
 
     //limit max offset
     const offset = itemsPerPage * (page - 1);
-    if (offset > 10000)
+    if (offset > 1000)
         throw new Error("Searching this deep in not permitted");
 
     //get rows
