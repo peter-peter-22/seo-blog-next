@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,31 +8,32 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String    @default("New User")
-  description   String?
-  email         String    @unique
-  emailVerified DateTime?
+  id            String                   @id @default(cuid())
+  name          String                   @default("New User")
+  email         String                   @unique
   image         String?
+  emailVerified DateTime?
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  password      String?
+  description   String?
+  followerCount Int                      @default(0)
+  articleCount  Int                      @default(0)
+  search_vector Unsupported("tsvector")? @default(dbgenerated("to_tsvector('english'::regconfig, name)"))
   accounts      Account[]
-  password      String? //hashed
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  followerCount Int       @default(0)
-  articleCount  Int       @default(0)
-
-  Article      Article[]
-  AuthorTag    AuthorTag[]
-  VerifiedLike VerifiedLike[]
-  VerifiedView VerifiedView[]
-  Followers    Follows[]      @relation("Followed")
-  Followed     Follows[]      @relation("Follower")
-  Comments     Comment[]      @relation("Commenter")
-  Replies      Comment[]      @relation("Replied")
+  Article       Article[]
+  AuthorTag     AuthorTag[]
+  Replies       Comment[]                @relation("Replied")
+  Comments      Comment[]                @relation("Commenter")
+  Followers     Follows[]                @relation("Followed")
+  Followed      Follows[]                @relation("Follower")
+  VerifiedLike  VerifiedLike[]
+  VerifiedView  VerifiedView[]
 
   @@index([followerCount])
   @@index([createdAt])
   @@index([articleCount])
+  @@index([search_vector], map: "user_name_search_idx", type: Gin)
 }
 
 model Account {
@@ -49,77 +44,76 @@ model Account {
   refresh_token     String?
   access_token      String?
   expires_at        Int?
-  token_type        String?
-  scope             String?
+  createdAt         DateTime @default(now())
   id_token          String?
+  scope             String?
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token_type        String?
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
 
 model EmailVerifications {
   email     String   @id
-  username  String
-  updatedAt DateTime @default(now()) @updatedAt
   password  String
   code      String   @default(uuid())
+  username  String
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Article {
-  id                     String   @id @default(cuid())
+  id                     String           @id @default(cuid())
   userId                 String
-  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   title                  String
-  description            String
   content                Json
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @default(now()) @updatedAt
+  description            String
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @default(now()) @updatedAt
   tags                   String[]
-  verifiedLikeCount      Int      @default(0)
-  unverifiedLikeCount    Int      @default(0)
-  likeCount              Int      @default(0)
-  verifiedDislikeCount   Int      @default(0)
-  unverifiedDislikeCount Int      @default(0)
-  dislikeCount           Int      @default(0)
-  verifiedViewCount      Int      @default(0)
-  unverifiedViewCount    Int      @default(0)
-  viewCount              Int      @default(0)
-  commentCount           Int      @default(0)
-
-  VerifiedLike   VerifiedLike[]
-  UnverifiedLike UnverifiedLike[]
-  VerifiedView   VerifiedView[]
-  UnverifiedView UnverifiedView[]
-  Comments       Comment[]
+  dislikeCount           Int              @default(0)
+  likeCount              Int              @default(0)
+  verifiedDislikeCount   Int              @default(0)
+  verifiedLikeCount      Int              @default(0)
+  unverifiedDislikeCount Int              @default(0)
+  unverifiedLikeCount    Int              @default(0)
+  unverifiedViewCount    Int              @default(0)
+  verifiedViewCount      Int              @default(0)
+  viewCount              Int              @default(0)
+  commentCount           Int              @default(0)
+  user                   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Comments               Comment[]
+  UnverifiedLike         UnverifiedLike[]
+  UnverifiedView         UnverifiedView[]
+  VerifiedLike           VerifiedLike[]
+  VerifiedView           VerifiedView[]
 }
 
 model Topic {
   name  String @id
   count Int    @default(0)
-  @@index([name,count])
+
+  @@index([name, count])
+  @@index([name(ops: raw("gin_trgm_ops"))], map: "idx_topic_trgm", type: Gin)
 }
 
 model AuthorTag {
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   name   String
   count  Int    @default(0)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, name])
 }
 
 model VerifiedLike {
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   articleId String
-  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   isDislike Boolean
   updatedAt DateTime @default(now()) @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, articleId])
   @@index([articleId, isDislike])
@@ -128,20 +122,20 @@ model VerifiedLike {
 model UnverifiedLike {
   ip        String
   articleId String
-  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   isDislike Boolean
   updatedAt DateTime @default(now()) @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
 
   @@id([ip, articleId])
   @@index([articleId, isDislike])
 }
 
 model VerifiedView {
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   articleId String
-  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([articleId, userId])
 }
@@ -149,31 +143,31 @@ model VerifiedView {
 model UnverifiedView {
   ip        String
   articleId String
-  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
 
   @@id([articleId, ip])
 }
 
 model Follows {
-  follower   User   @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId String
-  followed   User   @relation("Followed", fields: [followedId], references: [id], onDelete: Cascade)
   followedId String
+  followed   User   @relation("Followed", fields: [followedId], references: [id], onDelete: Cascade)
+  follower   User   @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
 
   @@id([followedId, followerId])
 }
 
 model Comment {
   id           String   @id @default(cuid())
-  user         User     @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
   userId       String
-  replyingTo   User?    @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
   replyingToId String?
   text         String
   articleId    String
-  article      Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
+  article      Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  replyingTo   User?    @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
+  user         User     @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([articleId, createdAt])
 }
