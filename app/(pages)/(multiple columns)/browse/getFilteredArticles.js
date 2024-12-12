@@ -4,7 +4,7 @@ export default async function getFilteredArticles(searchParams) {
     const itemsPerPage = 12;
 
     //getting the inputs
-    const { text, author, tags, page, sort, sortMode } = searchParams;
+    const { text, author, tag, page, sort, sortMode } = searchParams;
 
     //limit max offset
     const offset = itemsPerPage * (page - 1);
@@ -15,7 +15,7 @@ export default async function getFilteredArticles(searchParams) {
     const { articles, count } = text ?
         await filtered({ text, offset, itemsPerPage })
         :
-        await simpleFilter({ offset, itemsPerPage, tags, author, sort, sortMode });
+        await simpleFilter({ offset, itemsPerPage, tag, author, sort, sortMode });
 
     //calculate page count
     const pages = Math.ceil(count / itemsPerPage);
@@ -24,7 +24,7 @@ export default async function getFilteredArticles(searchParams) {
 }
 
 //get and sort the articles in a simple way what is not controlled by the user
-async function simpleFilter({ tags, author, sort, sortMode, offset, itemsPerPage }) {
+async function simpleFilter({ tag, author, sort, sortMode, offset, itemsPerPage }) {
     //create the filter that will be used in the article selector and counter
     const where = {
         AND: [
@@ -36,9 +36,9 @@ async function simpleFilter({ tags, author, sort, sortMode, offset, itemsPerPage
             },
             {
                 //tag filter
-                ...tags && tags.length > 0 && {
+                ...tag && {
                     tags: {
-                        hasEvery: tags,
+                        has: tag
                     }
                 }
             }

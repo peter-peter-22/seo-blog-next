@@ -58,9 +58,9 @@ export default function Filters({ defaultValues }) {
                                 It also supports filtering syntaxes.
                             </Typography>
                         </ListItem>
-                        <Listitem>
+                        <ListItem>
                             <SearchSyntaxLink/>
-                        </Listitem>
+                        </ListItem>
                     </List>
                     <CardActions>
                         <PrimaryButton type={"submit"} disabled={isSubmitting}>

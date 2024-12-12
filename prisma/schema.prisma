@@ -90,6 +90,10 @@ model Article {
   VerifiedView           VerifiedView[]
 
   @@index([search], map: "idx_search_articles", type: Gin)
+  @@index([userId, likeCount, id])
+  @@index([userId, createdAt, id])
+  @@index([createdAt, id])
+  @@index([tags], map: "article_tags_gin_index", type: Gin)
 }
 
 model Topic {
