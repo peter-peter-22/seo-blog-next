@@ -13,8 +13,7 @@ export default async function getFilteredUsers(searchParams) {
 
     //get rows
     //if no text provided, return unfiltered rows
-    const { users, count } = text ? await filtered({ itemsPerPage, page, text }) : await unfiltered({ itemsPerPage, page });
-    console.log(users);
+    const { users, count } = text ? await filtered({ itemsPerPage, offset, text }) : await unfiltered({ itemsPerPage, offset });
 
     //calculate page count
     const pages = Math.ceil(count / itemsPerPage);
@@ -23,7 +22,7 @@ export default async function getFilteredUsers(searchParams) {
 }
 
 //get all users with some ordering
-async function unfiltered({ itemsPerPage, page }) {
+async function unfiltered({ itemsPerPage, offset }) {
     const [users, count] = await Promise.all([
         prisma.user.findMany({
             orderBy: [
@@ -31,20 +30,21 @@ async function unfiltered({ itemsPerPage, page }) {
                 { id: "asc" }
             ],
             take: itemsPerPage,
-            skip: page * itemsPerPage
+            skip: offset
         }),
         prisma.user.count()
     ]);
     return { users, count };
 }
 
-async function filtered({ itemsPerPage, page, text }) {
+async function filtered({ itemsPerPage, offset, text }) {
     const users = await prisma.$queryRaw`  
     SELECT 
         id,
         name,
         description,
         "articleCount",
+        "createdAt",
         image,
             ts_rank(search, websearch_to_tsquery('english', ${text}))
             + log("articleCount"+1)*0.01
@@ -52,7 +52,13 @@ async function filtered({ itemsPerPage, page, text }) {
             as rank
     FROM "User"
     WHERE search @@ websearch_to_tsquery('english',${text})
-    ORDER BY rank DESC LIMIT ${itemsPerPage};`
-    const count = users.length;
+    ORDER BY rank DESC, "createdAt" DESC
+    OFFSET ${offset}
+    LIMIT ${itemsPerPage};`
+
+    const [{ count }] = await prisma.$queryRaw`
+        SELECT COUNT(*)::INT from "User"
+        WHERE search @@ websearch_to_tsquery('english',${text})`;
+
     return { users, count };
 }
