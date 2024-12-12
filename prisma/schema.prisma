@@ -19,6 +19,7 @@ model User {
   description   String?
   followerCount Int                      @default(0)
   articleCount  Int                      @default(0)
+  search        Unsupported("tsvector")? @default(dbgenerated("(setweight(to_tsvector('english'::regconfig, name), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, description), 'B'::\"char\"))"))
   accounts      Account[]
   Article       Article[]
   AuthorTag     AuthorTag[]
@@ -32,6 +33,7 @@ model User {
   @@index([followerCount])
   @@index([createdAt])
   @@index([articleCount])
+  @@index([search], map: "idx_search", type: Gin)
 }
 
 model Account {
