@@ -175,5 +175,5 @@ model Comment {
   replyingTo   User?    @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
   user         User     @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([articleId, createdAt])
+  @@index([articleId, createdAt(Desc), id])
 }

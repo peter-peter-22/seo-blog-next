@@ -58,7 +58,8 @@ export default async function Page(props) {
                     }
                 },
                 orderBy: [
-                    { createdAt: "desc" }
+                    { createdAt: "desc" },
+                    { id: "asc" }
                 ],
                 take: 20
             }
@@ -76,7 +77,7 @@ export default async function Page(props) {
     return (
         <>
             {isMine && <ArticleEditDialog article={article} />}
-            <ArticleViewer article={article} me={session?.user}/>
+            <ArticleViewer article={article} me={session?.user} />
         </>
     );
 }
