@@ -11,16 +11,15 @@ export default async function getFilteredUsers(searchParams) {
     if (offset > 10000)
         throw new Error("Searching this deep in not permitted");
 
-    //creating filter objects
-    const textFilter = text && {
-        name: {
-            contains: text,
-            mode: 'insensitive'
-        }
-    };
+    //creating the filter that is shared between the users and the count queries
     const where = {
         AND: [
-            { ...textFilter },
+            ...text && {
+                name: {
+                    contains: text,
+                    mode: 'insensitive'
+                }
+            }
         ]
     }
 
