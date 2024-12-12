@@ -32,7 +32,7 @@ model User {
 
   @@index([search], map: "idx_search", type: Gin)
   @@index([createdAt(sort: Desc)])
-  @@index([followerCount(sort: Desc), id(sort: Asc)])
+  @@index([followerCount(sort: Desc), id])
 }
 
 model Account {
@@ -63,30 +63,33 @@ model EmailVerifications {
 }
 
 model Article {
-  id                     String           @id @default(cuid())
+  id                     String                   @id @default(cuid())
   userId                 String
   title                  String
   content                Json
   description            String
-  createdAt              DateTime         @default(now())
-  updatedAt              DateTime         @default(now()) @updatedAt
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @default(now()) @updatedAt
   tags                   String[]
-  dislikeCount           Int              @default(0)
-  likeCount              Int              @default(0)
-  verifiedDislikeCount   Int              @default(0)
-  verifiedLikeCount      Int              @default(0)
-  unverifiedDislikeCount Int              @default(0)
-  unverifiedLikeCount    Int              @default(0)
-  unverifiedViewCount    Int              @default(0)
-  verifiedViewCount      Int              @default(0)
-  viewCount              Int              @default(0)
-  commentCount           Int              @default(0)
-  user                   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dislikeCount           Int                      @default(0)
+  likeCount              Int                      @default(0)
+  verifiedDislikeCount   Int                      @default(0)
+  verifiedLikeCount      Int                      @default(0)
+  unverifiedDislikeCount Int                      @default(0)
+  unverifiedLikeCount    Int                      @default(0)
+  unverifiedViewCount    Int                      @default(0)
+  verifiedViewCount      Int                      @default(0)
+  viewCount              Int                      @default(0)
+  commentCount           Int                      @default(0)
+  search                 Unsupported("tsvector")? @default(dbgenerated("(setweight(to_tsvector('english'::regconfig, title), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, description), 'B'::\"char\"))"))
+  user                   User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
   Comments               Comment[]
   UnverifiedLike         UnverifiedLike[]
   UnverifiedView         UnverifiedView[]
   VerifiedLike           VerifiedLike[]
   VerifiedView           VerifiedView[]
+
+  @@index([search], map: "idx_search_articles", type: Gin)
 }
 
 model Topic {

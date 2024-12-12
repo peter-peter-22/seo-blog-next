@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 export default function Filters({ defaultValues }) {
     const router = useRouter();
@@ -41,32 +43,25 @@ export default function Filters({ defaultValues }) {
                 <FormProvider {...methods}>
                     <CardContent>
                         <Typography variant="h5">
-                            Filters
+                            Search
                         </Typography>
                         <Divider />
-                        <FieldContainer margin>
-
-                            <FormTextField name={"text"} label={"Text"} fullWidth />
-
-                            <FormSelect name="sort" label="Sorting">
-                                <MenuItem value={"createdAt"}>Date of creation</MenuItem>
-                                <MenuItem value={"likeCount"}>Likes</MenuItem>
-                                <MenuItem value={"viewCount"}>Views</MenuItem>
-                            </FormSelect>
-
-                            <FormSelect name="sortMode" label="Direction">
-                                <MenuItem value={"desc"}>Descending</MenuItem>
-                                <MenuItem value={"asc"}>Ascending</MenuItem>
-                            </FormSelect>
-
-                            <FormTagsOnline
-                                name="tags"
-                                label="Tags"
-                                fullWidth
-                            />
-
-                        </FieldContainer>
                     </CardContent>
+                    <List >
+                        <ListItem>
+                            <FormTextField name={"text"} label={"Text"} fullWidth />
+                        </ListItem>
+                        <ListItem>
+                            <Typography variant="body2" color="text.secondary">
+                                The search calculates with various factors, like the weight of the title, the like count and view count.
+                            </Typography>
+                        </ListItem>
+                        <ListItem>
+                            <Typography variant="body2" color="text.secondary">
+                                It also supports different filtering syntaxes.
+                            </Typography>
+                        </ListItem>
+                    </List>
                     <CardActions>
                         <PrimaryButton type={"submit"} disabled={isSubmitting}>
                             Search

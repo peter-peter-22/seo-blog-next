@@ -37,6 +37,7 @@ async function unfiltered({ itemsPerPage, offset }) {
     return { users, count };
 }
 
+//get the filtered rows and order them by relevance and popularity
 async function filtered({ itemsPerPage, offset, text }) {
     const users = await prisma.$queryRaw`  
     SELECT 
