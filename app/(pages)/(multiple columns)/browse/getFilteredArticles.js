@@ -16,6 +16,7 @@ export default async function getFilteredArticles(searchParams) {
         await filtered({ text, offset, itemsPerPage })
         :
         await simpleFilter({ offset, itemsPerPage, tag, author, sort, sortMode });
+        console.log(articles)
 
     //calculate page count
     const pages = Math.ceil(count / itemsPerPage);
@@ -83,6 +84,7 @@ async function filtered({ text, offset, itemsPerPage }) {
         //articles
         prisma.$queryRaw`
         SELECT 
+            id,
 	        title,
 	        description,
 	        content,
