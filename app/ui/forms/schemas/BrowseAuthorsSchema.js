@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { urlArray, urlPage } from './fields/urlFields';
+import { urlPage } from './fields/urlFields';
 
 export const BrowseAuthorsSchema = z
     .object({
