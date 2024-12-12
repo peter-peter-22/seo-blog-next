@@ -18,6 +18,9 @@ import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
 import { BrowseAuthorsSchema } from '@/app/ui/forms/schemas/BrowseAuthorsSchema';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import SearchSyntaxLink from '@/app/ui/components/info pages/SearchSyntaxLink';
 
 export default function AuthorFilters({ defaultValues }) {
     const router = useRouter();
@@ -45,16 +48,25 @@ export default function AuthorFilters({ defaultValues }) {
                             Search
                         </Typography>
                         <Divider />
-                        <FieldContainer margin>
-
+                    </CardContent>
+                    <List>
+                        <ListItem>
                             <FormTextField name={"text"} label={"Text"} fullWidth />
-
+                        </ListItem>
+                        <ListItem>
                             <Typography variant="body2" color="text.secondary">
                                 The search calculates with various factors, like the weight of the title, the follower count and article count.
                             </Typography>
-
-                        </FieldContainer>
-                    </CardContent>
+                        </ListItem>
+                        <ListItem>
+                            <Typography variant="body2" color="text.secondary">
+                                It also supports filtering syntaxes.
+                            </Typography>
+                        </ListItem>
+                        <ListItem>
+                            <SearchSyntaxLink />
+                        </ListItem>
+                    </List>
                     <CardActions>
                         <PrimaryButton type={"submit"} disabled={isSubmitting}>
                             Search

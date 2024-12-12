@@ -1,10 +1,8 @@
 "use client";
 
 import FormatQuery from '@/app/lib/FormatQuery';
-import FieldContainer from '@/app/ui/forms/components/FieldContainer';
+import SearchSyntaxLink from '@/app/ui/components/info pages/SearchSyntaxLink';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
-import FormSelect from '@/app/ui/forms/components/FormSelect';
-import FormTagsOnline from '@/app/ui/forms/components/FormTagsOnline';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { BrowseSchema } from '@/app/ui/forms/schemas/BrowseSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,13 +10,12 @@ import Box from '@mui/material/Box';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
-import MenuItem from '@mui/material/MenuItem';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 
 export default function Filters({ defaultValues }) {
     const router = useRouter();
@@ -58,9 +55,12 @@ export default function Filters({ defaultValues }) {
                         </ListItem>
                         <ListItem>
                             <Typography variant="body2" color="text.secondary">
-                                It also supports different filtering syntaxes.
+                                It also supports filtering syntaxes.
                             </Typography>
                         </ListItem>
+                        <Listitem>
+                            <SearchSyntaxLink/>
+                        </Listitem>
                     </List>
                     <CardActions>
                         <PrimaryButton type={"submit"} disabled={isSubmitting}>
