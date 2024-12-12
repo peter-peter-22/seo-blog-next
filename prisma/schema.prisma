@@ -30,9 +30,6 @@ model User {
   VerifiedLike  VerifiedLike[]
   VerifiedView  VerifiedView[]
 
-  @@index([followerCount])
-  @@index([createdAt])
-  @@index([articleCount])
   @@index([search], map: "idx_search", type: Gin)
 }
 
