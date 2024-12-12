@@ -1,0 +1,1 @@
+CREATE INDEX idx_topic_trgm ON "Topic" USING gin ("name" gin_trgm_ops);
