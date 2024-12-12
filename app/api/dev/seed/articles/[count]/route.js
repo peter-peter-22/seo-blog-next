@@ -13,13 +13,15 @@ function randomTags() {
     return Array.from({ length: Math.floor(Math.random(max - min)) + min }, randomTag)
 }
 
-export async function GET() {
+export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
         return;
 
+    const { count } = params;
+
     const users = await prisma.user.findMany();
 
-    const articles = Array.from({ length: 200 }, () => ({
+    const articles = Array.from({ length: count }, () => ({
         userId: users[Math.floor(Math.random() * users.length)].id,
         title: faker.lorem.words({ min: 1, max: 5 }),
         description: faker.lorem.sentences({ min: 1, max: 3 }),

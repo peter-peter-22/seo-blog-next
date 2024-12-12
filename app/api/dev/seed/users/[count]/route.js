@@ -1,11 +1,13 @@
 import prisma from "@/utils/db";
 import { faker } from '@faker-js/faker';
 
-export async function GET() {
+export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
         return;
 
-    const users = Array.from({ length: 50 }, () => ({
+    const { count } = params;
+
+    const users = Array.from({ length: count }, () => ({
         name: faker.person.fullName(),
         image: faker.image.avatar(),
         email: faker.internet.email(),

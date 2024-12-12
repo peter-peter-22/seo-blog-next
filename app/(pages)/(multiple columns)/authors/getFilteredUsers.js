@@ -11,6 +11,15 @@ export default async function getFilteredUsers(searchParams) {
     if (offset > 10000)
         throw new Error("Searching this deep in not permitted");
 
+    //SELECT name,description,"articleCount",
+ 	//ts_rank(search_vector, websearch_to_tsquery('english', 'John'))
+    //+ log("articleCount"+1)*0.01
+	//+ log("followerCount"+1)*0.01
+	//as rank
+    //FROM "User"
+    //WHERE search_vector @@ websearch_to_tsquery('english','John')
+    //ORDER BY rank DESC LIMIT 10;
+
     //creating the filter that is shared between the users and the count queries
     const where = {
         AND: [
