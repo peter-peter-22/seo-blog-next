@@ -37,28 +37,21 @@ export default function AuthorFilters({ defaultValues }) {
     }
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{width:240}}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: 240 }}>
             <nav>
                 <FormProvider {...methods}>
                     <CardContent>
                         <Typography variant="h5">
-                            Filters
+                            Search
                         </Typography>
                         <Divider />
                         <FieldContainer margin>
 
                             <FormTextField name={"text"} label={"Text"} fullWidth />
 
-                            <FormSelect name="sort" label="Sorting">
-                                <MenuItem value={"createdAt"}>Date of creation</MenuItem>
-                                <MenuItem value={"followerCount"}>Follower count</MenuItem>
-                                <MenuItem value={"articleCount"}>Article count</MenuItem>
-                            </FormSelect>
-
-                            <FormSelect name="sortMode" label="Direction">
-                                <MenuItem value={"desc"}>Descending</MenuItem>
-                                <MenuItem value={"asc"}>Ascending</MenuItem>
-                            </FormSelect>
+                            <Typography variant="body2" color="text.secondary">
+                                The search calculates with various factors, like the weight of the title, the follower count and article count.
+                            </Typography>
 
                         </FieldContainer>
                     </CardContent>

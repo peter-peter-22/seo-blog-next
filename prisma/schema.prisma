@@ -31,6 +31,7 @@ model User {
   VerifiedView  VerifiedView[]
 
   @@index([search], map: "idx_search", type: Gin)
+  @@index([followerCount(sort: Desc), id(sort: Asc)])
 }
 
 model Account {
