@@ -83,16 +83,7 @@ async function filtered({ text, offset, itemsPerPage }) {
         //articles
         prisma.$queryRaw`
         SELECT 
-            id,
-	        title,
-	        description,
-	        content,
-	        "likeCount",
-	        "dislikeCount",
-	        "viewCount",
-            "createdAt",
-            "tags",
-            "userId",
+            *,
 	        (
 	        	SELECT ROW_TO_JSON(my_user) 
 	        	FROM

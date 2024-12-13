@@ -5,6 +5,7 @@ import formatNumber from '../../utilities/formatNumber';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import CommentIcon from '@mui/icons-material/Comment';
 
 export default function ArticleProps({ article }) {
     return (
@@ -20,6 +21,10 @@ export default function ArticleProps({ article }) {
             <ArticleProp
                 number={article.viewCount}
                 icon={<VisibilityIcon />}
+            />
+            <ArticleProp
+                number={article.commentCount}
+                icon={<CommentIcon />}
             />
         </TagContainer>
     )
