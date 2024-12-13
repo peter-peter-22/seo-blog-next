@@ -61,12 +61,12 @@ export default function ArticleComments({ article }) {
     const loadMoreComments = useCallback(() => {
         startLoading(async () => {
             try {
-                let { comments:loaded, lastPage } = await loadMoreCommentsAction({
+                let { comments: loaded, lastPage } = await loadMoreCommentsAction({
                     offset: comments.length,
                     articleId: article.id
                 });
                 setLastPage(lastPage);
-                setComments(prev => [...prev, ...loaded]);
+                setComments(prev => mergeUniqueById(prev, loaded));
             }
             catch (err) {
                 enqueueSnackbar(err.toString(), { variant: "error" })
@@ -137,3 +137,19 @@ export default function ArticleComments({ article }) {
         </>
     )
 }
+
+function mergeUniqueById(array1, array2) {
+    const mergedArray = array1.concat(array2);
+
+    // Create a Map to store unique objects by `id`
+    const uniqueById = new Map();
+
+    mergedArray.forEach(item => {
+        if (!uniqueById.has(item.id)) {
+            uniqueById.set(item.id, item);
+        }
+    });
+
+    // Convert Map back to array
+    return Array.from(uniqueById.values());
+}  
