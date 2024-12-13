@@ -1,6 +1,6 @@
 'use server';
 
-import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema, LoadMoreCommentsSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
 import authOrThrow from '../auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
@@ -50,4 +50,32 @@ export async function deleteArticleAction(data) {
             throw new Error("This article does not exists, or it is not owned by you.")
         throw (err);
     }
+}
+
+export async function loadMoreCommentsAction(data) {
+    const { articleId, offset } = LoadMoreCommentsSchema.parse(data);
+    const commentsPerPage = 50;
+
+    const comments= await prisma.comment.findMany({
+        where: {
+            articleId,
+        },
+        orderBy: [
+            { createdAt: "desc" },
+            { id: "asc" }
+        ],
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    image: true
+                }
+            }
+        },
+        take: commentsPerPage,
+        skip: offset
+    })
+    const lastPage=comments.length!==commentsPerPage;
+    return {comments,lastPage}
 }

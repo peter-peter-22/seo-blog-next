@@ -14,3 +14,8 @@ export const PublishArticleSchema = UpdateArticleSchema.omit({ id: true });
 export const DeleteArticleSchema = z.object({
   id: z.string()
 })
+
+export const LoadMoreCommentsSchema = z.object({
+  articleId: z.string(),
+  offset: z.number().int()
+})

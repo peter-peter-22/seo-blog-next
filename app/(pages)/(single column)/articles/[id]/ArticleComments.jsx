@@ -8,16 +8,21 @@ import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useState, useTransition } from 'react';
 import Comment from './Comment';
 import CommentDialog from './CommentDialog';
 import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { loadMoreCommentsAction } from '@/app/actions/articleActions';
+import { useSnackbar } from 'notistack';
 
 export default function ArticleComments({ article }) {
     const [dialog, setDialog] = useState();
     const closeDialog = useCallback(() => { setDialog() })
     const [comments, setComments] = useState(article.Comments);
     const [commentsMade, setCommentsMade] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
+    const [isLastPage, setLastPage] = useState(false);
 
     //add a new comment to the top of the list
     const addComment = useCallback((newComment) => {
@@ -51,8 +56,28 @@ export default function ArticleComments({ article }) {
             />
         )
     }, [])
+
+    const [isPending, startLoading] = useTransition();
+    const loadMoreComments = useCallback(() => {
+        startLoading(async () => {
+            try {
+                let { comments:loaded, lastPage } = await loadMoreCommentsAction({
+                    offset: comments.length,
+                    articleId: article.id
+                });
+                setLastPage(lastPage);
+                setComments(prev => [...prev, ...loaded]);
+            }
+            catch (err) {
+                enqueueSnackbar(err.toString(), { variant: "error" })
+            }
+        })
+    }, [article, comments])
+
     //update the comment count when a new comment is added
+    //this count all comments, no just the loaded ones
     const commentCount = article.commentCount + commentsMade;
+
     return (
         <>
             <Card>
@@ -66,7 +91,7 @@ export default function ArticleComments({ article }) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button onClick={openCommentDialog()}>
+                    <Button onClick={openCommentDialog}>
                         Comment
                     </Button>
                 </CardActions>
@@ -89,11 +114,13 @@ export default function ArticleComments({ article }) {
                                     </Fragment>
                                 ))}
                             </List>
-                            <CardActions>
-                                <Button>
-                                    Load more
-                                </Button>
-                            </CardActions>
+                            {!isLastPage &&
+                                <CardActions>
+                                    <LoadingButton loading={isPending} onClick={loadMoreComments}>
+                                        Load more
+                                    </LoadingButton>
+                                </CardActions>
+                            }
                         </Box>
                     </>
                 )}

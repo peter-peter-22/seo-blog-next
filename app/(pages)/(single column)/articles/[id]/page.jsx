@@ -61,7 +61,7 @@ export default async function Page(props) {
                     { createdAt: "desc" },
                     { id: "asc" }
                 ],
-                take: 20
+                take: 50
             }
         }
     })
