@@ -102,6 +102,7 @@ async function filtered({ text, offset, itemsPerPage }) {
                 + log("likeCount"+1)*0.01
 	            + log("dislikeCount"+1)*-0.01
 	            + log("viewCount"+1)*0.005
+                + log("commentCount"+1)*0.07
 	            as rank
         FROM "Article"
         WHERE search @@ websearch_to_tsquery('english',${text})
