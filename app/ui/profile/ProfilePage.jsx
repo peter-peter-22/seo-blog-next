@@ -63,9 +63,11 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                             />
                         </Box>
                     </Stack>
-                    <FollowProfile
-                        user={user}
-                    />
+                    {!isMe &&
+                        <FollowProfile
+                            user={user}
+                        />
+                    }
                     {user.AuthorTag && user.AuthorTag.length > 0 ? (
                         <>
                             <Typography color="text.secondary" variant="body2">{user.articleCount} articles</Typography>

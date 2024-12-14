@@ -24,7 +24,7 @@ import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
 import ArticleComments from '@/app/(pages)/(single column)/articles/[id]/ArticleComments';
 
-export default function ArticleViewer({ article, preview }) {
+export default function ArticleViewer({ article, preview, isMe }) {
     return (
         <>
             <Card>
@@ -80,7 +80,7 @@ export default function ArticleViewer({ article, preview }) {
                     }
 
                 </CardContent>
-                {!preview &&
+                {!preview && !isMe &&
                     <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
                         <ArticleLikes article={article} />
                         <FollowButtons

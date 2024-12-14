@@ -11,6 +11,6 @@ export default function ArticlePreview({ updating }) {
     loadedDraft.createdAt = new Date();
     loadedDraft.viewCount=1;
     return (
-        <ArticleViewer article={loadedDraft} preview={true}/>
+        <ArticleViewer article={loadedDraft} preview={true} isMe={true}/>
     )
 }

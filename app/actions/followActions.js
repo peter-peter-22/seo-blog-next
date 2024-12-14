@@ -7,6 +7,11 @@ import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
 export async function followAction(data) {
     const session = await authOrThrow();
     const { userId, setFollowing } = FollowSchema.parse(data);
+
+    //prevent self follow
+    if(userId===session.user.id)
+        throw new Error("you cannot follow yourself");
+
     //create or delete the follow entry depending on the setFollowing bool
     if (setFollowing) {
         try {

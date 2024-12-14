@@ -5,7 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
-import useFollow from '../../../../ui/profile/reactions/useFollow';
+import useFollow from '@/app/ui/profile/reactions/useFollow';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
