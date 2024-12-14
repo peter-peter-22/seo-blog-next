@@ -91,7 +91,7 @@ export default function ArticleComments({ article }) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button onClick={openCommentDialog}>
+                    <Button onClick={openCommentDialog()}>
                         Comment
                     </Button>
                 </CardActions>
