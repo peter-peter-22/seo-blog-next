@@ -8,6 +8,7 @@ import { AuthProvider } from './ui/layout/AuthProvider';
 import { auth } from '@/auth'
 import { SnackbarProviderClient } from './ui/layout/SnackbarProviderClient';
 import ScrollToTop from '@/app/ui/components/pagination/ScrollToTop';
+import CssBaseline from "@mui/material/CssBaseline";
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }) {
         <ScrollToTop />
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
+          <CssBaseline />
             <AuthProvider session={session}>
               <SnackbarProviderClient maxSnack={3}>
                 <Root>
