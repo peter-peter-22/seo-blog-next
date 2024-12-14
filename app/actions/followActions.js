@@ -1,8 +1,8 @@
 "use server";
 
 import prisma from "@/utils/db";
-import { FollowSchema } from "../ui/forms/schemas/FollowSchema";
-import authOrThrow from "../auth/authOrThrow";
+import { FollowSchema } from "@/app/ui/forms/schemas/FollowSchema";
+import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
 
 export async function followAction(data) {
     const session = await authOrThrow();

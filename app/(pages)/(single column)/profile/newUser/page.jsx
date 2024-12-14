@@ -1,6 +1,6 @@
 "use client";
 
-import { useSuccessUrl } from '@/app/auth/authUtilities';
+import { useSuccessUrl } from '@/app/(pages)/(single column)/auth/authUtilities';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';

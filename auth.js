@@ -1,4 +1,4 @@
-import { LoginProvider } from '@/app/auth/CrendentialsProvider';
+import { LoginProvider } from '@/app/(pages)/(single column)/auth/CrendentialsProvider';
 import { authConfig } from '@/auth.config';
 import NextAuth from 'next-auth';
 import GithubProvider from "next-auth/providers/github";

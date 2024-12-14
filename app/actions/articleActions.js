@@ -2,16 +2,21 @@
 
 import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema, LoadMoreCommentsSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
-import authOrThrow from '../auth/authOrThrow';
+import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
 
 export async function publishArticle(data) {
-    await authOrThrow();
+    const session = await authOrThrow();
 
     // Validate form fields using Zod
     PublishArticleSchema.parse(data);
 
-    const created = await prisma.article.create({ data })
+    const created = await prisma.article.create({
+        data: {
+            ...data,
+            userId: session.user.id
+        }
+    })
 
     return created.id;
 }
@@ -56,7 +61,7 @@ export async function loadMoreCommentsAction(data) {
     const { articleId, offset } = LoadMoreCommentsSchema.parse(data);
     const commentsPerPage = 50;
 
-    const comments= await prisma.comment.findMany({
+    const comments = await prisma.comment.findMany({
         where: {
             articleId,
         },
@@ -76,6 +81,6 @@ export async function loadMoreCommentsAction(data) {
         take: commentsPerPage,
         skip: offset
     })
-    const lastPage=comments.length!==commentsPerPage;
-    return {comments,lastPage}
+    const lastPage = comments.length !== commentsPerPage;
+    return { comments, lastPage }
 }

@@ -2,8 +2,8 @@
 
 import prisma from "@/utils/db";
 import { ChangePasswordSchema, UpdateProfileSchema } from "@/app/ui/forms/schemas/ProfileSchema";
-import authOrThrow from "@/app/auth/authOrThrow";
-import { bcryptSalt } from "@/app/auth/authSettings";
+import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
+import { bcryptSalt } from "@/app/(pages)/(single column)/auth/authSettings";
 import bcrypt from 'bcrypt';
 
 export async function updateProfileAction(values) {

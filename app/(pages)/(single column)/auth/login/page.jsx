@@ -1,7 +1,7 @@
 "use client";
 
-import { useSuccessUrl } from '@/app/auth/authUtilities';
-import { formatAuthError } from '@/app/auth/processAuthErrors';
+import { useSuccessUrl } from '@/app/(pages)/(single column)/auth/authUtilities';
+import { formatAuthError } from '@/app/(pages)/(single column)/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormPasswordField from '@/app/ui/forms/components/FormPasswordField';
