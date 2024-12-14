@@ -26,17 +26,17 @@ function stringToColor(string) {
 function getMonogram(name) {
     const split = name.split(' ');
     let monogram;
-    if (split.length > 1 && split[1].length>0)
+    if (split.length > 1 && split[1].length > 0)
         monogram = split[0][0] + split[1][0];
     else
         monogram = name.substring(0, 2);
     return monogram.toUpperCase();
 }
 
-function StringAvatar({ name = "-",sx,...props}) {
+function StringAvatar({ name = "-", sx, ...props }) {
     const monogram = getMonogram(name)
     return (
-        <Avatar sx={{ bgcolor: stringToColor(name),...sx }} alt={{ name }} {...props}>
+        <Avatar sx={{ bgcolor: stringToColor(name), color: "#fff", ...sx }} alt={{ name }} {...props}>
             {monogram}
         </Avatar>
     );
