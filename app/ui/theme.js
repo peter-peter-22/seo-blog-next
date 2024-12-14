@@ -54,7 +54,8 @@ let theme = createTheme({
       default:blueGrey[50],
       paper:"#fff"
     }
-  }
+  },
+  cssVariables:true
 });
 
 theme = responsiveFontSizes(theme)
