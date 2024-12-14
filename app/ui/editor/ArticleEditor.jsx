@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useSnackbar } from 'notistack';
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from 'use-debounce';
 import FormTagsOnline from '../forms/components/FormTagsOnline';
@@ -42,7 +42,6 @@ export default function ArticleEditor({ updating }) {
       enqueueSnackbar(updating ? "Article updated" : "Article published", { variant: "success" });
       localStorage.removeItem(getDraftName(updating));//delete the draft after publishing
 
-      //go to the page of the article
       router.push(`/articles/${id}`)
     }
     catch (err) {
@@ -52,7 +51,7 @@ export default function ArticleEditor({ updating }) {
 
   return (
     <FormProvider {...methods}>
-      <SaveDraft updating={updating} />
+      <SaveDraft updating={updating} disabled={isSubmitting}/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -110,7 +109,7 @@ export function loadDraft(updating) {
 }
 
 //the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
-function SaveDraft({ updating }) {
+function SaveDraft({ updating, disabled }) {
   const { watch } = useFormContext();
   const allValues = watch();
   const debounced = useDebouncedCallback(
@@ -119,6 +118,14 @@ function SaveDraft({ updating }) {
     },
     500
   );
+
+  //prevent saving during and after upload
+  useEffect(() => {
+    if (!disabled)
+      return;
+    debounced.cancel();
+  }, [disabled]);
+
   debounced(allValues);
 }
 
