@@ -6,7 +6,7 @@ import { createEmail } from "@/app/lib/emails/createHtmlEmail";
 import { baseUrl } from "@/app/lib/serverInfo";
 import prisma from "@/utils/db";
 import bcrypt from 'bcrypt';
-import { bcryptSalt } from "@/app/(pages)/(single column)/auth/authSettings";
+import { bcryptSalt } from "@/app/(pages)/auth/authSettings";
 
 export async function crendentialsRegisterAction(credentials, callbackUrl) {
     try {

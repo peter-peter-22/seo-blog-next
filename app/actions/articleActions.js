@@ -2,7 +2,7 @@
 
 import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema, LoadMoreCommentsSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import prisma from "@/utils/db";
-import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
+import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
 
 export async function publishArticle(data) {

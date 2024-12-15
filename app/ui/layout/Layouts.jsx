@@ -1,9 +1,9 @@
 import Container from '@mui/material/Container';
 
-export function SingleColumn({ Main, ...props }) {
+export function SingleColumn({ children, ...props }) {
     return (
         <MainContainer component="main" {...props}>
-            {Main}
+            {children}
         </MainContainer>
     )
 }

@@ -2,7 +2,7 @@
 
 import prisma from "@/utils/db";
 import { FollowSchema } from "@/app/ui/forms/schemas/FollowSchema";
-import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
+import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 
 export async function followAction(data) {
     const session = await authOrThrow();

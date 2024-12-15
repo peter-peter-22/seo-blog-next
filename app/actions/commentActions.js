@@ -2,7 +2,7 @@
 
 import prisma from "@/utils/db";
 import { CommentSchema, DeleteCommentSchema, UpdateCommentSchema } from "../ui/forms/schemas/CommentSchema";
-import authOrThrow from '@/app/(pages)/(single column)/auth/authOrThrow';
+import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 
 export async function commentAction(data) {
     const { articleId, text, replyingTo } = CommentSchema.parse(data);

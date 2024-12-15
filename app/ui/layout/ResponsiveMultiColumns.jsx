@@ -4,12 +4,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
+import NoSsr from "@mui/material/NoSsr";
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useCallback, useEffect, useState } from "react";
-import { MainContainer } from './Layouts';
-import NoSsr from "@mui/material/NoSsr";
+import { SingleColumn } from './Layouts';
 
 export function SideDrawer({ anchor, Content, ToggleButton }) {
     const [open, setOpen] = useState(false);
@@ -71,9 +71,9 @@ export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, r
                 </Stack>
             }
 
-            <MainContainer sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }} >
+            <SingleColumn sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }} >
                 {Main}
-            </MainContainer>
+            </SingleColumn>
 
             {Right &&
                 <Stack
