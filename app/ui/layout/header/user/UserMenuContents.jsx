@@ -16,6 +16,7 @@ const navItems = [
 const navItemsAuth = [
     new NavItem("Profile", "/profile", <PersonIcon />),
     new NavItem("Write", "/profile/write", <CreateIcon />),
+    new NavItem("Notifications", "/profile/notifications", <CreateIcon />),
     new NavItem("Logout", undefined, <LogoutIcon />, signOut),
 ];
 
