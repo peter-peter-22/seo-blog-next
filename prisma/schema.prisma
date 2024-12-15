@@ -29,6 +29,7 @@ model User {
   Followed      Follows[]                @relation("Follower")
   VerifiedLike  VerifiedLike[]
   VerifiedView  VerifiedView[]
+  Notification  Notification[]
 
   @@index([search], map: "idx_search", type: Gin)
   @@index([createdAt(sort: Desc)])
@@ -88,6 +89,7 @@ model Article {
   UnverifiedView         UnverifiedView[]
   VerifiedLike           VerifiedLike[]
   VerifiedView           VerifiedView[]
+  Notification           Notification[]
 
   @@index([search], map: "idx_search_articles", type: Gin)
   @@index([userId, likeCount, id])
@@ -165,15 +167,37 @@ model Follows {
 }
 
 model Comment {
-  id           String   @id @default(cuid())
+  id           String         @id @default(cuid())
   userId       String
   replyingToId String?
   text         String
   articleId    String
-  createdAt    DateTime @default(now())
-  article      Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
-  replyingTo   User?    @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
-  user         User     @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime       @default(now())
+  article      Article        @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  replyingTo   User?          @relation("Replied", fields: [replyingToId], references: [id], onDelete: Cascade)
+  user         User           @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
+  Notification Notification[]
 
   @@index([articleId, createdAt(Desc), id])
+}
+
+enum NotificationType {
+  like
+  comment
+  reply
+}
+
+model Notification {
+  id         Int           @id @default(autoincrement())
+  createdAt  DateTime         @default(now())
+  articleId  String?
+  article    Article?         @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  userId     String
+  commentId  String?
+  comment    Comment?         @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unread     Boolean          @default(true)
+  count      Int?
+  startCount Int?
+  type       NotificationType
 }
