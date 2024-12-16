@@ -1,4 +1,5 @@
 import prisma from "@/utils/db";
+import { GET as restartViewCounts } from "@/app/api/dev/restart/viewCounts/route";
 
 export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
@@ -18,10 +19,13 @@ export async function GET(_, { params }) {
         allViews = [...allViews, ...views];
     }
 
+    await prisma.$executeRaw`ALTER TABLE "VerifiedView" DISABLE TRIGGER ALL;`;
     await prisma.verifiedView.createMany({
         data: allViews,
         skipDuplicates: true,
     })
+    await prisma.$executeRaw`ALTER TABLE "VerifiedView" ENABLE TRIGGER ALL;`;
+    await restartViewCounts();
 
     return new Response("views added");
 }

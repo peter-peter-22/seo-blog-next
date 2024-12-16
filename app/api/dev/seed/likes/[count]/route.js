@@ -1,4 +1,5 @@
 import prisma from "@/utils/db";
+import { GET as restartLikeCounts } from "../../../restart/likeCounts/route";
 
 export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
@@ -19,10 +20,13 @@ export async function GET(_, { params }) {
         allLikes = [...allLikes, ...likes];
     }
 
+    await prisma.$executeRaw`ALTER TABLE "VerifiedLike" DISABLE TRIGGER ALL;`;
     await prisma.verifiedLike.createMany({
         data: allLikes,
         skipDuplicates: true,
     })
+    await prisma.$executeRaw`ALTER TABLE "VerifiedLike" ENABLE TRIGGER ALL;`;
+    await restartLikeCounts();
 
     return new Response("likes added");
 }
