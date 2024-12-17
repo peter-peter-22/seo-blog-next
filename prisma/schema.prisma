@@ -184,7 +184,7 @@ model Comment {
 enum NotificationType {
   like
   comment
-  reply
+  follow
 }
 
 model Notification {

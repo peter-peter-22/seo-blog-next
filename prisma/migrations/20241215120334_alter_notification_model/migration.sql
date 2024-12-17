@@ -5,7 +5,7 @@
 
 */
 -- CreateEnum
-CREATE TYPE "NotificationType" AS ENUM ('like', 'comment', 'reply');
+CREATE TYPE "NotificationType" AS ENUM ('like', 'comment', 'follow');
 
 -- AlterTable
 ALTER TABLE "Notification" ADD COLUMN     "count" INTEGER,
