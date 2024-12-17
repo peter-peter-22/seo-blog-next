@@ -18,7 +18,6 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_comment_notifications()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Handle INSERT and DELETE
     PERFORM recalculate_comment_notification(NEW.id,NEW."userId",NEW."commentCount",OLD."commentCount");
     RETURN NULL;
 END;
@@ -38,7 +37,7 @@ CREATE OR REPLACE PROCEDURE restart_comment_notifications() AS $$
 DECLARE
     row_record RECORD;
 BEGIN
-    DELETE FROM "Notification" WHERE type='like';
+    DELETE FROM "Notification" WHERE type='comment';
     FOR row_record IN
         SELECT id,"userId","commentCount" FROM "Article"
     LOOP

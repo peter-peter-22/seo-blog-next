@@ -18,7 +18,6 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_like_notifications()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Handle INSERT and DELETE
     PERFORM recalculate_like_notification(NEW.id,NEW."userId",NEW."likeCount",OLD."likeCount");
     RETURN NULL;
 END;

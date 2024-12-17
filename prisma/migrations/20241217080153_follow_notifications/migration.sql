@@ -32,7 +32,7 @@ CREATE UNIQUE INDEX unique_follow_notification ON "Notification" ("userId")
 WHERE type='follow' AND unread=TRUE;
 
 -- recreate follow notifications
-CREATE OR REPLACE PROCEDURE restart_like_notifications() AS $$
+CREATE OR REPLACE PROCEDURE restart_follow_notifications() AS $$
 DECLARE
     row_record RECORD;
 BEGIN
