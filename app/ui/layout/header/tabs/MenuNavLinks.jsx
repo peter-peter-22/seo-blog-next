@@ -1,20 +1,30 @@
-import NavLinks, { NavItem } from '@/app/ui/menu/NavLinks';
 import List from '@mui/material/List';
 
-import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
+import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
-
-const navItems = [
-    new NavItem("Home", "/", <HomeIcon />),
-    new NavItem("Articles", "/browse", <ArticleIcon />),
-    new NavItem("Authors", "/authors", <PersonIcon />)
-];
+import NavButton from '@/app/ui/menu/NavButton';
 
 export default function MenuNavLinks() {
     return (
         <List>
-            <NavLinks navItems={navItems} />
+            <NavButton
+                name="Home"
+                url="/"
+                Icon={<HomeIcon />}
+            />
+            <NavButton
+                name="Articles"
+                url="/browse"
+                Icon={<ArticleIcon />}
+            />
+
+            <NavButton
+                name="Authors"
+                url="/authors"
+                Icon={<PersonIcon />}
+            />
+
         </List>
     )
 }
