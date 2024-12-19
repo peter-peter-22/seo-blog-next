@@ -4,8 +4,9 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
+import Badge from '@mui/material/Badge';
 
-export default function NavButton({ name, url, Icon, ...props }) {
+export default function NavButton({ name, url, Icon, badgeProps, ...props }) {
     const pathname = usePathname();
     const active = pathname === url;
     return (
@@ -13,12 +14,14 @@ export default function NavButton({ name, url, Icon, ...props }) {
             <ListItemButton
                 component={url && Link}
                 href={url}
-                active={active}
+                selected={active}
                 {...props}
             >
-                <ListItemIcon sx={{ "& svg": { color: active && "text.primary" } }}>
-                    {Icon}
-                </ListItemIcon>
+                <Badge {...badgeProps}>
+                    <ListItemIcon sx={{ "& svg": { color: active && "text.primary" } }}>
+                        {Icon}
+                    </ListItemIcon>
+                </Badge>
                 <ListItemText
                     primary={name}
                     primaryTypographyProps={{
