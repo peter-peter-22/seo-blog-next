@@ -11,7 +11,7 @@ export const authConfig = {
     strategy: 'jwt'
   },
   callbacks: {
-    async session({ session, token }) {
+    session({ session, token }) {
       // Include token data in the session object if needed
       session.user = token.user;
       return session;
@@ -33,7 +33,7 @@ export const authConfig = {
         token.user = {
           ...token.user,
           name: session.name,
-          image:session.image
+          image: session.image
         }
       }
       return token;

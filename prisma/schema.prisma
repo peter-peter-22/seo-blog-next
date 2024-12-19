@@ -188,7 +188,7 @@ enum NotificationType {
 }
 
 model Notification {
-  id         Int           @id @default(autoincrement())
+  id         Int              @id @default(autoincrement())
   createdAt  DateTime         @default(now())
   articleId  String?
   article    Article?         @relation(fields: [articleId], references: [id], onDelete: Cascade)
@@ -200,4 +200,6 @@ model Notification {
   count      Int?
   startCount Int?
   type       NotificationType
+
+  @@index([userId, unread(Desc), createdAt])
 }

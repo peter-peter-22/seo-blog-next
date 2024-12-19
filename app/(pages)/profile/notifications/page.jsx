@@ -6,34 +6,30 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import { Fragment } from "react";
 import Notification from "./Notification";
+import prisma from "@/utils/db";
+import { auth } from "@/auth";
 
-export default function Page() {
-    const notifications = [
-        {
-            id: "123",
-            type: "like",
-            articleId: "43433",
-            article: { title: 'title' },
-            count: 12,
-            unread: true
+export default async function Page() {
+    const session = await auth();
+
+    const userId = session.user.id;
+
+    const notifications = await prisma.notification.findMany({
+        where: {
+            userId
         },
-        {
-            id: "12334",
-            type: "comment",
-            articleId: "2131",
-            article: { title: 'title' },
-            count: 2,
-            unread: false
+        include: {
+            article: true
         },
-        {
-            id: "123134",
-            type: "reply",
-            commentId: "21311",
-            comment: { text: 'text' },
-            count: 2,
-            unread: false
-        }
-    ]
+        orderBy: [
+            { unread: "desc" },
+            { createdAt: "desc" }
+        ],
+        take:50
+    })
+
+    markNotificationsAsRead();
+
     return (
         <Container maxWidth="sm" component={"main"}>
             <Card>
@@ -54,4 +50,18 @@ export default function Page() {
             </Card>
         </Container>
     )
+}
+
+function markNotificationsAsRead(userId) {
+    prisma.notification.updateMany({
+        data: {
+            unread: false
+        },
+        where: {
+            userId,
+            unread: true
+        }
+    }).catch(err => {
+        console.log(err);
+    })
 }

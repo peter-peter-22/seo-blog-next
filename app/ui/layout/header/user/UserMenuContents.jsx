@@ -5,15 +5,18 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import { signOut, useSession } from 'next-auth/react';
 import UserProfile from "./UserProfile";
+import { useNotification } from "../../NotificationProvider";
 
 import CreateIcon from '@mui/icons-material/Create';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function UserMenuContents() {
     const session = useSession();
     const isLoggedIn = session.status === "authenticated";
+    const notifications = useNotification();
 
     return (
         <List>
@@ -34,7 +37,11 @@ export default function UserMenuContents() {
                     <NavButton
                         name="Notifications"
                         url="/profile/notifications"
-                        Icon={<CreateIcon />}
+                        Icon={<NotificationsIcon />}
+                        badgeProps={{
+                            badgeContent: notifications,
+                            color: "primary"
+                        }}
                     />
                     <NavButton
                         name="Logout"

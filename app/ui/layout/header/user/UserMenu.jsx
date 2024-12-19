@@ -6,9 +6,12 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
 import UserMenuContents from './UserMenuContents';
+import Badge from '@mui/material/Badge';
+import { useNotification } from '../../NotificationProvider';
 
 export default function UserMenu() {
     const [open, setOpen] = useState(false);
+    const notifications = useNotification();
 
     const handleDrawerToggle = () => {
         setOpen((prevState) => !prevState);
@@ -22,7 +25,9 @@ export default function UserMenu() {
                 edge="end"
                 onClick={handleDrawerToggle}
             >
-                <PersonIcon />
+                <Badge color="primary" badgeContent={notifications}>
+                    <PersonIcon />
+                </Badge>
             </IconButton>
             <Drawer
                 component="nav"

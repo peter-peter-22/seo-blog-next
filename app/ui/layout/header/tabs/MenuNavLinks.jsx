@@ -18,7 +18,6 @@ export default function MenuNavLinks() {
                 url="/browse"
                 Icon={<ArticleIcon />}
             />
-
             <NavButton
                 name="Authors"
                 url="/authors"

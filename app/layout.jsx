@@ -8,6 +8,7 @@ import { SnackbarProviderClient } from './ui/layout/SnackbarProviderClient';
 import ScrollToTop from '@/app/ui/components/pagination/ScrollToTop';
 import CssBaseline from "@mui/material/CssBaseline";
 import AuthProvider from './ui/layout/AuthProvider';
+import NotificationProvider from './ui/layout/NotificationProvider';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -30,14 +31,16 @@ export default async function RootLayout({ children }) {
         <ScrollToTop />
         <AppRouterCacheProvider>
           <AuthProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <SnackbarProviderClient maxSnack={3}>
-                <Root>
-                  {children}
-                </Root>
-              </SnackbarProviderClient>
-            </ThemeProvider>
+            <NotificationProvider>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <SnackbarProviderClient maxSnack={3}>
+                  <Root>
+                    {children}
+                  </Root>
+                </SnackbarProviderClient>
+              </ThemeProvider>
+            </NotificationProvider>
           </AuthProvider>
         </AppRouterCacheProvider>
       </body>
