@@ -39,7 +39,7 @@ async function unfiltered({ itemsPerPage, offset }) {
 
 //get the filtered rows and order them by relevance and popularity
 async function filtered({ itemsPerPage, offset, text }) {
-    const [users,[{ count }]]=await Promise.all([
+    const [users, [{ count }]] = await Promise.all([
         //users
         prisma.$queryRaw`  
         SELECT 
@@ -58,12 +58,13 @@ async function filtered({ itemsPerPage, offset, text }) {
         ORDER BY rank DESC, "createdAt" DESC, id DESC
         OFFSET ${offset}
         LIMIT ${itemsPerPage};`,
-        
+
         //count
         prisma.$queryRaw`
         SELECT COUNT(*)::INT from "User"
         WHERE search @@ websearch_to_tsquery('english',${text})`
     ])
 
+    console.log(offset, itemsPerPage,count,users)
     return { users, count };
 }

@@ -1,6 +1,11 @@
 CREATE OR REPLACE FUNCTION recalculate_follow_notification(user_id TEXT,new_count INT, start_count INT)
 RETURNS VOID AS $$
 BEGIN
+    -- do nothing if no change
+    IF new_count=start_count THEN
+        RETURN;
+    END IF;
+
     -- update or create notification
     INSERT INTO "Notification" ("userId",type,"startCount",count)
         VALUES(

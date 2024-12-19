@@ -1,6 +1,11 @@
 CREATE OR REPLACE FUNCTION recalculate_like_notification(article_id TEXT,user_id TEXT,new_count INT, start_count INT)
 RETURNS VOID AS $$
 BEGIN
+    -- do nothing if no change
+    IF new_count=start_count THEN
+        RETURN;
+    END IF;
+
     -- update or create notification
     INSERT INTO "Notification" ("articleId","userId",type,"startCount",count)
         VALUES(
