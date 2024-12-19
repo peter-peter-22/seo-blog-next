@@ -20,8 +20,8 @@ export default function ArticleRow({ title, articles, filters }) {
                     <Stack direction={"row"} sx={{ overflowX: "auto" }}>
                         {
                             articles.map((article, i) => (
-                                <Box sx={{ minWidth:250,flexBasis:1 }} key={i} >
-                                    <ArticleCard article={article} elevation={0} square={true} />
+                                <Box sx={{ minWidth: 250, flexBasis: 1 }} key={i} >
+                                    <ArticleCard article={article} />
                                 </Box>
                             ))
                         }

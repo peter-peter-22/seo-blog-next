@@ -1,7 +1,7 @@
 import Tags from '@/app/ui/components/articles/Tags';
 import HybridAvatar from '@/app/ui/profile/HybridAvatar';
 import formatDate from "@/app/ui/utilities/formatDate";
-import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,7 +15,7 @@ import Stack from '@mui/material/Stack';
 
 export default function ArticleCard({ article,...props }) {
     return (
-        <Card sx={{ height: "100%", maxHeight: 400 }} {...props}>
+        <Box sx={{ height: "100%", maxHeight: 400 }} {...props}>
             <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
                 <Stack sx={{ height: "100%" }}>
                     <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
@@ -55,6 +55,6 @@ export default function ArticleCard({ article,...props }) {
                     </CardActions>
                 </Stack>
             </CardActionArea>
-        </Card>
+        </Box>
     )
 }
