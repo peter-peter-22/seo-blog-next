@@ -37,6 +37,22 @@ export default function Header() {
                                 width={30}
                                 height={30}
                                 alt="Logo"
+                                sx={theme => ({
+                                    ...theme.applyStyles("dark", {
+                                        display: "none"
+                                    })
+                                })}
+                            />
+                            <Logo
+                                src="/icon-dark.png"
+                                width={30}
+                                height={30}
+                                alt="Logo"
+                                sx={theme => ({
+                                    ...theme.applyStyles("light", {
+                                        display: "none"
+                                    })
+                                })}
                             />
                             <Typography
                                 variant="h6"
