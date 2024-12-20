@@ -4,3 +4,7 @@ export default function Page() {
         <PreviewPage />
     );
 }
+
+export const metadata = {
+    title: "Preview"
+}

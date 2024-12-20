@@ -10,3 +10,7 @@ export default async function Page() {
         </SingleColumn>
     )
 }
+
+export const metadata = {
+    title: "Profile"
+}

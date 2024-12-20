@@ -5,3 +5,7 @@ export default function Page() {
     <EditorPage />
   );
 }
+
+export const metadata = {
+  title: "Write"
+}

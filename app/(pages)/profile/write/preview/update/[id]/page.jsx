@@ -9,3 +9,7 @@ export default function Page() {
         <PreviewPage updating={id} />
     );
 }
+
+export const metadata = {
+    title: "Preview"
+}

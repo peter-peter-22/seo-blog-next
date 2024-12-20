@@ -29,3 +29,7 @@ export default function Page() {
         </Box>
     )
 }
+
+export const metadata = {
+    title: "Home"
+}

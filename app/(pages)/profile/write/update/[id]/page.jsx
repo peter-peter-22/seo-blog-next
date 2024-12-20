@@ -7,3 +7,7 @@ export default function Page() {
     const { id } = useParams();
     return <EditorPage updating={id} />
 }
+
+export const metadata = {
+    title: "Update"
+}

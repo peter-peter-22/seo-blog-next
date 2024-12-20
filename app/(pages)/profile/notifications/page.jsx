@@ -65,3 +65,7 @@ function markNotificationsAsRead(userId) {
         console.log(err);
     })
 }
+
+export const metadata = {
+    title: "Notifications"
+}
