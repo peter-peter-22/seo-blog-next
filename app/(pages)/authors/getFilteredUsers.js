@@ -30,7 +30,15 @@ async function unfiltered({ itemsPerPage, offset }) {
                 { id: "asc" }
             ],
             take: itemsPerPage,
-            skip: offset
+            skip: offset,
+            select: {
+                id: true,
+                name: true,
+                image: true,
+                description: true,
+                followerCount: true,
+                articleCount: true
+            }
         }),
         prisma.user.count()
     ]);
@@ -48,6 +56,7 @@ async function filtered({ itemsPerPage, offset, text }) {
             description,
             "articleCount",
             "createdAt",
+            "followerCount",
             image,
                 ts_rank(search, websearch_to_tsquery('english', ${text}))
                 + log("articleCount"+1)*0.01
@@ -65,6 +74,6 @@ async function filtered({ itemsPerPage, offset, text }) {
         WHERE search @@ websearch_to_tsquery('english',${text})`
     ])
 
-    console.log(offset, itemsPerPage,count,users)
+    console.log(offset, itemsPerPage, count, users)
     return { users, count };
 }

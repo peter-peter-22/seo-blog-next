@@ -1,5 +1,6 @@
+import ListWithDiviers from "@/app/ui/components/ListWithDividers";
 import BottomPagination from "@/app/ui/components/pagination/BottomPagination";
-import ProfileList from "@/app/ui/components/users/ProfileList";
+import ProfileListItemExtended from "@/app/ui/components/users/ProfileListItemExtended";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
@@ -23,11 +24,17 @@ export default function DisplayAuthors({ page, pages, users, count, searchParams
             <Toolbar />
             {count > 0 ? (<>
                 <Card>
-                    <ProfileList items={users} />
+                    <ListWithDiviers
+                        items={users}
+                        ItemComponent={item => <ProfileListItemExtended user={item} />}
+                        DividerElement={
+                            <Divider variant="inset" component="li" />
+                        }
+                    />
                 </Card>
                 <BottomPagination searchParams={searchParams} count={pages} page={page} />
             </>) : (
-                <Typography color="text.secondary" sx={{textAlign:"center"}}>
+                <Typography color="text.secondary" sx={{ textAlign: "center" }}>
                     No results
                 </Typography>
             )}

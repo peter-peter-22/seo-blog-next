@@ -44,7 +44,6 @@ export default function ArticleCard({ article,...props }) {
                             WebkitLineClamp: 6,
                         }}>
                             {article.description}
-
                         </Typography>
                     </CardContent>
                     <CardActions>
