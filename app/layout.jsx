@@ -43,7 +43,7 @@ export default async function RootLayout({ children }) {
 
 export const metadata = {
   title: {
-    template: '%s | Textmine',
+    template: '%s - Textmine',
     default: 'Textmine'
   },
   description: 'A site where anybody can be a journalist. Read or write articles.',
