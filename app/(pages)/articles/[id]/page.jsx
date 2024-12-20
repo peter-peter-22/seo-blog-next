@@ -6,8 +6,8 @@ import { notFound } from "next/navigation";
 import getIp from "@/app/actions/general/getIp";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
 
-export default async function Page(props) {
-    const { id } = await props.params;
+export default async function Page({ params }) {
+    const { id } = await params;
     const session = await auth();
 
     //get the article 
@@ -109,4 +109,25 @@ async function updateViews(articleId, session) {
         }
         else throw err;
     }
-} 
+}
+
+export async function generateMetadata({ params }) {
+    const { id } = await params;
+
+    const { title, description, tags } = await prisma.article.findUnique({
+        where: {
+            id
+        },
+        select: {
+            title: true,
+            description: true,
+            tags:true
+        }
+    })
+
+    return {
+        title,
+        description,
+        keywords: tags,
+    }
+}
