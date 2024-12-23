@@ -50,11 +50,12 @@ export default async function ProfileContainer({ userId, isMe, me }) {
         })
     ]);
 
+    if (!user)
+        notFound();
+    
     [...recentArticles, ...popularArticles].forEach(article => {
         article.user = user
     });
 
-    if (!user)
-        notFound();
     return <ProfilePage {...{ user, recentArticles, popularArticles, isMe }} />
 }

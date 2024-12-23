@@ -17,7 +17,7 @@ export default async function Page({ params }) {
 export async function generateMetadata({ params }) {
     const { id } = await params;
 
-    const { name, description } = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             id
         },
@@ -26,6 +26,11 @@ export async function generateMetadata({ params }) {
             description: true,
         }
     })
+
+    if (!user)
+        return { title: "Not found" }
+
+    const { name, description } = user;
 
     return {
         title: name,
