@@ -26,44 +26,47 @@ const Logo = styled(Image)({
 
 export default function Header() {
     return (
-        <HideOnScroll>
-            <AppBar component="nav" sx={{ position: "sticky", top: 0 }}>
-                <Toolbar>
-                    <NavMenu />
-                    <Stack alignItems="center" sx={{ flexGrow: 1 }}>
-                        <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                            <Logo
-                                src="/icon.jpg"
-                                width={30}
-                                height={30}
-                                alt="Logo"
-                                sx={theme => ({
-                                    ...theme.applyStyles("dark", {
-                                        display: "none"
-                                    })
-                                })}
-                            />
-                            <Logo
-                                src="/icon-dark.png"
-                                width={30}
-                                height={30}
-                                alt="Logo"
-                                sx={theme => ({
-                                    ...theme.applyStyles("light", {
-                                        display: "none"
-                                    })
-                                })}
-                            />
-                            <Typography
-                                variant="h6"
-                            >
-                                Textmine
-                            </Typography>
+        <>
+            <HideOnScroll>
+                <AppBar component="nav">
+                    <Toolbar>
+                        <NavMenu />
+                        <Stack alignItems="center" sx={{ flexGrow: 1 }}>
+                            <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                                <Logo
+                                    src="/icon.jpg"
+                                    width={30}
+                                    height={30}
+                                    alt="Logo"
+                                    sx={theme => ({
+                                        ...theme.applyStyles("dark", {
+                                            display: "none"
+                                        })
+                                    })}
+                                />
+                                <Logo
+                                    src="/icon-dark.png"
+                                    width={30}
+                                    height={30}
+                                    alt="Logo"
+                                    sx={theme => ({
+                                        ...theme.applyStyles("light", {
+                                            display: "none"
+                                        })
+                                    })}
+                                />
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Textmine
+                                </Typography>
+                            </Stack>
                         </Stack>
-                    </Stack>
-                    <UserMenu />
-                </Toolbar>
-            </AppBar>
-        </HideOnScroll>
+                        <UserMenu />
+                    </Toolbar>
+                </AppBar>
+            </HideOnScroll>
+            <Toolbar />
+        </>
     );
 }
