@@ -1,14 +1,13 @@
-import ArticleViewer from "@/app/ui/editor/ArticleViewer";
-import prisma from "@/utils/db";
-import ArticleEditDialog from "./ArticleEditDialog";
-import { auth } from "@/auth";
-import { notFound } from "next/navigation";
 import getIp from "@/app/actions/general/getIp";
+import ArticleViewer from "@/app/ui/editor/ArticleViewer";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
+import { auth } from "@/auth";
+import prisma from "@/utils/db";
 import Toolbar from "@mui/material/Toolbar";
-import RelevantArticles from "./RelevantArticles";
-import { Suspense } from "react";
-import ArticleRowSkeleton from "@/app/ui/components/articles/ArticleRowSkeleton";
+import { notFound } from "next/navigation";
+import ArticleComments from "./ArticleComments";
+import ArticleEditDialog from "./ArticleEditDialog";
+import LikeMenu from "./LikeMenu";
 import RelevantArticlesSuspended from "./RelevantArticles";
 
 export default async function Page({ params }) {
@@ -84,6 +83,12 @@ export default async function Page({ params }) {
         <SingleColumn>
             {isMine && <ArticleEditDialog article={article} />}
             <ArticleViewer article={article} isMe={isMine} />
+            <Toolbar />
+            {!isMine && <>
+                <LikeMenu article={article} />
+                <Toolbar />
+            </>}
+            <ArticleComments article={article} />
             <Toolbar />
             <RelevantArticlesSuspended article={article} />
         </SingleColumn>

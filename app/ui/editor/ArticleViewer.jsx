@@ -10,19 +10,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
+import FollowButtons from '../../(pages)/articles/[id]/FollowButtons';
 import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
-import ArticleLikes from '../../(pages)/articles/[id]/ArticleLikes';
-import FollowButtons from '../../(pages)/articles/[id]/FollowButtons';
 import formatDate from '../utilities/formatDate';
 import formatNumber from '../utilities/formatNumber';
 import { defaultArticle } from './defaultArticle';
 import TextViewer from "./TextViewer";
-import ArticleComments from '@/app/(pages)/articles/[id]/ArticleComments';
 
 export default function ArticleViewer({ article, preview, isMe }) {
     return (
@@ -53,12 +50,19 @@ export default function ArticleViewer({ article, preview, isMe }) {
                                     <VisibilityIcon />
                                 </Tooltip>
                             </ListItemIcon>
-                            <ListItemText>
-                                <Typography color="text.secondary">
-                                    {formatNumber(article.viewCount)}
-                                </Typography>
-                            </ListItemText>
+                            <ListItemText
+                                primary={
+                                    <Typography color="text.secondary">
+                                        {formatNumber(article.viewCount)}
+                                    </Typography>
+                                }
+                            />
                         </ListItem>
+                        {!preview && !isMe &&
+                            <FollowButtons
+                                user={article.user}
+                            />
+                        }
                     </List>
 
                     {article.tags && article.tags.length > 0 ? (
@@ -78,16 +82,7 @@ export default function ArticleViewer({ article, preview, isMe }) {
                         <Typography color="text.secondary">Untagged</Typography>
                     )
                     }
-
                 </CardContent>
-                {!preview && !isMe &&
-                    <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
-                        <ArticleLikes article={article} />
-                        <FollowButtons
-                            user={article.user}
-                        />
-                    </Stack>
-                }
             </Card>
             <Toolbar />
             <Card>
@@ -102,12 +97,6 @@ export default function ArticleViewer({ article, preview, isMe }) {
                     />
                 </CardContent>
             </Card>
-            {!preview &&
-                <>
-                    <Toolbar />
-                    <ArticleComments article={article} />
-                </>
-            }
         </>
     );
 }
