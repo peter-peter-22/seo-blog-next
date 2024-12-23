@@ -17,7 +17,7 @@ export default function ArticleRow({ title, articles, filters }) {
                         {title}
                     </Typography>
                     <Divider />
-                    <Stack direction={"row"} sx={{ overflowX: "auto" }}>
+                    <Stack direction={"row"} sx={{ overflowX: "auto", height: 400 }}>
                         {
                             articles.map((article, i) => (
                                 <Box sx={{ minWidth: 250, flexBasis: 1 }} key={i} >
@@ -28,13 +28,15 @@ export default function ArticleRow({ title, articles, filters }) {
                     </Stack>
                     <Divider />
                 </CardContent>
-                <CardActions>
-                    <Button
-                        href={`/browse?${new URLSearchParams(filters).toString()}`}
-                    >
-                        See more
-                    </Button>
-                </CardActions>
+                {filters &&
+                    <CardActions>
+                        <Button
+                            href={`/browse?${new URLSearchParams(filters).toString()}`}
+                        >
+                            See more
+                        </Button>
+                    </CardActions>
+                }
             </Card>
         </>
     )
