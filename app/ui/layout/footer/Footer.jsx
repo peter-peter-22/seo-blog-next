@@ -11,9 +11,8 @@ function NamedLink(name, url) {
 }
 
 export const footerLinks = [
-    new NamedLink("Privacy policy", "/"),
-    new NamedLink("Cookie policy", "/"),
-    new NamedLink("User lincense", "/"),
+    new NamedLink("Privacy policy", "/privacyPolicy"),
+    new NamedLink("Terms of service", "/termsOfService"),
 ];
 
 export default function Footer(props) {
