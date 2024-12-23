@@ -113,6 +113,8 @@ export const VideoElement = (props) => {
 const IFrameContainer = styled("div")({
   padding: '75% 0 0 0',
   position: 'relative',
+  borderRadius:5,
+  overflow:"hidden"
 })
 
 function VideoElementView({ attributes, children, element }) {

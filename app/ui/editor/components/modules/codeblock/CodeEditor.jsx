@@ -35,7 +35,7 @@ function loadLastUsedLanguage() {
 }
 
 export const lastUsedLanguage = {
-    value:undefined,
+    value: undefined,
     get() {
         if (!this.value)
             this.value = loadLastUsedLanguage()
@@ -49,6 +49,7 @@ export const lastUsedLanguage = {
 
 const StyledCodeBlock = styled("pre")({
     background: "#f4f4f4",
+    color:"black",
     padding: "10px",
     borderRadius: "4px",
     "& *": {
@@ -71,7 +72,7 @@ export function CodeElementEditor({ attributes, children, element }) {
         Transforms.setNodes(editor, newProperties, {
             at: path,
         })
-    }, [editor,element])
+    }, [editor, element])
 
     return (
         <div {...attributes}>
@@ -93,7 +94,7 @@ export function CodeElementEditor({ attributes, children, element }) {
                 {...attributes}
                 spellCheck={false}
             >
-                <code  >
+                <code>
                     {children}
                 </code>
             </StyledCodeBlock>

@@ -108,6 +108,7 @@ const StyledImage = styled("img")({
     height: 300,
     width: "auto",
     objectFit: "cover",
+    borderRadius:5
 })
 
 const DisplayedImage = (props) => {
