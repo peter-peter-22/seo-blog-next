@@ -150,6 +150,12 @@ export const LinkComponent = ({ attributes, children, element }) => {
 }
 export const AddLinkButton = ({ Icon }) => {
     const editor = useSlate()
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const closeDialog = useCallback(() => {
+        setDialogOpen(false)
+    }, [])
+    const validation = useMemo(() => z.string().url(), [])
+
     const processUrl = useCallback((url) => {
         if (!url)
             return;
@@ -157,11 +163,6 @@ export const AddLinkButton = ({ Icon }) => {
         closeDialog();
     }, [closeDialog, editor])
 
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const closeDialog = useCallback(() => {
-        setDialogOpen(false)
-    }, [])
-    const validation = useMemo(() => z.string().url(), [])
     return (
         <>
             <MenuButton
