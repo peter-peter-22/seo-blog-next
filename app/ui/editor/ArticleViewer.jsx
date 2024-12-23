@@ -70,7 +70,7 @@ export default function ArticleViewer({ article, preview, isMe }) {
                                     size="small"
                                     clickable
                                     component={Link}
-                                    href={`/browse?${new URLSearchParams({ tags: tag }).toString()}`}
+                                    href={`/browse?${new URLSearchParams({ tag: tag }).toString()}`}
                                 />
                             ))}
                         </TagContainer>

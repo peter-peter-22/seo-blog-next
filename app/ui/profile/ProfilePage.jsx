@@ -78,7 +78,7 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                                         clickable
                                         component={Link}
                                         size="small"
-                                        href={`/browse?${new URLSearchParams({ tags: tag.name, author: user.id }).toString()}`}
+                                        href={`/browse?${new URLSearchParams({ tag: tag.name, author: user.id }).toString()}`}
                                         key={i}
                                     />
                                 ))}

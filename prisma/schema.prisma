@@ -8,32 +8,35 @@ datasource db {
 }
 
 model User {
-  id            String                   @id @default(cuid())
-  name          String                   @default("New User")
-  email         String                   @unique
+  id            String    @id @default(cuid())
+  name          String    @default("New User")
+  email         String    @unique
   image         String?
   emailVerified DateTime?
-  createdAt     DateTime                 @default(now())
-  updatedAt     DateTime                 @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt 
   password      String?
   description   String?
-  followerCount Int                      @default(0)
-  articleCount  Int                      @default(0)
-  search        Unsupported("tsvector")? @default(dbgenerated("(setweight(to_tsvector('english'::regconfig, name), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, description), 'B'::\"char\"))"))
-  accounts      Account[]
-  Article       Article[]
-  AuthorTag     AuthorTag[]
-  Replies       Comment[]                @relation("Replied")
-  Comments      Comment[]                @relation("Commenter")
-  Followers     Follows[]                @relation("Followed")
-  Followed      Follows[]                @relation("Follower")
-  VerifiedLike  VerifiedLike[]
-  VerifiedView  VerifiedView[]
-  Notification  Notification[]
+  followerCount Int       @default(0)
+  articleCount  Int       @default(0)
+  numberId      Int       @default(autoincrement())
+
+  search       Unsupported("tsvector")? @default(dbgenerated("(setweight(to_tsvector('english'::regconfig, name), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))"))
+  accounts     Account[]
+  Article      Article[]
+  AuthorTag    AuthorTag[]
+  Replies      Comment[]                @relation("Replied")
+  Comments     Comment[]                @relation("Commenter")
+  Followers    Follows[]                @relation("Followed")
+  Followed     Follows[]                @relation("Follower")
+  Notification Notification[]
+  VerifiedLike VerifiedLike[]
+  VerifiedView VerifiedView[]
 
   @@index([search], map: "idx_search", type: Gin)
   @@index([createdAt(sort: Desc)])
   @@index([followerCount(sort: Desc), id])
+  @@index([numberId, updatedAt(Desc)])
 }
 
 model Account {
@@ -83,19 +86,21 @@ model Article {
   viewCount              Int                      @default(0)
   commentCount           Int                      @default(0)
   search                 Unsupported("tsvector")? @default(dbgenerated("(setweight(to_tsvector('english'::regconfig, title), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, description), 'B'::\"char\"))"))
+  numberId               Int                      @default(autoincrement())
   user                   User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
   Comments               Comment[]
+  Notification           Notification[]
   UnverifiedLike         UnverifiedLike[]
   UnverifiedView         UnverifiedView[]
   VerifiedLike           VerifiedLike[]
   VerifiedView           VerifiedView[]
-  Notification           Notification[]
 
   @@index([search], map: "idx_search_articles", type: Gin)
   @@index([userId, likeCount, id])
   @@index([userId, createdAt, id])
   @@index([createdAt, id])
   @@index([tags], map: "article_tags_gin_index", type: Gin)
+  @@index([numberId, updatedAt(Desc)])
 }
 
 model Topic {
@@ -104,6 +109,7 @@ model Topic {
 
   @@index([name, count])
   @@index([name(ops: raw("gin_trgm_ops"))], map: "idx_topic_trgm", type: Gin)
+  @@index([count(Desc)])
 }
 
 model AuthorTag {
@@ -178,28 +184,28 @@ model Comment {
   user         User           @relation("Commenter", fields: [userId], references: [id], onDelete: Cascade)
   Notification Notification[]
 
-  @@index([articleId, createdAt(Desc), id])
+  @@index([articleId, createdAt, id])
+}
+
+model Notification {
+  createdAt  DateTime         @default(now())
+  articleId  String?
+  userId     String
+  count      Int?
+  startCount Int?
+  type       NotificationType
+  unread     Boolean          @default(true)
+  commentId  String?
+  id         Int              @id @default(autoincrement())
+  article    Article?         @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  comment    Comment?         @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, unread, createdAt])
 }
 
 enum NotificationType {
   like
   comment
   follow
-}
-
-model Notification {
-  id         Int              @id @default(autoincrement())
-  createdAt  DateTime         @default(now())
-  articleId  String?
-  article    Article?         @relation(fields: [articleId], references: [id], onDelete: Cascade)
-  userId     String
-  commentId  String?
-  comment    Comment?         @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unread     Boolean          @default(true)
-  count      Int?
-  startCount Int?
-  type       NotificationType
-
-  @@index([userId, unread(Desc), createdAt])
 }
