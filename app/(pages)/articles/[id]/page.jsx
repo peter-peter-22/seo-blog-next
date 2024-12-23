@@ -126,7 +126,7 @@ async function updateViews(articleId, session) {
 export async function generateMetadata({ params }) {
     const { id } = await params;
 
-    const { title, description, tags } = await prisma.article.findUnique({
+    const article = await prisma.article.findUnique({
         where: {
             id
         },
@@ -136,6 +136,11 @@ export async function generateMetadata({ params }) {
             tags: true
         }
     })
+
+    if (!article)
+        return { title: "Not found" }
+
+    const { title, description, tags } = article;
 
     return {
         title,
