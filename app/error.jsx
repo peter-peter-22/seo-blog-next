@@ -17,7 +17,7 @@ export default function Error({
     }, [error]);
 
     return (
-        <Stack alignItems="center" spacing={2}>
+        <Stack alignItems="center" spacing={2} sx={{ my: 'auto' }}>
             <BigIcon>
                 <ErrorOutlineIcon />
             </BigIcon>
