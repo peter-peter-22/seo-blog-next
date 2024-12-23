@@ -22,7 +22,7 @@ export default function Notification({ notification }) {
     )
 }
 
-function Like({ notification: { count, articleId, article, unread } }) {
+function Like({ notification: { count, startCount, articleId, article, unread } }) {
     return (
         <ListItemButton
             LinkComponent={Link}
@@ -33,14 +33,14 @@ function Like({ notification: { count, articleId, article, unread } }) {
                 <ThumbUpIcon />
             </ListItemIcon>
             <ListItemText
-                primary={`Your article recieved ${count} likes`}
+                primary={`Your article recieved ${count - startCount} like(s)`}
                 secondary={article.title}
             />
         </ListItemButton>
     )
 }
 
-function Comment({ notification: { count, articleId, article, unread } }) {
+function Comment({ notification: { count, startCount, articleId, article, unread } }) {
     return (
         <ListItemButton
             LinkComponent={Link}
@@ -51,14 +51,14 @@ function Comment({ notification: { count, articleId, article, unread } }) {
                 <ReviewsIcon />
             </ListItemIcon>
             <ListItemText
-                primary={`Your article recieved ${count} comments`}
+                primary={`Your article recieved ${count - startCount} comment(s)`}
                 secondary={article.title}
             />
         </ListItemButton>
     )
 }
 
-function Follow({ notification: { count, articleId, comment, unread } }) {
+function Follow({ notification: { count, startCount, unread } }) {
     return (
         <ListItemButton
             selected={unread}
@@ -67,7 +67,7 @@ function Follow({ notification: { count, articleId, comment, unread } }) {
                 <PersonAddIcon />
             </ListItemIcon>
             <ListItemText
-                primary={`You gained ${count} followers`}
+                primary={`You gained ${count - startCount} follower(s)`}
             />
         </ListItemButton>
     )
