@@ -15,7 +15,8 @@ export default async function sitemap() {
 
     return tags.map(tag => ({
         url: `${baseUrl}/browse?${new URLSearchParams({ tag: tag.name }).toString()}`,
-        lastModified: new Date()
+        lastModified: new Date(),
+        changeFreq:"daily"
     }))
 }
 

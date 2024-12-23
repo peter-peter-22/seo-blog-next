@@ -29,8 +29,7 @@ export default function Filters({ defaultValues }) {
     const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [defaultValues]);
 
     const onSubmit = async (data) => {
-        const searchParams = FormatQuery(data)
-        searchParams.delete("page");//reset the pagination when a new search happens
+        const searchParams = new URLSearchParams({ text: data.text });
         router.push(`?${searchParams.toString()}`);
     }
 
@@ -59,7 +58,7 @@ export default function Filters({ defaultValues }) {
                             </Typography>
                         </ListItem>
                         <ListItem>
-                            <SearchSyntaxLink/>
+                            <SearchSyntaxLink />
                         </ListItem>
                     </List>
                     <CardActions>

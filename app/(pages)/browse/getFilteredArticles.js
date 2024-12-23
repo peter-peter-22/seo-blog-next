@@ -50,7 +50,7 @@ async function simpleFilter({ tag, author, sort, sortMode, offset, itemsPerPage 
         //articles
         prisma.article.findMany({
             where,
-            include:
+            select:
             {
                 user: {
                     select: {
@@ -59,7 +59,16 @@ async function simpleFilter({ tag, author, sort, sortMode, offset, itemsPerPage 
                         id: true,
                         description: true
                     }
-                }
+                },
+                id: true,
+                description: true,
+                title: true,
+                likeCount: true,
+                dislikeCount: true,
+                createdAt: true,
+                commentCount:true,
+                viewCount:true,
+                tags:true
             },
             orderBy: [
                 { [sort]: sortMode },
@@ -83,7 +92,15 @@ async function filtered({ text, offset, itemsPerPage }) {
         //articles
         prisma.$queryRaw`
         SELECT 
-            *,
+            id,
+            title,
+            description,
+            "createdAt",
+            tags,
+            "likeCount",
+            "dislikeCount",
+            "viewCount",
+            "commentCount",
 	        (
 	        	SELECT ROW_TO_JSON(my_user) 
 	        	FROM

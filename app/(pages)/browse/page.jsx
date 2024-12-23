@@ -7,3 +7,10 @@ export default async function Page({ searchParams }) {
     const query = await getFilteredArticles(searchParams);
     return <BrowserLayout {...{ searchParams, query }} />;
 }
+
+export function generateMetadata({ searchParams }) {
+    return {
+        title: searchParams.text ?? searchParams.tag ?? "Browsing",
+        description: "browsing"
+    }
+}
