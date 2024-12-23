@@ -11,7 +11,7 @@ import { useNotification } from '../../NotificationProvider';
 
 export default function UserMenu() {
     const [open, setOpen] = useState(false);
-    const notifications = useNotification();
+    const {count} = useNotification();
 
     const handleDrawerToggle = () => {
         setOpen((prevState) => !prevState);
@@ -25,7 +25,7 @@ export default function UserMenu() {
                 edge="end"
                 onClick={handleDrawerToggle}
             >
-                <Badge color="primary" badgeContent={notifications}>
+                <Badge color="primary" badgeContent={count}>
                     <PersonIcon />
                 </Badge>
             </IconButton>

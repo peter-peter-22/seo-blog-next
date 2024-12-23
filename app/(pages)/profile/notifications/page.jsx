@@ -8,6 +8,7 @@ import { Fragment } from "react";
 import Notification from "./Notification";
 import prisma from "@/utils/db";
 import { auth } from "@/auth";
+import ClearCount from "./ClearCount";
 
 export default async function Page() {
     const session = await auth();
@@ -31,35 +32,38 @@ export default async function Page() {
     markNotificationsAsRead();
 
     return (
-        <Container maxWidth="sm" component={"main"}>
-            <Card>
-                <CardContent>
-                    <Typography variant="h5">
-                        Notifications
-                    </Typography>
-                    <Divider />
-                </CardContent>
+        <>
+            <ClearCount />
+            <Container maxWidth="sm" component={"main"}>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h5">
+                            Notifications
+                        </Typography>
+                        <Divider />
+                    </CardContent>
 
-                {
-                    notifications.length > 0 ? (
-                        <List>
-                            {notifications.map((notification, i, array) => (
-                                <Fragment key={i}>
-                                    <Notification notification={notification} />
-                                    {i < array.length - 1 && <Divider component={"li"} />}
-                                </Fragment>
-                            ))}
-                        </List>
-                    ) : (
-                        <CardContent>
-                            <Typography color="textSecondary">
-                                No notifications yet
-                            </Typography>
-                        </CardContent>
-                    )
-                }
-            </Card>
-        </Container>
+                    {
+                        notifications.length > 0 ? (
+                            <List>
+                                {notifications.map((notification, i, array) => (
+                                    <Fragment key={i}>
+                                        <Notification notification={notification} />
+                                        {i < array.length - 1 && <Divider component={"li"} />}
+                                    </Fragment>
+                                ))}
+                            </List>
+                        ) : (
+                            <CardContent>
+                                <Typography color="textSecondary">
+                                    No notifications yet
+                                </Typography>
+                            </CardContent>
+                        )
+                    }
+                </Card>
+            </Container>
+        </>
     )
 }
 

@@ -3,9 +3,9 @@
 import { notificationCountAction } from "@/app/actions/notificationActions";
 import { useSession } from "next-auth/react";
 import { useSnackbar } from "notistack";
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useState } from "react"
 
-const NotificationContext = createContext(0);
+const NotificationContext = createContext({ count: 0, clear: null });
 
 export default function NotificationProvider({ children }) {
     const session = useSession();
@@ -19,10 +19,14 @@ export default function NotificationProvider({ children }) {
         }).catch(err => {
             enqueueSnackbar(`Error when fetching notifications:\n${err.toString()}`, { variant: "error" });
         })
-    }, [isLoggedIn,enqueueSnackbar]);
+    }, [isLoggedIn, enqueueSnackbar]);
+
+    const clear = useCallback(() => {
+        setCount(0)
+    }, []);
 
     return (
-        <NotificationContext.Provider value={count}>
+        <NotificationContext.Provider value={{ count, clear }}>
             {children}
         </NotificationContext.Provider>
     )

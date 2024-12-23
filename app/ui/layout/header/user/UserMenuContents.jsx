@@ -16,7 +16,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 export default function UserMenuContents() {
     const session = useSession();
     const isLoggedIn = session.status === "authenticated";
-    const notifications = useNotification();
+    const { count } = useNotification();
 
     return (
         <List>
@@ -39,7 +39,7 @@ export default function UserMenuContents() {
                         url="/profile/notifications"
                         Icon={<NotificationsIcon />}
                         badgeProps={{
-                            badgeContent: notifications,
+                            badgeContent: count,
                             color: "primary"
                         }}
                     />
