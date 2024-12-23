@@ -19,7 +19,7 @@ import { useSession } from 'next-auth/react';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback, useState } from 'react';
 
-const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
+const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete }) {
     const session = useSession();
     const userId = session?.data?.user?.id;
     const { enqueueSnackbar } = useSnackbar();
@@ -44,7 +44,7 @@ const Comment = memo(({ comment, openCommentDialog, onDelete }) => {
         catch (err) {
             enqueueSnackbar(err.toString(), { variant: "error" });
         }
-    }, [])
+    }, [closeDialog, comment, enqueueSnackbar, onDelete])
 
     return (
         <>

@@ -2,7 +2,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import Chip from '@mui/material/Chip';
 import { useCallback, useState } from 'react';
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus,vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
@@ -18,10 +18,10 @@ const CodeHighlighter = ({ code, language = "text" }) => {
             .catch(err => {
                 console.error('Failed to copy text: ', err);
             });
-    }, []);
+    }, [code]);
     const reset = useCallback(() => {
         setCopied(false);
-    });
+    }, []);
     return (
         <>
             <Chip icon={<CodeIcon />} label={language} />

@@ -41,7 +41,7 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, onUpda
         catch (err) {
             enqueueSnackbar(err.toString(), { variant: "error" })
         }
-    }, [])
+    }, [articleId, close, enqueueSnackbar, onPublish, onUpdate, replyingTo, updating])
 
     //if updading, choose the replied user of the updated comment
     //if not, then use the replied user of the new comment

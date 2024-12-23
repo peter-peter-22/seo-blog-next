@@ -33,7 +33,7 @@ export default function useFollow({ user }) {
                 }
             }
         )
-    }, [isFollowing, pending]);
+    }, [isFollowing, pending, user, enqueueSnackbar]);
 
     let localCount = user.followerCount;
     if (isFollowing && !isFollowed)

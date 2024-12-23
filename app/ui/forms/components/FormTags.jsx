@@ -15,9 +15,9 @@ export default function FormTags({ name, options = [], label, controllerProps, .
             id={name}
             control={control}
             render={({ field: { value, onChange, ...field } }) => {
-                const handleChange = useCallback((_, value) => {
+                const handleChange = (_, value) => {
                     onChange(value);
-                }, []);
+                }
                 return <Autocomplete
                     multiple
                     id={name}

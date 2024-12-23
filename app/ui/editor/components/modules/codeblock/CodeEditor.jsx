@@ -71,7 +71,7 @@ export function CodeElementEditor({ attributes, children, element }) {
         Transforms.setNodes(editor, newProperties, {
             at: path,
         })
-    }, [])
+    }, [editor,element])
 
     return (
         <div {...attributes}>

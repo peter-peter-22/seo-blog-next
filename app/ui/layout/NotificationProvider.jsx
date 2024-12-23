@@ -19,7 +19,7 @@ export default function NotificationProvider({ children }) {
         }).catch(err => {
             enqueueSnackbar(`Error when fetching notifications:\n${err.toString()}`, { variant: "error" });
         })
-    }, [isLoggedIn]);
+    }, [isLoggedIn,enqueueSnackbar]);
 
     return (
         <NotificationContext.Provider value={count}>

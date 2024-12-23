@@ -26,7 +26,7 @@ export default function Filters({ defaultValues }) {
     });
     const { handleSubmit, formState: { isSubmitting }, reset } = methods;
 
-    const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [defaultValues]);
+    const handleReset = useCallback(() => { reset(BrowseSchema.parse({})) }, [reset]);
 
     const onSubmit = async (data) => {
         const searchParams = new URLSearchParams({ text: data.text });

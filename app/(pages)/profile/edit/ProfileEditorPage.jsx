@@ -15,7 +15,7 @@ import { FormProvider } from 'react-hook-form';
 
 export default function ProfileEditorPage({ user }) {
     const router = useRouter()
-    const onSuccess = useCallback(() => { router.push("/profile") }, []);
+    const onSuccess = useCallback(() => { router.push("/profile") }, [router]);
     const { onSubmit, methods } = useProfileEditorForm({ onSuccess, user });
     const { handleSubmit, formState: { isSubmitting } } = methods;
 

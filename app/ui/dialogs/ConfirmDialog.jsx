@@ -13,7 +13,7 @@ export default function ConfirmDialog({ title, body, callback, confirmText, canc
     const [pending, startSubmit] = useTransition();
     const submit = useCallback(() => {
         startSubmit(callback)
-    }, [])
+    }, [callback])
     return (
         <Dialog
             disableRestoreFocus

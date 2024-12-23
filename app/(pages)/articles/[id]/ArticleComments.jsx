@@ -18,7 +18,7 @@ import { useSnackbar } from 'notistack';
 
 export default function ArticleComments({ article }) {
     const [dialog, setDialog] = useState();
-    const closeDialog = useCallback(() => { setDialog() })
+    const closeDialog = useCallback(() => { setDialog() }, [])
     const [comments, setComments] = useState(article.Comments);
     const [commentsMade, setCommentsMade] = useState(0);
     const { enqueueSnackbar } = useSnackbar();
@@ -55,7 +55,7 @@ export default function ArticleComments({ article }) {
                 close={closeDialog}
             />
         )
-    }, [])
+    }, [addComment, article, closeDialog, updateComment])
 
     const [isPending, startLoading] = useTransition();
     const loadMoreComments = useCallback(() => {
@@ -72,7 +72,7 @@ export default function ArticleComments({ article }) {
                 enqueueSnackbar(err.toString(), { variant: "error" })
             }
         })
-    }, [article, comments])
+    }, [article, comments, enqueueSnackbar])
 
     //update the comment count when a new comment is added
     //this count all comments, no just the loaded ones

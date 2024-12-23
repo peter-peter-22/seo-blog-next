@@ -31,7 +31,7 @@ export default function AuthorFilters({ defaultValues }) {
     });
     const { handleSubmit, formState: { isSubmitting }, reset } = methods;
 
-    const handleReset = useCallback(() => { reset(BrowseAuthorsSchema.parse({})) }, [defaultValues]);
+    const handleReset = useCallback(() => { reset(BrowseAuthorsSchema.parse({})) }, [ reset]);
 
     const onSubmit = async (data) => {
         const searchParams = FormatQuery(data)

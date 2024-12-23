@@ -16,7 +16,7 @@ import FormTextField from '../forms/components/FormTextField';
 export default function TextDialog({ title, body, callback, confirmText, cancelText, onClose, defaultValue, validation, textFieldProps, ...props }) {
     const Schema = useMemo(() => z.object({
         text: validation ?? z.string()
-    }), []);
+    }), [validation]);
     const methods = useForm({
         resolver: zodResolver(Schema), // Apply the zodResolver
         defaultValues: { text: defaultValue }
@@ -25,7 +25,7 @@ export default function TextDialog({ title, body, callback, confirmText, cancelT
     const onSubmit = useCallback(async (data) => {
         const { text } = Schema.parse(data);
         await callback(text);
-    }, []);
+    }, [,Schema,callback]);
     return (
         <Dialog
             disableRestoreFocus

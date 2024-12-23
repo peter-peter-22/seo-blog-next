@@ -67,7 +67,7 @@ const InsertImageButton = ({ Icon }) => {
             return;
         insertImage(editor, url);
         closeDialog();
-    }, [])
+    }, [closeDialog,editor])
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {

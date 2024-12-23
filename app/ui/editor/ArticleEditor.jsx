@@ -21,7 +21,7 @@ import RichTextEditorForm from "./RichTextEditorForm";
 import { useRouter } from 'next/navigation';
 
 export default function ArticleEditor({ updating }) {
-  const loadedDraft = React.useMemo(() => loadDraft(updating), []);
+  const loadedDraft = React.useMemo(() => loadDraft(updating), [updating]);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
@@ -47,11 +47,11 @@ export default function ArticleEditor({ updating }) {
     catch (err) {
       enqueueSnackbar(err.toString(), { variant: "error" });
     }
-  });
+  }, [enqueueSnackbar, router, updating]);
 
   return (
     <FormProvider {...methods}>
-      <SaveDraft updating={updating} disabled={isSubmitting}/>
+      <SaveDraft updating={updating} disabled={isSubmitting} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -124,7 +124,7 @@ function SaveDraft({ updating, disabled }) {
     if (!disabled)
       return;
     debounced.cancel();
-  }, [disabled]);
+  }, [disabled, debounced]);
 
   debounced(allValues);
 }

@@ -22,7 +22,7 @@ export default function ArticleEditDialog({ article }) {
         //copy the article of this page to the draft save then open the editor
         localStorage.setItem(getDraftName(true), JSON.stringify(article));
         router.push(`/profile/write/update/${article.id}`);
-    }, [article])
+    }, [article,router])
 
     const closeDialog = useCallback(() => {
         setDialogOpen(false);
@@ -41,7 +41,7 @@ export default function ArticleEditDialog({ article }) {
         catch (err) {
             enqueueSnackbar(err.toString(), { variant: "error" });
         }
-    }, [])
+    }, [article, closeDialog, enqueueSnackbar])
 
     return <>
         <Card>

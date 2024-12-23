@@ -17,7 +17,7 @@ export default function FormTagsOnline(props) {
     }, 300);
     const handleChange = useCallback((e) => {
         update(e.target.value);
-    }, []);
+    }, [update]);
     return (
         <FormTags
             {...props}

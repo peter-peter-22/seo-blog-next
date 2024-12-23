@@ -155,7 +155,7 @@ export const AddLinkButton = ({ Icon }) => {
             return;
         insertLink(editor, url);
         closeDialog();
-    }, [])
+    }, [closeDialog, editor])
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {

@@ -39,7 +39,7 @@ export default function ArticleLikes({ article }) {
                 }
             }
         )
-    }, [])
+    }, [article,enqueueSnackbar])
 
     //adjust the like count on the client according to the state of the like buttons
     let localLikes = originalLikes;
@@ -60,7 +60,7 @@ export default function ArticleLikes({ article }) {
             return;
         const newValue = localLikeState === value ? undefined : value;
         executeLikeAction(newValue)
-    }, [localLikeState, pending]);
+    }, [localLikeState, pending, executeLikeAction]);
 
     return (
         <CardActions>

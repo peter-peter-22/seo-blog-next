@@ -15,8 +15,10 @@ export default function LiveAvatar() {
     )
 }
 
-const HybridAvatarMemo = memo(({ user }) => {
+const HybridAvatarContainer = ({ user }) => {
     return (
         <HybridAvatar user={user} sx={{ width: 100, height: 100, fontSize: 50, mx: "auto" }} />
     )
-})
+}
+
+const HybridAvatarMemo = memo(HybridAvatarContainer)
