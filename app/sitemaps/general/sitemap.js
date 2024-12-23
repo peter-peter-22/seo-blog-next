@@ -16,6 +16,7 @@ export default function sitemap() {
 export function generalSitemap() {
     return {
         url: `${baseUrl}/sitemaps/general/sitemap.xml`,
-        lastModified: updatedAt
+        lastModified: updatedAt,
+        changeFrequency: "monthly"
     }
 }

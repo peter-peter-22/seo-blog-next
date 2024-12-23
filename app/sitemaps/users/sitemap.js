@@ -55,7 +55,8 @@ async function generateChunk(id) {
 
     return {
         url: getChunkUrl(id),
-        lastModified:updatedAt
+        lastModified: updatedAt,
+        changeFrequency: "monthly"
     }
 }
 
