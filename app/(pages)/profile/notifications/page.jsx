@@ -25,7 +25,7 @@ export default async function Page() {
             { unread: "desc" },
             { createdAt: "desc" }
         ],
-        take:50
+        take: 50
     })
 
     markNotificationsAsRead();
@@ -39,14 +39,25 @@ export default async function Page() {
                     </Typography>
                     <Divider />
                 </CardContent>
-                <List>
-                    {notifications.map((notification, i, array) => (
-                        <Fragment key={i}>
-                            <Notification notification={notification} />
-                            {i < array.length - 1 && <Divider component={"li"} />}
-                        </Fragment>
-                    ))}
-                </List>
+
+                {
+                    notifications.length > 0 ? (
+                        <List>
+                            {notifications.map((notification, i, array) => (
+                                <Fragment key={i}>
+                                    <Notification notification={notification} />
+                                    {i < array.length - 1 && <Divider component={"li"} />}
+                                </Fragment>
+                            ))}
+                        </List>
+                    ) : (
+                        <CardContent>
+                            <Typography color="textSecondary">
+                                No notifications yet
+                            </Typography>
+                        </CardContent>
+                    )
+                }
             </Card>
         </Container>
     )
