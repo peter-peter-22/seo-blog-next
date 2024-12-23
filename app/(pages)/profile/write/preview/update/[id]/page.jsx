@@ -1,13 +1,7 @@
-"use client";
-
-import PreviewPage from "../../PreviewPage";
-import { useParams } from "next/navigation";
+import PreviewUpdatePage from "./PreviewUpdatePage"
 
 export default function Page() {
-    const { id } = useParams();
-    return (
-        <PreviewPage updating={id} />
-    );
+    return <PreviewUpdatePage />
 }
 
 export const metadata = {

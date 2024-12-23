@@ -1,11 +1,7 @@
-"use client";
-
-import EditorPage from "../../EditorPage";
-import { useParams } from "next/navigation";
+import EditorUpdatePage from "./EditorUpdatePage"
 
 export default function Page() {
-    const { id } = useParams();
-    return <EditorPage updating={id} />
+    return <EditorUpdatePage />
 }
 
 export const metadata = {

@@ -1,8 +1,16 @@
 "use client"
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export default function ScrollToTop() {
+    return (
+        <Suspense>
+            <ScrollToTopInner />
+        </Suspense>
+    )
+}
+
+function ScrollToTopInner() {
     const pathname = usePathname()
     const params = useSearchParams();
     const [first, setFirst] = useState(true);
