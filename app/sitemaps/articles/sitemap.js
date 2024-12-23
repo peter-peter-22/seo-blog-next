@@ -17,6 +17,8 @@ export default async function sitemap({ id }) {
     return articles.map(article => ({
         url: `${baseUrl}/articles/${article.id}`,
         lastModified: new Date(article.updatedAt),
+        changeFrequency: "monthly",
+        priority: 0.8
     }))
 }
 
@@ -56,7 +58,6 @@ async function generateChunk(id) {
     return {
         url: getChunkUrl(id),
         lastModified: updatedAt,
-        changeFrequency: "monthly"
     }
 }
 
