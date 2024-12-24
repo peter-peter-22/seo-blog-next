@@ -1,5 +1,6 @@
 import fs from "fs";
 import Mustache from "mustache";
+import { baseUrl } from "../serverInfo";
 
 const template = loadTemplate();
 
@@ -9,7 +10,7 @@ function loadTemplate() {
 }
 
 function fillTemplate(content) {
-    return Mustache.render(template, { content });
+    return Mustache.render(template, { content, baseUrl });
 }
 
 export { fillTemplate };
