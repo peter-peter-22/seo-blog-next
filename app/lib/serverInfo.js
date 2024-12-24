@@ -4,4 +4,6 @@ function getUrl() {
         : "http://localhost:3000"
 }
 
+console.log(process.env);
+
 export const baseUrl = getUrl();
