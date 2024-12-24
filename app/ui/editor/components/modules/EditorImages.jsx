@@ -60,7 +60,7 @@ const isImageUrl = (url) => {
     const ext = new URL(url).pathname.split('.').pop()
     return imageExtensions.includes(ext)
 }
-const InsertImageButton = ({ Icon }) => {
+const InsertImageButton = ({ Icon,...props }) => {
     const editor = useSlateStatic();
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {
@@ -82,6 +82,7 @@ const InsertImageButton = ({ Icon }) => {
                     event.preventDefault()
                     setDialogOpen(true);
                 }}
+                {...props}
             >
                 {Icon}
             </MenuButton>

@@ -51,11 +51,11 @@ const TopMenu = () => {
                         <BlockButton format="right" Icon={<FormatAlignRight />} />
                         <BlockButton format="justify" Icon={<FormatAlignJustify />} />
                         <Divider orientation="vertical" variant="middle" flexItem />
-                        <AddLinkButton Icon={<LinkIcon />} />
-                        <RemoveLinkButton Icon={<LinkOffIcon />} />
-                        <ToggleCodeButton Icon={<Code />} />
-                        <InsertImageButton Icon={<ImageIcon />} />
-                        <InsertVideoButton Icon={<OndemandVideoIcon />} />
+                        <AddLinkButton Icon={<LinkIcon />} title="add link" />
+                        <RemoveLinkButton Icon={<LinkOffIcon />} title="remove link" />
+                        <ToggleCodeButton Icon={<Code />} title="code" />
+                        <InsertImageButton Icon={<ImageIcon />} title="add image" />
+                        <InsertVideoButton Icon={<OndemandVideoIcon />} title="add video" />
                     </Box>
                 </ToolbarBackground>
             </Box>

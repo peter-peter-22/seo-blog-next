@@ -148,7 +148,7 @@ export const LinkComponent = ({ attributes, children, element }) => {
         </Link>
     )
 }
-export const AddLinkButton = ({ Icon }) => {
+export const AddLinkButton = ({ Icon, ...props }) => {
     const editor = useSlate()
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {
@@ -170,6 +170,7 @@ export const AddLinkButton = ({ Icon }) => {
                     event.preventDefault()
                     setDialogOpen(true);
                 }}
+                {...props}
             >
                 {Icon}
             </MenuButton>
@@ -189,7 +190,7 @@ export const AddLinkButton = ({ Icon }) => {
         </>
     )
 }
-export const RemoveLinkButton = ({ Icon }) => {
+export const RemoveLinkButton = ({ Icon,...props }) => {
     const editor = useSlate()
     return (
         <MenuButton
@@ -199,6 +200,7 @@ export const RemoveLinkButton = ({ Icon }) => {
                     unwrapLink(editor)
                 }
             }}
+            {...props}
         >
             {Icon}
         </MenuButton>

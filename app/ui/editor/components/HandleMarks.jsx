@@ -81,6 +81,7 @@ const BlockButton = ({ format, Icon }) => {
                 event.preventDefault()
                 toggleBlock(editor, format)
             }}
+            title={format}
         >
             {Icon}
         </MenuButton>
@@ -95,6 +96,7 @@ const MarkButton = ({ format, Icon }) => {
                 event.preventDefault()
                 toggleMark(editor, format)
             }}
+            title={format}
         >
             {Icon}
         </MenuButton>

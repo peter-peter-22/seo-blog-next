@@ -59,7 +59,7 @@ function unwrapCode(editor) {
     })
 }
 
-export const ToggleCodeButton = ({ Icon }) => {
+export const ToggleCodeButton = ({ Icon,...props }) => {
     const editor = useSlate()
     const active = isCode(editor);
     return (
@@ -72,6 +72,7 @@ export const ToggleCodeButton = ({ Icon }) => {
                 else
                     wrapCode(editor);
             }}
+            {...props}
         >
             {Icon}
         </MenuButton>

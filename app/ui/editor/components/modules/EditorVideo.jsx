@@ -38,7 +38,7 @@ const isVideoUrl = (url) => {
   return false;
 }
 
-export const InsertVideoButton = ({ Icon }) => {
+export const InsertVideoButton = ({ Icon, ...props }) => {
   const editor = useSlateStatic()
   const [dialogOpen, setDialogOpen] = useState(false);
   const closeDialog = useCallback(() => {
@@ -60,12 +60,14 @@ export const InsertVideoButton = ({ Icon }) => {
           event.preventDefault()
           setDialogOpen(true);
         }}
+        {...props}
       >
         {Icon}
       </MenuButton>
       <TextDialog
         open={dialogOpen}
         title="Enter the URL of the video"
+        body="Only vimeo and youtube urls are accepted"
         textFieldProps={{
           label: "Url",
           placeholder: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
@@ -113,8 +115,8 @@ export const VideoElement = (props) => {
 const IFrameContainer = styled("div")({
   padding: '75% 0 0 0',
   position: 'relative',
-  borderRadius:5,
-  overflow:"hidden"
+  borderRadius: 5,
+  overflow: "hidden"
 })
 
 function VideoElementView({ attributes, children, element }) {
