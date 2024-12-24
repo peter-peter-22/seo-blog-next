@@ -35,6 +35,7 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
         });
 
         const body = createEmail("verifyEmail", { url: `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}` });
+
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",
             subject: "Email verification",

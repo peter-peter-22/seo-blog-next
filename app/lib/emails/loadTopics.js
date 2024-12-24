@@ -4,7 +4,7 @@ const loaded = loadAll();
 
 function loadAll() {
     const loaded = {};
-    const topicsPath = "app/lib/emails/topics";
+    const topicsPath = `${process.cwd()}/app/lib/emails/topics`;
     const files = fs.readdirSync(topicsPath);
     files.forEach(fileName => {
         const htmlFile = fs.readFileSync(`${topicsPath}/${fileName}`, "utf-8");

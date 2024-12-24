@@ -5,7 +5,7 @@ import { baseUrl } from "../serverInfo";
 const template = loadTemplate();
 
 function loadTemplate() {
-    const templatePath = "app/lib/emails/templateEmail.html";
+    const templatePath = `${process.cwd()}/app/lib/emails/templateEmail.html`;
     return fs.readFileSync(templatePath, "utf-8");
 }
 
