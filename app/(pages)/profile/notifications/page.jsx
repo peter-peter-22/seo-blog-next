@@ -20,7 +20,16 @@ export default async function Page() {
             userId
         },
         include: {
-            article: true
+            article: {
+                select: {
+                    title: true
+                }
+            },
+            user: {
+                select: {
+                    name: true
+                }
+            }
         },
         orderBy: [
             { unread: "desc" },
