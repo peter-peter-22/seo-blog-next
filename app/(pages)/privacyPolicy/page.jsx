@@ -1,6 +1,7 @@
 import { baseUrl } from "@/app/lib/serverInfo";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
-import Box from "@mui/material/Box";
+
+//https://www.termsfeed.com/live/1626e1ad-91ef-4194-9f30-438f8558bb4a
 
 export default function Page() {
     return (
