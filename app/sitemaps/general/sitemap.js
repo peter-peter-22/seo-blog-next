@@ -4,7 +4,13 @@ import { logSitemaps } from "../sitemapConstants";
 const updatedAt = new Date("2024-12-23");
 
 const urls = [
-    ["", 1],
+    [""],
+    ["privacyPolicy"],
+    ["termsOfService"],
+    ["editorTutorial"],
+    ["searchTutorial"],
+    ["auth/forgtPassword"],
+    ["auth/signIn"],
 ]
 
 export default function sitemap() {
@@ -15,7 +21,7 @@ export default function sitemap() {
         url: `${baseUrl}/${url}`,
         lastModified: updatedAt,
         changeFrequency: "monthly",
-        priority
+        priority: priority ?? 1
     }))
 }
 
