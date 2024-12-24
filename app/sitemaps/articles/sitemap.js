@@ -1,10 +1,12 @@
 import prisma from "@/utils/db";
 import { baseUrl } from "@/app/lib/serverInfo";
+import { logSitemaps } from "../sitemapConstants";
 
 const itemsPerSitemap = 50000;
 
 export default async function sitemap({ id }) {
-    console.log(`article sitemap ${id} is generated`);
+    if (logSitemaps)
+        console.log(`article sitemap ${id} is generated`);
 
     const articles = await prisma.article.findMany({
         where: rangeFilter(id),
@@ -23,7 +25,8 @@ export default async function sitemap({ id }) {
 }
 
 export async function generateSitemaps() {
-    console.log("article sitemaps are counted");
+    if (logSitemaps)
+        console.log("article sitemaps are counted");
 
     const itemCount = await prisma.article.count();
     const sitemapCount = Math.ceil(itemCount / itemsPerSitemap);
@@ -31,7 +34,8 @@ export async function generateSitemaps() {
 }
 
 export async function generateArticleSitemaps() {
-    console.log("article index sitemap is generated");
+    if (logSitemaps)
+        console.log("article index sitemap is generated");
 
     //get all sitemap ids
     const itemCount = await prisma.article.count();

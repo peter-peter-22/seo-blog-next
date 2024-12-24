@@ -1,7 +1,9 @@
 import prisma from "@/utils/db";
 import { baseUrl } from "@/app/lib/serverInfo";
+import { logSitemaps } from "../sitemapConstants";
 
 export default async function sitemap() {
+    if(logSitemaps)
     console.log("browser sitemap is generated");
 
     //calculate the newest update within this chunk

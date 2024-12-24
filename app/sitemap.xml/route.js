@@ -1,6 +1,7 @@
-import sitemap, { generateArticleSitemaps } from "../sitemaps/articles/sitemap";
+import { generateArticleSitemaps } from "../sitemaps/articles/sitemap";
 import { browserSitemap } from "../sitemaps/browser/sitemap";
 import { generalSitemap } from "../sitemaps/general/sitemap";
+import { logSitemaps } from "../sitemaps/sitemapConstants";
 import { generateUserSitemaps } from "../sitemaps/users/sitemap";
 
 export async function GET() {
@@ -22,6 +23,9 @@ export async function GET() {
 
 // Function to construct the XML structure of the sitemap index.
 function buildSitemapIndex(sitemaps) {
+    if (logSitemaps)
+        console.log("sitemap index is generated");
+
     // XML declaration and opening tag for the sitemap index.
     let xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
