@@ -83,8 +83,11 @@ export default function ArticleEditor({ updating }) {
               <Typography>
                 Publish the article to make it visible for the readers.
               </Typography>
-              <Typography>
+              <Typography variant="body2" color="textSecondary">
                 The article remains editable after publishing.
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                The search engines need 1-8 days to make your article visible on the internet.
               </Typography>
             </FieldContainer>
           </CardContent>
