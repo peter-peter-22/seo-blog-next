@@ -85,7 +85,7 @@ export default function ArticleViewer({ article, preview, isMe }) {
                 </CardContent>
             </Card>
             <Toolbar />
-            <Card>
+            <Card component={"article"}>
                 <CardContent>
                     <TextViewer
                         slateProps={{

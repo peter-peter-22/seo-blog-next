@@ -28,7 +28,7 @@ export default function Header() {
     return (
         <>
             <HideOnScroll>
-                <AppBar component="nav">
+                <AppBar component="header">
                     <Toolbar>
                         <NavMenu />
                         <Stack alignItems="center" sx={{ flexGrow: 1 }}>

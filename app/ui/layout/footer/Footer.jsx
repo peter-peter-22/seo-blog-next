@@ -15,9 +15,9 @@ export const footerLinks = [
     new NamedLink("Terms of service", "/termsOfService"),
 ];
 
-export default function Footer(props) {
+export default function Footer() {
     return (
-        <Card {...props}>
+        <Card component={"footer"}>
             <CardContent>
                 <Stack direction="row" spacing={1} sx={{ flexWrap: true, justifyContent: "center" }}>
                     {footerLinks.map((link, i) => (

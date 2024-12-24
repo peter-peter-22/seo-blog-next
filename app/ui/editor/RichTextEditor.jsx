@@ -73,6 +73,7 @@ function EditableWithBackground({ editor, editorProps }) {
                     duration: theme.transitions.duration.shorter,
                 }),
             })}
+            component={"article"}
         >
             <StyledEditable
                 renderElement={Element}
