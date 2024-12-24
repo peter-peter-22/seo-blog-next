@@ -138,7 +138,7 @@ function SaveDraft({ updating, disabled }) {
       debounced(allValues);
     })
     return () => unsubscribe()
-  }, [watch, disabled])
+  }, [watch, disabled, debounced])
 
 }
 
