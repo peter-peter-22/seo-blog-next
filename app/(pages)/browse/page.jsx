@@ -5,7 +5,6 @@ import getFilteredArticles from './getFilteredArticles';
 export default async function Page({ searchParams }) {
     searchParams = BrowseSchema.parse(searchParams);
     const query = await getFilteredArticles(searchParams);
-    console.log(process.env);
     return <BrowserLayout {...{ searchParams, query }} />;
 }
 
