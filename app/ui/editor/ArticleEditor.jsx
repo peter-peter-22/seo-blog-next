@@ -114,7 +114,7 @@ export function loadDraft(updating) {
 //the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
 function SaveDraft({ updating, disabled }) {
   const { watch } = useFormContext();
-  const allValues = watch();
+
   const debounced = useDebouncedCallback(
     (values) => {
       localStorage.setItem(getDraftName(updating), JSON.stringify(values));
@@ -122,14 +122,24 @@ function SaveDraft({ updating, disabled }) {
     500
   );
 
-  //prevent saving during and after upload
+  //cancel the delayed save when disabled
   useEffect(() => {
     if (!disabled)
       return;
     debounced.cancel();
   }, [disabled, debounced]);
 
-  debounced(allValues);
+  useEffect(() => {
+    //if disabled, do not subscribe
+    if (disabled)
+      return;
+
+    const { unsubscribe } = watch((allValues) => {
+      debounced(allValues);
+    })
+    return () => unsubscribe()
+  }, [watch, disabled])
+
 }
 
 export function getDraftName(updating) {
