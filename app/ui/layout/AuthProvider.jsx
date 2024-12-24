@@ -4,7 +4,7 @@ import { SessionProviderClient } from './SessionProviderClient';
 export default async function AuthProvider({ children }) {
     const session = await auth();
     return (
-        <SessionProviderClient session={session}>
+        <SessionProviderClient session={session} refetchOnWindowFocus={false}>
             {children}
         </SessionProviderClient>
     )
