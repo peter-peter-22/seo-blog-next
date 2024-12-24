@@ -11,7 +11,7 @@ export const LoginProvider = Credentials({
         const { email, password } = parsedCredentials;
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return null;
-        if (!password)
+        if (!user.password)
             throw new Error("This email address has no password registered.")
         const passwordsMatch = await bcrypt.compare(password, user.password);
         if (!passwordsMatch)
