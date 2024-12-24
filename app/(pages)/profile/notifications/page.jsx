@@ -25,7 +25,7 @@ export default async function Page() {
                     title: true
                 }
             },
-            user: {
+            sender: {
                 select: {
                     name: true
                 }

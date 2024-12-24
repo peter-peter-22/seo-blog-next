@@ -18,7 +18,35 @@ export async function publishArticle(data) {
         }
     })
 
+    //send notifications to the followers
+    //this query is not a trigger to prevent unnecessary waiting
+    sendNotifications(created).catch(err => { console.log(err) });
+
     return created.id;
+}
+
+async function sendNotifications(article) {
+    //get who will recieve this notification
+    const recievers = await prisma.follows.findMany({
+        where: {
+            followedId: article.userId
+        },
+        select: {
+            followerId: true
+        }
+    })
+
+    //create the notifications
+    const notifications = recievers.map(follow => ({
+        userId: follow.followerId,
+        type: "article",
+        articleId: article.id,
+        senderId: article.userId,
+    }))
+
+    await prisma.notification.createMany({
+        data: notifications
+    })
 }
 
 export async function updateArticle(data) {

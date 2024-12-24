@@ -7,6 +7,8 @@ import Link from "next/link";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ArticleIcon from '@mui/icons-material/Article';
+import React from "react";
 
 export default function Notification({ notification }) {
     return (
@@ -15,6 +17,8 @@ export default function Notification({ notification }) {
                 <Like notification={notification} />
             ) : notification.type == "comment" ? (
                 <Comment notification={notification} />
+            ) : notification.type == "article" ? (
+                <Article notification={notification} />
             ) : (
                 <Follow notification={notification} />
             )}
@@ -34,7 +38,7 @@ function Like({ notification: { count, startCount, articleId, article, unread } 
             </ListItemIcon>
             <ListItemText
                 primary={`Your article recieved ${count - startCount} like(s)`}
-                secondary={article.title}
+                secondary={article?.title}
             />
         </ListItemButton>
     )
@@ -52,7 +56,25 @@ function Comment({ notification: { count, startCount, articleId, article, unread
             </ListItemIcon>
             <ListItemText
                 primary={`Your article recieved ${count - startCount} comment(s)`}
-                secondary={article.title}
+                secondary={article?.title}
+            />
+        </ListItemButton>
+    )
+}
+
+function Article({ notification: { articleId, article, sender, unread } }) {
+    return (
+        <ListItemButton
+            LinkComponent={Link}
+            href={`/articles/${articleId}`}
+            selected={unread}
+        >
+            <ListItemIcon>
+                <ArticleIcon />
+            </ListItemIcon>
+            <ListItemText
+                primary={`${sender?.name} published a new article`}
+                secondary={article?.title}
             />
         </ListItemButton>
     )
@@ -62,6 +84,8 @@ function Follow({ notification: { count, startCount, unread } }) {
     return (
         <ListItemButton
             selected={unread}
+            LinkComponent={Link}
+            href={"/profile"}
         >
             <ListItemIcon>
                 <PersonAddIcon />
