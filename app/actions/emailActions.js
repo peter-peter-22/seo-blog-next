@@ -34,7 +34,13 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
             }
         });
 
-        const body = createEmail("verifyEmail", { url: `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}` });
+        const url = `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}`;
+        const body = createEmail("verifyEmail", { url });
+
+        if (process.env.NODE_ENV == "development") {
+            console.log(url);
+            return;
+        }
 
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",

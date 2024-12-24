@@ -16,38 +16,25 @@ export default async function Page(props) {
     const firstSignIn = "/profile/newUser";
     const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${encodeURIComponent(redirect)}`);
 
-    const registrationSession = (await prisma.emailVerifications.deleteMany({
+    const registrationSession = await prisma.emailVerifications.findUnique({
         where: {
             email,
             code
         }
-    }))[0];
+    });
 
     const exists = !!registrationSession;
-    //const isExpired=registrationSession.updatedAt;
-    const isExpired = false;
+    const isExpired = exists ? olderThanMinutes(registrationSession.updatedAt, 0.5) : false;
     const isCorrect = exists && !isExpired;
 
-
     if (isCorrect) {
-        const { username: name, password, email } = registrationSession;
-        await prisma.user.upsert({
-            where: { email },
-            create: {
-                email,
-                name,
-                password
-            },
-            update: {
-                name,
-                password
-            }
-        });
+        //upsert user and delete the registration session
+        finalize(registrationSession);
     }
 
     return (
         <SingleColumn>
-            {true ? (
+            {isCorrect ? (
                 <Stack alignItems="center" spacing={2}>
                     <BigIcon>
                         <CheckCircleOutlineIcon />
@@ -91,4 +78,38 @@ export default async function Page(props) {
             )}
         </SingleColumn>
     );
+}
+
+function finalize(registrationSession) {
+    const { username: name, password, email, code } = registrationSession;
+    Promise.allSettled([
+        //upsert user
+        prisma.user.upsert({
+            where: { email },
+            create: {
+                email,
+                name,
+                password
+            },
+            update: {
+                name,
+                password
+            }
+        }),
+        //delete registration session
+        prisma.emailVerifications.deleteMany({
+            where: {
+                email,
+                code
+            }
+        })
+    ]).catch(err => { console.error(err) })
+}
+
+function olderThanMinutes(date, minutes) {
+    const time = minutes * 60 * 1000;
+    const currentTime = Date.now(); // Current time in milliseconds
+    const inputTime = date.getTime(); // Time of the Date object in milliseconds
+
+    return (currentTime - inputTime) > time;
 }

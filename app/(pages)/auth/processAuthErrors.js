@@ -4,6 +4,6 @@ export function formatAuthError(error) {
         case "CredentialsSignin":
             return "Invalid crendentials";
         default:
-            return error.toString();
+            return "Something went wrong";
     }
 }
