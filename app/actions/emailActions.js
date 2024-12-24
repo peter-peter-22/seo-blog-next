@@ -35,13 +35,11 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
         });
 
         const url = `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}`;
+        //if (process.env.NODE_ENV == "development") {
+        //    console.log(url);
+        //    return;
+        //}
         const body = createEmail("verifyEmail", { url });
-
-        if (process.env.NODE_ENV == "development") {
-            console.log(url);
-            return;
-        }
-
         await sendCompanyEmail({
             to: "gfdifgjiugfdjiudfgjjiu@gmail.com",
             subject: "Email verification",

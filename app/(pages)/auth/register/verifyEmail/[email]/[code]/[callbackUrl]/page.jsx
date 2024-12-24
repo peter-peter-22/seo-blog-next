@@ -24,7 +24,7 @@ export default async function Page(props) {
     });
 
     const exists = !!registrationSession;
-    const isExpired = exists ? olderThanMinutes(registrationSession.updatedAt, 0.5) : false;
+    const isExpired = exists ? olderThanMinutes(registrationSession.updatedAt, 5) : false;
     const isCorrect = exists && !isExpired;
 
     if (isCorrect) {
