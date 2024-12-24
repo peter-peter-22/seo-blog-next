@@ -2,7 +2,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import Chip from '@mui/material/Chip';
 import { useCallback, useState } from 'react';
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
@@ -28,7 +28,7 @@ const CodeHighlighter = ({ code, language = "text" }) => {
             <Box sx={{ position: "relative" }}>
                 <SyntaxHighlighter
                     language={language}
-                    style={vs} // Dark theme
+                    style={vscDarkPlus} // Dark theme
                     showLineNumbers={true} // Display line numbers
                     wrapLines={true} // Wrap long lines
                     customStyle={{

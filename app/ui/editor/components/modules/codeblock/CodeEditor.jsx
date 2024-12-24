@@ -22,7 +22,8 @@ const languages = [
     "sql",
     "typescript",
     "jsx",
-    "tsx"
+    "tsx",
+    "xml"
 ].sort();
 
 const lastLanguageName = "lastCodeBlock";
