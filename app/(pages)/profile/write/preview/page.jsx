@@ -1,3 +1,4 @@
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import PreviewPage from "./PreviewPage";
 export default function Page() {
     return (
@@ -5,6 +6,6 @@ export default function Page() {
     );
 }
 
-export const metadata = {
+export const metadata = metadataGenerator({
     title: "Preview"
-}
+})

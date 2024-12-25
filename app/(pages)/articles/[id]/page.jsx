@@ -9,6 +9,7 @@ import ArticleComments from "./ArticleComments";
 import ArticleEditDialog from "./ArticleEditDialog";
 import LikeMenu from "./LikeMenu";
 import RelevantArticlesSuspended from "./RelevantArticles";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default async function Page({ params }) {
     const { id } = await params;
@@ -142,9 +143,9 @@ export async function generateMetadata({ params }) {
 
     const { title, description, tags } = article;
 
-    return {
+    return metadataGenerator({
         title,
         description,
         keywords: tags,
-    }
+    })
 }

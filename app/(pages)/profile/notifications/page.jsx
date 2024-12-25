@@ -9,6 +9,7 @@ import Notification from "./Notification";
 import prisma from "@/utils/db";
 import { auth } from "@/auth";
 import ClearCount from "./ClearCount";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default async function Page() {
     const session = await auth();
@@ -90,6 +91,6 @@ function markNotificationsAsRead(userId) {
     })
 }
 
-export const metadata = {
+export const metadata = metadataGenerator({
     title: "Notifications"
-}
+})

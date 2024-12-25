@@ -8,6 +8,7 @@ import FooterAlternative from "@/app/ui/layout/footer/FooterAlternative"
 import { MainContainer } from "@/app/ui/layout/Layouts"
 import CreateIcon from '@mui/icons-material/Create';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import metadataGenerator from "../lib/seo/metadataGenerator"
 
 export default function Page() {
     return (
@@ -30,6 +31,6 @@ export default function Page() {
     )
 }
 
-export const metadata = {
+export const metadata = metadataGenerator({
     title: "Home"
-}
+})

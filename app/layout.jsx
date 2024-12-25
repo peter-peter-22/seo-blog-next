@@ -10,6 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AuthProvider from './ui/layout/AuthProvider';
 import NotificationProvider from './ui/layout/NotificationProvider';
 import NextTopLoader from 'nextjs-toploader';
+import metadataGenerator from './lib/seo/metadataGenerator';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -43,7 +44,7 @@ export default async function RootLayout({ children }) {
   );
 }
 
-export const metadata = {
+export const metadata = metadataGenerator({
   title: {
     template: '%s - Textmine',
     default: 'Textmine'
@@ -59,4 +60,4 @@ export const metadata = {
       media: '(prefers-color-scheme: dark)',
     },
   ],
-}
+})

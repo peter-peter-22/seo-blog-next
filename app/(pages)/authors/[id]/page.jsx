@@ -1,3 +1,4 @@
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
 import ProfileContainer from "@/app/ui/profile/ProfileContainer";
 import { auth } from "@/auth";
@@ -32,8 +33,8 @@ export async function generateMetadata({ params }) {
 
     const { name, description } = user;
 
-    return {
+    return metadataGenerator({
         title: name,
         description,
-    }
+    })
 }

@@ -1,6 +1,7 @@
 import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
 import BrowserLayout from "./BrowserLayout";
 import getFilteredArticles from './getFilteredArticles';
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default async function Page({ searchParams }) {
     searchParams = BrowseSchema.parse(searchParams);
@@ -9,8 +10,8 @@ export default async function Page({ searchParams }) {
 }
 
 export function generateMetadata({ searchParams }) {
-    return {
+    return metadataGenerator({
         title: searchParams.text ?? searchParams.tag ?? "Browsing",
         description: "browsing"
-    }
+    })
 }
