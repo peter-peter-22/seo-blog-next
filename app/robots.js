@@ -4,7 +4,10 @@ export default function robots() {
     return {
         rules: {
             userAgent: '*',
-            disallow: '/',
+            allow: '/',
+            disallow: "/profile",
+            disallow: "/authors$",
+            disallow: "/browse"
         },
         sitemap: `${baseUrl}/sitemap.xml`,
     };
