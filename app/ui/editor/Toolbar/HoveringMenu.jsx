@@ -36,12 +36,14 @@ export const HoveringMenu = () => {
             Editor.string(editor, selection) === ''
         ) {
             el.style.opacity = '0'
+            el.style.pointerEvents = "none"
             return
         }
         const domSelection = window.getSelection()
         const domRange = domSelection.getRangeAt(0)
         const rect = domRange.getBoundingClientRect()
         el.style.opacity = '1'
+        el.style.pointerEvents = "all"
         el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight}px`
         el.style.left = `${rect.left + window.pageXOffset - el.offsetWidth / 2 + rect.width / 2}px`
     })
@@ -52,6 +54,7 @@ export const HoveringMenu = () => {
                 sx={theme => ({
                     position: "absolute",
                     opacity: 0,
+                    pointerEvents: "none",
                     transition:
                         theme.transitions.create(['opacity'], {
                             duration: theme.transitions.duration.shorter,
