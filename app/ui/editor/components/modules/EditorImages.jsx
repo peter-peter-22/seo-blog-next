@@ -1,19 +1,20 @@
 "use client";
 
-import ClearIcon from '@mui/icons-material/Clear'
-import { styled } from '@mui/material/styles'
-import Fab from '@mui/material/Fab'
+import { useFullscreenImage } from '@/app/ui/components/FullscreenImage';
+import TextDialog from '@/app/ui/dialogs/TextDialog';
+import ClearIcon from '@mui/icons-material/Clear';
+import Fab from '@mui/material/Fab';
+import { styled } from '@mui/material/styles';
+import Zoom from '@mui/material/Zoom';
+import imageExtensions from 'image-extensions';
+import isUrl from 'is-url';
+import { useCallback, useMemo, useState } from 'react';
 import {
     Transforms
-} from 'slate'
-import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react'
-import Zoom from '@mui/material/Zoom';
-import isUrl from 'is-url'
-import imageExtensions from 'image-extensions'
-import { MenuButton } from '../../EditorUI'
-import TextDialog from '@/app/ui/dialogs/TextDialog'
-import { useCallback, useMemo, useState } from 'react'
+} from 'slate';
+import { ReactEditor, useFocused, useReadOnly, useSelected, useSlateStatic } from 'slate-react';
 import { z } from 'zod';
+import { MenuButton } from '../../EditorUI';
 
 const withImages = editor => {
     const { isVoid, insertData } = editor
@@ -60,7 +61,7 @@ const isImageUrl = (url) => {
     const ext = new URL(url).pathname.split('.').pop()
     return imageExtensions.includes(ext)
 }
-const InsertImageButton = ({ Icon,...props }) => {
+const InsertImageButton = ({ Icon, ...props }) => {
     const editor = useSlateStatic();
     const [dialogOpen, setDialogOpen] = useState(false);
     const closeDialog = useCallback(() => {
@@ -73,7 +74,7 @@ const InsertImageButton = ({ Icon,...props }) => {
             return;
         insertImage(editor, url);
         closeDialog();
-    }, [closeDialog,editor])
+    }, [closeDialog, editor])
 
     return (
         <>
@@ -109,7 +110,7 @@ const StyledImage = styled("img")({
     height: 300,
     width: "auto",
     objectFit: "cover",
-    borderRadius:5
+    borderRadius: 5
 })
 
 const DisplayedImage = (props) => {
@@ -163,16 +164,23 @@ function EditorImage({ attributes, children, element }) {
     )
 }
 function ViewImage({ attributes, children, element }) {
+    const src = element.url;
+    const { FullscreenDialog, handleFullscreen } = useFullscreenImage({ src, alt: src })
     return (
         <div {...attributes}>
             {children}
             <StyledImage
-                src={element.url}
-                alt={element.url}
+                src={src}
+                alt={src}
+                onClick={handleFullscreen}
+                sx={{
+                    cursor: "pointer"
+                }}
             />
+            {FullscreenDialog}
         </div>
     )
-
 }
 
-export { DisplayedImage, InsertImageButton, withImages }
+export { DisplayedImage, InsertImageButton, withImages };
+
