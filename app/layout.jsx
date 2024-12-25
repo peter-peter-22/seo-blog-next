@@ -12,7 +12,7 @@ import NotificationProvider from './ui/layout/NotificationProvider';
 import NextTopLoader from 'nextjs-toploader';
 import metadataGenerator from './lib/seo/metadataGenerator';
 
-const roboto = Roboto({
+export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
