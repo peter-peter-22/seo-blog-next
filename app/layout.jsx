@@ -9,6 +9,7 @@ import ScrollToTop from '@/app/ui/components/pagination/ScrollToTop';
 import CssBaseline from "@mui/material/CssBaseline";
 import AuthProvider from './ui/layout/AuthProvider';
 import NotificationProvider from './ui/layout/NotificationProvider';
+import NextTopLoader from 'nextjs-toploader';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.variable}>
         <ScrollToTop />
+        <NextTopLoader color="white" shadow={false} showSpinner={false} />
         <AppRouterCacheProvider>
           <AuthProvider>
             <NotificationProvider>
