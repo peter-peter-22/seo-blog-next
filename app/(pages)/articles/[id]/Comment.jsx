@@ -9,6 +9,7 @@ import formatDate from '@/app/ui/utilities/formatDate';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import ListItem from '@mui/material/ListItem';
@@ -18,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import { useSession } from 'next-auth/react';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback, useState } from 'react';
+import Tooltip from '@mui/material/Tooltip';
 
 const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete }) {
     const session = useSession();
@@ -49,40 +51,18 @@ const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete
     return (
         <>
             <ListItem
-                secondaryAction={
-                    <>
-                        {userId === comment.userId &&
-                            <>
-                                <IconButton
-                                    aria-label="delete"
-                                    onClick={deletePromt}
-                                >
-                                    <DeleteIcon />
-                                </IconButton>
-
-                                <IconButton
-                                    aria-label="edit"
-                                    onClick={openCommentDialog({ updating: comment })}
-                                >
-                                    <EditIcon />
-                                </IconButton>
-                            </>
-                        }
-                        <IconButton
-                            aria-label="reply"
-                            onClick={openCommentDialog({ replyingTo: comment.user })}
-                        >
-                            <CommentIcon />
-                        </IconButton>
-                    </>
-                }
                 alignItems="flex-start"
             >
                 <ListItemAvatar>
                     <HybridAvatar user={comment.user} />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={<Link href={getProfileLink(comment.user)} color="inherit">{comment.user.name}</Link>}
+                    primary={
+                        <Typography>
+                            <Link href={getProfileLink(comment.user)} color="inherit">{comment.user.name}</Link>
+                        </Typography>
+                    }
+                    disableTypography
                     secondary={
                         <>
                             {comment.replyingTo &&
@@ -101,13 +81,45 @@ const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete
                             >
                                 {comment.text}
                             </Typography>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                sx={{ display: "block" }}
-                            >
+                            <Typography variant="body2" color="textSecondary">
                                 {formatDate(comment.createdAt)}
                             </Typography>
+                            <div>
+                                <Tooltip title="Comment" >
+                                    <IconButton
+                                        aria-label="reply"
+                                        onClick={openCommentDialog({ replyingTo: comment.user })}
+                                        size="small"
+                                        edge="start"
+                                    >
+                                        <CommentIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                {userId === comment.userId &&
+                                    <>
+                                        <Tooltip title="Delete">
+                                            <IconButton
+                                                aria-label="delete"
+                                                onClick={deletePromt}
+                                                size="small"
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <Tooltip title="Edit">
+                                            <IconButton
+                                                aria-label="edit"
+                                                onClick={openCommentDialog({ updating: comment })}
+                                                size="small"
+                                                edge="end"
+                                            >
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </>
+                                }
+                            </div>
                         </>
                     }
                 />
