@@ -4,6 +4,7 @@ import Divider from "@mui/material/Divider";
 import Toolbar from "@mui/material/Toolbar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import Link from "@mui/material/Link";
 
 export default function Page() {
     return (
@@ -40,16 +41,29 @@ export default function Page() {
                     <Typography variant="h6">
                         Custom images
                     </Typography >
-                    <Typography>
-                        To put your unique images into an article, you must upload them to cloud drive, then use their url.
-                    </Typography>
+                    <ul>
+                        <li>
+                            To put your unique images into an article, you must upload them to cloud drive that exports image urls, then use the url in the article.
+                        </li>
+                        <li>
+                            Google drive is <strong>not</strong> suitable for this, use <Link href="https://imgbb.com/">ImgBB</Link> (a free image sharing platform) instead.
+                        </li>
+                        <li>
+                            Use the "direct link" provided by ImgBB. It looks like this: <em>https://i.ibb.co/CmMT6Q4/mail.jpg</em>
+                        </li>
+                    </ul>
 
                     <Typography variant="h6">
                         Custom videos
                     </Typography >
-                    <Typography>
-                        To use your own videos, upload them either to youtube or vimeo. Both their site url and embedding url is accepted.
-                    </Typography>
+                    <ul>
+                        <li>
+                            To use your own videos, upload them either to youtube or vimeo.
+                        </li>
+                        <li>
+                            Both their site url and embedding url is accepted.
+                        </li>
+                    </ul>
 
                 </CardContent>
             </Card>
