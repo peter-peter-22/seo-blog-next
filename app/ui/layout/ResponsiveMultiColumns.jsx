@@ -44,7 +44,7 @@ export function SideDrawer({ anchor, Content, ToggleButton }) {
 
 export function DrawerButtonContainer({ children, anchor }) {
     return (
-        <Box sx={{ position: "fixed", bottom: 0, [anchor]: 0,zIndex:1 }}>
+        <Box sx={{ position: "fixed", bottom: 0, [anchor]: 0, zIndex: 1 }}>
             {children}
         </Box>
     )
@@ -71,7 +71,7 @@ export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, r
                 </Stack>
             }
 
-            <SingleColumn sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0 }} >
+            <SingleColumn sx={{ flexShrink: 1, display: "flex", flexDirection: "column", m: 0, minWidth: 0 }} >
                 {Main}
             </SingleColumn>
 

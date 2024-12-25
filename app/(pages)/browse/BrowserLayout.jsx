@@ -27,5 +27,5 @@ export default function BrowserLayout({ query, searchParams }) {
         rightBreakpoint,
     }
 
-    return <ResponsiveLayout {...fields} symmetricWidth={240}/>
+    return <ResponsiveLayout {...fields}/>
 }

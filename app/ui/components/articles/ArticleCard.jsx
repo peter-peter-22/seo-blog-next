@@ -13,13 +13,13 @@ import Typography from "@mui/material/Typography";
 import ArticleProps from './ArticleProps';
 import Stack from '@mui/material/Stack';
 
-export default function ArticleCard({ article,...props }) {
+export default function ArticleCard({ article, ...props }) {
     return (
         <Box sx={{ height: "100%", maxHeight: 400 }} {...props}>
             <CardActionArea href={`/articles/${article.id}`} sx={{ height: "100%" }}>
                 <Stack sx={{ height: "100%" }}>
                     <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
-                        <Typography variant="h6">
+                        <Typography variant="h6" sx={{wordWrap:"break-word"}}>
                             {article.title}
                         </Typography>
 
