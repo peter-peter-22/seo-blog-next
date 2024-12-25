@@ -1,5 +1,4 @@
 import { generateArticleSitemaps } from "../sitemaps/articles/sitemap";
-import { browserSitemap } from "../sitemaps/browser/sitemap";
 import { generalSitemap } from "../sitemaps/general/sitemap";
 import { logSitemaps } from "../sitemaps/sitemapConstants";
 import { generateUserSitemaps } from "../sitemaps/users/sitemap";
@@ -7,7 +6,6 @@ import { generateUserSitemaps } from "../sitemaps/users/sitemap";
 export async function GET() {
     const sitemaps = (await Promise.all([
         generalSitemap(),
-        browserSitemap(),
         generateArticleSitemaps(),
         generateUserSitemaps(),
     ])).flat()
