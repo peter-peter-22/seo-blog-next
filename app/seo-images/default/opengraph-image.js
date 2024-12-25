@@ -37,6 +37,7 @@ export default async function Image() {
                         width: 150,
                         height: 150
                     }}
+                    alt="logo"
                 />
                 <p>
                     Textmine
