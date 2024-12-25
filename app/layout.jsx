@@ -11,6 +11,7 @@ import AuthProvider from './ui/layout/AuthProvider';
 import NotificationProvider from './ui/layout/NotificationProvider';
 import NextTopLoader from 'nextjs-toploader';
 import metadataGenerator from './lib/seo/metadataGenerator';
+import { baseUrl } from './lib/serverInfo';
 
 export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -49,6 +50,7 @@ export const metadata = metadataGenerator({
     template: '%s - Textmine',
     default: 'Textmine'
   },
+  metadataBase: baseUrl,
   description: 'A site where anybody can be a journalist. Read or write articles.',
   icons: [
     {
