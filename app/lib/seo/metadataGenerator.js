@@ -4,10 +4,10 @@ const image = `/seo-images/default/opengraph-image`;
 export default function metadataGenerator({ title, description, ...other }) {
     return {
         title,
-        description,
+        ...description && { description },
         openGraph: {
             title,
-            description,
+            ...description && { description },
             siteName: 'Textmine',
             type: 'website',
             images: [
@@ -22,7 +22,7 @@ export default function metadataGenerator({ title, description, ...other }) {
         twitter: {
             card: 'summary_large_image',
             title,
-            description,
+            ...description && { description },
             images: [image]
         },
         ...other

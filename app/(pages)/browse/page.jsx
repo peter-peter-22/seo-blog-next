@@ -12,6 +12,5 @@ export default async function Page({ searchParams }) {
 export function generateMetadata({ searchParams }) {
     return metadataGenerator({
         title: searchParams.text ?? searchParams.tag ?? "Browsing",
-        description: "browsing"
     })
 }
