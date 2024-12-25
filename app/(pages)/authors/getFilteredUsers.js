@@ -4,7 +4,7 @@ export default async function getFilteredUsers(searchParams) {
     const itemsPerPage = 24;
 
     //getting the inputs
-    const { text, page } = searchParams;
+    const { text, page } = await searchParams;
 
     //limit max offset
     const offset = itemsPerPage * (page - 1);

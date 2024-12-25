@@ -4,13 +4,14 @@ import getFilteredArticles from './getFilteredArticles';
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default async function Page({ searchParams }) {
-    searchParams = BrowseSchema.parse(searchParams);
+    searchParams = BrowseSchema.parse((await searchParams));
     const query = await getFilteredArticles(searchParams);
     return <BrowserLayout {...{ searchParams, query }} />;
 }
 
-export function generateMetadata({ searchParams }) {
+export async function generateMetadata({ searchParams }) {
+    const { text, tag } = await searchParams;
     return metadataGenerator({
-        title: searchParams.text ?? searchParams.tag ?? "Browsing",
+        title: text ?? tag ?? "Browsing",
     })
 }
