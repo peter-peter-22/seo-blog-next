@@ -1,12 +1,12 @@
 import Avatar from "@mui/material/Avatar";
 import StringAvatar from "@/app/ui/layout/header/user/StringAvatar";
 
-export default function HybridAvatar({ user: { image, name },...props }) {
+export default function HybridAvatar({ user: { image, name }, ...props }) {
     return (
         image ? (
-            <Avatar src={image} {...props}/>
+            <Avatar src={image} alt={`the profile of ${name}`} {...props} />
         ) : (
-            <StringAvatar name={name} {...props}/>
+            <StringAvatar name={name} {...props} />
         )
     )
 }
