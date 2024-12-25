@@ -5,9 +5,11 @@ export default function robots() {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: "/profile",
-            disallow: "/authors$",
-            disallow: "/browse"
+            disallow: [
+                "/profile",
+                "/authors$",
+                "/browse"
+            ],
         },
         sitemap: `${baseUrl}/sitemap.xml`,
     };
