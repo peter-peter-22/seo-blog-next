@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useCallback, useMemo } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
 import { z } from 'zod';
-import { SecondaryButton } from '../forms/components/FormButtons';
+import { PrimaryLoadingButton, SecondaryButton } from '../forms/components/FormButtons';
 import FormTextField from '../forms/components/FormTextField';
 
 export default function TextDialog({ title, body, callback, confirmText, cancelText, onClose, defaultValue, validation, textFieldProps, ...props }) {
@@ -58,13 +57,12 @@ export default function TextDialog({ title, body, callback, confirmText, cancelT
                 </DialogContent>
                 <DialogActions>
                     <SecondaryButton onClick={onClose}>{cancelText ?? "Cancel"}</SecondaryButton>
-                    <LoadingButton
+                    <PrimaryLoadingButton
                         loading={isSubmitting}
-                        variant="contained"
                         type="submit"
                     >
                         {confirmText ?? "Confirm"}
-                    </LoadingButton>
+                    </PrimaryLoadingButton>
                 </DialogActions>
             </FormProvider>
         </Dialog>

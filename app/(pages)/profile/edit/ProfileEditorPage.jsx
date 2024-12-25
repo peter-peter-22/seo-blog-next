@@ -1,7 +1,7 @@
 "use client";
 
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
+import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';
 import Card from '@mui/material/Card';
@@ -32,9 +32,9 @@ export default function ProfileEditorPage({ user }) {
                     </FieldContainer>
                 </CardContent>
                 <CardActions>
-                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                    <PrimaryLoadingButton type={"submit"} loading={isSubmitting}>
                         Update
-                    </PrimaryButton>
+                    </PrimaryLoadingButton>
                     <SecondaryButton href={"/profile"}>
                         Cancel
                     </SecondaryButton>

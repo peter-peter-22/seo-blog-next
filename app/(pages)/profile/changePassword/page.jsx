@@ -2,7 +2,7 @@
 
 import { changePasswordAction } from "@/app/actions/profileActions";
 import FieldContainer from "@/app/ui/forms/components/FieldContainer";
-import { PrimaryButton, SecondaryButton } from "@/app/ui/forms/components/FormButtons";
+import { PrimaryLoadingButton, SecondaryButton } from "@/app/ui/forms/components/FormButtons";
 import FormPasswordField from "@/app/ui/forms/components/FormPasswordField";
 import { ChangePasswordSchema } from "@/app/ui/forms/schemas/ProfileSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -53,9 +53,9 @@ export default function Page() {
                     </FormProvider>
                 </CardContent>
                 <CardActions>
-                    <PrimaryButton type="submit" disabled={isSubmitting}>
+                    <PrimaryLoadingButton type="submit" loading={isSubmitting}>
                         Change
-                    </PrimaryButton>
+                    </PrimaryLoadingButton>
                     <SecondaryButton href="/profile">
                         Cancel
                     </SecondaryButton>

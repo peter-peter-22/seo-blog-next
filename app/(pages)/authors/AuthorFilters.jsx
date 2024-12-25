@@ -1,26 +1,21 @@
 "use client";
 
 import FormatQuery from '@/app/lib/FormatQuery';
-import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
-import FormSelect from '@/app/ui/forms/components/FormSelect';
-import FormTagsOnline from '@/app/ui/forms/components/FormTagsOnline';
+import SearchSyntaxLink from '@/app/ui/components/info pages/SearchSyntaxLink';
+import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
-import { BrowseSchema } from '@/app/ui/forms/schemas/BrowseSchema';
+import { BrowseAuthorsSchema } from '@/app/ui/forms/schemas/BrowseAuthorsSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Box from '@mui/material/Box';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
-import MenuItem from '@mui/material/MenuItem';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FormProvider, useForm, } from 'react-hook-form';
-import { BrowseAuthorsSchema } from '@/app/ui/forms/schemas/BrowseAuthorsSchema';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import SearchSyntaxLink from '@/app/ui/components/info pages/SearchSyntaxLink';
 
 export default function AuthorFilters({ defaultValues }) {
     const router = useRouter();
@@ -68,9 +63,9 @@ export default function AuthorFilters({ defaultValues }) {
                         </ListItem>
                     </List>
                     <CardActions>
-                        <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                        <PrimaryLoadingButton type={"submit"} loading={isSubmitting}>
                             Search
-                        </PrimaryButton>
+                        </PrimaryLoadingButton>
                         <SecondaryButton onClick={handleReset}>
                             Clear
                         </SecondaryButton>

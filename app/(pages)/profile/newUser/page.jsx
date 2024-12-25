@@ -2,17 +2,18 @@
 
 import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
+import { SingleColumn } from '@/app/ui/layout/Layouts';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
 import useProfileEditorForm from '@/app/ui/profile/update/useProfileEditorForm';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Button from "@mui/material/Button";
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
-import { FormProvider } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-import { SingleColumn } from '@/app/ui/layout/Layouts';
+import { FormProvider } from 'react-hook-form';
 
 export default function Page() {
     const session = useSession();
@@ -41,9 +42,9 @@ export default function Page() {
                         </FieldContainer>
                     </CardContent>
                     <CardActions>
-                        <Button type={"submit"} disabled={isSubmitting}>
+                        <LoadingButton type={"submit"} loading={isSubmitting}>
                             Update
-                        </Button>
+                        </LoadingButton>
                         <Button href={successUrl}>
                             Finish
                         </Button>

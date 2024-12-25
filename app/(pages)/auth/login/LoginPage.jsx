@@ -3,13 +3,13 @@
 import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import { formatAuthError } from '@/app/(pages)/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { PrimaryButton } from '@/app/ui/forms/components/FormButtons';
+import { PrimaryLoadingButton } from '@/app/ui/forms/components/FormButtons';
 import FormPasswordField from '@/app/ui/forms/components/FormPasswordField';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { LoginSchema } from '@/app/ui/forms/schemas/AuthSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
-import CardActions from '@mui/material/CardActions';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -52,9 +52,9 @@ export default function LoginPage() {
                     </FormProvider>
                 </CardContent>
                 <CardActions>
-                    <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                    <PrimaryLoadingButton type={"submit"} loading={isSubmitting}>
                         Login
-                    </PrimaryButton>
+                    </PrimaryLoadingButton>
                 </CardActions>
             </Card>
         </Container>

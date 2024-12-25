@@ -1,8 +1,8 @@
 'use client';
 
-import { publishArticle, publishOrUpdateArticle, updateArticle } from '@/app/actions/articleActions';
+import { publishArticle, updateArticle } from '@/app/actions/articleActions';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
-import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
+import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import React, { useCallback, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -18,7 +19,6 @@ import { useDebouncedCallback } from 'use-debounce';
 import FormTagsOnline from '../forms/components/FormTagsOnline';
 import { defaultArticle } from './defaultArticle';
 import RichTextEditorForm from "./RichTextEditorForm";
-import { useRouter } from 'next/navigation';
 
 export default function ArticleEditor({ updating }) {
   const loadedDraft = React.useMemo(() => loadDraft(updating), [updating]);
@@ -94,7 +94,7 @@ export default function ArticleEditor({ updating }) {
           <CardActions>
             <SecondaryButton href={updating ? `/articles/${updating}` : "/profile"}>Cancel</SecondaryButton>
             <SecondaryButton href={updating ? `/profile/write/preview/update/${updating}` : "/profile/write/preview"}>Preview</SecondaryButton>
-            <PrimaryButton disabled={isSubmitting} type="submit">{updating ? "Update" : "Publish"}</PrimaryButton>
+            <PrimaryLoadingButton loading={isSubmitting} type="submit">{updating ? "Update" : "Publish"}</PrimaryLoadingButton>
           </CardActions>
         </Card>
       </form >

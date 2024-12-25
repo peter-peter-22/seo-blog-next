@@ -1,8 +1,7 @@
 "use client";
 
-import FormatQuery from '@/app/lib/FormatQuery';
 import SearchSyntaxLink from '@/app/ui/components/info pages/SearchSyntaxLink';
-import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
+import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { BrowseSchema } from '@/app/ui/forms/schemas/BrowseSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -62,9 +61,9 @@ export default function Filters({ defaultValues }) {
                         </ListItem>
                     </List>
                     <CardActions>
-                        <PrimaryButton type={"submit"} disabled={isSubmitting}>
+                        <PrimaryLoadingButton type={"submit"} loading={isSubmitting}>
                             Search
-                        </PrimaryButton>
+                        </PrimaryLoadingButton>
                         <SecondaryButton onClick={handleReset}>
                             Clear
                         </SecondaryButton>

@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import LoadingButton from '@mui/lab/LoadingButton';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -20,9 +20,9 @@ export default function ArticleRowSkeleton({ title, seeMore }) {
                 </CardContent>
                 {seeMore &&
                     <CardActions>
-                        <Button disabled={true}>
+                        <LoadingButton loading={true}>
                             See more
-                        </Button>
+                        </LoadingButton>
                     </CardActions>
                 }
             </Card>
