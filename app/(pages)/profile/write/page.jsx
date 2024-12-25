@@ -1,3 +1,4 @@
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import EditorPage from "./EditorPage";
 
 export default function Page() {
@@ -6,6 +7,6 @@ export default function Page() {
   );
 }
 
-export const  = {
+export const metadata = metadataGenerator({
   title: "Write"
-}
+})
