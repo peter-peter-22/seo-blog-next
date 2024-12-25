@@ -77,3 +77,5 @@ function rangeFilter(id) {
         ]
     }
 }
+
+export const revalidate = 3600;

@@ -40,3 +40,5 @@ function buildSitemapIndex(sitemaps) {
     xml += "</sitemapindex>";
     return xml;
 }
+
+export const revalidate = 3600;

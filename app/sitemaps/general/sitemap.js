@@ -31,3 +31,5 @@ export function generalSitemap() {
         lastModified: updatedAt,
     }
 }
+
+export const revalidate = 3600;

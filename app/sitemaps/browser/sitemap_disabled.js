@@ -29,3 +29,5 @@ export function browserSitemap() {
         lastModified: new Date(),
     }
 }
+
+export const revalidate = 3600;
