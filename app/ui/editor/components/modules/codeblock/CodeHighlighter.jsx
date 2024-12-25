@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 
 const CodeHighlighter = ({ code, language = "text" }) => {
     const [copied, setCopied] = useState(false);
+
     const handleCopy = useCallback(() => {
         navigator.clipboard.writeText(code)
             .then(() => {
@@ -32,7 +33,10 @@ const CodeHighlighter = ({ code, language = "text" }) => {
                     showLineNumbers={true} // Display line numbers
                     wrapLines={true} // Wrap long lines
                     customStyle={{
-                        borderRadius: 5
+                        borderRadius: 5,
+                        borderWidth: 1,
+                        borderColor: "var(--mui-palette-common-onBackground)",
+                        borderStyle: "solid"
                     }}
                 >
                     {code}
