@@ -1,7 +1,7 @@
-import { generateArticleSitemaps } from "../sitemaps/articles/sitemap";
-import { generalSitemap } from "../sitemaps/general/sitemap";
-import { logSitemaps } from "../sitemaps/sitemapConstants";
-import { generateUserSitemaps } from "../sitemaps/users/sitemap";
+import { generateArticleSitemaps } from "../articles/sitemap";
+import { generalSitemap } from "../general/sitemap";
+import { logSitemaps } from "../sitemapConstants";
+import { generateUserSitemaps } from "../users/sitemap";
 
 export async function GET() {
     const sitemaps = (await Promise.all([
