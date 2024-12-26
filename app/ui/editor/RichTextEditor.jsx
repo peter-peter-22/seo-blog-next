@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import isHotkey from 'is-hotkey';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
     createEditor
 } from 'slate';
@@ -62,6 +62,13 @@ export default function RichTextEditor({ onChange, slateProps, editorProps }) {
 //separate this component to prevent the focused state change from re-rendering other components
 function EditableWithBackground({ editor, editorProps }) {
     const [focused, setFocused] = useState(false);
+
+    const handleFocus=useCallback((e)=>{
+        e.preventDefault();
+        e.target.focus({preventScroll: true});
+        setFocused(true);
+    },[])
+
     return (
         <Card
             sx={theme => ({
@@ -85,7 +92,7 @@ function EditableWithBackground({ editor, editorProps }) {
                 }}
                 {...editorProps}
                 {...placeholder()}
-                onFocus={() => setFocused(true)}
+                onFocus={handleFocus}
                 onBlur={() => setFocused(false)}
             />
         </Card>
