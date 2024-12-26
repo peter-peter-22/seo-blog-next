@@ -9,17 +9,16 @@ import formatDate from '@/app/ui/utilities/formatDate';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useSession } from 'next-auth/react';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback, useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
 
 const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete }) {
     const session = useSession();

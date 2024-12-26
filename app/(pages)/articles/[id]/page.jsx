@@ -53,13 +53,14 @@ export default async function Page({ params }) {
                     user: {
                         select: {
                             id: true,
-                            name: true
+                            name: true,
+                            image: true
                         }
                     },
                     replyingTo: {
                         select: {
                             id: true,
-                            name: true
+                            name: true,
                         }
                     }
                 },

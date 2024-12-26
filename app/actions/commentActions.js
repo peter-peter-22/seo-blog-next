@@ -19,7 +19,8 @@ export async function commentAction(data) {
             user: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    image:true
                 }
             },
             replyingTo: {
