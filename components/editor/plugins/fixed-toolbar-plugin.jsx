@@ -6,6 +6,7 @@ import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
 import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
 import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
+import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
 
 import {
     BoldPlugin,
@@ -57,6 +58,12 @@ export const FixedToolbarPlugin = createPlatePlugin({
                     </MarkToolbarButton>
 
                 </ToolbarGroup>
+
+                <ToolbarGroup>
+                    <AlignDropdownMenu />
+
+                </ToolbarGroup>
+
             </FixedToolbar>
         ),
     },
