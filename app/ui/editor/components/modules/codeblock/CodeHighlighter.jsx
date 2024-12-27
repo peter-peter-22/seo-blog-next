@@ -36,7 +36,8 @@ const CodeHighlighter = ({ code, language = "text" }) => {
                         borderRadius: 5,
                         borderWidth: 1,
                         borderColor: "var(--mui-palette-common-onBackground)",
-                        borderStyle: "solid"
+                        borderStyle: "solid",
+                        maxHeight:400
                     }}
                 >
                     {code}
