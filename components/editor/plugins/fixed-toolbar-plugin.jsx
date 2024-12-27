@@ -5,6 +5,7 @@ import { createPlatePlugin } from '@udecode/plate-common/react';
 import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
 import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
+import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
 
 import {
     BoldPlugin,
@@ -30,6 +31,11 @@ export const FixedToolbarPlugin = createPlatePlugin({
     render: {
         beforeEditable: () => (
             <FixedToolbar>
+
+                <ToolbarGroup>
+                    <TurnIntoDropdownMenu />
+                </ToolbarGroup>
+
                 <ToolbarGroup>
 
                     <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
