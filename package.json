@@ -36,6 +36,7 @@
     "@udecode/plate-common": "^41.0.5",
     "@udecode/plate-date": "^41.0.0",
     "@udecode/plate-heading": "^41.0.0",
+    "@udecode/plate-indent": "^41.0.0",
     "@udecode/plate-indent-list": "^41.0.10",
     "@udecode/plate-layout": "^41.0.2",
     "@udecode/plate-link": "^41.0.0",

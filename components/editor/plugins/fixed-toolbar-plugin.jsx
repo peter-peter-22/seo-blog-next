@@ -7,7 +7,10 @@ import { ToolbarGroup } from '@/components/plate-ui/toolbar';
 import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
 import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
 import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
-import { ListToolbarButton } from '@/components/plate-ui/list-toolbar-button';
+import {
+    BulletedIndentListToolbarButton,
+    NumberedIndentListToolbarButton,
+} from '@/components/plate-ui/indent-list-toolbar-button';
 
 import {
     BoldPlugin,
@@ -63,7 +66,8 @@ export const FixedToolbarPlugin = createPlatePlugin({
                 <ToolbarGroup>
                     <AlignDropdownMenu />
 
-                    <ListToolbarButton />
+                    <NumberedIndentListToolbarButton />
+                    <BulletedIndentListToolbarButton />
                 </ToolbarGroup>
 
             </FixedToolbar>

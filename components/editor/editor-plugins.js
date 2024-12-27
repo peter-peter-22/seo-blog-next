@@ -8,12 +8,11 @@ import {
     NumberedListPlugin,
     TodoListPlugin,
 } from '@udecode/plate-list/react';
+import { indentListPlugins } from './plugins/indent-list-plugin';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
-
-    ListPlugin,
-    TodoListPlugin,
+    ...indentListPlugins,
 
     // Block Style
     alignPlugin,
