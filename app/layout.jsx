@@ -12,6 +12,7 @@ import NotificationProvider from './ui/layout/NotificationProvider';
 import NextTopLoader from 'nextjs-toploader';
 import metadataGenerator from './lib/seo/metadataGenerator';
 import { baseUrl } from './lib/serverInfo';
+import "@/app/css/globals.css";
 
 export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
