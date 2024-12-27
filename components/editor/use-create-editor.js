@@ -1,3 +1,6 @@
+import { HeadingElement } from '@/components/plate-ui/heading-element';
+import { ListElement } from '@/components/plate-ui/list-element';
+import { TodoListElement } from '@/components/plate-ui/todo-list-element';
 import { withProps } from '@udecode/cn';
 import {
     PlateElement,
@@ -5,12 +8,8 @@ import {
     usePlateEditor
 } from '@udecode/plate-common/react';
 import { HEADING_KEYS } from '@udecode/plate-heading';
-import { HeadingElement } from '@/components/plate-ui/heading-element';
-import { ListElement } from '@/components/plate-ui/list-element';
-import { TodoListElement } from '@/components/plate-ui/todo-list-element';
 
 //plugins
-import { editorPlugins, viewPlugins } from './editor-plugins';
 import {
     BoldPlugin,
     ItalicPlugin,
@@ -20,10 +19,10 @@ import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
 import {
     BulletedListPlugin,
     ListItemPlugin,
-    ListPlugin,
     NumberedListPlugin,
-    TodoListPlugin,
+    TodoListPlugin
 } from '@udecode/plate-list/react';
+import { editorPlugins, viewPlugins } from './editor-plugins';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),
