@@ -1,9 +1,10 @@
 'use client';
 
 import { createPlatePlugin } from '@udecode/plate-common/react';
-
 import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
+
+//buttons
 import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
 import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
 import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
@@ -11,7 +12,10 @@ import {
     BulletedIndentListToolbarButton,
     NumberedIndentListToolbarButton,
 } from '@/components/plate-ui/indent-list-toolbar-button';
+import { IndentToolbarButton } from '@/components/plate-ui/indent-toolbar-button';
+import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
 
+//plugins
 import {
     BoldPlugin,
     ItalicPlugin,
@@ -68,6 +72,10 @@ export const FixedToolbarPlugin = createPlatePlugin({
 
                     <NumberedIndentListToolbarButton />
                     <BulletedIndentListToolbarButton />
+
+                    <IndentToolbarButton />
+                    <OutdentToolbarButton />
+
                 </ToolbarGroup>
 
             </FixedToolbar>
