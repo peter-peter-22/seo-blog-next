@@ -27,6 +27,6 @@ export const defaultValue = [
             { strikethrough: true, text: 'strikethrough' },
             { text: '.' },
         ],
-        type: ParagraphPlugin.key,
+        type: "p",
     },
 ]
