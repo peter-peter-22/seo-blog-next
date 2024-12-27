@@ -12,10 +12,18 @@ import {
     UnderlinePlugin,
 } from '@udecode/plate-basic-marks/react';
 
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
+import {
+    ArrowUpToLineIcon,
+    BaselineIcon,
+    BoldIcon,
+    Code2Icon,
+    HighlighterIcon,
+    ItalicIcon,
+    PaintBucketIcon,
+    StrikethroughIcon,
+    UnderlineIcon,
+    WandSparklesIcon,
+} from 'lucide-react';
 
 export const FixedToolbarPlugin = createPlatePlugin({
     key: 'fixed-toolbar',
@@ -25,23 +33,23 @@ export const FixedToolbarPlugin = createPlatePlugin({
                 <ToolbarGroup>
 
                     <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
-                        <FormatBoldIcon />
+                        <BoldIcon />
                     </MarkToolbarButton>
 
                     <MarkToolbarButton
                         nodeType={ItalicPlugin.key}
                         tooltip="Italic (⌘+I)"
                     >
-                        <FormatItalicIcon />
+                        <ItalicIcon />
                     </MarkToolbarButton>
 
                     <MarkToolbarButton
                         nodeType={UnderlinePlugin.key}
                         tooltip="Underline (⌘+U)"
                     >
-                        <FormatUnderlinedIcon />
+                        <UnderlineIcon />
                     </MarkToolbarButton>
-                    
+
                 </ToolbarGroup>
             </FixedToolbar>
         ),
