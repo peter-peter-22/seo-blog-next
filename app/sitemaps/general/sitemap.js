@@ -9,7 +9,7 @@ const urls = [
     ["termsOfService"],
     ["editorTutorial"],
     ["searchTutorial"],
-    ["auth/forgtPassword"],
+    ["auth/forgotPassword"],
     ["auth/signIn"],
 ]
 
