@@ -35,16 +35,12 @@ const Comment = memo(function CommentBase({ comment, openCommentDialog, onDelete
     }, [])
 
     const handleDelete = useCallback(async () => {
-        try {
-            await delay(1000);
-            await deleteCommentAction({ id: comment.id });
-            closeDialog();
-            enqueueSnackbar("Comment deleted");
-            onDelete(comment.id);
-        }
-        catch (err) {
-            enqueueSnackbar(err.toString(), { variant: "error" });
-        }
+        const res = await deleteCommentAction({ id: comment.id });
+        if (res?.error)
+            return enqueueSnackbar(res.error.toString(), { variant: "error" });
+        closeDialog();
+        enqueueSnackbar("Comment deleted");
+        onDelete(comment.id);
     }, [closeDialog, comment, enqueueSnackbar, onDelete])
 
     return (

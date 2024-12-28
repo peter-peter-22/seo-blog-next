@@ -14,10 +14,10 @@ export default function NotificationProvider({ children }) {
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
-        notificationCountAction().then((newCount) => {
+        notificationCountAction().then(({ count: newCount, error }) => {
+            if (error)
+                return enqueueSnackbar(error.toString(), { variant: "error" });
             setCount(newCount);
-        }).catch(err => {
-            enqueueSnackbar(`Error when fetching notifications:\n${err.toString()}`, { variant: "error" });
         })
     }, [isLoggedIn, enqueueSnackbar]);
 

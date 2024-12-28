@@ -4,21 +4,24 @@ import { auth } from "@/auth";
 import prisma from "@/utils/db";
 import { LikeSchema } from "../ui/forms/schemas/LikeSchema";
 import getIp from "./general/getIp";
+import { handleErrors } from "@/app/lib/handleErrors";
 
 export async function likeAction(data) {
-    data = LikeSchema.parse(data);
-    const session = await auth();
-    if (session)
-        await handleVerifiedLike(data, session);
-    else
-        await handleUnverifiedLike(data);
+    return await handleErrors(async () => {
+        data = LikeSchema.parse(data);
+        const session = await auth();
+        if (session)
+            await handleVerifiedLike(data, session);
+        else
+            await handleUnverifiedLike(data);
+    })
 }
 
 async function handleUnverifiedLike(data) {
     const { isLike, isDislike, articleId } = data;
 
     //get ip
-    const ip = getIp();
+    const ip = await getIp();
 
     if (isLike || isDislike)
         await prisma.unverifiedLike.upsert({

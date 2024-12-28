@@ -26,15 +26,13 @@ export default function Page() {
     const { handleSubmit, formState: { isSubmitting } } = methods;
 
     const onSubmit = async (data) => {
-        try {
-            const error = await changePasswordAction(data);
-            if (error) throw new Error(error);
-            enqueueSnackbar("Password changed", { variant: "success" });
-            router.push("/profile");
-        }
-        catch (err) {
-            return enqueueSnackbar(err.message, { variant: "error" });
-        }
+        const res = await changePasswordAction(data);
+        if (res?.error)
+            return enqueueSnackbar(res.error.toString(), { variant: "error" });
+
+        enqueueSnackbar("Password changed", { variant: "success" });
+        router.push("/profile");
+
     }
 
     return (

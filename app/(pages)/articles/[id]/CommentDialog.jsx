@@ -19,28 +19,27 @@ export default function CommentDialog({ replyingTo, articleId, onPublish, onUpda
     });
     const { handleSubmit, formState: { isSubmitting } } = methods;
     const onSubmit = useCallback(async (data) => {
-        try {
-            const created = updating ?
-                await updateCommentAction({
-                    id: updating.id,
-                    ...data
-                })
-                :
-                await commentAction({
-                    articleId,
-                    replyingTo: replyingTo?.id,
-                    ...data
-                });
-            enqueueSnackbar(updating ? "Comment updated" : "Comment published", { variant: "success" })
-            if (updating)
-                onUpdate(created)
-            else
-                onPublish(created);
-            close();
-        }
-        catch (err) {
-            enqueueSnackbar(err.toString(), { variant: "error" })
-        }
+        const { created, error } = updating ?
+            await updateCommentAction({
+                id: updating.id,
+                ...data
+            })
+            :
+            await commentAction({
+                articleId,
+                replyingTo: replyingTo?.id,
+                ...data
+            });
+
+        if (error)
+            return enqueueSnackbar(error, { variant: "error" })
+
+        enqueueSnackbar(updating ? "Comment updated" : "Comment published", { variant: "success" })
+        if (updating)
+            onUpdate(created)
+        else
+            onPublish(created);
+        close();
     }, [articleId, close, enqueueSnackbar, onPublish, onUpdate, replyingTo, updating])
 
     //if updading, choose the replied user of the updated comment

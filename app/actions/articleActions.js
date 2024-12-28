@@ -4,25 +4,28 @@ import { PublishArticleSchema, UpdateArticleSchema, DeleteArticleSchema, LoadMor
 import prisma from "@/utils/db";
 import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
+import { handleErrors } from "../lib/handleErrors";
 
 export async function publishArticle(data) {
-    const session = await authOrThrow();
+    return await handleErrors(async () => {
+        const session = await authOrThrow();
 
-    // Validate form fields using Zod
-    PublishArticleSchema.parse(data);
+        // Validate form fields using Zod
+        PublishArticleSchema.parse(data);
 
-    const created = await prisma.article.create({
-        data: {
-            ...data,
-            userId: session.user.id
-        }
+        const created = await prisma.article.create({
+            data: {
+                ...data,
+                userId: session.user.id
+            }
+        })
+
+        //send notifications to the followers
+        //this query is not a trigger to prevent unnecessary waiting
+        sendNotifications(created).catch(err => { console.error(err) });
+
+        return { id: created.id };
     })
-
-    //send notifications to the followers
-    //this query is not a trigger to prevent unnecessary waiting
-    sendNotifications(created).catch(err => { console.log(err) });
-
-    return created.id;
 }
 
 async function sendNotifications(article) {
@@ -50,65 +53,71 @@ async function sendNotifications(article) {
 }
 
 export async function updateArticle(data) {
-    const session = await authOrThrow();
+    return await handleErrors(async () => {
+        const session = await authOrThrow();
 
-    // Validate form fields using Zod
-    UpdateArticleSchema.parse(data);
+        // Validate form fields using Zod
+        UpdateArticleSchema.parse(data);
 
-    const created = await prisma.article.update({
-        where: {
-            id: data.id,
-            userId: session.user.id
-        },
-        data
-    });
+        const created = await prisma.article.update({
+            where: {
+                id: data.id,
+                userId: session.user.id
+            },
+            data
+        });
 
-    return created.id;
+        return { id: created.id };
+    })
 }
 
 export async function deleteArticleAction(data) {
-    const { id } = DeleteArticleSchema.parse(data);
-    const { user } = await authOrThrow();
-    try {
-        await prisma.article.delete({
-            where: {
-                id,
-                userId: user.id
-            }
-        });
-        revalidatePath(`/articles/${id}`)
-    }
-    catch (err) {
-        if (err.code === "P2025")
-            throw new Error("This article does not exists, or it is not owned by you.")
-        throw (err);
-    }
+    return await handleErrors(async () => {
+        const { id } = DeleteArticleSchema.parse(data);
+        const { user } = await authOrThrow();
+        try {
+            await prisma.article.delete({
+                where: {
+                    id,
+                    userId: user.id
+                }
+            });
+            revalidatePath(`/articles/${id}`)
+        }
+        catch (err) {
+            if (err.code === "P2025")
+                throw new Error("This article does not exists, or it is not owned by you.")
+            throw (err);
+        }
+    })
 }
 
 export async function loadMoreCommentsAction(data) {
-    const { articleId, offset } = LoadMoreCommentsSchema.parse(data);
-    const commentsPerPage = 50;
+    return await handleErrors(async () => {
+        const { articleId, offset } = LoadMoreCommentsSchema.parse(data);
+        const commentsPerPage = 50;
 
-    const comments = await prisma.comment.findMany({
-        where: {
-            articleId,
-        },
-        orderBy: [
-            { createdAt: "desc" },
-            { id: "asc" }
-        ],
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    name: true,
-                    image: true
+        const comments = await prisma.comment.findMany({
+            where: {
+                articleId,
+            },
+            orderBy: [
+                { createdAt: "desc" },
+                { id: "asc" }
+            ],
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true
+                    }
                 }
-            }
-        },
-        take: commentsPerPage,
-        skip: offset
+            },
+            take: commentsPerPage,
+            skip: offset
+        })
+        const lastPage = comments.length !== commentsPerPage;
+        return { comments, lastPage }
     })
-    const lastPage = comments.length !== commentsPerPage;
-    return { comments, lastPage }
 }

@@ -44,7 +44,7 @@ export default async function Page({ params }) {
             } : {
                 UnverifiedLike: {
                     where: {
-                        ip: getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
+                        ip: await getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
                     }
                 }
             },
@@ -76,7 +76,7 @@ export default async function Page({ params }) {
         notFound();
 
     //update the viewcount if the article exists
-    updateViews(id, session)
+    updateViews(id, session).catch(err => { console.error("error while updating views", err) });
 
     //get if the user owns this article
     const isMine = article.user.id === session?.user?.id;
@@ -112,7 +112,7 @@ async function updateViews(articleId, session) {
             await prisma.unverifiedView.create({
                 data: {
                     articleId,
-                    ip: getIp()
+                    ip: await getIp()
                 }
             })
         }

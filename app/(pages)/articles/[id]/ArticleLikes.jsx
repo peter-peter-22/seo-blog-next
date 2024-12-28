@@ -26,20 +26,18 @@ export default function ArticleLikes({ article }) {
     const executeLikeAction = useCallback((value) => {
         startLikeAction(
             async () => {
-                try {
-                    await likeAction({
-                        articleId: article.id,
-                        isLike: value === true,
-                        isDislike: value === false
-                    });
-                    setLocalLikeState(value);
-                }
-                catch (err) {
-                    enqueueSnackbar(err.toString(), { variant: "error" });
-                }
+                const res = await likeAction({
+                    articleId: article.id,
+                    isLike: value === true,
+                    isDislike: value === false
+                });
+                if (res?.error)
+                    return enqueueSnackbar(res.error.toString(), { variant: "error" });
+        
+                setLocalLikeState(value);
             }
         )
-    }, [article,enqueueSnackbar])
+    }, [article, enqueueSnackbar])
 
     //adjust the like count on the client according to the state of the like buttons
     let localLikes = originalLikes;

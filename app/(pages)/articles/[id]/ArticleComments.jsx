@@ -60,17 +60,14 @@ export default function ArticleComments({ article }) {
     const [isPending, startLoading] = useTransition();
     const loadMoreComments = useCallback(() => {
         startLoading(async () => {
-            try {
-                let { comments: loaded, lastPage } = await loadMoreCommentsAction({
-                    offset: comments.length,
-                    articleId: article.id
-                });
-                setLastPage(lastPage);
-                setComments(prev => mergeUniqueById(prev, loaded));
-            }
-            catch (err) {
-                enqueueSnackbar(err.toString(), { variant: "error" })
-            }
+            let { comments: loaded, lastPage, error } = await loadMoreCommentsAction({
+                offset: comments.length,
+                articleId: article.id
+            });
+            if (error)
+                return enqueueSnackbar(error.toString(), { variant: "error" })
+            setLastPage(lastPage);
+            setComments(prev => mergeUniqueById(prev, loaded));
         })
     }, [article, comments, enqueueSnackbar])
 

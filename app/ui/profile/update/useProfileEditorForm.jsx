@@ -14,21 +14,17 @@ export default function useProfileEditorForm({ onSuccess, user }) {
 
     const methods = useForm({
         resolver: zodResolver(UpdateProfileSchema), // Apply the zodResolver
-        defaultValues: user
+        defaultValues: user 
     });
 
     const onSubmit = async (data) => {
-        try {
-            const { error, updatedUser } = await updateProfileAction(data);
-            if (error) throw new Error(error);
-            await session.update(updatedUser);
-            enqueueSnackbar("Profile updated", { variant: "success" });
-            if (onSuccess)
-                onSuccess();
-        }
-        catch (err) {
-            return enqueueSnackbar(err.message, { variant: "error" });
-        }
+        const { error, updatedUser } = await updateProfileAction(data);
+        if (error)
+            return enqueueSnackbar(error.toString(), { variant: "error" });
+        await session.update(updatedUser);
+        enqueueSnackbar("Profile updated", { variant: "success" });
+        if (onSuccess)
+            onSuccess();
     }
 
     return { onSubmit, methods };

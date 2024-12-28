@@ -32,21 +32,19 @@ export default function ArticleEditor({ updating }) {
   const { handleSubmit, formState: { isSubmitting } } = methods;
 
   const onSubmit = useCallback(async (data) => {
-    try {
-      //retrieve the id of the created or updated article
-      const id = updating ?
-        await updateArticle({ ...data, id: updating })
-        :
-        await publishArticle(data);
+    //retrieve the id of the created or updated article
+    const { id, error } = updating ?
+      await updateArticle({ ...data, id: updating })
+      :
+      await publishArticle(data);
 
-      enqueueSnackbar(updating ? "Article updated" : "Article published", { variant: "success" });
-      localStorage.removeItem(getDraftName(updating));//delete the draft after publishing
+    if (error)
+      return enqueueSnackbar(error.toString(), { variant: "error" });
 
-      router.push(`/articles/${id}`)
-    }
-    catch (err) {
-      enqueueSnackbar(err.toString(), { variant: "error" });
-    }
+    enqueueSnackbar(updating ? "Article updated" : "Article published", { variant: "success" });
+    localStorage.removeItem(getDraftName(updating));//delete the draft after publishing
+
+    router.push(`/articles/${id}`)
   }, [enqueueSnackbar, router, updating]);
 
   return (

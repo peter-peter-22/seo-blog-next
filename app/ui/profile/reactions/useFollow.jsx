@@ -17,20 +17,19 @@ export default function useFollow({ user }) {
         const newValue = !isFollowing;
         startFollowAction(
             async () => {
-                try {
-                    await followAction({
-                        userId: user.id,
-                        setFollowing: newValue
-                    });
-                    enqueueSnackbar(
-                        newValue ? `Followed ${user.name}` : `Unfollowed ${user.name}`,
-                        { variant: newValue ? "success" : "default" }
-                    )
-                    setFollowing(newValue);
-                }
-                catch (err) {
-                    enqueueSnackbar(err.toString(), { variant: "error" });
-                }
+                const res = await followAction({
+                    userId: user.id,
+                    setFollowing: newValue
+                });
+
+                if (res?.error)
+                    return enqueueSnackbar(res.error.toString(), { variant: "error" });
+        
+                enqueueSnackbar(
+                    newValue ? `Followed ${user.name}` : `Unfollowed ${user.name}`,
+                    { variant: newValue ? "success" : "default" }
+                )
+                setFollowing(newValue);
             }
         )
     }, [isFollowing, pending, user, enqueueSnackbar]);

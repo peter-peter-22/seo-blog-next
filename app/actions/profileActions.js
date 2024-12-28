@@ -5,6 +5,7 @@ import { ChangePasswordSchema, UpdateProfileSchema } from "@/app/ui/forms/schema
 import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 import { bcryptSalt } from "@/app/(pages)/auth/authSettings";
 import bcrypt from 'bcrypt';
+import { handleErrors } from "@/app/lib/handleErrors";
 
 export async function updateProfileAction(values) {
     try {
@@ -38,7 +39,7 @@ export async function updateProfileAction(values) {
 }
 
 export async function changePasswordAction(data) {
-    try {
+    return await handleErrors(async () => {
         ChangePasswordSchema.parse(data);
         const { password } = data;
 
@@ -53,8 +54,5 @@ export async function changePasswordAction(data) {
                 password: bcrypt.hashSync(password, bcryptSalt)
             }
         })
-    }
-    catch (err) {
-        return err.toString();
-    }
+    })
 }

@@ -22,7 +22,7 @@ export default function ArticleEditDialog({ article }) {
         //copy the article of this page to the draft save then open the editor
         localStorage.setItem(getDraftName(true), JSON.stringify(article));
         router.push(`/profile/write/update/${article.id}`);
-    }, [article,router])
+    }, [article, router])
 
     const closeDialog = useCallback(() => {
         setDialogOpen(false);
@@ -33,14 +33,11 @@ export default function ArticleEditDialog({ article }) {
     }, [])
 
     const handleDelete = useCallback(async () => {
-        try {
-            await deleteArticleAction({ id: article.id });
-            enqueueSnackbar("Article deleted");
-            closeDialog();
-        }
-        catch (err) {
-            enqueueSnackbar(err.toString(), { variant: "error" });
-        }
+        const res = await deleteArticleAction({ id: article.id });
+        if (res?.error)
+            return enqueueSnackbar(res.error.toString(), { variant: "error" });
+        enqueueSnackbar("Article deleted");
+        closeDialog();
     }, [article, closeDialog, enqueueSnackbar])
 
     return <>

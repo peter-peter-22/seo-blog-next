@@ -103,7 +103,7 @@ function finalize(registrationSession) {
                 code
             }
         })
-    ]).catch(err => { console.error(err) })
+    ]).catch(err => { console.error("error while finalizind registration session",err) })
 }
 
 function olderThanMinutes(date, minutes) {
