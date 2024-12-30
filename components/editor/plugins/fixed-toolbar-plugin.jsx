@@ -91,6 +91,7 @@ export const FixedToolbarPlugin = createPlatePlugin({
 
                 <ToolbarGroup>
                     <MediaToolbarButtonExternal nodeType={ImagePlugin.key} />
+                    <MediaToolbarButtonExternal nodeType={VideoPlugin.key} />
                 </ToolbarGroup>
 
             </FixedToolbar>

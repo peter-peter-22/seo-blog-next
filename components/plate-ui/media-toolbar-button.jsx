@@ -139,14 +139,10 @@ export function MediaToolbarButton({
 }
 
 export function MediaToolbarButtonExternal({
-  children,
   nodeType,
-  ...props
 }) {
   const currentConfig = MEDIA_CONFIG[nodeType];
 
-  const editor = useEditorRef();
-  const openState = useOpenState();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (<>
