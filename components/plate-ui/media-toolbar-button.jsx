@@ -39,6 +39,7 @@ import {
 } from './dropdown-menu';
 import { FloatingInput } from './input';
 import {
+  ToolbarButton,
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
@@ -125,6 +126,40 @@ export function MediaToolbarButton({
         </DropdownMenuContent>
       </DropdownMenu>
     </ToolbarSplitButton>
+    <AlertDialog
+      open={dialogOpen}
+      onOpenChange={(value) => {
+        setDialogOpen(value);
+      }}>
+      <AlertDialogContent className="gap-6">
+        <MediaUrlDialogContent currentConfig={currentConfig} nodeType={nodeType} setOpen={setDialogOpen} />
+      </AlertDialogContent>
+    </AlertDialog>
+  </>);
+}
+
+export function MediaToolbarButtonExternal({
+  children,
+  nodeType,
+  ...props
+}) {
+  const currentConfig = MEDIA_CONFIG[nodeType];
+
+  const editor = useEditorRef();
+  const openState = useOpenState();
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  return (<>
+    <ToolbarButton
+      onClick={() => {
+        setDialogOpen(true);
+      }}
+    >
+      <ToolbarSplitButtonPrimary tooltip={currentConfig.tooltip}>
+        {currentConfig.icon}
+      </ToolbarSplitButtonPrimary>
+
+    </ToolbarButton>
     <AlertDialog
       open={dialogOpen}
       onOpenChange={(value) => {

@@ -14,25 +14,11 @@ import { ImagePreview } from '@/components/plate-ui/image-preview';
 import { MediaUploadToast } from '@/components/plate-ui/media-upload-toast';
 
 export const mediaPlugins = [
-  ImagePlugin.extend({
-    options: { disableUploadInsert: true },
-    render: { afterEditable: ImagePreview },
-  }),
-  MediaEmbedPlugin,
+  ImagePlugin,
   VideoPlugin,
   AudioPlugin,
   FilePlugin,
-  CaptionPlugin.configure({
-    options: {
-      plugins: [
-        ImagePlugin,
-        VideoPlugin,
-        AudioPlugin,
-        FilePlugin,
-        MediaEmbedPlugin,
-      ],
-    },
-  }),
+  MediaEmbedPlugin,
   PlaceholderPlugin.configure({
     options: { disableEmptyPlaceholder: true },
     render: { afterEditable: MediaUploadToast },
