@@ -3,25 +3,6 @@
 import { createPlatePlugin } from '@udecode/plate-common/react';
 import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
-
-//buttons
-import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
-import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
-import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
-import {
-    BulletedIndentListToolbarButton,
-    NumberedIndentListToolbarButton,
-} from '@/components/plate-ui/indent-list-toolbar-button';
-import { IndentToolbarButton } from '@/components/plate-ui/indent-toolbar-button';
-import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
-
-//plugins
-import {
-    BoldPlugin,
-    ItalicPlugin,
-    UnderlinePlugin,
-} from '@udecode/plate-basic-marks/react';
-
 import {
     ArrowUpToLineIcon,
     BaselineIcon,
@@ -34,6 +15,25 @@ import {
     UnderlineIcon,
     WandSparklesIcon,
 } from 'lucide-react';
+
+//buttons
+import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
+import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
+import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
+import {
+    BulletedIndentListToolbarButton,
+    NumberedIndentListToolbarButton,
+} from '@/components/plate-ui/indent-list-toolbar-button';
+import { IndentToolbarButton } from '@/components/plate-ui/indent-toolbar-button';
+import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
+import { LinkToolbarButton } from '@/components/plate-ui/link-toolbar-button';
+
+//plugins
+import {
+    BoldPlugin,
+    ItalicPlugin,
+    UnderlinePlugin,
+} from '@udecode/plate-basic-marks/react';
 
 export const FixedToolbarPlugin = createPlatePlugin({
     key: 'fixed-toolbar',
@@ -76,6 +76,10 @@ export const FixedToolbarPlugin = createPlatePlugin({
                     <IndentToolbarButton />
                     <OutdentToolbarButton />
 
+                </ToolbarGroup>
+
+                <ToolbarGroup>
+                    <LinkToolbarButton />
                 </ToolbarGroup>
 
             </FixedToolbar>

@@ -23,6 +23,8 @@ import {
     TodoListPlugin
 } from '@udecode/plate-list/react';
 import { editorPlugins, viewPlugins } from './editor-plugins';
+import { LinkPlugin } from '@udecode/plate-link/react';
+import { LinkElement } from '@/components/plate-ui/link-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),
@@ -39,6 +41,7 @@ export const viewComponents = {
     [ListItemPlugin.key]: withProps(PlateElement, { as: 'li' }),
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
     [TodoListPlugin.key]: TodoListElement,
+    [LinkPlugin.key]: LinkElement,
 }
 
 export const editorComponents = {
