@@ -27,6 +27,7 @@ import {
 import { IndentToolbarButton } from '@/components/plate-ui/indent-toolbar-button';
 import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
 import { LinkToolbarButton } from '@/components/plate-ui/link-toolbar-button';
+import { MediaToolbarButton } from '@/components/plate-ui/media-toolbar-button';
 
 //plugins
 import {
@@ -80,6 +81,13 @@ export const FixedToolbarPlugin = createPlatePlugin({
 
                 <ToolbarGroup>
                     <LinkToolbarButton />
+                </ToolbarGroup>
+
+                <ToolbarGroup>
+                    <MediaToolbarButton nodeType={ImagePlugin.key} />
+                    <MediaToolbarButton nodeType={VideoPlugin.key} />
+                    <MediaToolbarButton nodeType={AudioPlugin.key} />
+                    <MediaToolbarButton nodeType={FilePlugin.key} />
                 </ToolbarGroup>
 
             </FixedToolbar>

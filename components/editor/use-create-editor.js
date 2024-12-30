@@ -1,15 +1,15 @@
+import { withProps } from '@udecode/cn';
+import { HEADING_KEYS } from '@udecode/plate-heading';
+
+//elements
 import { HeadingElement } from '@/components/plate-ui/heading-element';
 import { ListElement } from '@/components/plate-ui/list-element';
 import { TodoListElement } from '@/components/plate-ui/todo-list-element';
-import { withProps } from '@udecode/cn';
 import {
     PlateElement,
     PlateLeaf,
     usePlateEditor
 } from '@udecode/plate-common/react';
-import { HEADING_KEYS } from '@udecode/plate-heading';
-
-//plugins
 import {
     BoldPlugin,
     ItalicPlugin,
@@ -25,6 +25,7 @@ import {
 import { editorPlugins, viewPlugins } from './editor-plugins';
 import { LinkPlugin } from '@udecode/plate-link/react';
 import { LinkElement } from '@/components/plate-ui/link-element';
+import { ImageElement } from '@/components/plate-ui/image-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),
@@ -42,6 +43,7 @@ export const viewComponents = {
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
     [TodoListPlugin.key]: TodoListElement,
     [LinkPlugin.key]: LinkElement,
+    [ImagePlugin.key]: ImageElement,
 }
 
 export const editorComponents = {
