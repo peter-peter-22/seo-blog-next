@@ -4,6 +4,8 @@ import { FixedToolbarPlugin } from './plugins/fixed-toolbar-plugin';
 import { indentListPlugins } from './plugins/indent-list-plugin';
 import { linkPlugin } from './plugins/link.plugin';
 import { mediaPlugins } from './plugins/media-plugins';
+import { TrailingBlockPlugin } from '@udecode/plate-trailing-block';
+import { ParagraphPlugin } from '@udecode/plate-common/react';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
@@ -17,6 +19,9 @@ export const viewPlugins = [
 
 export const editorPlugins = [
     ...viewPlugins,
+
+    //Functionalty
+    TrailingBlockPlugin.configure({ options: { type: ParagraphPlugin.key } }),
 
     //UI
     FixedToolbarPlugin

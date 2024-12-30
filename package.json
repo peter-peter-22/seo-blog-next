@@ -55,6 +55,7 @@
     "@udecode/plate-selection": "^41.0.8",
     "@udecode/plate-table": "^41.0.9",
     "@udecode/plate-toggle": "^41.0.0",
+    "@udecode/plate-trailing-block": "^41.0.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
