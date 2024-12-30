@@ -35,6 +35,12 @@ import {
     ItalicPlugin,
     UnderlinePlugin,
 } from '@udecode/plate-basic-marks/react';
+import {
+    AudioPlugin,
+    FilePlugin,
+    ImagePlugin,
+    VideoPlugin,
+} from '@udecode/plate-media/react';
 
 export const FixedToolbarPlugin = createPlatePlugin({
     key: 'fixed-toolbar',
@@ -85,9 +91,6 @@ export const FixedToolbarPlugin = createPlatePlugin({
 
                 <ToolbarGroup>
                     <MediaToolbarButton nodeType={ImagePlugin.key} />
-                    <MediaToolbarButton nodeType={VideoPlugin.key} />
-                    <MediaToolbarButton nodeType={AudioPlugin.key} />
-                    <MediaToolbarButton nodeType={FilePlugin.key} />
                 </ToolbarGroup>
 
             </FixedToolbar>

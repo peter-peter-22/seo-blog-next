@@ -1,7 +1,12 @@
 import { withProps } from '@udecode/cn';
 import { HEADING_KEYS } from '@udecode/plate-heading';
-
-//elements
+import {
+    AudioPlugin,
+    FilePlugin,
+    ImagePlugin,
+    VideoPlugin,
+} from '@udecode/plate-media/react';
+import { LinkPlugin } from '@udecode/plate-link/react';
 import { HeadingElement } from '@/components/plate-ui/heading-element';
 import { ListElement } from '@/components/plate-ui/list-element';
 import { TodoListElement } from '@/components/plate-ui/todo-list-element';
@@ -23,7 +28,6 @@ import {
     TodoListPlugin
 } from '@udecode/plate-list/react';
 import { editorPlugins, viewPlugins } from './editor-plugins';
-import { LinkPlugin } from '@udecode/plate-link/react';
 import { LinkElement } from '@/components/plate-ui/link-element';
 import { ImageElement } from '@/components/plate-ui/image-element';
 
