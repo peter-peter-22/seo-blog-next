@@ -1,15 +1,17 @@
+import { getNodes, insertNodes, isText } from '@udecode/plate-common';
 import { useEditorRef } from '@udecode/plate-common/react';
-import { insertNodes, isUrl } from '@udecode/plate-common';
+import { Editor, Node, Text } from 'slate';
 import { CodeBlockPlugin } from '../editor/plugins/code-block-plugin';
-import { Editor } from 'slate';
+import { getSelectionText } from "@udecode/slate-utils";
 
 export function CodeBlockButton() {
     const editor = useEditorRef();
 
     function insert() {
-        const text = getSelectionText(editor);
+        const text = getSelectionTextWithLineBreaks(editor);
         insertNodes(editor, {
-            children: [{ text: text }],
+            children: [{ text: "" }],
+            value: text,
             type: CodeBlockPlugin.key,
         });
     }
@@ -19,11 +21,6 @@ export function CodeBlockButton() {
     )
 }
 
-function getSelectionText(editor) {
-    if (!editor.selection) {
-        return ''; // No selection
-    }
-
-    const selectedText = Editor.string(editor, editor.selection);
-    return selectedText;
-}
+const getSelectionTextWithLineBreaks = (editor) => {
+    return getSelectionText(editor);
+};
