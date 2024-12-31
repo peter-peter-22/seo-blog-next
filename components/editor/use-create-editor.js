@@ -31,6 +31,8 @@ import { editorPlugins, viewPlugins } from './editor-plugins';
 import { LinkElement } from '@/components/plate-ui/link-element';
 import { ImageElement } from '@/components/plate-ui/image-element';
 import { MediaVideoElement } from '@/components/plate-ui/media-video-element';
+import { MyPlugin } from './plugins/code-block-plugin';
+import { TestElement } from '../plate-ui/test-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),

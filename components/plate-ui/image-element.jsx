@@ -29,7 +29,7 @@ export const ImageElement = withHOC(
     });
 
     return (
-      (<MediaPopover plugin={ImagePlugin}>
+      <MediaPopover plugin={ImagePlugin}>
         <PlateElement ref={ref} className={cn(className, 'py-2.5')} {...props}>
           <figure className="group relative m-0" contentEditable={false}>
             <Resizable
@@ -70,7 +70,7 @@ export const ImageElement = withHOC(
 
           {children}
         </PlateElement>
-      </MediaPopover>)
+      </MediaPopover>
     );
   })
 );
