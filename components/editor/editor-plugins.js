@@ -1,19 +1,19 @@
+import { ParagraphPlugin } from '@udecode/plate-common/react';
+import { TrailingBlockPlugin } from '@udecode/plate-trailing-block';
 import { basicNodesPlugins } from './basic-nodes-plugin';
 import { alignPlugin } from './plugins/align-plugin';
+import { CodeBlockPlugin } from './plugins/code-block-plugin';
 import { FixedToolbarPlugin } from './plugins/fixed-toolbar-plugin';
 import { indentListPlugins } from './plugins/indent-list-plugin';
 import { linkPlugin } from './plugins/link.plugin';
 import { mediaPlugins } from './plugins/media-plugins';
-import { TrailingBlockPlugin } from '@udecode/plate-trailing-block';
-import { ParagraphPlugin } from '@udecode/plate-common/react';
-import { MyPlugin } from './plugins/code-block-plugin';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
     ...indentListPlugins,
     linkPlugin,
     ...mediaPlugins,
-    MyPlugin,
+    CodeBlockPlugin,
 
     // Block Style
     alignPlugin,

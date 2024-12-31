@@ -1,12 +1,11 @@
-"use client"
+import { PlateElement } from '@udecode/plate-common/react';
 
-import { PlateElement, PlateElementProps } from '@udecode/plate-common/react';
-
-export function TestElement({
+export function CodeBlockElement({
     className,
     children,
     ...props
 }) {
+    
     return (
         <PlateElement asChild className={className} {...props}>
             <blockquote>{children}</blockquote>

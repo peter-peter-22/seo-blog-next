@@ -1,20 +1,10 @@
-import { withProps } from '@udecode/cn';
-import { HEADING_KEYS } from '@udecode/plate-heading';
-import {
-    AudioPlugin,
-    FilePlugin,
-    ImagePlugin,
-    VideoPlugin,
-} from '@udecode/plate-media/react';
-import { LinkPlugin } from '@udecode/plate-link/react';
 import { HeadingElement } from '@/components/plate-ui/heading-element';
+import { ImageElement } from '@/components/plate-ui/image-element';
+import { LinkElement } from '@/components/plate-ui/link-element';
 import { ListElement } from '@/components/plate-ui/list-element';
+import { MediaVideoElement } from '@/components/plate-ui/media-video-element';
 import { TodoListElement } from '@/components/plate-ui/todo-list-element';
-import {
-    PlateElement,
-    PlateLeaf,
-    usePlateEditor
-} from '@udecode/plate-common/react';
+import { withProps } from '@udecode/cn';
 import {
     BoldPlugin,
     ItalicPlugin,
@@ -22,17 +12,23 @@ import {
 } from '@udecode/plate-basic-marks/react';
 import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
 import {
+    PlateElement,
+    PlateLeaf,
+    usePlateEditor
+} from '@udecode/plate-common/react';
+import { HEADING_KEYS } from '@udecode/plate-heading';
+import { LinkPlugin } from '@udecode/plate-link/react';
+import {
     BulletedListPlugin,
     ListItemPlugin,
     NumberedListPlugin,
     TodoListPlugin
 } from '@udecode/plate-list/react';
+import {
+    ImagePlugin,
+    VideoPlugin
+} from '@udecode/plate-media/react';
 import { editorPlugins, viewPlugins } from './editor-plugins';
-import { LinkElement } from '@/components/plate-ui/link-element';
-import { ImageElement } from '@/components/plate-ui/image-element';
-import { MediaVideoElement } from '@/components/plate-ui/media-video-element';
-import { MyPlugin } from './plugins/code-block-plugin';
-import { TestElement } from '../plate-ui/test-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),
