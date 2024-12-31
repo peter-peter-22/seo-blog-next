@@ -1,19 +1,9 @@
-import { PlateElement } from '@udecode/plate-common/react';
-import CodeEditor from 'react-simple-code-editor';
-import { useEditorRef } from '@udecode/plate-common/react';
-import { ReactEditor } from 'slate-react';
 import {
-    getBlockAbove,
-    getBlocks,
-    getNodeEntry,
-    insertNodes,
-    removeEmptyPreviousBlock,
-    setNodes,
-    unsetNodes,
-    withoutNormalizing,
+    setNodes
 } from '@udecode/plate-common';
+import { PlateElement, useEditorRef } from '@udecode/plate-common/react';
+import { ReactEditor } from 'slate-react';
 
-import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 
@@ -35,6 +25,7 @@ export function CodeBlockElement({
             <textarea
                 value={props.element.value}
                 onChange={onChange}
+                style={{ width: "100%",height:500 }}
             />
         </PlateElement>
     );

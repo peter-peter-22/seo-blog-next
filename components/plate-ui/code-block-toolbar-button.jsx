@@ -1,14 +1,14 @@
-import { getNodes, insertNodes, isText } from '@udecode/plate-common';
+import { insertNodes } from '@udecode/plate-common';
 import { useEditorRef } from '@udecode/plate-common/react';
-import { Editor, Node, Text } from 'slate';
+import { Editor, Node } from 'slate';
 import { CodeBlockPlugin } from '../editor/plugins/code-block-plugin';
-import { getSelectionText } from "@udecode/slate-utils";
 
 export function CodeBlockButton() {
     const editor = useEditorRef();
 
     function insert() {
-        const text = getSelectionTextWithLineBreaks(editor);
+        const text = getSelectedTextWithLineBreaks(editor);
+        console.log(text);
         insertNodes(editor, {
             children: [{ text: "" }],
             value: text,
@@ -21,6 +21,23 @@ export function CodeBlockButton() {
     )
 }
 
-const getSelectionTextWithLineBreaks = (editor) => {
-    return getSelectionText(editor);
-};
+
+function getSelectedTextWithLineBreaks(editor) {
+    const selectedNodes = Array.from(
+        Editor.nodes(editor, {
+            at: editor.selection,
+            match: node => {
+                return !!node.type
+            }, // Include only block elements
+        })
+    );
+
+    console.log(selectedNodes);
+
+    // Extract text from each node and join with line breaks
+    const textWithLineBreaks = selectedNodes
+        .map(([node]) => Node.string(node)) // Get text content of each node
+        .join('\n'); // Join with newline
+
+    return textWithLineBreaks;
+}
