@@ -1,15 +1,13 @@
-import {
-    setNodes
-} from '@udecode/plate-common';
-import { PlateElement, useEditorRef } from '@udecode/plate-common/react';
-import { ReactEditor } from 'slate-react';
-import React, { useState } from 'react';
-import CodeEditor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import Box from '@mui/material/Box';
 import "@/app/css/prism-vsc-dark-plus.css";
+import Box from '@mui/material/Box';
+import { PlateElement, setNode, useEditorRef, useElement } from '@udecode/plate-common/react';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import CodeEditor from 'react-simple-code-editor';
+
+//must be imported after prism-core
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
+import { useState } from "react";
 
 export function CodeBlockElement({
     className,
@@ -17,10 +15,14 @@ export function CodeBlockElement({
     ...props
 }) {
     const editor = useEditorRef();
+    const element = useElement();
+    const [value, setValue] = useState(element.value);
 
     function onChange(value) {
-        const path = ReactEditor.findPath(editor, props.element); // Find the path of the node
-        setNodes(editor, { ...props.element, value }, { at: path });
+        //const path = ReactEditor.findPath(editor, props.element); 
+        //setNodes(editor, { ...props.element, value }, { at: path });
+        setValue(value);
+        setNode(editor, element, { value });
     }
 
     return (
@@ -46,7 +48,7 @@ export function CodeBlockElement({
                     },
                 })}>
                 <CodeEditor
-                    value={props.element.value}
+                    value={value}
                     onValueChange={onChange}
                     highlight={(code) => highlight(code, languages.js)}
                     style={{
