@@ -8,7 +8,6 @@ export function CodeBlockButton() {
 
     function insert() {
         const text = getSelectedTextWithLineBreaks(editor);
-        console.log(text);
         insertNodes(editor, {
             children: [{ text: "" }],
             value: text,
@@ -31,8 +30,6 @@ function getSelectedTextWithLineBreaks(editor) {
             }, // Include only block elements
         })
     );
-
-    console.log(selectedNodes);
 
     // Extract text from each node and join with line breaks
     const textWithLineBreaks = selectedNodes
