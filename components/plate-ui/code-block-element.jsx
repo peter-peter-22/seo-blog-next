@@ -6,6 +6,7 @@ import { ReactEditor } from 'slate-react';
 import React, { useState } from 'react';
 import CodeEditor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
+import Box from '@mui/material/Box';
 import "@/app/css/prism-vsc-dark-plus.css";
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
@@ -24,19 +25,37 @@ export function CodeBlockElement({
 
     return (
         <PlateElement asChild className={className} {...props}  >
-            <div contentEditable={false}>
-                {children}
+            <Box
+                contentEditable={false}
+                component="pre"
+                className={`language-${"javascript"}`}
+                sx={theme => ({
+                    borderWidth: 2,
+                    borderStyle: "solid",
+                    borderColor: "transparent",
+                    transition: theme.transitions.create(['all'], {
+                        duration: theme.transitions.duration.shortest,
+                    }),
+                    borderRadius: 1,
+                    my: 2,
+                    "& textarea": {
+                        outlineWidth: 0
+                    },
+                    "&:focus-within": {
+                        borderColor: theme.palette.primary.light,
+                    },
+                })}>
                 <CodeEditor
                     value={props.element.value}
                     onValueChange={onChange}
                     highlight={(code) => highlight(code, languages.js)}
-                    padding={10}
                     style={{
-                        fontFamily: '"Fira code", "Fira Mono", monospace',
+                        fontFamily: 'var(--roboto)',
                         fontSize: 12,
+                        backgroundColor: "revert-layer"
                     }}
                 />
-            </div>
+            </Box>
         </PlateElement>
     );
 }
