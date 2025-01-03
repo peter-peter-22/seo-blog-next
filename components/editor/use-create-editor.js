@@ -29,9 +29,10 @@ import {
     VideoPlugin
 } from '@udecode/plate-media/react';
 import { editorPlugins, viewPlugins } from './editor-plugins';
+import { BlockquoteElement } from '../plate-ui/blockquote-element';
 
 export const viewComponents = {
-    [BlockquotePlugin.key]: withProps(PlateLeaf, { as: 'blockquote' }),
+    [BlockquotePlugin.key]: BlockquoteElement,
     [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
     [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
     [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
