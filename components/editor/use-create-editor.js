@@ -32,6 +32,8 @@ import { editorPlugins, viewPlugins } from './editor-plugins';
 import { BlockquoteElement } from '../plate-ui/blockquote-element';
 import { ParagraphPlugin } from '@udecode/plate-common/react';
 import { ParagraphElement } from '../plate-ui/paragraph-element';
+import { TogglePlugin } from '@udecode/plate-toggle/react';
+import { ToggleElement } from '@/components/plate-ui/toggle-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: BlockquoteElement,
@@ -52,6 +54,7 @@ export const viewComponents = {
     [ImagePlugin.key]: ImageElement,
     [VideoPlugin.key]: MediaVideoElement,
     [ParagraphPlugin.key]: ParagraphElement,
+    [TogglePlugin.key]: ToggleElement,
 }
 
 export const editorComponents = {

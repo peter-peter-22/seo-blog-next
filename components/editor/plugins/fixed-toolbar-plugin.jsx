@@ -29,6 +29,7 @@ import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-butt
 import { LinkToolbarButton } from '@/components/plate-ui/link-toolbar-button';
 import { MediaToolbarButton, MediaToolbarButtonExternal } from '@/components/plate-ui/media-toolbar-button';
 import { CodeBlockButton } from '@/components/plate-ui/code-block-toolbar-button';
+import { ToggleToolbarButton } from '@/components/plate-ui/toggle-toolbar-button';
 
 //plugins
 import {
@@ -83,7 +84,7 @@ export const FixedToolbarPlugin = createPlatePlugin({
 
                     <IndentToolbarButton />
                     <OutdentToolbarButton />
-
+                    <ToggleToolbarButton />
                 </ToolbarGroup>
 
                 <ToolbarGroup>

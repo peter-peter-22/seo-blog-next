@@ -8,16 +8,18 @@ import { indentListPlugins } from './plugins/indent-list-plugin';
 import { linkPlugin } from './plugins/link.plugin';
 import { mediaPlugins } from './plugins/media-plugins';
 import { dndPlugins } from './plugins/dnd-plugins';
+import { TogglePlugin } from '@udecode/plate-toggle/react';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
-    ...indentListPlugins,
     linkPlugin,
     ...mediaPlugins,
     CodeBlockPlugin,
-
+    TogglePlugin,
+    
     // Block Style
     alignPlugin,
+    ...indentListPlugins,
 ]
 
 export const editorPlugins = [
