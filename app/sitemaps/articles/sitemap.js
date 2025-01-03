@@ -19,7 +19,7 @@ export default async function sitemap({ id }) {
     return articles.map(article => ({
         url: `${baseUrl}/articles/${article.id}`,
         lastModified: new Date(article.updatedAt),
-        changeFrequency: "monthly",
+        changeFrequency: "daily",
         priority: 0.8
     }))
 }

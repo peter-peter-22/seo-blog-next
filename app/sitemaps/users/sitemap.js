@@ -19,7 +19,7 @@ export default async function sitemap({ id }) {
     return users.map(user => ({
         url: `${baseUrl}/authors/${user.id}`,
         lastModified: new Date(user.updatedAt),
-        changeFrequency: "monthly",
+        changeFrequency: "daily",
         priority: 0.6
     }))
 }

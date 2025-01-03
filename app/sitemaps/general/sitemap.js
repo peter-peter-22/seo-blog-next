@@ -20,7 +20,7 @@ export default function sitemap() {
     return urls.map(([url, priority]) => ({
         url: `${baseUrl}/${url}`,
         lastModified: updatedAt,
-        changeFrequency: "monthly",
+        changeFrequency: "daily",
         priority: priority ?? 1
     }))
 }
