@@ -69,6 +69,9 @@ export function CodeBlockElement({
                 }}>
                     <CodeBlockCombobox />
                 </Box>
+                <Box style={{ display: "none" }}>
+                    {children}
+                </Box>
             </Box>
         </PlateElement>
     );

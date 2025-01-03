@@ -7,6 +7,7 @@ import { FixedToolbarPlugin } from './plugins/fixed-toolbar-plugin';
 import { indentListPlugins } from './plugins/indent-list-plugin';
 import { linkPlugin } from './plugins/link.plugin';
 import { mediaPlugins } from './plugins/media-plugins';
+import { dndPlugins } from './plugins/dnd-plugins';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
@@ -24,6 +25,7 @@ export const editorPlugins = [
 
     //Functionalty
     TrailingBlockPlugin.configure({ options: { type: ParagraphPlugin.key } }),
+    ...dndPlugins,
 
     //UI
     FixedToolbarPlugin

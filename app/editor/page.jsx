@@ -5,7 +5,7 @@ import { SingleColumn } from '../ui/layout/Layouts';
 export default function Page() {
   return (
     <SingleColumn>
-      <Card>
+      <Card className="h-screen w-full" data-registry="plate">
         <PlateEditor />
       </Card>
     </SingleColumn>
