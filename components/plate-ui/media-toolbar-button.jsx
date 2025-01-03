@@ -150,11 +150,9 @@ export function MediaToolbarButtonExternal({
       onClick={() => {
         setDialogOpen(true);
       }}
+      tooltip={currentConfig.tooltip}
     >
-      <ToolbarSplitButtonPrimary tooltip={currentConfig.tooltip}>
-        {currentConfig.icon}
-      </ToolbarSplitButtonPrimary>
-
+      {currentConfig.icon}
     </ToolbarButton>
     <AlertDialog
       open={dialogOpen}
