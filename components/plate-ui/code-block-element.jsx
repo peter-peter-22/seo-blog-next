@@ -31,9 +31,11 @@ export function CodeBlockElement({
             className={className}
             {...props}
         >
-            <Box sx={{ position: "relative" }}>
+            <Box
+                sx={{ position: "relative" }}
+                contentEditable={false}
+            >
                 <Box
-                    contentEditable={false}
                     component="pre"
                     className={state.className || "language-text"}
                     sx={theme => ({
@@ -59,7 +61,12 @@ export function CodeBlockElement({
                         highlight={(code) => highlight(code, Prism.languages[element.lang ?? "text"])}
                     />
                 </Box>
-                <Box sx={{ position: "absolute", right: 5, top: 3 }}>
+                <Box sx={{
+                    position: "absolute",
+                    right: 5,
+                    top: 3,
+                    color: "white"//force white color because of the back balckground
+                }}>
                     <CodeBlockCombobox />
                 </Box>
             </Box>

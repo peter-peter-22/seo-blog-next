@@ -1,9 +1,14 @@
+import { withRef } from '@udecode/cn';
 import { insertNodes } from '@udecode/plate-common';
 import { useEditorRef } from '@udecode/plate-common/react';
+import {
+    Code2Icon
+} from 'lucide-react';
 import { Editor, Node } from 'slate';
 import { CodeBlockPlugin } from '../editor/plugins/code-block-plugin';
 
-export function CodeBlockButton() {
+import { ToolbarButton } from './toolbar';
+export const CodeBlockButton = withRef((props, ref) => {
     const editor = useEditorRef();
 
     function insert() {
@@ -16,9 +21,12 @@ export function CodeBlockButton() {
     }
 
     return (
-        <button onClick={insert}>test</button>
-    )
-}
+        <ToolbarButton ref={ref} data-plate-focus tooltip="Link" {...props} onClick={insert}>
+            <Code2Icon />
+        </ToolbarButton>
+    );
+});
+
 
 
 function getSelectedTextWithLineBreaks(editor) {
