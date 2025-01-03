@@ -12,7 +12,7 @@ export function PlateEditor() {
 
   return (
     <Plate editor={editor}>
-      <Editor variant="demo" placeholder="Type..." />
+      <Editor variant="fullWidth" placeholder="Type..." />
     </Plate>
   );
 }
