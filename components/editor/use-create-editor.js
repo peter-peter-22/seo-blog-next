@@ -30,6 +30,8 @@ import {
 } from '@udecode/plate-media/react';
 import { editorPlugins, viewPlugins } from './editor-plugins';
 import { BlockquoteElement } from '../plate-ui/blockquote-element';
+import { ParagraphPlugin } from '@udecode/plate-common/react';
+import { ParagraphElement } from '../plate-ui/paragraph-element';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: BlockquoteElement,
@@ -49,6 +51,7 @@ export const viewComponents = {
     [LinkPlugin.key]: LinkElement,
     [ImagePlugin.key]: ImageElement,
     [VideoPlugin.key]: MediaVideoElement,
+    [ParagraphPlugin.key]: ParagraphElement,
 }
 
 export const editorComponents = {
