@@ -1,35 +1,29 @@
 'use client';
 
-import { createPlatePlugin } from '@udecode/plate-common/react';
-import { FixedToolbar, TopToolbar } from '@/components/plate-ui/fixed-toolbar';
+import { TopToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
+import { createPlatePlugin } from '@udecode/plate-common/react';
 import {
-    ArrowUpToLineIcon,
-    BaselineIcon,
     BoldIcon,
-    Code2Icon,
-    HighlighterIcon,
     ItalicIcon,
-    PaintBucketIcon,
-    StrikethroughIcon,
-    UnderlineIcon,
-    WandSparklesIcon,
+    UnderlineIcon
 } from 'lucide-react';
 
 //buttons
-import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
-import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
 import { AlignDropdownMenu } from '@/components/plate-ui/align-dropdown-menu';
+import { CodeBlockButton } from '@/components/plate-ui/code-block-toolbar-button';
 import {
     BulletedIndentListToolbarButton,
     NumberedIndentListToolbarButton,
 } from '@/components/plate-ui/indent-list-toolbar-button';
 import { IndentToolbarButton } from '@/components/plate-ui/indent-toolbar-button';
-import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
 import { LinkToolbarButton } from '@/components/plate-ui/link-toolbar-button';
-import { MediaToolbarButton, MediaToolbarButtonExternal } from '@/components/plate-ui/media-toolbar-button';
-import { CodeBlockButton } from '@/components/plate-ui/code-block-toolbar-button';
+import { MarkToolbarButton } from '@/components/plate-ui/mark-toolbar-button';
+import { MediaToolbarButtonExternal } from '@/components/plate-ui/media-toolbar-button';
+import { ModeDropdownMenu } from '@/components/plate-ui/mode-dropdown-menu';
+import { OutdentToolbarButton } from '@/components/plate-ui/outdent-toolbar-button';
 import { ToggleToolbarButton } from '@/components/plate-ui/toggle-toolbar-button';
+import { TurnIntoDropdownMenu } from '@/components/plate-ui/turn-into-dropdown-menu';
 
 //plugins
 import {
@@ -38,10 +32,8 @@ import {
     UnderlinePlugin,
 } from '@udecode/plate-basic-marks/react';
 import {
-    AudioPlugin,
-    FilePlugin,
     ImagePlugin,
-    VideoPlugin,
+    VideoPlugin
 } from '@udecode/plate-media/react';
 
 export const FixedToolbarPlugin = createPlatePlugin({
@@ -95,6 +87,10 @@ export const FixedToolbarPlugin = createPlatePlugin({
                 <ToolbarGroup>
                     <MediaToolbarButtonExternal nodeType={ImagePlugin.key} />
                     <MediaToolbarButtonExternal nodeType={VideoPlugin.key} />
+                </ToolbarGroup>
+
+                <ToolbarGroup>
+                    <ModeDropdownMenu />
                 </ToolbarGroup>
 
             </TopToolbar>
