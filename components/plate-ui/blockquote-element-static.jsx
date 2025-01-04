@@ -12,6 +12,7 @@ export const BlockquoteElementStatic = ({
     (<SlateElement
       as="blockquote"
       className={cn(className, 'border-l-2 pl-6 italic')}
+      style={{borderColor:"var(--mui-palette-divider)"}}
       {...props}>
       {children}
     </SlateElement>)

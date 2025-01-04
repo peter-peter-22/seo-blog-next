@@ -12,6 +12,7 @@ export const BlockquoteElement = withRef(({ children, className, ...props }, ref
       ref={ref}
       as="blockquote"
       className={cn(className, 'border-l-2 pl-6 italic')}
+      style={{borderColor:"var(--mui-palette-divider)"}}
       {...props}>
       {children}
     </PlateElement>)
