@@ -1,7 +1,7 @@
 'use client';
 
 import { createPlatePlugin } from '@udecode/plate-common/react';
-import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar';
+import { FixedToolbar, TopToolbar } from '@/components/plate-ui/fixed-toolbar';
 import { ToolbarGroup } from '@/components/plate-ui/toolbar';
 import {
     ArrowUpToLineIcon,
@@ -48,7 +48,7 @@ export const FixedToolbarPlugin = createPlatePlugin({
     key: 'fixed-toolbar',
     render: {
         beforeEditable: () => (
-            <FixedToolbar>
+            <TopToolbar>
 
                 <ToolbarGroup>
                     <TurnIntoDropdownMenu />
@@ -97,7 +97,7 @@ export const FixedToolbarPlugin = createPlatePlugin({
                     <MediaToolbarButtonExternal nodeType={VideoPlugin.key} />
                 </ToolbarGroup>
 
-            </FixedToolbar>
+            </TopToolbar>
         ),
     },
 });
