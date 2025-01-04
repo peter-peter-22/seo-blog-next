@@ -14,7 +14,8 @@ const TopToolbar = styled(FixedToolbar)({
   flexWrap: "wrap",
   justifyContent: "center",
   top:80,
-  position:"sticky"
+  position:"sticky",
+  borderRadius:5
 });
 
 export {TopToolbar};
