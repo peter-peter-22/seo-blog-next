@@ -19,6 +19,10 @@ export const LinkElement = withRef(({ children, className, ...props }, ref) => {
         className,
         'font-medium text-primary underline decoration-primary underline-offset-4'
       )}
+      style={{
+        color: "var(--mui-palette-primary-main)",
+        textDecorationColor: "unset"
+      }}
       {...(linkProps)}
       {...props}>
       {children}

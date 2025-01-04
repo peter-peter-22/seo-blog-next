@@ -1,9 +1,12 @@
+import { ColumnElement } from '@/components/plate-ui/column-element';
+import { ColumnGroupElement } from '@/components/plate-ui/column-group-element';
 import { HeadingElement } from '@/components/plate-ui/heading-element';
 import { ImageElement } from '@/components/plate-ui/image-element';
 import { LinkElement } from '@/components/plate-ui/link-element';
 import { ListElement } from '@/components/plate-ui/list-element';
 import { MediaVideoElement } from '@/components/plate-ui/media-video-element';
 import { TodoListElement } from '@/components/plate-ui/todo-list-element';
+import { ToggleElement } from '@/components/plate-ui/toggle-element';
 import { withProps } from '@udecode/cn';
 import {
     BoldPlugin,
@@ -12,11 +15,13 @@ import {
 } from '@udecode/plate-basic-marks/react';
 import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
 import {
+    ParagraphPlugin,
     PlateElement,
     PlateLeaf,
     usePlateEditor
 } from '@udecode/plate-common/react';
 import { HEADING_KEYS } from '@udecode/plate-heading';
+import { ColumnItemPlugin, ColumnPlugin } from '@udecode/plate-layout/react';
 import { LinkPlugin } from '@udecode/plate-link/react';
 import {
     BulletedListPlugin,
@@ -28,17 +33,46 @@ import {
     ImagePlugin,
     VideoPlugin
 } from '@udecode/plate-media/react';
-import { editorPlugins, viewPlugins } from './editor-plugins';
-import { BlockquoteElement } from '../plate-ui/blockquote-element';
-import { ParagraphPlugin } from '@udecode/plate-common/react';
-import { ParagraphElement } from '../plate-ui/paragraph-element';
 import { TogglePlugin } from '@udecode/plate-toggle/react';
-import { ToggleElement } from '@/components/plate-ui/toggle-element';
-import { ColumnElement } from '@/components/plate-ui/column-element';
-import { ColumnGroupElement } from '@/components/plate-ui/column-group-element';
-import { ColumnItemPlugin, ColumnPlugin } from '@udecode/plate-layout/react';
+import { BlockquoteElement } from '../plate-ui/blockquote-element';
+import { BlockquoteElementStatic } from '../plate-ui/blockquote-element-static';
+import { ColumnElementStatic } from '../plate-ui/column-element-static';
+import { ColumnGroupElementStatic } from '../plate-ui/column-group-element-static';
+import { HeadingElementStatic } from '../plate-ui/heading-element-static';
+import { ImageElementStatic } from '../plate-ui/image-element-static';
+import { LinkElementStatic } from '../plate-ui/link-element-static';
+import { MediaVideoElementStatic } from '../plate-ui/media-video-element-static';
+import { ParagraphElement } from '../plate-ui/paragraph-element';
+import { ParagraphElementStatic } from '../plate-ui/paragraph-element-static';
+import { ToggleElementStatic } from '../plate-ui/toggle-element-static';
+import { editorPlugins, viewPlugins } from './editor-plugins';
 
 export const viewComponents = {
+    [BlockquotePlugin.key]: BlockquoteElementStatic,
+    [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
+    [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
+    [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
+    [HEADING_KEYS.h1]: withProps(HeadingElementStatic, { variant: 'h1' }),
+    [HEADING_KEYS.h2]: withProps(HeadingElementStatic, { variant: 'h2' }),
+    [HEADING_KEYS.h3]: withProps(HeadingElementStatic, { variant: 'h3' }),
+    [HEADING_KEYS.h4]: withProps(HeadingElementStatic, { variant: 'h4' }),
+    [HEADING_KEYS.h5]: withProps(HeadingElementStatic, { variant: 'h5' }),
+    [HEADING_KEYS.h6]: withProps(HeadingElementStatic, { variant: 'h6' }),
+    [BulletedListPlugin.key]: withProps(ListElement, { variant: 'ul' }),
+    [ListItemPlugin.key]: withProps(PlateElement, { as: 'li' }),
+    [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
+    [TodoListPlugin.key]: TodoListElement,
+    [LinkPlugin.key]: LinkElementStatic,
+    [ImagePlugin.key]: ImageElementStatic,
+    [VideoPlugin.key]: MediaVideoElementStatic,
+    [ParagraphPlugin.key]: ParagraphElementStatic,
+    [TogglePlugin.key]: ToggleElementStatic,
+    [ColumnItemPlugin.key]: ColumnElementStatic,
+    [ColumnPlugin.key]: ColumnGroupElementStatic,
+}
+
+export const editorComponents = {
+    ...viewComponents,
     [BlockquotePlugin.key]: BlockquoteElement,
     [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
     [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
@@ -60,10 +94,6 @@ export const viewComponents = {
     [TogglePlugin.key]: ToggleElement,
     [ColumnItemPlugin.key]: ColumnElement,
     [ColumnPlugin.key]: ColumnGroupElement,
-}
-
-export const editorComponents = {
-    ...viewComponents
 }
 
 export const useCreateEditor = ({
