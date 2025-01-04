@@ -9,6 +9,7 @@ import { linkPlugin } from './plugins/link.plugin';
 import { mediaPlugins } from './plugins/media-plugins';
 import { dndPlugins } from './plugins/dnd-plugins';
 import { TogglePlugin } from '@udecode/plate-toggle/react';
+import { ColumnPlugin } from '@udecode/plate-layout/react';
 
 export const viewPlugins = [
     ...basicNodesPlugins,
@@ -16,7 +17,8 @@ export const viewPlugins = [
     ...mediaPlugins,
     CodeBlockPlugin,
     TogglePlugin,
-    
+    ColumnPlugin,
+
     // Block Style
     alignPlugin,
     ...indentListPlugins,
