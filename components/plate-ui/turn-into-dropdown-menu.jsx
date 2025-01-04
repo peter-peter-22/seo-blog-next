@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
-import { CodeBlockPlugin } from '@udecode/plate-code-block/react';
+//import { CodeBlockPlugin } from '@udecode/plate-code-block/react';
 import {
   ParagraphPlugin,
   focusEditor,
@@ -15,7 +15,7 @@ import { TogglePlugin } from '@udecode/plate-toggle/react';
 import {
   ChevronRightIcon,
   Columns3Icon,
-  FileCodeIcon,
+  //FileCodeIcon,
   Heading1Icon,
   Heading2Icon,
   Heading3Icon,
@@ -93,12 +93,12 @@ const turnIntoItems = [
     label: 'Toggle list',
     value: TogglePlugin.key,
   },
-  {
-    icon: <FileCodeIcon />,
-    keywords: ['```'],
-    label: 'Code',
-    value: CodeBlockPlugin.key,
-  },
+  //{
+  //  icon: <FileCodeIcon />,
+  //  keywords: ['```'],
+  //  label: 'Code',
+  //  value: CodeBlockPlugin.key,
+  //},
   {
     icon: <QuoteIcon />,
     keywords: ['citation', 'blockquote', '>'],
