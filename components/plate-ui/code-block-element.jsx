@@ -54,6 +54,9 @@ export function CodeBlockElement({
                         "&:focus-within": {
                             borderColor: theme.palette.primary.light,
                         },
+                        ...theme.applyStyles("dark", {
+                            background: "#0e0e0e !important"
+                        })
                     })}>
                     <CodeEditor
                         value={value}
