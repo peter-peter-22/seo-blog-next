@@ -8,11 +8,22 @@ import Card from '@mui/material/Card';
 
 export const EditorContainer = ({ children }) => {
   return (
-    <Card data-registry="plate" sx={{
-      minHeight: "100vh",
-      overflow: "visible",
-      p: 3
-    }}>
+    <Card
+      data-registry="plate"
+      sx={theme => ({
+        minHeight: "100vh",
+        overflow: "visible",
+        p: 3,
+        outlineWidth: 1,
+        outlineStyle: "solid",
+        outlineColor: "transparent",
+        "&:focus-within": {
+          outlineColor: "primary.main",
+        },
+        transition: theme.transitions.create(['outline-color'], {
+          duration: theme.transitions.duration.shorter,
+        }),
+      })}>
       {children}
     </Card>
   )
