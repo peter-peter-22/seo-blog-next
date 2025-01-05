@@ -12,10 +12,11 @@ export const CodeBlockButton = withRef((props, ref) => {
     const editor = useEditorRef();
 
     function insert() {
-        const text = getSelectedTextWithLineBreaks(editor);
+        //const text = getSelectedTextWithLineBreaks(editor);
         insertNodes(editor, {
             children: [{ text: "" }],
-            value: text,
+            //value: text,
+            value:"",
             type: CodeBlockPlugin.key,
         });
     }

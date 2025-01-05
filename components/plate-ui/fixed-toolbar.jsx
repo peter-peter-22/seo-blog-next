@@ -15,7 +15,7 @@ const TopToolbar = styled(FixedToolbar)({
   justifyContent: "center",
   top:80,
   position:"sticky",
-  borderRadius:5
+  borderRadius:5,
 });
 
 export {TopToolbar};

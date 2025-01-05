@@ -1,6 +1,5 @@
 import "@/app/css/prism-vsc-dark-plus.css";
 import Box from '@mui/material/Box';
-import { cn } from '@udecode/cn';
 import { useCodeBlockElementState } from '@udecode/plate-code-block/react';
 import { PlateElement, setNode, useEditorRef } from '@udecode/plate-common/react';
 import { highlight } from "prismjs";
@@ -27,7 +26,6 @@ export function CodeBlockElement({
 
     return (
         <PlateElement
-            asChild
             className={className}
             {...props}
         >
@@ -52,10 +50,10 @@ export function CodeBlockElement({
                             outlineWidth: 0
                         },
                         "&:focus-within": {
-                            borderColor: theme.palette.primary.light,
+                            borderColor: theme.palette.primary.main,
                         },
                         ...theme.applyStyles("dark", {
-                            background: "#0e0e0e !important"
+                            background: "#0e0e0e !important"//normally it would have the same color as the background in darkmode
                         })
                     })}>
                     <CodeEditor
