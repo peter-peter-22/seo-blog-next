@@ -11,7 +11,6 @@ export const EditorContainer = ({ children }) => {
     <Card
       data-registry="plate"
       sx={theme => ({
-        minHeight: "100vh",
         overflow: "visible",
         p: 3,
         outlineWidth: 1,
@@ -24,6 +23,18 @@ export const EditorContainer = ({ children }) => {
           duration: theme.transitions.duration.shorter,
         }),
       })}>
+      {children}
+    </Card>
+  )
+}
+
+export const EditorContainerStatic = ({ children }) => {
+  return (
+    <Card
+      data-registry="plate"
+      sx={{
+        p: 3,
+      }}>
       {children}
     </Card>
   )

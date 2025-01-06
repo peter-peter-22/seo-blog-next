@@ -6,6 +6,8 @@ import { highlight } from "prismjs";
 import { useState } from "react";
 import CodeEditor from 'react-simple-code-editor';
 import { CodeBlockCombobox, Prism } from "./code-block-combo-box";
+import { useReadOnly } from "slate-react";
+import { CodeBlockCopyButton } from "./code-block-copy-button";
 
 export function CodeBlockElement({
     className,
@@ -16,10 +18,9 @@ export function CodeBlockElement({
     const { element } = props;
     const [value, setValue] = useState(element.value);
     const state = useCodeBlockElementState({ element });
+    const readOnly = useReadOnly();
 
     function onChange(value) {
-        //const path = ReactEditor.findPath(editor, props.element); 
-        //setNodes(editor, { ...props.element, value }, { at: path });
         setValue(value);
         setNode(editor, element, { value });
     }
@@ -60,6 +61,7 @@ export function CodeBlockElement({
                         value={value}
                         onValueChange={onChange}
                         highlight={(code) => highlight(code, Prism.languages[element.lang ?? "text"])}
+                        readOnly={readOnly}
                     />
                 </Box>
                 <Box sx={{
@@ -68,11 +70,15 @@ export function CodeBlockElement({
                     top: 3,
                     color: "white"//force white color because of the back balckground
                 }}>
-                    <CodeBlockCombobox />
+                    {readOnly ?
+                        <CodeBlockCopyButton value={value} />
+                        :
+                        <CodeBlockCombobox />
+                    }
                 </Box>
-                <Box style={{ display: "none" }}>
+                <div style={{ display: "none" }}>
                     {children}
-                </Box>
+                </div>
             </Box>
         </PlateElement>
     );

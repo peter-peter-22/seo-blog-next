@@ -46,6 +46,9 @@ import { ParagraphElement } from '../plate-ui/paragraph-element';
 import { ParagraphElementStatic } from '../plate-ui/paragraph-element-static';
 import { ToggleElementStatic } from '../plate-ui/toggle-element-static';
 import { editorPlugins, viewPlugins } from './editor-plugins';
+import { CodeBlockPlugin } from './plugins/code-block-plugin';
+import { CodeBlockElement } from '../plate-ui/code-block-element';
+import { CodeBlockElementStatic } from '../plate-ui/code-block-element-static';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: BlockquoteElementStatic,
@@ -69,6 +72,7 @@ export const viewComponents = {
     [TogglePlugin.key]: ToggleElementStatic,
     [ColumnItemPlugin.key]: ColumnElementStatic,
     [ColumnPlugin.key]: ColumnGroupElementStatic,
+    [CodeBlockPlugin.key]: CodeBlockElementStatic
 }
 
 export const editorComponents = {
@@ -94,6 +98,7 @@ export const editorComponents = {
     [TogglePlugin.key]: ToggleElement,
     [ColumnItemPlugin.key]: ColumnElement,
     [ColumnPlugin.key]: ColumnGroupElement,
+    [CodeBlockPlugin.key]: CodeBlockElement
 }
 
 export const useCreateEditor = ({

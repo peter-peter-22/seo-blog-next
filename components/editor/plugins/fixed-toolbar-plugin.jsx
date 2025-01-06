@@ -39,61 +39,62 @@ import {
 export const FixedToolbarPlugin = createPlatePlugin({
     key: 'fixed-toolbar',
     render: {
-        beforeEditable: () => (
+        beforeEditable: ({ readOnly }) => (
             <TopToolbar>
+                {!readOnly && <>
+                    <ToolbarGroup>
+                        <TurnIntoDropdownMenu />
+                    </ToolbarGroup>
 
-                <ToolbarGroup>
-                    <TurnIntoDropdownMenu />
-                </ToolbarGroup>
+                    <ToolbarGroup>
 
-                <ToolbarGroup>
+                        <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
+                            <BoldIcon />
+                        </MarkToolbarButton>
 
-                    <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
-                        <BoldIcon />
-                    </MarkToolbarButton>
+                        <MarkToolbarButton
+                            nodeType={ItalicPlugin.key}
+                            tooltip="Italic (⌘+I)"
+                        >
+                            <ItalicIcon />
+                        </MarkToolbarButton>
 
-                    <MarkToolbarButton
-                        nodeType={ItalicPlugin.key}
-                        tooltip="Italic (⌘+I)"
-                    >
-                        <ItalicIcon />
-                    </MarkToolbarButton>
+                        <MarkToolbarButton
+                            nodeType={UnderlinePlugin.key}
+                            tooltip="Underline (⌘+U)"
+                        >
+                            <UnderlineIcon />
+                        </MarkToolbarButton>
 
-                    <MarkToolbarButton
-                        nodeType={UnderlinePlugin.key}
-                        tooltip="Underline (⌘+U)"
-                    >
-                        <UnderlineIcon />
-                    </MarkToolbarButton>
+                    </ToolbarGroup>
 
-                </ToolbarGroup>
+                    <ToolbarGroup>
+                        <AlignDropdownMenu />
 
-                <ToolbarGroup>
-                    <AlignDropdownMenu />
+                        <NumberedIndentListToolbarButton />
+                        <BulletedIndentListToolbarButton />
 
-                    <NumberedIndentListToolbarButton />
-                    <BulletedIndentListToolbarButton />
+                        <IndentToolbarButton />
+                        <OutdentToolbarButton />
+                        <ToggleToolbarButton />
+                    </ToolbarGroup>
 
-                    <IndentToolbarButton />
-                    <OutdentToolbarButton />
-                    <ToggleToolbarButton />
-                </ToolbarGroup>
+                    <ToolbarGroup>
+                        <LinkToolbarButton />
+                        <CodeBlockButton />
+                    </ToolbarGroup>
 
-                <ToolbarGroup>
-                    <LinkToolbarButton />
-                    <CodeBlockButton />
-                </ToolbarGroup>
-
-                <ToolbarGroup>
-                    <MediaToolbarButtonExternal nodeType={ImagePlugin.key} />
-                    <MediaToolbarButtonExternal nodeType={VideoPlugin.key} />
-                </ToolbarGroup>
+                    <ToolbarGroup>
+                        <MediaToolbarButtonExternal nodeType={ImagePlugin.key} />
+                        <MediaToolbarButtonExternal nodeType={VideoPlugin.key} />
+                    </ToolbarGroup>
+                </>}
 
                 <ToolbarGroup>
                     <ModeDropdownMenu />
                 </ToolbarGroup>
 
             </TopToolbar>
-        ),
+        )
     },
 });
