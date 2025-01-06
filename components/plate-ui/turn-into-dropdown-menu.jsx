@@ -127,7 +127,7 @@ export function TurnIntoDropdownMenu(props) {
   return (
     (<DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={openState.open} tooltip="Turn into" isDropdown>
+        <ToolbarButton pressed={openState.open} tooltip="Turn into" isDropdown style={{minWidth:120}}>
           {selectedItem.label}
         </ToolbarButton>
       </DropdownMenuTrigger>
