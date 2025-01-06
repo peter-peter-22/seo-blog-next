@@ -6,9 +6,8 @@ import { Editor } from '@/components/plate-ui/editor';
 import { Plate } from '@udecode/plate-common/react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { defaultValue } from './default-value';
 
-const value = defaultValue;
+const value = [];
 
 export function PlateEditor() {
   const editor = useCreateEditor({ value });

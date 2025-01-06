@@ -43,8 +43,9 @@ export const EditorContainerStatic = ({ children }) => {
 EditorContainer.displayName = 'EditorContainer';
 
 export const Editor = styled(PlateContent)({
-  minHeight: "100vh",
+  minHeight: "100vh !important",
   outline: "none",
+  marginTop:15
 })
 
 Editor.displayName = 'Editor';
