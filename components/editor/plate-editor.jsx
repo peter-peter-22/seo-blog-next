@@ -1,22 +1,22 @@
 'use client';
 
-import { EditorContainer } from '@/components/plate-ui/editor';
-import { useCreateEditor } from '@/components/editor/use-create-editor';
-import { Editor } from '@/components/plate-ui/editor';
+import { createEditor } from '@/components/editor/use-create-editor';
+import { Editor, EditorContainer } from '@/components/plate-ui/editor';
 import { Plate } from '@udecode/plate-common/react';
+import { useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-const value = [];
-
-export function PlateEditor() {
-  const editor = useCreateEditor({ value });
+export function PlateEditor({ value, onChange }) {
+  const editor = useMemo(() => createEditor({
+    value: value
+  }), [])
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Plate editor={editor}>
+      <Plate editor={editor} onChange={onChange}>
         <EditorContainer>
-          <Editor placeholder="Type..." />
+          <Editor placeholder="Write something..." />
         </EditorContainer>
       </Plate>
     </DndProvider>

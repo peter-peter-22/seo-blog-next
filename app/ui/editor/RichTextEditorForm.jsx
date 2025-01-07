@@ -3,6 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import RichTextEditor from "./RichTextEditor";
 import Alert from '@mui/material/Alert';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { PlateEditor } from "@/components/editor/plate-editor";
 
 export default function RichTextEditorForm({ name, onChange }) {
     const { control, formState: { errors } } = useFormContext();
@@ -16,9 +17,7 @@ export default function RichTextEditorForm({ name, onChange }) {
                 render={({ field }) => {
                     const { value, onChange } = field;
                     return <RichTextEditorMemo
-                        slateProps={{
-                            initialValue: value ?? fallbackValue,
-                        }}
+                        value={value ?? fallbackValue}
                         onChange={onChange}
                     />
                 }}
@@ -33,11 +32,6 @@ export default function RichTextEditorForm({ name, onChange }) {
 }
 
 //the rich text editor cannot be controlled. register it as controlled to make it compatible with react hook form
-const RichTextEditorMemo = memo(RichTextEditor, (prev, next) => prev.error === next.error);
+const RichTextEditorMemo = memo(PlateEditor, (prev, next) => prev.error === next.error);
 
-const fallbackValue = [
-    {
-        type: 'paragraph',
-        children: [{ text: '' }],
-    },
-];
+const fallbackValue = [];

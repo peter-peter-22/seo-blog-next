@@ -28,18 +28,6 @@ export const EditorContainer = ({ children }) => {
   )
 }
 
-export const EditorContainerStatic = ({ children }) => {
-  return (
-    <Card
-      data-registry="plate"
-      sx={{
-        p: 3,
-      }}>
-      {children}
-    </Card>
-  )
-}
-
 EditorContainer.displayName = 'EditorContainer';
 
 export const Editor = styled(PlateContent)({

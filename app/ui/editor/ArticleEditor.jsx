@@ -13,26 +13,58 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useDebouncedCallback } from 'use-debounce';
 import FormTagsOnline from '../forms/components/FormTagsOnline';
-import { defaultArticle } from './defaultArticle';
-import RichTextEditorForm from "./RichTextEditorForm";
+import { PlateEditor } from '@/components/editor/plate-editor';
+import { getDraft, getDraftName, useDraft } from '@/app/ui/editor/useDraft';
 
 export default function ArticleEditor({ updating }) {
-  const loadedDraft = React.useMemo(() => loadDraft(updating), [updating]);
+  const loadedDraft = getDraft({ updating });
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const articleRef = useRef(loadedDraft.content);
 
   const methods = useForm({
-    resolver: zodResolver(PublishArticleSchema), // Apply the zodResolver
+    resolver: zodResolver(PublishArticleSchema.omit({ article: true })), // Apply the zodResolver
     defaultValues: loadedDraft
   });
-  const { handleSubmit, formState: { isSubmitting } } = methods;
+  const { handleSubmit, formState: { isSubmitting }, getValues, watch } = methods;
+
+  const { save } = useDraft({ updating, disabled: isSubmitting });
+
+  //save on any change in the form
+  const onChangeAny = useCallback(() => {
+    const [title, description, tags] = getValues(["title", "description", "tags"]);
+    const values = {
+      title,
+      description,
+      tags,
+      content: articleRef.current
+    }
+    save(values);
+  }, [getValues, save])
+
+  //process the changes of the article
+  const onChangeArticle = useCallback(({ value }) => {
+    articleRef.current = value
+    onChangeAny()
+  }, [])
+
+  //process the changes of the form
+  useEffect(() => {
+    const { unsubscribe } = watch(() => {
+      onChangeAny();
+    })
+    return () => unsubscribe()
+  }, [watch])
 
   const onSubmit = useCallback(async (data) => {
     try {
+      //add the article to the submitted data
+      data = { ...data, content: articleRef.current };
+
       //retrieve the id of the created or updated article
       const id = updating ?
         await updateArticle({ ...data, id: updating })
@@ -51,7 +83,6 @@ export default function ArticleEditor({ updating }) {
 
   return (
     <FormProvider {...methods}>
-      <SaveDraft updating={updating} disabled={isSubmitting} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -73,8 +104,10 @@ export default function ArticleEditor({ updating }) {
             </FieldContainer>
           </CardContent>
         </Card>
-        <RichTextEditorForm
-          name="content"
+        <Toolbar />
+        <PlateEditor
+          value={articleRef.current}
+          onChange={onChangeArticle}
         />
         <Toolbar />
         <Card>
@@ -85,9 +118,6 @@ export default function ArticleEditor({ updating }) {
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 The article remains editable after publishing.
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                The search engines need 1-8 days to make your article visible on the internet.
               </Typography>
             </FieldContainer>
           </CardContent>
@@ -102,14 +132,7 @@ export default function ArticleEditor({ updating }) {
   );
 }
 
-export function loadDraft(updating) {
-  try {
-    return JSON.parse(localStorage.getItem(getDraftName(updating))) || defaultArticle;
-  }
-  catch {
-    return defaultArticle;
-  }
-}
+
 
 //the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
 function SaveDraft({ updating, disabled }) {
@@ -142,6 +165,3 @@ function SaveDraft({ updating, disabled }) {
 
 }
 
-export function getDraftName(updating) {
-  return updating ? 'updateDraft' : 'draft';
-}

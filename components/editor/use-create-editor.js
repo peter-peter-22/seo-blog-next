@@ -18,7 +18,8 @@ import {
     ParagraphPlugin,
     PlateElement,
     PlateLeaf,
-    usePlateEditor
+    usePlateEditor,
+    createPlateEditor
 } from '@udecode/plate-common/react';
 import { HEADING_KEYS } from '@udecode/plate-heading';
 import { ColumnItemPlugin, ColumnPlugin } from '@udecode/plate-layout/react';
@@ -102,22 +103,26 @@ export const editorComponents = {
 }
 
 export const useCreateEditor = ({
-    components,
-    override,
     readOnly,
     ...options
 }) => {
     return usePlateEditor(
         {
             override: {
-                components: {
-                    ...(readOnly ? viewComponents : editorComponents),
-                    ...components,
-                },
-                ...override,
+                components: readOnly ? viewComponents : editorComponents,
             },
             plugins: (readOnly ? viewPlugins : editorPlugins),
             ...options,
         }
     );
 };
+
+export function createEditor({ readOnly, ...options }) {
+    return createPlateEditor({
+        override: {
+            components: readOnly ? viewComponents : editorComponents,
+        },
+        plugins: (readOnly ? viewPlugins : editorPlugins),
+        ...options,
+    })
+}
