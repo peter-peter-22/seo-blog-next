@@ -1,4 +1,5 @@
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
+import { PlateViewer } from '@/components/editor/plate-viewer';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -18,19 +19,17 @@ import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
 import formatNumber from '../utilities/formatNumber';
-import { defaultArticle } from './defaultArticle';
-import TextViewer from "./TextViewer";
 
 export default function ArticleViewer({ article, preview, isMe }) {
     return (
         <>
             <Card>
                 <CardContent>
-                    <Typography variant="h5">
+                    <Typography variant="h5" component="h1">
                         {article.title}
                     </Typography>
                     <Divider />
-                    <Typography >
+                    <Typography component={"h2"}>
                         {article.description}
                     </Typography>
 
@@ -85,18 +84,9 @@ export default function ArticleViewer({ article, preview, isMe }) {
                 </CardContent>
             </Card>
             <Toolbar />
-            <Card component={"article"}>
-                <CardContent>
-                    <TextViewer
-                        slateProps={{
-                            initialValue: article.content ?? defaultArticle
-                        }}
-                        editorProps={{
-                            readOnly: true
-                        }}
-                    />
-                </CardContent>
-            </Card>
+            <PlateViewer
+                value={article.content || []}
+            />
         </>
     );
 }

@@ -6,10 +6,11 @@ import {
 } from '@udecode/plate-common/react';
 import Card from '@mui/material/Card';
 
-export const EditorContainer = ({ children }) => {
+export const EditorContainerStatic = ({ children }) => {
     return (
       <Card
         data-registry="plate"
+        component="article"
         sx={{
           p: 3,
         }}>
@@ -18,11 +19,7 @@ export const EditorContainer = ({ children }) => {
     )
   }
 
-EditorContainer.displayName = 'EditorContainer';
-
-export const Editor = styled(PlateContent)({
+export const EditorStatic = styled(PlateContent)({
   minHeight: "100vh !important",
   outline: "none",
 })
-
-Editor.displayName = 'Editor';

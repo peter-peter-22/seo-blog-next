@@ -10,6 +10,7 @@ export const EditorContainer = ({ children }) => {
   return (
     <Card
       data-registry="plate"
+      component="article"
       sx={theme => ({
         overflow: "visible",
         p: 3,
@@ -33,7 +34,7 @@ EditorContainer.displayName = 'EditorContainer';
 export const Editor = styled(PlateContent)({
   minHeight: "100vh !important",
   outline: "none",
-  marginTop:15
+  marginTop: 15
 })
 
 Editor.displayName = 'Editor';

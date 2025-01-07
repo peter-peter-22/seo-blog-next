@@ -36,8 +36,6 @@ export const MediaVideoElement = withHOC(
 
     const isEditorMounted = useEditorMounted();
 
-    const isTweet = true;
-
     const { isDragging, handleRef } = useDraggable({
       element: props.element,
     });
@@ -50,8 +48,7 @@ export const MediaVideoElement = withHOC(
             align={align}
             options={{
               align,
-              maxWidth: isTweet ? 550 : '100%',
-              minWidth: isTweet ? 300 : 100,
+              maxWidth: '100%',
               readOnly,
             }}>
             <div className="group/media">

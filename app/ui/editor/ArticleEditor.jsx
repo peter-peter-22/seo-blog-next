@@ -131,37 +131,3 @@ export default function ArticleEditor({ updating }) {
     </FormProvider>
   );
 }
-
-
-
-//the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
-function SaveDraft({ updating, disabled }) {
-  const { watch } = useFormContext();
-
-  const debounced = useDebouncedCallback(
-    (values) => {
-      localStorage.setItem(getDraftName(updating), JSON.stringify(values));
-    },
-    500
-  );
-
-  //cancel the delayed save when disabled
-  useEffect(() => {
-    if (!disabled)
-      return;
-    debounced.cancel();
-  }, [disabled, debounced]);
-
-  useEffect(() => {
-    //if disabled, do not subscribe
-    if (disabled)
-      return;
-
-    const { unsubscribe } = watch((allValues) => {
-      debounced(allValues);
-    })
-    return () => unsubscribe()
-  }, [watch, disabled, debounced])
-
-}
-
