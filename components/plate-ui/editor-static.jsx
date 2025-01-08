@@ -1,3 +1,6 @@
+"use client"
+
+import "@/app/css/prism-vsc-dark-plus.css";
 import { styled } from '@mui/material/styles';
 import {
   PlateContent
