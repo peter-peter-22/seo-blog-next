@@ -1,3 +1,5 @@
+"use client"
+
 import "@/app/css/prism-vsc-dark-plus.css";
 import Box from '@mui/material/Box';
 import { useCodeBlockElementState } from '@udecode/plate-code-block/react';
@@ -53,9 +55,8 @@ export function CodeBlockElement({
                         "&:focus-within": {
                             borderColor: theme.palette.primary.main,
                         },
-                        ...theme.applyStyles("dark", {
-                            background: "#0e0e0e !important"//normally it would have the same color as the background in darkmode
-                        })
+                        maxHeight: 400,
+                        scrollbarWidth: "none"
                     })}>
                     <CodeEditor
                         value={value}

@@ -52,16 +52,36 @@ import { CodeBlockElement } from '../plate-ui/code-block-element';
 import { CodeBlockElementStatic } from '../plate-ui/code-block-element-static';
 
 export const viewComponents = {
+    [BlockquotePlugin.key]: BlockquoteElementStatic,
+    [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
+    [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
+    [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
+    [HEADING_KEYS.h1]: withProps(HeadingElementStatic, { variant: 'h3' }),
+    [HEADING_KEYS.h2]: withProps(HeadingElementStatic, { variant: 'h4' }),
+    [HEADING_KEYS.h3]: withProps(HeadingElementStatic, { variant: 'h5' }),
+    [BulletedListPlugin.key]: withProps(ListElement, { variant: 'ul' }),
+    [ListItemPlugin.key]: withProps(PlateElement, { as: 'li' }),
+    [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
+    [TodoListPlugin.key]: TodoListElement,
+    [LinkPlugin.key]: LinkElementStatic,
+    [ImagePlugin.key]: ImageElementStatic,
+    [VideoPlugin.key]: MediaVideoElementStatic,
+    [ParagraphPlugin.key]: ParagraphElementStatic,
+    [TogglePlugin.key]: ToggleElementStatic,
+    [ColumnItemPlugin.key]: ColumnElementStatic,
+    [ColumnPlugin.key]: ColumnGroupElementStatic,
+    [CodeBlockPlugin.key]: CodeBlockElementStatic
+}
+
+export const editorComponents = {
+    ...viewComponents,
     [BlockquotePlugin.key]: BlockquoteElement,
     [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
     [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
     [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
-    [HEADING_KEYS.h1]: withProps(HeadingElement, { variant: 'h3' }),//h1 and h2 is taken
+    [HEADING_KEYS.h1]: withProps(HeadingElement, { variant: 'h3' }),
     [HEADING_KEYS.h2]: withProps(HeadingElement, { variant: 'h4' }),
     [HEADING_KEYS.h3]: withProps(HeadingElement, { variant: 'h5' }),
-    [HEADING_KEYS.h4]: withProps(HeadingElement, { variant: 'h6' }),
-    [HEADING_KEYS.h5]: withProps(HeadingElement, { variant: 'h6' }),
-    [HEADING_KEYS.h6]: withProps(HeadingElement, { variant: 'h6' }),
     [BulletedListPlugin.key]: withProps(ListElement, { variant: 'ul' }),
     [ListItemPlugin.key]: withProps(PlateElement, { as: 'li' }),
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
@@ -73,11 +93,6 @@ export const viewComponents = {
     [TogglePlugin.key]: ToggleElement,
     [ColumnItemPlugin.key]: ColumnElement,
     [ColumnPlugin.key]: ColumnGroupElement,
-    [CodeBlockPlugin.key]: CodeBlockElementStatic
-}
-
-export const editorComponents = {
-    ...viewComponents,
     [CodeBlockPlugin.key]: CodeBlockElement
 }
 
