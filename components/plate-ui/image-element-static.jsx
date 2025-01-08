@@ -22,7 +22,7 @@ export function ImageElementStatic({
         <div className="relative min-w-[92px] max-w-full" style={{ textAlign: align }}>
           <img
             className={cn('w-full max-w-full cursor-default object-cover px-0', 'rounded-sm')}
-            alt=""
+            alt={caption||""}
             src={url}
             {...nodeProps} />
           {caption && (

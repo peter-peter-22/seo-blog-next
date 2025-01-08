@@ -49,7 +49,7 @@ export const ImageElement = withHOC(
                   focused && selected && 'ring-2 ring-ring ring-offset-2',
                   isDragging && 'opacity-50'
                 )}
-                alt=""
+                alt={props.element.caption?.[0]?.text||""}
                 {...nodeProps} />
               <ResizeHandle
                 className={mediaResizeHandleVariants({
@@ -64,6 +64,7 @@ export const ImageElement = withHOC(
                 onFocus={(e) => {
                   e.preventDefault();
                 }}
+                className="text-muted-foreground"
                 placeholder="Write a caption..." />
             </Caption>
           </figure>
