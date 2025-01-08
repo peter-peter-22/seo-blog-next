@@ -5,9 +5,12 @@ import {
     Code2Icon
 } from 'lucide-react';
 //import { Editor, Node } from 'slate';
+import {
+    removeEmptyPreviousBlock
+} from '@udecode/plate-common';
 import { CodeBlockPlugin } from '../editor/plugins/code-block-plugin';
-
 import { ToolbarButton } from './toolbar';
+
 export const CodeBlockButton = withRef((props, ref) => {
     const editor = useEditorRef();
 
@@ -19,6 +22,7 @@ export const CodeBlockButton = withRef((props, ref) => {
             value:"",
             type: CodeBlockPlugin.key,
         });
+        removeEmptyPreviousBlock(editor);
     }
 
     return (
