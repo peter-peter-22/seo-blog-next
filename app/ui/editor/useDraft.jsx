@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDebouncedCallback } from 'use-debounce';
 
 export function loadDraft(updating) {
@@ -33,10 +33,9 @@ export function getDraft({ updating }) {
 export function useDraft({ updating, disabled }) {
     const debounced = useDebouncedCallback(
         (values) => {
-            console.log("saving", values);
             localStorage.setItem(getDraftName(updating), JSON.stringify(values));
         },
-        300
+        500
     );
 
     //cancel the delayed save when disabled

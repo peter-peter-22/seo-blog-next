@@ -1,5 +1,3 @@
-'use client';;
-
 import { styled } from '@mui/material/styles';
 import {
   PlateContent
@@ -8,14 +6,16 @@ import Card from '@mui/material/Card';
 
 export const EditorContainerStatic = ({ children }) => {
   return (
-    <Card
-      data-registry="plate"
-      component="article"
-      sx={{
-        p: 3,
-      }}>
-      {children}
-    </Card>
+    <>
+      <Card
+        data-registry="plate"
+        component="article"
+        sx={{
+          p: 3,
+        }}>
+        {children}
+      </Card>
+    </>
   )
 }
 
