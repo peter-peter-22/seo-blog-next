@@ -42,12 +42,9 @@ import { CodeBlockElementStatic } from '../plate-ui/code-block-element-static';
 import { ColumnElementStatic } from '../plate-ui/column-element-static';
 import { ColumnGroupElementStatic } from '../plate-ui/column-group-element-static';
 import { HeadingElementStatic } from '../plate-ui/heading-element-static';
-import { ImageElementStatic } from '../plate-ui/image-element-static';
 import { LinkElementStatic } from '../plate-ui/link-element-static';
-import { MediaVideoElementStatic } from '../plate-ui/media-video-element-static';
 import { ParagraphElement } from '../plate-ui/paragraph-element';
 import { ParagraphElementStatic } from '../plate-ui/paragraph-element-static';
-import { ToggleElementStatic } from '../plate-ui/toggle-element-static';
 import { editorPlugins, viewPlugins } from './editor-plugins';
 import { CodeBlockPlugin } from './plugins/code-block-plugin';
 
@@ -56,9 +53,9 @@ export const viewComponents = {
     [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
     [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
     [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
-    [HEADING_KEYS.h1]: withProps(HeadingElementStatic, { variant: 'h3' }),
-    [HEADING_KEYS.h2]: withProps(HeadingElementStatic, { variant: 'h4' }),
-    [HEADING_KEYS.h3]: withProps(HeadingElementStatic, { variant: 'h5' }),
+    [HEADING_KEYS.h1]: withProps(HeadingElementStatic, { variant: 'h1', component: "h3" }),
+    [HEADING_KEYS.h2]: withProps(HeadingElementStatic, { variant: 'h2', component: "h4" }),
+    [HEADING_KEYS.h3]: withProps(HeadingElementStatic, { variant: 'h3', component: "h5" }),
     [BulletedListPlugin.key]: withProps(ListElement, { variant: 'ul' }),
     [ListItemPlugin.key]: withProps(PlateElement, { as: 'li' }),
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
@@ -79,9 +76,9 @@ export const viewComponents = {
 export const editorComponents = {
     ...viewComponents,
     [BlockquotePlugin.key]: BlockquoteElement,
-    [HEADING_KEYS.h1]: withProps(HeadingElement, { variant: 'h3' }),
-    [HEADING_KEYS.h2]: withProps(HeadingElement, { variant: 'h4' }),
-    [HEADING_KEYS.h3]: withProps(HeadingElement, { variant: 'h5' }),
+    [HEADING_KEYS.h1]: withProps(HeadingElement, { variant: 'h1', component: "h3" }),
+    [HEADING_KEYS.h2]: withProps(HeadingElement, { variant: 'h2', component: "h4" }),
+    [HEADING_KEYS.h3]: withProps(HeadingElement, { variant: 'h3', component: "h5" }),
     [LinkPlugin.key]: LinkElement,
     [ParagraphPlugin.key]: ParagraphElement,
     [ColumnItemPlugin.key]: ColumnElement,

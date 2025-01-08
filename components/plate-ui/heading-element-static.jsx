@@ -20,11 +20,12 @@ export const HeadingElementStatic = ({
   children,
   className,
   variant = 'h1',
+  component,
   ...props
 }) => {
   return (
     (<PlateElement
-      as={variant}
+      as={component}
       className={cn(className, headingVariants({ variant }))}
       {...props}>
       {children}
