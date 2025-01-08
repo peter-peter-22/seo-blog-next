@@ -1,7 +1,6 @@
-import * as React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 import { cva } from 'class-variance-authority';
 
 const headingVariants = cva('relative mb-1', {
@@ -24,11 +23,11 @@ export const HeadingElementStatic = ({
   ...props
 }) => {
   return (
-    (<SlateElement
+    (<PlateElement
       as={variant}
       className={cn(className, headingVariants({ variant }))}
       {...props}>
       {children}
-    </SlateElement>)
+    </PlateElement>)
   );
 };

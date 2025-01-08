@@ -1,7 +1,7 @@
-import React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement, getNodeString } from '@udecode/plate-common';
+import { getNodeString } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export function ImageElementStatic({
   children,
@@ -17,7 +17,7 @@ export function ImageElementStatic({
   } = props.element;
 
   return (
-    (<SlateElement className={cn(className, 'py-2.5')} {...props}>
+    (<PlateElement className={cn(className, 'py-2.5')} {...props}>
       <figure className="group relative m-0 inline-block" style={{ width }}>
         <div className="relative min-w-[92px] max-w-full" style={{ textAlign: align }}>
           <img
@@ -33,6 +33,6 @@ export function ImageElementStatic({
         </div>
       </figure>
       {children}
-    </SlateElement>)
+    </PlateElement>)
   );
 }

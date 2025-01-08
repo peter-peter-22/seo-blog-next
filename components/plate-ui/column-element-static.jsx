@@ -1,7 +1,6 @@
-import React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export function ColumnElementStatic({
   children,
@@ -12,7 +11,7 @@ export function ColumnElementStatic({
 
   return (
     (<div className="group/column relative" style={{ width: width ?? '100%' }}>
-      <SlateElement
+      <PlateElement
         className={cn(
           className,
           'h-full px-2 pt-2 group-first/column:pl-0 group-last/column:pr-0'
@@ -21,7 +20,7 @@ export function ColumnElementStatic({
         <div className={cn('relative h-full border border-transparent p-1.5')}>
           {children}
         </div>
-      </SlateElement>
+      </PlateElement>
     </div>)
   );
 }

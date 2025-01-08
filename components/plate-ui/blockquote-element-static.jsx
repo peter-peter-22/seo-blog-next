@@ -1,7 +1,6 @@
-import React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export const BlockquoteElementStatic = ({
   children,
@@ -9,12 +8,12 @@ export const BlockquoteElementStatic = ({
   ...props
 }) => {
   return (
-    (<SlateElement
+    (<PlateElement
       as="blockquote"
       className={cn(className, 'border-l-2 pl-6 italic')}
       style={{borderColor:"var(--mui-palette-divider)"}}
       {...props}>
       {children}
-    </SlateElement>)
+    </PlateElement>)
   );
 };

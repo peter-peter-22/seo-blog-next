@@ -1,7 +1,6 @@
-import React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export function ColumnGroupElementStatic({
   children,
@@ -9,8 +8,8 @@ export function ColumnGroupElementStatic({
   ...props
 }) {
   return (
-    (<SlateElement className={cn(className, 'mb-2')} {...props}>
+    (<PlateElement className={cn(className, 'mb-2')} {...props}>
       <div className={cn('flex size-full rounded')}>{children}</div>
-    </SlateElement>)
+    </PlateElement>)
   );
 }

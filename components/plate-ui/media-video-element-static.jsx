@@ -2,6 +2,7 @@ import React from 'react';
 
 import { cn } from '@udecode/cn';
 import { SlateElement, getNodeString } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export function MediaVideoElementStatic({
   children,
@@ -16,7 +17,7 @@ export function MediaVideoElementStatic({
   } = props.element;
 
   return (
-    (<SlateElement className={cn(className, 'py-2.5')} {...props}>
+    (<PlateElement className={cn(className, 'py-2.5')} {...props}>
       <div style={{ textAlign: align }}>
         <figure
           className="group relative m-0 inline-block cursor-default"
@@ -29,6 +30,6 @@ export function MediaVideoElementStatic({
         </figure>
       </div>
       {children}
-    </SlateElement>)
+    </PlateElement>)
   );
 }

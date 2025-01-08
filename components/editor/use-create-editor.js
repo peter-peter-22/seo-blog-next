@@ -15,11 +15,11 @@ import {
 } from '@udecode/plate-basic-marks/react';
 import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
 import {
+    createPlateEditor,
     ParagraphPlugin,
     PlateElement,
     PlateLeaf,
-    usePlateEditor,
-    createPlateEditor
+    usePlateEditor
 } from '@udecode/plate-common/react';
 import { HEADING_KEYS } from '@udecode/plate-heading';
 import { ColumnItemPlugin, ColumnPlugin } from '@udecode/plate-layout/react';
@@ -37,6 +37,8 @@ import {
 import { TogglePlugin } from '@udecode/plate-toggle/react';
 import { BlockquoteElement } from '../plate-ui/blockquote-element';
 import { BlockquoteElementStatic } from '../plate-ui/blockquote-element-static';
+import { CodeBlockElement } from '../plate-ui/code-block-element';
+import { CodeBlockElementStatic } from '../plate-ui/code-block-element-static';
 import { ColumnElementStatic } from '../plate-ui/column-element-static';
 import { ColumnGroupElementStatic } from '../plate-ui/column-group-element-static';
 import { HeadingElementStatic } from '../plate-ui/heading-element-static';
@@ -48,8 +50,6 @@ import { ParagraphElementStatic } from '../plate-ui/paragraph-element-static';
 import { ToggleElementStatic } from '../plate-ui/toggle-element-static';
 import { editorPlugins, viewPlugins } from './editor-plugins';
 import { CodeBlockPlugin } from './plugins/code-block-plugin';
-import { CodeBlockElement } from '../plate-ui/code-block-element';
-import { CodeBlockElementStatic } from '../plate-ui/code-block-element-static';
 
 export const viewComponents = {
     [BlockquotePlugin.key]: BlockquoteElementStatic,
@@ -64,8 +64,10 @@ export const viewComponents = {
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
     [TodoListPlugin.key]: TodoListElement,
     [LinkPlugin.key]: LinkElementStatic,
-    [ImagePlugin.key]: ImageElementStatic,
-    [VideoPlugin.key]: MediaVideoElementStatic,
+    //[ImagePlugin.key]: ImageElementStatic,
+    //[VideoPlugin.key]: MediaVideoElementStatic,
+    [ImagePlugin.key]: ImageElement,
+    [VideoPlugin.key]: MediaVideoElement,
     [ParagraphPlugin.key]: ParagraphElementStatic,
     [TogglePlugin.key]: ToggleElementStatic,
     [ColumnItemPlugin.key]: ColumnElementStatic,
@@ -87,8 +89,6 @@ export const editorComponents = {
     [NumberedListPlugin.key]: withProps(ListElement, { variant: 'ol' }),
     [TodoListPlugin.key]: TodoListElement,
     [LinkPlugin.key]: LinkElement,
-    [ImagePlugin.key]: ImageElement,
-    [VideoPlugin.key]: MediaVideoElement,
     [ParagraphPlugin.key]: ParagraphElement,
     [TogglePlugin.key]: ToggleElement,
     [ColumnItemPlugin.key]: ColumnElement,

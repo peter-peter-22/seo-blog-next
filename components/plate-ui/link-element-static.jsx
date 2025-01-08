@@ -1,7 +1,6 @@
-import React from 'react';
 
 import { cn } from '@udecode/cn';
-import { SlateElement } from '@udecode/plate-common';
+import { PlateElement } from '@udecode/plate-common/react';
 
 export const LinkElementStatic = ({
   children,
@@ -9,7 +8,7 @@ export const LinkElementStatic = ({
   ...props
 }) => {
   return (
-    (<SlateElement
+    (<PlateElement
       as="a"
       className={cn(
         className,
@@ -21,6 +20,6 @@ export const LinkElementStatic = ({
       }}
       {...props}>
       {children}
-    </SlateElement>)
+    </PlateElement>)
   );
 };

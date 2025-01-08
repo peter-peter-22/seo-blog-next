@@ -3,9 +3,9 @@
 import "@/app/css/prism-vsc-dark-plus.css";
 import { Prism } from "./code-block-combo-box";
 import { cn } from '@udecode/cn';
-import { PlateElement } from './plate-element';
 import { CodeBlockCopyButton } from "./code-block-copy-button";
 import { useEffect } from "react";
+import { PlateElement } from '@udecode/plate-common/react';
 
 export const CodeBlockElementStatic = ({
   children,
@@ -27,7 +27,7 @@ export const CodeBlockElementStatic = ({
       <div style={{ position: "relative" }} >
         <pre
           className="overflow-x-auto rounded-md bg-muted px-6 py-8 font-mono text-sm leading-[normal] [tab-size:2]"
-          style={{ maxHeight: 400, scrollbarWidth: "none", }}
+          style={{ maxHeight: 400, scrollbarWidth: "none", borderRadius:5}}
         >
           <code>{element.value}</code>
         </pre>
