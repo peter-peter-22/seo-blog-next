@@ -11,7 +11,7 @@ export default function Page() {
         <SingleColumn>
             <Card>
                 <CardContent>
-                    <Typography variant="h4">
+                    <Typography variant="h4" component="h1">
                         How to use editor
                     </Typography>
                     <Divider />
@@ -20,16 +20,18 @@ export default function Page() {
                     <Typography variant="h6">
                         Hotkeys
                     </Typography >
-                    <ul>
+                    <ul className="list-disc list-inside">
                         <li>bold: ctrl+b</li>
                         <li>italic: ctrl+i</li>
                         <li>underline: ctrl+u</li>
                     </ul>
 
+                    <br />
+
                     <Typography variant="h6">
-                        Other shortcuts:
+                        Other shortcuts
                     </Typography >
-                    <ul>
+                    <ul className="list-disc list-inside">
                         <li>
                             All elements of the article are preserved when using the clipboard. The whole article can be copied and pasted.
                         </li>
@@ -38,10 +40,12 @@ export default function Page() {
                         </li>
                     </ul>
 
+                    <br />
+
                     <Typography variant="h6">
                         Custom images
                     </Typography >
-                    <ul>
+                    <ul className="list-disc list-inside">
                         <li>
                             To put your unique images into an article, you must upload them to cloud drive that exports image urls, then use the url in the article.
                         </li>
@@ -53,10 +57,12 @@ export default function Page() {
                         </li>
                     </ul>
 
+                    <br />
+
                     <Typography variant="h6">
                         Custom videos
                     </Typography >
-                    <ul>
+                    <ul className="list-disc list-inside">
                         <li>
                             To use your own videos, upload them either to youtube or vimeo.
                         </li>

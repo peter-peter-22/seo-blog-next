@@ -34,14 +34,14 @@ export default function Page() {
                         secondary={<>
                             Use logical operators to combine terms.
                             <Block>Supported Operators:</Block>
-                            <ul>
+                            <ul className="list-disc list-inside">
                                 <li>AND: (default): Matches documents containing all specified terms.</li>
                                 <li>OR: Matches documents containing any of the specified terms.</li>
                                 <li>NOT: Excludes documents containing the specified term.</li>
                             </ul>
                             <Block>Examples:</Block>
                             <em>
-                                <ul>
+                                <ul className="list-disc list-inside">
                                     <li>cat AND dog</li>
                                     <li>cat OR dog</li>
                                     <li>cat NOT dog</li>
@@ -108,8 +108,13 @@ function Item({ primary, secondary }) {
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
+                disableTypography
                 primary={primary}
-                secondary={secondary}
+                secondary={
+                    <Typography color="textSecondary">
+                        {secondary}
+                    </Typography>
+                }
             />
         </ListItem>
     )
