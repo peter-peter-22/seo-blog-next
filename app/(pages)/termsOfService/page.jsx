@@ -2,6 +2,7 @@ import { SingleColumn } from "@/app/ui/layout/Layouts";
 import { baseUrl } from "@/app/lib/serverInfo";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 //https://www.termsfeed.com/live/27acede7-a74c-422c-8424-2a50cafdd2c9
 
@@ -97,3 +98,7 @@ export default function Page() {
         </SingleColumn>
     )
 }
+
+export const metadata = metadataGenerator({
+    title: "Terms of Service"
+})

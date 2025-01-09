@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Link from "@mui/material/Link";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default function Page() {
     return (
@@ -76,3 +77,7 @@ export default function Page() {
         </SingleColumn>
     )
 }
+
+export const metadata = metadataGenerator({
+    title: "Editor Tutorial"
+})

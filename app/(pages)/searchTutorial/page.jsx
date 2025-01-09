@@ -9,6 +9,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 export default function Page() {
     return (
@@ -111,7 +112,7 @@ function Item({ primary, secondary }) {
                 disableTypography
                 primary={primary}
                 secondary={
-                    <Typography color="textSecondary">
+                    <Typography color="textSecondary" component="div">
                         {secondary}
                     </Typography>
                 }
@@ -119,3 +120,7 @@ function Item({ primary, secondary }) {
         </ListItem>
     )
 }
+
+export const metadata = metadataGenerator({
+    title: "Search Tutorial"
+})
