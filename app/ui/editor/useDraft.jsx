@@ -26,7 +26,7 @@ export function getDraftName(updating) {
     return updating ? 'updateDraft' : 'draft';
 }
 
-export function getDraft({ updating }) {
+export function useGetDraft({ updating }) {
     return React.useMemo(() => loadDraft(updating), [updating]);
 }
 
@@ -47,7 +47,7 @@ export function useDraft({ updating, disabled }) {
 
     const save = useCallback((values) => {
         debounced(values);
-    }, [updating])
+    }, [debounced])
 
     return {save};
 }

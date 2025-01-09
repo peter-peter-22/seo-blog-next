@@ -57,3 +57,5 @@ export const Editor = React.forwardRef(
         );
     }
 );
+
+Editor.displayName="Editor"

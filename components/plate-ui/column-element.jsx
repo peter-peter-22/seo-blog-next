@@ -84,6 +84,7 @@ const ColumnDragHandle = React.memo(() => {
     </TooltipProvider>)
   );
 });
+ColumnDragHandle.displayName="ColumnDragHandle";
 
 const DropLine = React.forwardRef(({ className, ...props }, ref) => {
   const { dropLine } = useDropLine({ orientation: 'horizontal' });
@@ -94,9 +95,9 @@ const DropLine = React.forwardRef(({ className, ...props }, ref) => {
     (<div
       ref={ref}
       {...props}
-      // eslint-disable-next-line tailwindcss/no-custom-classname
       className={cn('slate-dropLine', 'absolute bg-brand/50', dropLine === 'left' &&
         'inset-y-0 left-[-10.5px] w-1 group-first/column:-left-1', dropLine === 'right' &&
         'inset-y-0 right-[-11px] w-1 group-last/column:-right-1', className)} />)
   );
 });
+DropLine.displayName="DropLine"

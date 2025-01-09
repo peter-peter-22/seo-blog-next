@@ -62,7 +62,7 @@ const dropdownArrowVariants = cva(cn(
   },
 });
 
-const ToolbarButton = withTooltip(React.forwardRef((
+const ToolbarButtonInner = (
   { children, className, isDropdown, pressed, size, variant, ...props },
   ref
 ) => {
@@ -101,10 +101,10 @@ const ToolbarButton = withTooltip(React.forwardRef((
       {children}
     </ToolbarPrimitive.Button>
   );
-}));
-ToolbarButton.displayName = 'ToolbarButton';
+};
+export const ToolbarButton = withTooltip(React.forwardRef(ToolbarButtonInner));
 
-export { ToolbarButton };
+ToolbarButton.displayName = 'ToolbarButton';
 
 export const ToolbarSplitButton = React.forwardRef(({ children, className, ...props }, ref) => {
   return (
@@ -131,6 +131,8 @@ export const ToolbarSplitButtonPrimary = React.forwardRef(({ children, className
   );
 });
 
+ToolbarSplitButtonPrimary.displayName = "ToolbarSplitButtonPrimary";
+
 export const ToolbarSplitButtonSecondary = React.forwardRef(({ className, size, variant, ...props }, ref) => {
   return (
     (<span
@@ -146,6 +148,8 @@ export const ToolbarSplitButtonSecondary = React.forwardRef(({ className, size, 
     </span>)
   );
 });
+
+ToolbarSplitButtonSecondary.displayName = "ToolbarSplitButtonSecondary";
 
 ToolbarSplitButton.displayName = 'ToolbarButton';
 

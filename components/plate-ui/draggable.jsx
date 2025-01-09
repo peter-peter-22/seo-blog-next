@@ -88,7 +88,8 @@ export const DraggableAboveNodes = (props) => {
 
   if (!enabled) return;
 
-  return (props) => <Draggable {...props} />;
+  const Function = (props) => <Draggable {...props} />;
+  return Function;
 };
 
 export const Draggable = withRef(({ className, ...props }, ref) => {
@@ -187,6 +188,7 @@ const Gutter = React.forwardRef(({ children, className, ...props }, ref) => {
     </div>)
   );
 });
+Gutter.displayName="Gutter";
 
 const DragHandle = React.memo(() => {
   const editor = useEditorRef();
@@ -214,6 +216,7 @@ const DragHandle = React.memo(() => {
     </TooltipProvider>)
   );
 });
+DragHandle.displayName="DragHandle";
 
 const DropLine = React.memo(React.forwardRef(({ className, ...props }, ref) => {
   const { dropLine } = useDropLine();

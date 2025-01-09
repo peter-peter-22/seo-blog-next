@@ -1,3 +1,5 @@
+import { baseUrl } from "../serverInfo";
+
 const image = `/seo-images/default/opengraph-image`;
 
 //create twitter and opengraph metadata based on the base metadata

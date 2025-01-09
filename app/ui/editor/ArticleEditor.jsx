@@ -1,7 +1,7 @@
 'use client';
 
 import { publishArticle, updateArticle } from '@/app/actions/articleActions';
-import { getDraft, getDraftName, useDraft } from '@/app/ui/editor/useDraft';
+import { useGetDraft, getDraftName, useDraft } from '@/app/ui/editor/useDraft';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
@@ -20,7 +20,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormTagsOnline from '../forms/components/FormTagsOnline';
 
 export default function ArticleEditor({ updating }) {
-  const loadedDraft = getDraft({ updating });
+  const loadedDraft = useGetDraft({ updating });
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const articleRef = useRef(loadedDraft.content);
@@ -49,7 +49,7 @@ export default function ArticleEditor({ updating }) {
   const onChangeArticle = useCallback(({ value }) => {
     articleRef.current = value
     onChangeAny()
-  }, [])
+  }, [onChangeAny])
 
   //process the changes of the form
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function ArticleEditor({ updating }) {
       onChangeAny();
     })
     return () => unsubscribe()
-  }, [watch])
+  }, [watch,onChangeAny])
 
   const onSubmit = useCallback(async (data) => {
     try {

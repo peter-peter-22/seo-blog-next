@@ -9,7 +9,7 @@ export function PlateViewer({ value }) {
   const editor = useMemo(() => createEditor({
     value: value,
     readOnly: true
-  }), [])
+  }), [value])
 
   return (
     <Plate editor={editor} readOnly={true}>

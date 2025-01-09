@@ -18,3 +18,4 @@ export const PlateElement = React.forwardRef(({
     </PlateElementPrimitive>)
   );
 });
+PlateElement.displayName="PlateElement";

@@ -45,6 +45,7 @@ export const DropdownMenuRadioGroup = React.forwardRef(({ label, ...props }, ref
     </DropdownMenuPrimitive.RadioGroup>
   </>);
 });
+DropdownMenuRadioGroup.displayName="DropdownMenuRadioGroup";
 
 export const DropdownMenuSubTrigger = withRef(({ children, className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.SubTrigger
