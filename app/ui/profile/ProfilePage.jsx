@@ -9,13 +9,13 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import ArticleRow from "../components/articles/ArticleRow";
 import TagContainer from "../components/articles/TagContainer";
 import formatDate from "../utilities/formatDate";
+import { RecentArticles, TopArticles } from "./Articles";
 import FollowProfile from "./FollowProfile";
 import HybridAvatar from "./HybridAvatar";
 
-export default function ProfilePage({ user, recentArticles, popularArticles, isMe }) {
+export default function ProfilePage({ user, isMe }) {
     return (
         <>
             <Box sx={{
@@ -102,9 +102,9 @@ export default function ProfilePage({ user, recentArticles, popularArticles, isM
                 }
             </Card>
             <Toolbar />
-            <ArticleRow title="Recent articles" articles={recentArticles} filters={{ author: user.id }} />
+            <RecentArticles user={user} title="Recent articles" filters={{ author: user.id }} />
             <Toolbar />
-            <ArticleRow title="Top articles" articles={popularArticles} filters={{ author: user.id, sort: "likeCount" }} />
+            <TopArticles user={user} title="Top articles" filters={{ author: user.id, sort: "likeCount" }} />
         </>
     )
 }
