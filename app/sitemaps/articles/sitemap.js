@@ -1,6 +1,6 @@
 import prisma from "@/utils/db";
 import { baseUrl } from "@/app/lib/serverInfo";
-import { logSitemaps } from "../sitemapConstants";
+import { logSitemaps } from "@/app/lib/serverInfo";
 
 const itemsPerSitemap = 50000;
 

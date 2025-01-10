@@ -1,4 +1,6 @@
-import { getEnvBool } from "@/utils/envBool";
+export function getEnvBool(name) {
+    return process.env[name] === "true";
+}
 
 function getUrl() {
     return process.env.NODE_ENV === "production" ?
@@ -7,4 +9,5 @@ function getUrl() {
 }
 
 export const baseUrl = getUrl();
-export const logCaching=getEnvBool("LOG_CACHING")
+export const logCaching = getEnvBool("LOG_CACHING")
+export const logSitemaps = getEnvBool("DEBUG_SITEMAPS")

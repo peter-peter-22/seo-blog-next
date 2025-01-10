@@ -1,6 +1,6 @@
 import { generateArticleSitemaps } from "../articles/sitemap";
 import { generalSitemap } from "../general/sitemap";
-import { logSitemaps } from "../sitemapConstants";
+import { logSitemaps } from "@/app/lib/serverInfo";
 import { generateUserSitemaps } from "../users/sitemap";
 
 export async function GET() {

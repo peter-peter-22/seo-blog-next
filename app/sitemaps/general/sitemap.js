@@ -1,5 +1,5 @@
 import { baseUrl } from "@/app/lib/serverInfo";
-import { logSitemaps } from "../sitemapConstants";
+import { logSitemaps } from "@/app/lib/serverInfo";
 
 const updatedAt = new Date("2024-12-23");
 
