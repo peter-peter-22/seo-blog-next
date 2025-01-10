@@ -14,18 +14,29 @@ export async function publishArticle(data) {
         // Validate form fields using Zod
         PublishArticleSchema.parse(data);
 
-        const created = await prisma.article.create({
-            data: {
-                ...data,
-                userId: session.user.id
-            }
-        })
+        const slug = slugify(data.title);
 
-        //send notifications to the followers
-        //this query is not a trigger to prevent unnecessary waiting
-        sendNotifications(created).catch(err => { console.error(err) });
+        try {
+            const created = await prisma.article.create({
+                data: {
+                    ...data,
+                    userId: session.user.id,
+                    id: slug
+                }
+            })
 
-        return { id: created.id };
+            //send notifications to the followers
+            //this query is not a trigger to prevent unnecessary waiting
+            sendNotifications(created).catch(err => { console.error(err) });
+
+            return { id: created.id };
+        }
+        catch (error) {
+            //handle duplicated slug 
+            if (error.code === "P2002")
+                throw new Error("This title is taken")
+            throw error;
+        }
     })
 }
 
@@ -123,4 +134,13 @@ export async function loadMoreCommentsAction(data) {
         const lastPage = comments.length !== commentsPerPage;
         return { comments, lastPage }
     })
+}
+
+function slugify(text) {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
 }
