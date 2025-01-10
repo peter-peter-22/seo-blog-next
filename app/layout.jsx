@@ -14,6 +14,8 @@ import metadataGenerator from './lib/seo/metadataGenerator';
 import { baseUrl } from './lib/serverInfo';
 import "@/app/css/globals.css";
 import { Suspense } from 'react';
+import { AuthLoading } from './ui/layout/AuthLoading';
+import { PageLoading } from './ui/layout/PageLoading';
 
 export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -31,12 +33,12 @@ export default async function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Suspense>
+            <Suspense fallback={<AuthLoading />}>
               <AuthProvider>
                 <NotificationProvider>
                   <SnackbarProviderClient maxSnack={3}>
                     <Root>
-                      <Suspense>
+                      <Suspense fallback={<PageLoading />}>
                         {children}
                       </Suspense>
                     </Root>
