@@ -7,9 +7,9 @@ import { GET as seedFollows } from "@/app/api/dev/seed/follows/[count]/route";
 
 export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
-        return;
+        return new Response("development only");;
 
-    const { count } = params;
+    const { count } = await params;
 
     await seedUsers(_, { params: { count: 100 * count } });
     await seedArticles(_, { params: { count: 10 * count } });
@@ -19,3 +19,5 @@ export async function GET(_, { params }) {
     await seedFollows(_, { params: { count: 3 * count } });
     return new Response("placeholder contents added");
 }
+
+export const dynamic = "force-dynamic";

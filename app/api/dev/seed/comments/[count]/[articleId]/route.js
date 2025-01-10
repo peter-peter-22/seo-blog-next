@@ -3,9 +3,9 @@ import { faker } from '@faker-js/faker';
 
 export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
-        return;
+        return new Response("development only");;
 
-    const { count, articleId } = params;
+    const { count, articleId } = await params;
 
     const users = await prisma.user.findMany();
     const article = await prisma.article.findUnique({ where: { id: articleId } });
@@ -23,3 +23,5 @@ export async function GET(_, { params }) {
 
     return new Response("comments added to article");
 }
+
+export const dynamic = "force-dynamic";

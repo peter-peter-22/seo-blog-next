@@ -3,9 +3,9 @@ import { faker } from '@faker-js/faker';
 
 export async function GET(_, { params }) {
     if (process.env.NODE_ENV !== "development")
-        return;
+        return new Response("development only");;
 
-    const { count } = params;
+    const { count } = await params;
 
     const users = Array.from({ length: count }, () => ({
         name: faker.person.fullName(),
@@ -21,3 +21,5 @@ export async function GET(_, { params }) {
 
     return new Response("users added");
 }
+
+export const dynamic = "force-dynamic";

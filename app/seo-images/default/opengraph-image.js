@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import { roboto } from '@/app/layout';
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { getEnvBool } from '@/utils/envBool';
+import { getEnvBool } from '@/app/lib/serverInfo';
 
 export const alt = 'Page preview';
 export const size = { width: 1200, height: 630 };
