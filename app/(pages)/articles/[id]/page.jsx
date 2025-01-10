@@ -12,10 +12,12 @@ import RelevantArticlesSuspended from "./RelevantArticles";
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import { unstable_cacheTag } from "next/cache";
 import { unstable_cacheLife } from "next/cache";
+import { logCaching } from "@/app/lib/serverInfo";
 
 export default async function Page({ params }) {
     const { id } = await params;
-    console.log(`rebuilding article page ${id}`);
+    if (logCaching)
+        console.log(`rebuilding article page ${id}`);
 
     const [{ article, isMine }, articleStatic] = await Promise.all([
         getArticleDynamicData(id),
@@ -47,7 +49,8 @@ async function getArticleStaticData(id) {
     "use cache"
     unstable_cacheTag(`article_${id}`)
     unstable_cacheLife("hours")
-    console.log(`fetching article static data ${id}`)
+    if (logCaching)
+        console.log(`fetching article static data ${id}`)
     return await prisma.article.findUnique({
         where: { id },
     })
@@ -59,7 +62,7 @@ async function getArticleDynamicData(id) {
     const article = await prisma.article.findUnique({
         where: { id },
         select: {
-            id:true,
+            id: true,
             likeCount: true,
             dislikeCount: true,
             viewCount: true,
@@ -176,7 +179,8 @@ async function CachedArticle({ article, children }) {
     "use cache"
     unstable_cacheTag(`article_${article.id}`);
     unstable_cacheLife("hours")
-    console.log(`rendering article ${article.id}`)
+    if (logCaching)
+        console.log(`rendering article ${article.id}`)
     return (
         <ArticleViewer article={article} >
             {children}
