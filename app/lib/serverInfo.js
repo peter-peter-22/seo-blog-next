@@ -9,5 +9,5 @@ function getUrl() {
 }
 
 export const baseUrl = getUrl();
-export const logCaching = getEnvBool("LOG_CACHING")
+export const logCaching = getEnvBool("DEBUG_CACHE")
 export const logSitemaps = getEnvBool("DEBUG_SITEMAPS")

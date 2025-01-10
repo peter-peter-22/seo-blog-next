@@ -1,3 +1,4 @@
+import { logCaching } from "@/app/lib/serverInfo";
 import { ArticleRowCSR } from "@/app/ui/components/articles/ArticleRowCSR";
 import ArticleRowSkeleton from "@/app/ui/components/articles/ArticleRowSkeleton";
 import prisma from "@/utils/db";
@@ -17,7 +18,8 @@ async function RelevantArticlesInner({ article, title }) {
     "use cache"
     unstable_cacheLife("minutes")
 
-    console.log(`rendering and fetching relevant articles ${article.id}`)
+    if (logCaching)
+        console.log(`rendering and fetching relevant articles ${article.id}`)
 
     const articles = await prisma.$queryRaw`
         SELECT             
