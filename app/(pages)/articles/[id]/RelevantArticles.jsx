@@ -1,8 +1,8 @@
-import { delay } from "@/app/lib/delay";
 import ArticleRow from "@/app/ui/components/articles/ArticleRow";
-import prisma from "@/utils/db";
-import { Suspense } from "react";
 import ArticleRowSkeleton from "@/app/ui/components/articles/ArticleRowSkeleton";
+import prisma from "@/utils/db";
+import { unstable_cacheLife } from "next/cache";
+import { Suspense } from "react";
 
 export default function RelevantArticles({ article }) {
     const title = "Relevant articles";
@@ -14,6 +14,11 @@ export default function RelevantArticles({ article }) {
 }
 
 async function RelevantArticlesInner({ article, title }) {
+    "use cache"
+    unstable_cacheLife("minutes")
+
+    console.log(`rendering and fetching relevant articles ${article.id}`)
+
     const articles = await prisma.$queryRaw`
         SELECT             
             id,

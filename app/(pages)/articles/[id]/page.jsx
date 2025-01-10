@@ -40,7 +40,7 @@ export default async function Page({ params }) {
             </>}
             <ArticleComments article={article} />
             <Toolbar />
-            <RelevantArticlesSuspended article={article} />
+            <RelevantArticlesSuspended article={articleStatic} />
         </SingleColumn>
     );
 }
