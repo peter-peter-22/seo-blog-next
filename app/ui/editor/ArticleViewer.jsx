@@ -20,7 +20,7 @@ import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
 import formatNumber from '../utilities/formatNumber';
 
-export default function ArticleViewer({ article, preview, isMe }) {
+export default function ArticleViewer({ article, children }) {
     return (
         <>
             <Card>
@@ -33,36 +33,7 @@ export default function ArticleViewer({ article, preview, isMe }) {
                         {article.description}
                     </Typography>
 
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemAvatar>
-                                <HybridAvatar user={article.user} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
-                                secondary={formatDate(article.createdAt)}
-                            />
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemIcon>
-                                <Tooltip title="View count">
-                                    <VisibilityIcon />
-                                </Tooltip>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={
-                                    <Typography color="text.secondary">
-                                        {formatNumber(article.viewCount)}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                        {!preview && !isMe &&
-                            <FollowButtons
-                                user={article.user}
-                            />
-                        }
-                    </List>
+                    {children}
 
                     {article.tags && article.tags.length > 0 ? (
                         <TagContainer>
@@ -89,4 +60,45 @@ export default function ArticleViewer({ article, preview, isMe }) {
             />
         </>
     );
+}
+
+export function ArticleDynamicSection({ article, isMine, isPreview }) {
+    return (
+        <List>
+            <ListItem disablePadding>
+                <ListItemAvatar>
+                    <HybridAvatar user={article.user} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
+                    secondary={formatDate(article.createdAt)}
+                />
+            </ListItem>
+
+            {!isPreview &&
+                <>
+                    <ListItem disablePadding>
+                        <ListItemIcon>
+                            <Tooltip title="View count">
+                                <VisibilityIcon />
+                            </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={
+                                <Typography color="text.secondary">
+                                    {formatNumber(article.viewCount)}
+                                </Typography>
+                            }
+                        />
+                    </ListItem>
+                    
+                    {!isMine &&
+                        < FollowButtons
+                            user={article.user}
+                        />
+                    }
+                </>
+            }
+        </List>
+    )
 }

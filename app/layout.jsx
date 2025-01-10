@@ -13,6 +13,7 @@ import NextTopLoader from 'nextjs-toploader';
 import metadataGenerator from './lib/seo/metadataGenerator';
 import { baseUrl } from './lib/serverInfo';
 import "@/app/css/globals.css";
+import { Suspense } from 'react';
 
 export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -28,18 +29,22 @@ export default async function RootLayout({ children }) {
         <ScrollToTop />
         <NextTopLoader color="white" shadow={false} showSpinner={false} />
         <AppRouterCacheProvider>
-          <AuthProvider>
-            <NotificationProvider>
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <SnackbarProviderClient maxSnack={3}>
-                  <Root>
-                    {children}
-                  </Root>
-                </SnackbarProviderClient>
-              </ThemeProvider>
-            </NotificationProvider>
-          </AuthProvider>
+          <Suspense fallback="authentication">
+            <AuthProvider>
+              <NotificationProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  <SnackbarProviderClient maxSnack={3}>
+                    <Root>
+                      <Suspense fallback="loading page">
+                        {children}
+                      </Suspense>
+                    </Root>
+                  </SnackbarProviderClient>
+                </ThemeProvider>
+              </NotificationProvider>
+            </AuthProvider>
+          </Suspense>
         </AppRouterCacheProvider>
       </body>
     </html>

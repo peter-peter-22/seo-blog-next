@@ -1,3 +1,5 @@
+import { getEnvBool } from "@/utils/envBool";
+
 function getUrl() {
     return process.env.NODE_ENV === "production" ?
         process.env.BASE_URL
@@ -5,3 +7,4 @@ function getUrl() {
 }
 
 export const baseUrl = getUrl();
+export const logCaching=getEnvBool("LOG_CACHING")

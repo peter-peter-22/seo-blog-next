@@ -1,5 +1,5 @@
 import getIp from "@/app/actions/general/getIp";
-import ArticleViewer from "@/app/ui/editor/ArticleViewer";
+import ArticleViewer, { ArticleDynamicSection } from "@/app/ui/editor/ArticleViewer";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
 import { auth } from "@/auth";
 import prisma from "@/utils/db";
@@ -10,15 +10,60 @@ import ArticleEditDialog from "./ArticleEditDialog";
 import LikeMenu from "./LikeMenu";
 import RelevantArticlesSuspended from "./RelevantArticles";
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
+import { unstable_cacheTag } from "next/cache";
+import { unstable_cacheLife } from "next/cache";
 
 export default async function Page({ params }) {
     const { id } = await params;
+    console.log(`rebuilding article page ${id}`);
+
+    const [{ article, isMine }, articleStatic] = await Promise.all([
+        getArticleDynamicData(id),
+        getArticleStaticData(id)
+    ]);
+    if (!article)
+        notFound();
+
+
+    return (
+        <SingleColumn>
+            {isMine && <ArticleEditDialog article={article} />}
+            <CachedArticle article={articleStatic} >
+                <ArticleDynamicSection {...{ article, isMine }} />
+            </CachedArticle>
+            <Toolbar />
+            {!isMine && <>
+                <LikeMenu article={article} />
+                <Toolbar />
+            </>}
+            <ArticleComments article={article} />
+            <Toolbar />
+            <RelevantArticlesSuspended article={article} />
+        </SingleColumn>
+    );
+}
+
+async function getArticleStaticData(id) {
+    "use cache"
+    unstable_cacheTag(`article_${id}`)
+    unstable_cacheLife("hours")
+    console.log(`fetching article static data ${id}`)
+    return await prisma.article.findUnique({
+        where: { id },
+    })
+}
+
+async function getArticleDynamicData(id) {
     const session = await auth();
 
-    //get the article 
     const article = await prisma.article.findUnique({
         where: { id },
-        include: {
+        select: {
+            id:true,
+            likeCount: true,
+            dislikeCount: true,
+            viewCount: true,
+            createdAt: true,
             user: {
                 select: {
                     id: true,
@@ -44,7 +89,7 @@ export default async function Page({ params }) {
             } : {
                 UnverifiedLike: {
                     where: {
-                        ip: getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
+                        ip: await getIp() ?? ""//if cannot get the ip, use an empty string to avoid error
                     }
                 }
             },
@@ -72,8 +117,6 @@ export default async function Page({ params }) {
             }
         }
     })
-    if (!article)
-        notFound();
 
     //update the viewcount if the article exists
     updateViews(id, session)
@@ -81,20 +124,7 @@ export default async function Page({ params }) {
     //get if the user owns this article
     const isMine = article.user.id === session?.user?.id;
 
-    return (
-        <SingleColumn>
-            {isMine && <ArticleEditDialog article={article} />}
-            <ArticleViewer article={article} isMe={isMine} />
-            <Toolbar />
-            {!isMine && <>
-                <LikeMenu article={article} />
-                <Toolbar />
-            </>}
-            <ArticleComments article={article} />
-            <Toolbar />
-            <RelevantArticlesSuspended article={article} />
-        </SingleColumn>
-    );
+    return { article, isMine };
 }
 
 async function updateViews(articleId, session) {
@@ -112,7 +142,7 @@ async function updateViews(articleId, session) {
             await prisma.unverifiedView.create({
                 data: {
                     articleId,
-                    ip: getIp()
+                    ip: await getIp()
                 }
             })
         }
@@ -128,16 +158,7 @@ async function updateViews(articleId, session) {
 export async function generateMetadata({ params }) {
     const { id } = await params;
 
-    const article = await prisma.article.findUnique({
-        where: {
-            id
-        },
-        select: {
-            title: true,
-            description: true,
-            tags: true
-        }
-    })
+    const article = await getArticleStaticData(id);
 
     if (!article)
         return { title: "Not found" }
@@ -149,4 +170,16 @@ export async function generateMetadata({ params }) {
         description,
         keywords: tags,
     })
+}
+
+async function CachedArticle({ article, children }) {
+    "use cache"
+    unstable_cacheTag(`article_${article.id}`);
+    unstable_cacheLife("hours")
+    console.log(`rendering article ${article.id}`)
+    return (
+        <ArticleViewer article={article} >
+            {children}
+        </ArticleViewer>
+    )
 }

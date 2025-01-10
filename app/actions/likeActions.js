@@ -18,7 +18,7 @@ async function handleUnverifiedLike(data) {
     const { isLike, isDislike, articleId } = data;
 
     //get ip
-    const ip = getIp();
+    const ip = await getIp();
 
     if (isLike || isDislike)
         await prisma.unverifiedLike.upsert({
