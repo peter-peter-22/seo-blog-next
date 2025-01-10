@@ -27,7 +27,7 @@ export default async function Page({ params }) {
 
     return (
         <SingleColumn>
-            {isMine && <ArticleEditDialog article={article} />}
+            {isMine && <ArticleEditDialog article={articleStatic} />}
             <CachedArticle article={articleStatic} >
                 <ArticleDynamicSection {...{ article, isMine }} />
             </CachedArticle>
