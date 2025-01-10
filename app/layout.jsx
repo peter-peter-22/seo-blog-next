@@ -33,19 +33,15 @@ export default async function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Suspense fallback={<AuthLoading />}>
-              <AuthProvider>
-                <NotificationProvider>
-                  <SnackbarProviderClient maxSnack={3}>
-                    <Root>
-                      <Suspense fallback={<PageLoading />}>
-                        {children}
-                      </Suspense>
-                    </Root>
-                  </SnackbarProviderClient>
-                </NotificationProvider>
-              </AuthProvider>
-            </Suspense>
+            <AuthProvider>
+              <NotificationProvider>
+                <SnackbarProviderClient maxSnack={3}>
+                  <Root>
+                    {children}
+                  </Root>
+                </SnackbarProviderClient>
+              </NotificationProvider>
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

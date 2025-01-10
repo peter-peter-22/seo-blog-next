@@ -4,7 +4,7 @@ import { SingleColumn } from "@/app/ui/layout/Layouts";
 import ProfileContainer from "@/app/ui/profile/ProfileContainer";
 import { auth } from "@/auth";
 import prisma from "@/utils/db";
-import { unstable_cacheLife } from "next/cache";
+//import { unstable_cacheLife } from "next/cache";
 
 export default async function Page({ params }) {
     const { id } = await params;
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }) {
 }
 
 async function getUser(id) {
-    "use cache"
-    unstable_cacheLife("minutes");
+    //"use cache"
+    //unstable_cacheLife("minutes");
 
     if (logCaching)
         console.log("fetching metadata user")

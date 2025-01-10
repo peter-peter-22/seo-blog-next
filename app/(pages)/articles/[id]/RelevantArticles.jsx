@@ -2,7 +2,7 @@ import { logCaching } from "@/app/lib/serverInfo";
 import { ArticleRowCSR } from "@/app/ui/components/articles/ArticleRowCSR";
 import ArticleRowSkeleton from "@/app/ui/components/articles/ArticleRowSkeleton";
 import prisma from "@/utils/db";
-import { unstable_cacheLife } from "next/cache";
+//import { unstable_cacheLife } from "next/cache";
 import { Suspense } from "react";
 
 export default function RelevantArticles({ article }) {
@@ -15,8 +15,8 @@ export default function RelevantArticles({ article }) {
 }
 
 async function RelevantArticlesInner({ article, title }) {
-    "use cache"
-    unstable_cacheLife("minutes")
+    //"use cache"
+    //unstable_cacheLife("minutes")
 
     if (logCaching)
         console.log(`rendering and fetching relevant articles ${article.id}`)

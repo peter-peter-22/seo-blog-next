@@ -10,8 +10,8 @@ import ArticleEditDialog from "./ArticleEditDialog";
 import LikeMenu from "./LikeMenu";
 import RelevantArticlesSuspended from "./RelevantArticles";
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
-import { unstable_cacheTag } from "next/cache";
-import { unstable_cacheLife } from "next/cache";
+//import { unstable_cacheTag } from "next/cache";
+//import { unstable_cacheLife } from "next/cache";
 import { logCaching } from "@/app/lib/serverInfo";
 
 export default async function Page({ params }) {
@@ -43,9 +43,9 @@ export default async function Page({ params }) {
 }
 
 async function getArticleStaticData(id) {
-    "use cache"
-    unstable_cacheTag(`article_${id}`)
-    unstable_cacheLife("hours")
+    //"use cache"
+    //unstable_cacheTag(`article_${id}`)
+    //unstable_cacheLife("hours")
     if (logCaching)
         console.log(`fetching article static data ${id}`)
     return await prisma.article.findUnique({
@@ -177,9 +177,9 @@ export async function generateMetadata({ params }) {
 }
 
 async function CachedArticle({ article, children }) {
-    "use cache"
-    unstable_cacheTag(`article_${article.id}`);
-    unstable_cacheLife("hours")
+    //"use cache"
+    //unstable_cacheTag(`article_${article.id}`);
+    //unstable_cacheLife("hours")
     if (logCaching)
         console.log(`rendering article ${article.id}`)
     return (
