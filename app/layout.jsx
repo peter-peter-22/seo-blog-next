@@ -29,11 +29,11 @@ export default async function RootLayout({ children }) {
         <ScrollToTop />
         <NextTopLoader color="white" shadow={false} showSpinner={false} />
         <AppRouterCacheProvider>
-          <Suspense fallback="authentication">
-            <AuthProvider>
-              <NotificationProvider>
-                <ThemeProvider theme={theme}>
-                  <CssBaseline />
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Suspense fallback="authentication">
+              <AuthProvider>
+                <NotificationProvider>
                   <SnackbarProviderClient maxSnack={3}>
                     <Root>
                       <Suspense fallback="loading page">
@@ -41,10 +41,10 @@ export default async function RootLayout({ children }) {
                       </Suspense>
                     </Root>
                   </SnackbarProviderClient>
-                </ThemeProvider>
-              </NotificationProvider>
-            </AuthProvider>
-          </Suspense>
+                </NotificationProvider>
+              </AuthProvider>
+            </Suspense>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
