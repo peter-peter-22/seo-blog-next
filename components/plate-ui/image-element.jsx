@@ -28,6 +28,8 @@ export const ImageElement = withHOC(
       element: props.element,
     });
 
+    const instantWidth = width || props.element.width;
+
     return (
       <MediaPopover plugin={ImagePlugin}>
         <PlateElement ref={ref} className={cn(className, 'py-2.5')} {...props}>
@@ -37,7 +39,9 @@ export const ImageElement = withHOC(
               options={{
                 align,
                 readOnly,
-              }}>
+              }}
+              {...readOnly && { style: { width: instantWidth } }}
+            >
               <ResizeHandle
                 className={mediaResizeHandleVariants({ direction: 'left' })}
                 options={{ direction: 'left' }} />
@@ -49,7 +53,7 @@ export const ImageElement = withHOC(
                   focused && selected && 'ring-2 ring-ring ring-offset-2',
                   isDragging && 'opacity-50'
                 )}
-                alt={props.element.caption?.[0]?.text||""}
+                alt={props.element.caption?.[0]?.text || ""}
                 {...nodeProps} />
               <ResizeHandle
                 className={mediaResizeHandleVariants({
@@ -58,7 +62,7 @@ export const ImageElement = withHOC(
                 options={{ direction: 'right' }} />
             </Resizable>
 
-            <Caption style={{ width }} align={align}>
+            <Caption style={{ width: instantWidth }} align={align}>
               <CaptionTextarea
                 readOnly={readOnly}
                 onFocus={(e) => {

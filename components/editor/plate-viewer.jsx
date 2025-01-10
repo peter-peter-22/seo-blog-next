@@ -7,7 +7,7 @@ import { EditorContainerStatic, EditorStatic } from '../plate-ui/editor-static';
 
 export function PlateViewer({ value }) {
   const editor = useMemo(() => createEditor({
-    value: value,
+    value: value || [],
     readOnly: true
   }), [value])
 

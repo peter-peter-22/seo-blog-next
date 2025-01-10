@@ -40,6 +40,8 @@ export const MediaVideoElement = withHOC(
       element: props.element,
     });
 
+    const instantWidth = width || props.element.width;
+
     return (
       (<PlateElement ref={ref} className={cn(className, 'py-2.5')} {...props}>
         <figure className="relative m-0 cursor-default" contentEditable={false}>
@@ -50,7 +52,9 @@ export const MediaVideoElement = withHOC(
               align,
               maxWidth: '100%',
               readOnly,
-            }}>
+            }}
+            {...readOnly && { style: { width: instantWidth } }}
+          >
             <div className="group/media">
               <ResizeHandle
                 className={mediaResizeHandleVariants({ direction: 'left' })}
@@ -94,7 +98,7 @@ export const MediaVideoElement = withHOC(
             </div>
           </Resizable>
 
-          <Caption style={{ width }} align={align}>
+          <Caption style={{ instantWidth }} align={align}>
             <CaptionTextarea readOnly={readOnly} placeholder="Write a caption..." />
           </Caption>
         </figure>

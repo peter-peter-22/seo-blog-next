@@ -56,7 +56,7 @@ export default function ArticleViewer({ article, children }) {
             </Card>
             <Toolbar />
             <PlateViewer
-                value={article.content || []}
+                value={article.content}
             />
         </>
     );
