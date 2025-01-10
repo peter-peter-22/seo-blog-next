@@ -60,23 +60,14 @@ export default function ArticleEditor({ updating }) {
   }, [watch,onChangeAny])
 
   const onSubmit = useCallback(async (data) => {
-<<<<<<< HEAD
-    //retrieve the id of the created or updated article
-    const { id, error } = updating ?
-      await updateArticle({ ...data, id: updating })
-      :
-      await publishArticle(data);
-=======
-    try {
       //add the article to the submitted data
       data = { ...data, content: articleRef.current };
 
       //retrieve the id of the created or updated article
-      const id = updating ?
+      const {error,id} = updating ?
         await updateArticle({ ...data, id: updating })
         :
         await publishArticle(data);
->>>>>>> new-code-editor
 
     if (error)
       return enqueueSnackbar(error.toString(), { variant: "error" });
