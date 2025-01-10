@@ -2,7 +2,7 @@
 
 import { deleteArticleAction } from '@/app/actions/articleActions';
 import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
-import { getDraftName } from "@/app/ui/editor/ArticleEditor";
+import { getDraftName } from '@/app/ui/editor/useDraft';
 import Button from "@mui/material/Button";
 import Card from '@mui/material/Card';
 import CardActions from "@mui/material/CardActions";

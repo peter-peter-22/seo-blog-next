@@ -1,4 +1,3 @@
-import "@/app/lib/zodErrors";
 import { LoginSchema } from '@/app/ui/forms/schemas/AuthSchema';
 import prisma from '@/utils/db';
 import bcrypt from 'bcrypt';

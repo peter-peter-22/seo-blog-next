@@ -1,9 +1,7 @@
 'use client';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-import NextLink from 'next/link';
 import { blueGrey } from '@mui/material/colors';
-
-const FixLink = props => <NextLink {...props} />;
+import { LinkNoPrefetch } from '../lib/LinkNoPrefetch';
 
 let theme = createTheme({
   typography: {
@@ -25,13 +23,13 @@ let theme = createTheme({
     MuiLink: {
       defaultProps: {
         underline: "hover",
-        component: FixLink,
+        component: LinkNoPrefetch,
         variant: "body1"
       }
     },
     MuiButtonBase: {
       defaultProps: {
-        LinkComponent: FixLink
+        LinkComponent: LinkNoPrefetch
       }
     }
   },
@@ -48,14 +46,14 @@ let theme = createTheme({
   colorSchemes: {
     dark: true
   },
-  palette:{
-    mode:"light",
-    background:{
-      default:blueGrey[50],
-      paper:"#fff"
+  palette: {
+    mode: "light",
+    background: {
+      default: blueGrey[50],
+      paper: "#fff"
     }
   },
-  cssVariables:true
+  cssVariables: true
 });
 
 theme = responsiveFontSizes(theme)

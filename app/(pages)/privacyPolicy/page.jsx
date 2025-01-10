@@ -2,6 +2,7 @@ import { baseUrl } from "@/app/lib/serverInfo";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 
 //https://www.termsfeed.com/live/1626e1ad-91ef-4194-9f30-438f8558bb4a
 
@@ -191,3 +192,7 @@ export default function Page() {
         </SingleColumn>
     )
 }
+
+export const metadata = metadataGenerator({
+    title: "Privacy Policy"
+})

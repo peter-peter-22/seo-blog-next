@@ -1,10 +1,10 @@
+import { LinkNoPrefetch } from '@/app/lib/LinkNoPrefetch';
+import Badge from '@mui/material/Badge';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { usePathname } from "next/navigation";
-import Link from 'next/link';
-import Badge from '@mui/material/Badge';
 
 export default function NavButton({ name, url, Icon, badgeProps, ...props }) {
     const pathname = usePathname();
@@ -12,7 +12,7 @@ export default function NavButton({ name, url, Icon, badgeProps, ...props }) {
     return (
         <ListItem disablePadding>
             <ListItemButton
-                component={url && Link}
+                component={url && LinkNoPrefetch}
                 href={url}
                 selected={active}
                 {...props}

@@ -17,3 +17,8 @@ const customErrorMap = (issue, ctx) => {
 };
 
 z.setErrorMap(customErrorMap);
+
+export function ZodCustomErrors()
+{
+    return <></>
+}

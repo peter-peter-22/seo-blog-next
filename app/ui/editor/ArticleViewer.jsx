@@ -1,4 +1,5 @@
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
+import { PlateViewer } from '@/components/editor/plate-viewer';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -18,52 +19,21 @@ import TagContainer from "../components/articles/TagContainer";
 import HybridAvatar from '../profile/HybridAvatar';
 import formatDate from '../utilities/formatDate';
 import formatNumber from '../utilities/formatNumber';
-import { defaultArticle } from './defaultArticle';
-import TextViewer from "./TextViewer";
 
-export default function ArticleViewer({ article, preview, isMe }) {
+export default function ArticleViewer({ article, children }) {
     return (
         <>
             <Card>
                 <CardContent>
-                    <Typography variant="h5">
+                    <Typography variant="h5" component="h1">
                         {article.title}
                     </Typography>
                     <Divider />
-                    <Typography >
+                    <Typography component={"h2"}>
                         {article.description}
                     </Typography>
 
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemAvatar>
-                                <HybridAvatar user={article.user} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
-                                secondary={formatDate(article.createdAt)}
-                            />
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemIcon>
-                                <Tooltip title="View count">
-                                    <VisibilityIcon />
-                                </Tooltip>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={
-                                    <Typography color="text.secondary">
-                                        {formatNumber(article.viewCount)}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                        {!preview && !isMe &&
-                            <FollowButtons
-                                user={article.user}
-                            />
-                        }
-                    </List>
+                    {children}
 
                     {article.tags && article.tags.length > 0 ? (
                         <TagContainer>
@@ -85,18 +55,50 @@ export default function ArticleViewer({ article, preview, isMe }) {
                 </CardContent>
             </Card>
             <Toolbar />
-            <Card component={"article"}>
-                <CardContent>
-                    <TextViewer
-                        slateProps={{
-                            initialValue: article.content ?? defaultArticle
-                        }}
-                        editorProps={{
-                            readOnly: true
-                        }}
-                    />
-                </CardContent>
-            </Card>
+            <PlateViewer
+                value={article.content || []}
+            />
         </>
     );
+}
+
+export function ArticleDynamicSection({ article, isMine, isPreview }) {
+    return (
+        <List>
+            <ListItem disablePadding>
+                <ListItemAvatar>
+                    <HybridAvatar user={article.user} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
+                    secondary={formatDate(article.createdAt)}
+                />
+            </ListItem>
+
+            {!isPreview &&
+                <>
+                    <ListItem disablePadding>
+                        <ListItemIcon>
+                            <Tooltip title="View count">
+                                <VisibilityIcon />
+                            </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={
+                                <Typography color="text.secondary">
+                                    {formatNumber(article.viewCount)}
+                                </Typography>
+                            }
+                        />
+                    </ListItem>
+                    
+                    {!isMine &&
+                        < FollowButtons
+                            user={article.user}
+                        />
+                    }
+                </>
+            }
+        </List>
+    )
 }

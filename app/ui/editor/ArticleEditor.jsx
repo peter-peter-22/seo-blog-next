@@ -1,10 +1,12 @@
 'use client';
 
 import { publishArticle, updateArticle } from '@/app/actions/articleActions';
+import { useGetDraft, getDraftName, useDraft } from '@/app/ui/editor/useDraft';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import FormTextField from '@/app/ui/forms/components/FormTextField';
 import { PublishArticleSchema } from "@/app/ui/forms/schemas/ArticleSchema";
+import { PlateEditor } from '@/components/editor/plate-editor';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,30 +15,68 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import React, { useCallback, useEffect } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { useDebouncedCallback } from 'use-debounce';
+import { useCallback, useEffect, useRef } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import FormTagsOnline from '../forms/components/FormTagsOnline';
-import { defaultArticle } from './defaultArticle';
-import RichTextEditorForm from "./RichTextEditorForm";
 
 export default function ArticleEditor({ updating }) {
-  const loadedDraft = React.useMemo(() => loadDraft(updating), [updating]);
+  const loadedDraft = useGetDraft({ updating });
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const articleRef = useRef(loadedDraft.content);
 
   const methods = useForm({
-    resolver: zodResolver(PublishArticleSchema), // Apply the zodResolver
+    resolver: zodResolver(PublishArticleSchema.omit({ article: true })), // Apply the zodResolver
     defaultValues: loadedDraft
   });
-  const { handleSubmit, formState: { isSubmitting } } = methods;
+  const { handleSubmit, formState: { isSubmitting }, getValues, watch } = methods;
+
+  const { save } = useDraft({ updating, disabled: isSubmitting });
+
+  //save on any change in the form
+  const onChangeAny = useCallback(() => {
+    const [title, description, tags] = getValues(["title", "description", "tags"]);
+    const values = {
+      title,
+      description,
+      tags,
+      content: articleRef.current
+    }
+    save(values);
+  }, [getValues, save])
+
+  //process the changes of the article
+  const onChangeArticle = useCallback(({ value }) => {
+    articleRef.current = value
+    onChangeAny()
+  }, [onChangeAny])
+
+  //process the changes of the form
+  useEffect(() => {
+    const { unsubscribe } = watch(() => {
+      onChangeAny();
+    })
+    return () => unsubscribe()
+  }, [watch,onChangeAny])
 
   const onSubmit = useCallback(async (data) => {
+<<<<<<< HEAD
     //retrieve the id of the created or updated article
     const { id, error } = updating ?
       await updateArticle({ ...data, id: updating })
       :
       await publishArticle(data);
+=======
+    try {
+      //add the article to the submitted data
+      data = { ...data, content: articleRef.current };
+
+      //retrieve the id of the created or updated article
+      const id = updating ?
+        await updateArticle({ ...data, id: updating })
+        :
+        await publishArticle(data);
+>>>>>>> new-code-editor
 
     if (error)
       return enqueueSnackbar(error.toString(), { variant: "error" });
@@ -49,7 +89,6 @@ export default function ArticleEditor({ updating }) {
 
   return (
     <FormProvider {...methods}>
-      <SaveDraft updating={updating} disabled={isSubmitting} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -71,8 +110,10 @@ export default function ArticleEditor({ updating }) {
             </FieldContainer>
           </CardContent>
         </Card>
-        <RichTextEditorForm
-          name="content"
+        <Toolbar />
+        <PlateEditor
+          value={articleRef.current}
+          onChange={onChangeArticle}
         />
         <Toolbar />
         <Card>
@@ -83,9 +124,6 @@ export default function ArticleEditor({ updating }) {
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 The article remains editable after publishing.
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                The search engines need 1-8 days to make your article visible on the internet.
               </Typography>
             </FieldContainer>
           </CardContent>
@@ -98,48 +136,4 @@ export default function ArticleEditor({ updating }) {
       </form >
     </FormProvider>
   );
-}
-
-export function loadDraft(updating) {
-  try {
-    return JSON.parse(localStorage.getItem(getDraftName(updating))) || defaultArticle;
-  }
-  catch {
-    return defaultArticle;
-  }
-}
-
-//the draft saver must be stored in a separate component to prevent unnecessary re-renders on the whole form
-function SaveDraft({ updating, disabled }) {
-  const { watch } = useFormContext();
-
-  const debounced = useDebouncedCallback(
-    (values) => {
-      localStorage.setItem(getDraftName(updating), JSON.stringify(values));
-    },
-    500
-  );
-
-  //cancel the delayed save when disabled
-  useEffect(() => {
-    if (!disabled)
-      return;
-    debounced.cancel();
-  }, [disabled, debounced]);
-
-  useEffect(() => {
-    //if disabled, do not subscribe
-    if (disabled)
-      return;
-
-    const { unsubscribe } = watch((allValues) => {
-      debounced(allValues);
-    })
-    return () => unsubscribe()
-  }, [watch, disabled, debounced])
-
-}
-
-export function getDraftName(updating) {
-  return updating ? 'updateDraft' : 'draft';
 }

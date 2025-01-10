@@ -2,8 +2,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from "@mui/material/ListItemText";
-import Link from "next/link";
-
+import { LinkNoPrefetch } from "@/app/lib/LinkNoPrefetch";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -29,7 +28,7 @@ export default function Notification({ notification }) {
 function Like({ notification: { count, startCount, articleId, article, unread } }) {
     return (
         <ListItemButton
-            LinkComponent={Link}
+            LinkComponent={LinkNoPrefetch}
             href={`/articles/${articleId}`}
             selected={unread}
         >
@@ -47,7 +46,7 @@ function Like({ notification: { count, startCount, articleId, article, unread } 
 function Comment({ notification: { count, startCount, articleId, article, unread } }) {
     return (
         <ListItemButton
-            LinkComponent={Link}
+            LinkComponent={LinkNoPrefetch}
             href={`/articles/${articleId}`}
             selected={unread}
         >
@@ -65,7 +64,7 @@ function Comment({ notification: { count, startCount, articleId, article, unread
 function Article({ notification: { articleId, article, sender, unread } }) {
     return (
         <ListItemButton
-            LinkComponent={Link}
+            LinkComponent={LinkNoPrefetch}
             href={`/articles/${articleId}`}
             selected={unread}
         >
@@ -84,7 +83,7 @@ function Follow({ notification: { count, startCount, unread } }) {
     return (
         <ListItemButton
             selected={unread}
-            LinkComponent={Link}
+            LinkComponent={LinkNoPrefetch}
             href={"/profile"}
         >
             <ListItemIcon>
@@ -100,7 +99,7 @@ function Follow({ notification: { count, startCount, unread } }) {
 //function Reply({ notification: { count, articleId, comment, unread } }) {
 //    return (
 //        <ListItemButton
-//            LinkComponent={Link}
+//            LinkComponent={LinkNoPrefetch}
 //            href={`/articles/${articleId}`}
 //            selected={unread}
 //        >
