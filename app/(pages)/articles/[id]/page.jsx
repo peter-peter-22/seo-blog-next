@@ -23,9 +23,6 @@ export default async function Page({ params }) {
         getArticleDynamicData(id),
         getArticleStaticData(id)
     ]);
-    if (!article)
-        notFound();
-
 
     return (
         <SingleColumn>
@@ -67,6 +64,7 @@ async function getArticleDynamicData(id) {
             dislikeCount: true,
             viewCount: true,
             createdAt: true,
+            commentCount:true,
             user: {
                 select: {
                     id: true,
@@ -120,6 +118,9 @@ async function getArticleDynamicData(id) {
             }
         }
     })
+
+    if (!article)
+        notFound();
 
     //update the viewcount if the article exists
     updateViews(id, session).catch(err => { console.error("error while updating views", err) });

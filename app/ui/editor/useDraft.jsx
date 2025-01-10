@@ -7,7 +7,7 @@ export function loadDraft(updating) {
     const defaultValue = {
         title: "",
         description: "",
-        content: "",
+        content: [],
         tags: []
     }
     return { ...defaultValue, ...getLocalValue(updating) }

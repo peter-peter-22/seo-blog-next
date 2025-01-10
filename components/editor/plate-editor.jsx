@@ -9,7 +9,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export function PlateEditor({ value, onChange }) {
   const editor = useMemo(() => createEditor({
-    value: value
+    value
   }), [value])
 
   return (

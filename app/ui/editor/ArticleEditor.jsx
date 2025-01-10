@@ -26,11 +26,10 @@ export default function ArticleEditor({ updating }) {
   const articleRef = useRef(loadedDraft.content);
 
   const methods = useForm({
-    resolver: zodResolver(PublishArticleSchema.omit({ article: true })), // Apply the zodResolver
+    resolver: zodResolver(PublishArticleSchema.omit({ content: true })), // Apply the zodResolver
     defaultValues: loadedDraft
   });
   const { handleSubmit, formState: { isSubmitting }, getValues, watch } = methods;
-
   const { save } = useDraft({ updating, disabled: isSubmitting });
 
   //save on any change in the form
