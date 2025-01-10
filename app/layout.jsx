@@ -31,12 +31,12 @@ export default async function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Suspense fallback="authentication">
+            <Suspense>
               <AuthProvider>
                 <NotificationProvider>
                   <SnackbarProviderClient maxSnack={3}>
                     <Root>
-                      <Suspense fallback="loading page">
+                      <Suspense>
                         {children}
                       </Suspense>
                     </Root>
