@@ -10,9 +10,9 @@ const nextConfig = {
             },
         ],
     },
-    experimental: {
-        dynamicIO: true,
-    },
+    //experimental: {
+    //    dynamicIO: true,
+    //},
 };
 
 export default nextConfig;
