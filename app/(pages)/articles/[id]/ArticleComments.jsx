@@ -15,6 +15,8 @@ import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { loadMoreCommentsAction } from '@/app/actions/articleActions';
 import { useSnackbar } from 'notistack';
+import { CommentSectionSkeleton } from './CommentSectionSkeleton';
+import { NoSsr } from '@mui/material';
 
 export default function ArticleComments({ article }) {
     const [dialog, setDialog] = useState();
@@ -99,25 +101,27 @@ export default function ArticleComments({ article }) {
                             maxHeight: 500,
                             overflowY: "auto"
                         }}>
-                            <List>
-                                {comments.map((comment, i, array) => (
-                                    <Fragment key={comment.id}>
-                                        <Comment
-                                            comment={comment}
-                                            openCommentDialog={openCommentDialog}
-                                            onDelete={deleteComment}
-                                        />
-                                        {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
-                                    </Fragment>
-                                ))}
-                            </List>
-                            {!isLastPage &&
-                                <CardActions>
-                                    <LoadingButton loading={isPending} onClick={loadMoreComments}>
-                                        Load more
-                                    </LoadingButton>
-                                </CardActions>
-                            }
+                            <NoSsr fallback={<CommentSectionSkeleton />}>
+                                <List>
+                                    {comments.map((comment, i, array) => (
+                                        <Fragment key={comment.id}>
+                                            <Comment
+                                                comment={comment}
+                                                openCommentDialog={openCommentDialog}
+                                                onDelete={deleteComment}
+                                            />
+                                            {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
+                                        </Fragment>
+                                    ))}
+                                </List>
+                                {!isLastPage &&
+                                    <CardActions>
+                                        <LoadingButton loading={isPending} onClick={loadMoreComments}>
+                                            Load more
+                                        </LoadingButton>
+                                    </CardActions>
+                                }
+                            </NoSsr>
                         </Box>
                     </>
                 )}
