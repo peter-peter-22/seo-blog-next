@@ -1,8 +1,10 @@
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
+import { logCaching } from "@/app/lib/serverInfo";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
 import ProfileContainer from "@/app/ui/profile/ProfileContainer";
 import { auth } from "@/auth";
 import prisma from "@/utils/db";
+import { unstable_cacheLife } from "next/cache";
 
 export default async function Page({ params }) {
     const { id } = await params;
@@ -17,17 +19,7 @@ export default async function Page({ params }) {
 
 export async function generateMetadata({ params }) {
     const { id } = await params;
-
-    const user = await prisma.user.findUnique({
-        where: {
-            id
-        },
-        select: {
-            name: true,
-            description: true,
-        }
-    })
-
+    const user = await getUser(id);
     if (!user)
         return { title: "Not found" }
 
@@ -36,5 +28,23 @@ export async function generateMetadata({ params }) {
     return metadataGenerator({
         title: name,
         description,
+    })
+}
+
+async function getUser(id) {
+    "use cache"
+    unstable_cacheLife("minutes");
+
+    if (logCaching)
+        console.log("fetching metadata user")
+
+    return await prisma.user.findUnique({
+        where: {
+            id
+        },
+        select: {
+            name: true,
+            description: true,
+        }
     })
 }
