@@ -11,6 +11,7 @@ import { withProps } from '@udecode/cn';
 import {
     BoldPlugin,
     ItalicPlugin,
+    StrikethroughPlugin,
     UnderlinePlugin,
 } from '@udecode/plate-basic-marks/react';
 import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
@@ -53,6 +54,7 @@ export const viewComponents = {
     [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
     [ItalicPlugin.key]: withProps(PlateLeaf, { as: 'em' }),
     [UnderlinePlugin.key]: withProps(PlateLeaf, { as: 'u' }),
+    [StrikethroughPlugin.key]: withProps(PlateLeaf, { as: 's' }),
     [HEADING_KEYS.h1]: withProps(HeadingElementStatic, { variant: 'h1', component: "h3" }),
     [HEADING_KEYS.h2]: withProps(HeadingElementStatic, { variant: 'h2', component: "h4" }),
     [HEADING_KEYS.h3]: withProps(HeadingElementStatic, { variant: 'h3', component: "h5" }),
@@ -70,7 +72,7 @@ export const viewComponents = {
     [TogglePlugin.key]: ToggleElement,
     [ColumnItemPlugin.key]: ColumnElementStatic,
     [ColumnPlugin.key]: ColumnGroupElementStatic,
-    [CodeBlockPlugin.key]: CodeBlockElementStatic
+    [CodeBlockPlugin.key]: CodeBlockElementStatic,
 }
 
 export const editorComponents = {

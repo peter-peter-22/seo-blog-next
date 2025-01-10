@@ -6,7 +6,8 @@ import { createPlatePlugin } from '@udecode/plate-common/react';
 import {
     BoldIcon,
     ItalicIcon,
-    UnderlineIcon
+    UnderlineIcon,
+    StrikethroughIcon,
 } from 'lucide-react';
 
 //buttons
@@ -30,6 +31,7 @@ import {
     BoldPlugin,
     ItalicPlugin,
     UnderlinePlugin,
+    StrikethroughPlugin
 } from '@udecode/plate-basic-marks/react';
 import {
     ImagePlugin,
@@ -64,6 +66,13 @@ export const FixedToolbarPlugin = createPlatePlugin({
                             tooltip="Underline (⌘+U)"
                         >
                             <UnderlineIcon />
+                        </MarkToolbarButton>
+
+                        <MarkToolbarButton
+                            nodeType={StrikethroughPlugin.key}
+                            tooltip="Strikethrough (⌘+⇧+M)"
+                        >
+                            <StrikethroughIcon />
                         </MarkToolbarButton>
 
                     </ToolbarGroup>
