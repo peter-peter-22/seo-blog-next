@@ -1,3 +1,4 @@
+"use client"
 import TagContainer from './TagContainer';
 import Chip from '@mui/material/Chip';
 import formatNumber from '../../utilities/formatNumber';

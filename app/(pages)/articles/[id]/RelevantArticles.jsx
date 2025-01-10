@@ -1,7 +1,6 @@
-import ArticleRow from "@/app/ui/components/articles/ArticleRow";
+import { ArticleRowCSR } from "@/app/ui/components/articles/ArticleRowCSR";
 import ArticleRowSkeleton from "@/app/ui/components/articles/ArticleRowSkeleton";
 import prisma from "@/utils/db";
-import { NoSsr } from "@mui/material";
 import { unstable_cacheLife } from "next/cache";
 import { Suspense } from "react";
 
@@ -52,10 +51,5 @@ async function RelevantArticlesInner({ article, title }) {
         ORDER BY match_count DESC, "viewCount" DESC
         LIMIT 6`
 
-    //reduce unnecessary SSR 
-    return (
-        <NoSsr fallback={<ArticleRowSkeleton title={title} />}>
-            <ArticleRow title={title} articles={articles} />
-        </NoSsr>
-    )
+    return <ArticleRowCSR title={title} articles={articles} />
 }
