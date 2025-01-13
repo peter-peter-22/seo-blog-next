@@ -13,7 +13,7 @@ export default function Page() {
             <Card   >
                 <CardContent>
                     <FieldContainer >
-                        <Typography variant='h5'>Forgot password</Typography>
+                        <Typography variant='h5' component="h1">Forgot password</Typography>
                         <Divider />
                         <Typography >To set a new password, register with the same email address again.</Typography>
                     </FieldContainer>

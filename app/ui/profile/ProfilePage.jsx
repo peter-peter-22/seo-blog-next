@@ -39,7 +39,7 @@ export default function ProfilePage({ user, isMe }) {
                 <CardContent>
                     <Stack direction="row" spacing={2}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography variant="h5">
+                            <Typography variant="h5" component={"h1"}>
                                 {user.name}
                             </Typography>
                             <Typography color="text.secondary">

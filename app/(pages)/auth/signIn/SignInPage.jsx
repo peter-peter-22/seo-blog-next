@@ -23,8 +23,8 @@ export default function SignInPage() {
         <Container maxWidth="xs" component={"main"}>
             <Card>
                 <CardContent>
-                    <Typography variant='h5'>Choose a way to authenticate</Typography>
-                    <Divider sx={{ my: 2 }} />
+                    <Typography variant='h5' component="h1">Authenticate</Typography>
+                    <Divider sx={{ mb: 2 }} />
                     <Stack alignItems="center" sx={{ "& Button": { width: 200 } }}>
                         <Button
                             startIcon={<GitHubIcon />}
@@ -39,13 +39,9 @@ export default function SignInPage() {
                             Google
                         </Button>
                     </Stack>
-                </CardContent>
-            </Card>
-            <Toolbar />
-            <Card>
-                <CardContent>
-                    <Typography variant='h5'>Email</Typography>
-                    <Divider sx={{ my: 2 }} />
+
+                    <Divider sx={{ my: 3 }}>or</Divider>
+
                     <Stack direction="row" justifyContent={"space-between"} sx={{ width: "100%" }}>
                         <SecondaryButton
                             href={`/auth/login?callbackUrl=${successUrl}`}

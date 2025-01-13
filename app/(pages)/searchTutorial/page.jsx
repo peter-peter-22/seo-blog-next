@@ -16,7 +16,7 @@ export default function Page() {
         <SingleColumn>
             <Card>
                 <CardContent>
-                    <Typography variant="h5">
+                    <Typography variant="h5" component="h1">
                         Search syntax
                     </Typography>
                     <Divider />
