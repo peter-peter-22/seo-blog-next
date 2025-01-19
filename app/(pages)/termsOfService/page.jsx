@@ -10,7 +10,7 @@ export default function Page() {
     return (
         <SingleColumn>
             <Card>
-                <CardContent>
+                <CardContent sx={{ "& *": { all: "revert" } }}>
                     <h1>Terms and Conditions</h1>
                     <p>Last updated: December 24, 2024</p>
                     <p>Please read these terms and conditions carefully before using Our Service.</p>
