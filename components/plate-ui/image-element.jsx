@@ -40,7 +40,7 @@ export const ImageElement = withHOC(
                 align,
                 readOnly,
               }}
-              {...readOnly && { style: { width: instantWidth } }}
+              {...readOnly && { style: { width: instantWidth, maxWidth:"100%" } }}
             >
               <ResizeHandle
                 className={mediaResizeHandleVariants({ direction: 'left' })}
