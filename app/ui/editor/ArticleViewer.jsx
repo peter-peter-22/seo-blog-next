@@ -62,7 +62,7 @@ export default function ArticleViewer({ article, children }) {
     );
 }
 
-export function ArticleDynamicSection({ article, isMine, isPreview }) {
+export function ArticleDynamicSection({ article, isMine, preview }) {
     return (
         <List>
             <ListItem disablePadding>
@@ -75,7 +75,7 @@ export function ArticleDynamicSection({ article, isMine, isPreview }) {
                 />
             </ListItem>
 
-            {!isPreview &&
+            {!preview &&
                 <>
                     <ListItem disablePadding>
                         <ListItemIcon>
