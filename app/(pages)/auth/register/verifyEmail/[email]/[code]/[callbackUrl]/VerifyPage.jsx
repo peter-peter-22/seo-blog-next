@@ -5,7 +5,7 @@ import { SingleColumn } from "@/app/ui/layout/Layouts";
 import { PageLoading } from "@/app/ui/layout/PageLoading";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { NoSsr } from "@mui/material";
+import  NoSsr  from "@mui/material/NoSsr";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';

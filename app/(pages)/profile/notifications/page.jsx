@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
