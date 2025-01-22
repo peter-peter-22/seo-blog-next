@@ -10,6 +10,8 @@ import prisma from "@/utils/db";
 import { auth } from "@/auth";
 import ClearCount from "./ClearCount";
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
+import NoSsr from "@mui/material/NoSsr";
+import { PageLoading } from "@/app/ui/layout/PageLoading";
 
 export default async function Page() {
     const session = await auth();
@@ -42,7 +44,7 @@ export default async function Page() {
     markNotificationsAsRead();
 
     return (
-        <>
+        <NoSsr fallback={<PageLoading />}>
             <ClearCount />
             <Container maxWidth="sm" component={"main"}>
                 <Card>
@@ -73,7 +75,7 @@ export default async function Page() {
                     }
                 </Card>
             </Container>
-        </>
+        </NoSsr>
     )
 }
 

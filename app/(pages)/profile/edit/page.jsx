@@ -2,6 +2,8 @@ import ProfileEditorPage from "./ProfileEditorPage";
 import prisma from "@/utils/db";
 import { auth } from "@/auth";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
+import NoSsr from "@mui/material/NoSsr";
+import { PageLoading } from "@/app/ui/layout/PageLoading";
 
 export default async function Page() {
     const session = await auth();
@@ -15,8 +17,10 @@ export default async function Page() {
         }
     });
     return (
-        <SingleColumn>
-            <ProfileEditorPage user={user} />
-        </SingleColumn>
+        <NoSsr fallback={<PageLoading />}>
+            <SingleColumn>
+                <ProfileEditorPage user={user} />
+            </SingleColumn>
+        </NoSsr>
     )
 }
