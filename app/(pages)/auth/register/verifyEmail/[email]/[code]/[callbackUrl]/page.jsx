@@ -1,11 +1,5 @@
-import BigIcon from "@/app/ui/components/BigIcon";
-import { SingleColumn } from "@/app/ui/layout/Layouts";
 import prisma from "@/utils/db";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { VerifyPage } from "./VerifyPage";
 
 export default async function Page(props) {
     const params = await props.params;
@@ -33,50 +27,7 @@ export default async function Page(props) {
     }
 
     return (
-        <SingleColumn>
-            {isCorrect ? (
-                <Stack alignItems="center" spacing={2}>
-                    <BigIcon>
-                        <CheckCircleOutlineIcon />
-                    </BigIcon>
-                    <Typography variant="h4">
-                        Registration successful
-                    </Typography>
-                    <Typography>
-                        Now you can sign in.
-                    </Typography>
-                    <Button href={`/auth/login?callbackUrl=${callbackUrl}`}>Sign in</Button>
-                </Stack>
-            ) : (
-                <Stack alignItems="center" spacing={2}>
-                    <BigIcon>
-                        <ErrorOutlineIcon />
-                    </BigIcon>
-                    {isExpired ? (
-                        <>
-                            <Typography variant="h4">
-                                Expired
-                            </Typography>
-                            <Typography>
-                                The verification code is valid for 5 minutes.
-                            </Typography>
-                            <Button href="/auth/register">Try again</Button>
-                        </>
-                    ) : (
-                        <>
-                            <Typography variant="h4">
-                                Incorrect code.
-                            </Typography>
-                            <Typography>
-                                The code is valid only once.
-                            </Typography>
-                            <Button href="/auth/register">Try again</Button>
-                            <Button href="/auth/login">Sign in</Button>
-                        </>
-                    )}
-                </Stack>
-            )}
-        </SingleColumn>
+        <VerifyPage {...{ callbackUrl, isCorrect, isExpired }} />
     );
 }
 
@@ -103,7 +54,7 @@ function finalize(registrationSession) {
                 code
             }
         })
-    ]).catch(err => { console.error("error while finalizind registration session",err) })
+    ]).catch(err => { console.error("error while finalizind registration session", err) })
 }
 
 function olderThanMinutes(date, minutes) {
