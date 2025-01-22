@@ -74,6 +74,5 @@ async function filtered({ itemsPerPage, offset, text }) {
         WHERE search @@ websearch_to_tsquery('english',${text})`
     ])
 
-    console.log(offset, itemsPerPage, count, users)
     return { users, count };
 }

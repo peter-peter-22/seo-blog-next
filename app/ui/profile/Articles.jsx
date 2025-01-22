@@ -32,7 +32,7 @@ function ArticleLoader({ getArticles, title, filters, user }) {
 
     useEffect(() => {
         getArticles(user).then(res => { setArticles(res) });
-    }, [getArticles]);
+    }, [getArticles,user]);
 
     return articles ? (
         <ArticleRow  {...{ articles, title, filters, seeMore: true }} />

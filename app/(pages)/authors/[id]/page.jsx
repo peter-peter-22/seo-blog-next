@@ -24,6 +24,8 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
     const { id } = await params;
+    if(logCaching)
+        console.log(`rebuilding profile ${id}`)
     const user = await getUserProfile({ userId: id })
     if (!user)
         notFound();
