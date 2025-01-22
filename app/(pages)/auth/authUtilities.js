@@ -1,7 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-export function useSuccessUrl() {
-    const searchParams = useSearchParams();
+export function getSuccessUrl() {
+    const client = typeof window !== 'undefined';
+    if (!client)
+        return "/profile";
+    let searchParams = new URLSearchParams(document.location.search);
     return searchParams.get("callbackUrl") || "/profile";
 }

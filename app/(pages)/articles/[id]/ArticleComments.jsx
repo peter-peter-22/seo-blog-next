@@ -1,5 +1,8 @@
 "use client";
 
+import { loadMoreCommentsAction } from '@/app/actions/articleActions';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,23 +11,29 @@ import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import { Fragment, useCallback, useState, useTransition } from 'react';
+import { useSnackbar } from 'notistack';
+import { Fragment, useCallback, useEffect, useState, useTransition } from 'react';
+import { useArticleDynamicData } from './ArticleDynamicDataProvider';
 import Comment from './Comment';
 import CommentDialog from './CommentDialog';
-import Box from '@mui/material/Box';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { loadMoreCommentsAction } from '@/app/actions/articleActions';
-import { useSnackbar } from 'notistack';
 import { CommentSectionSkeleton } from './CommentSectionSkeleton';
-import { NoSsr } from '@mui/material';
+import CommentIcon from '@mui/icons-material/Comment';
 
-export default function ArticleComments({ article }) {
+export default function ArticleComments() {
+    const { article, loading } = useArticleDynamicData();
     const [dialog, setDialog] = useState();
     const closeDialog = useCallback(() => { setDialog() }, [])
-    const [comments, setComments] = useState(article.Comments);
+    const [comments, setComments] = useState([]);
     const [commentsMade, setCommentsMade] = useState(0);
     const { enqueueSnackbar } = useSnackbar();
     const [isLastPage, setLastPage] = useState(false);
+
+    //store the comments into a state when loaded
+    useEffect(() => {
+        if (!article)
+            return;
+        setComments(article.Comments);
+    }, [loading, article])
 
     //add a new comment to the top of the list
     const addComment = useCallback((newComment) => {
@@ -74,8 +83,8 @@ export default function ArticleComments({ article }) {
     }, [article, comments, enqueueSnackbar])
 
     //update the comment count when a new comment is added
-    //this count all comments, no just the loaded ones
-    const commentCount = article.commentCount + commentsMade;
+    //this counts all comments, not just the loaded ones
+    const commentCount = article ? article.commentCount + commentsMade : 0;
 
     return (
         <>
@@ -86,7 +95,7 @@ export default function ArticleComments({ article }) {
                     </Typography>
                     <Divider />
                     <Typography color="text.secondary">
-                        {commentCount > 0 ? `${commentCount} comments` : "No comments yet"}
+                        {loading ? "Loading..." : commentCount > 0 ? `${commentCount} comments` : "No comments yet"}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -94,37 +103,46 @@ export default function ArticleComments({ article }) {
                         Comment
                     </Button>
                 </CardActions>
-                {commentCount > 0 && (
-                    <>
-                        <Divider />
-                        <Box sx={{
-                            maxHeight: 500,
-                            overflowY: "auto"
-                        }}>
-                            <NoSsr fallback={<CommentSectionSkeleton />}>
-                                <List>
-                                    {comments.map((comment, i, array) => (
-                                        <Fragment key={comment.id}>
-                                            <Comment
-                                                comment={comment}
-                                                openCommentDialog={openCommentDialog}
-                                                onDelete={deleteComment}
-                                            />
-                                            {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
-                                        </Fragment>
-                                    ))}
-                                </List>
-                                {!isLastPage &&
-                                    <CardActions>
-                                        <LoadingButton loading={isPending} onClick={loadMoreComments}>
-                                            Load more
-                                        </LoadingButton>
-                                    </CardActions>
-                                }
-                            </NoSsr>
-                        </Box>
-                    </>
-                )}
+                <>
+                    <Divider />
+                    <Box sx={{
+                        height: 500,
+                        overflowY: "auto"
+                    }}>
+                        {
+                            loading ? (
+                                <CommentSectionSkeleton />
+                            ) : commentCount === 0 ? (
+                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
+                                    <CommentIcon sx={{ color: "text.secondary", fontSize: 50 }} />
+                                    <Typography color="textSecondary">Be the first commenter</Typography>
+                                </Box>
+                            ) : (
+                                <>
+                                    <List>
+                                        {comments.map((comment, i, array) => (
+                                            <Fragment key={comment.id}>
+                                                <Comment
+                                                    comment={comment}
+                                                    openCommentDialog={openCommentDialog}
+                                                    onDelete={deleteComment}
+                                                />
+                                                {i < array.length - 1 && <Divider variant="inset" component={"li"} />}
+                                            </Fragment>
+                                        ))}
+                                    </List>
+                                    {!isLastPage &&
+                                        <CardActions>
+                                            <LoadingButton loading={isPending} onClick={loadMoreComments}>
+                                                Load more
+                                            </LoadingButton>
+                                        </CardActions>
+                                    }
+                                </>
+                            )
+                        }
+                    </Box>
+                </>
             </Card>
             <Dialog
                 open={!!dialog}

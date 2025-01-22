@@ -1,21 +1,18 @@
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { Roboto } from 'next/font/google';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/app/ui/theme';
-import Root from "@/app/ui/layout/Root";
 import "@/app/css/body.css";
-import { SnackbarProviderClient } from './ui/layout/SnackbarProviderClient';
+import "@/app/css/globals.css";
 import ScrollToTop from '@/app/ui/components/pagination/ScrollToTop';
+import Root from "@/app/ui/layout/Root";
+import theme from '@/app/ui/theme';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import CssBaseline from "@mui/material/CssBaseline";
-import AuthProvider from './ui/layout/AuthProvider';
-import NotificationProvider from './ui/layout/NotificationProvider';
+import { ThemeProvider } from '@mui/material/styles';
+import { Roboto } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import metadataGenerator from './lib/seo/metadataGenerator';
 import { baseUrl } from './lib/serverInfo';
-import "@/app/css/globals.css";
-import { Suspense } from 'react';
-import { AuthLoading } from './ui/layout/AuthLoading';
-import { PageLoading } from './ui/layout/PageLoading';
+import AuthProvider from './ui/layout/AuthProvider';
+import NotificationProvider from './ui/layout/NotificationProvider';
+import { SnackbarProviderClient } from './ui/layout/SnackbarProviderClient';
 
 export const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -24,7 +21,7 @@ export const roboto = Roboto({
   variable: '--font-roboto',
 });
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.variable}>

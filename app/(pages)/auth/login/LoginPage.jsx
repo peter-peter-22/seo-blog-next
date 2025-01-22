@@ -1,6 +1,6 @@
 "use client";
 
-import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
+import { getSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import { formatAuthError } from '@/app/(pages)/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryLoadingButton } from '@/app/ui/forms/components/FormButtons';
@@ -20,7 +20,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import ForgotPasswordButton from '../ForgotPasswordButton';
 
 export default function LoginPage() {
-    const successUrl = useSuccessUrl();
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
 
@@ -35,7 +34,7 @@ export default function LoginPage() {
             const formated = formatAuthError(error);
             return enqueueSnackbar(formated, { variant: "error" });
         }
-        router.push(successUrl);
+        router.push(getSuccessUrl());
     }
 
     return (

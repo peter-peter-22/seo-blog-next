@@ -15,21 +15,20 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useSuccessUrl } from '../authUtilities';
+import { getSuccessUrl } from '../authUtilities';
 import ForgotPasswordButton from '../ForgotPasswordButton';
 
 export default function RegisterPage() {
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
-    const successUrl = useSuccessUrl();
 
     const methods = useForm({
         resolver: zodResolver(RegisterSchema), // Apply the zodResolver
     });
-    const { handleSubmit, formState: { isSubmitting, errors } } = methods;
+    const { handleSubmit, formState: { isSubmitting } } = methods;
 
     const onSubmit = async (data) => {
-        const error = await crendentialsRegisterAction(data, successUrl);
+        const error = await crendentialsRegisterAction(data, getSuccessUrl());
         if (error) {
             return enqueueSnackbar(error, { variant: "error" });
         }

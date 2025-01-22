@@ -1,39 +1,31 @@
-import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import { PlateViewer } from '@/components/editor/plate-viewer';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from "@mui/material/Chip";
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Toolbar from "@mui/material/Toolbar";
-import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
-import FollowButtons from '../../(pages)/articles/[id]/FollowButtons';
 import TagContainer from "../components/articles/TagContainer";
-import HybridAvatar from '../profile/HybridAvatar';
-import formatDate from '../utilities/formatDate';
-import formatNumber from '../utilities/formatNumber';
+import Stack from "@mui/material/Stack";
 
-export default function ArticleViewer({ article, children }) {
+export default function ArticleViewer({ article, DynamicSection, Options }) {
     return (
         <>
             <Card>
                 <CardContent>
-                    <Typography variant="h5" component="h1">
-                        {article.title}
-                    </Typography>
+                    <Stack direction="row" alignItems={"center"} justifyContent={"space-between"}>
+                        <Typography variant="h4" component="h1">
+                            {article.title}
+                        </Typography>
+                    {Options}
+                    </Stack>
                     <Divider />
                     <Typography component={"h2"}>
                         {article.description}
                     </Typography>
 
-                    {children}
+                    {DynamicSection}
 
                     {article.tags && article.tags.length > 0 ? (
                         <TagContainer>
@@ -60,45 +52,4 @@ export default function ArticleViewer({ article, children }) {
             />
         </>
     );
-}
-
-export function ArticleDynamicSection({ article, isMine, preview }) {
-    return (
-        <List>
-            <ListItem disablePadding>
-                <ListItemAvatar>
-                    <HybridAvatar user={article.user} />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={<Link href={getProfileLink(article.user)} color="inherit">{article.user.name}</Link>}
-                    secondary={formatDate(article.createdAt)}
-                />
-            </ListItem>
-
-            {!preview &&
-                <>
-                    <ListItem disablePadding>
-                        <ListItemIcon>
-                            <Tooltip title="View count">
-                                <VisibilityIcon />
-                            </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={
-                                <Typography color="text.secondary">
-                                    {formatNumber(article.viewCount)}
-                                </Typography>
-                            }
-                        />
-                    </ListItem>
-                    
-                    {!isMine &&
-                        < FollowButtons
-                            user={article.user}
-                        />
-                    }
-                </>
-            }
-        </List>
-    )
 }
