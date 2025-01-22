@@ -1,6 +1,8 @@
 import prisma from "@/utils/db";
 import { notFound } from "next/navigation";
 import ProfilePage from "./ProfilePage";
+import NoSsr from "@mui/material/NoSsr";
+import { PageLoading } from "../layout/PageLoading";
 
 export default async function ProfileContainer({ userId, isMe, me }) {
     const user = await prisma.user.findUnique({
@@ -31,5 +33,5 @@ export default async function ProfileContainer({ userId, isMe, me }) {
     if (!user)
         notFound();
 
-    return <ProfilePage {...{ user, isMe }} />
+    return <NoSsr fallback={<PageLoading />}><ProfilePage {...{ user, isMe }} /></NoSsr>
 }
