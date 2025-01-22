@@ -5,7 +5,6 @@ import prisma from "@/utils/db";
 import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 import { revalidatePath } from 'next/cache'
 import { handleErrors } from "../lib/handleErrors";
-import { revalidateTag } from "next/cache";
 
 export async function publishArticle(data) {
     return await handleErrors(async () => {
@@ -78,7 +77,7 @@ export async function updateArticle(data) {
             },
             data
         });
-        revalidateTag(`article_${created.id}`);
+        revalidatePath(`/articles/${created.id}`);
 
         return { id: created.id };
     })
@@ -95,8 +94,7 @@ export async function deleteArticleAction(data) {
                     userId: user.id
                 }
             });
-            revalidateTag(`article_${id}`);
-            revalidatePath(`/articles/${id}`)
+            revalidatePath(`/articles/${id}`);
         }
         catch (err) {
             if (err.code === "P2025")

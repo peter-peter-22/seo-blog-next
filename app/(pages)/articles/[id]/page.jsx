@@ -10,15 +10,20 @@ import { ArticleOptions } from "./article options/ArticleOptions";
 import ArticleComments from "./ArticleComments";
 import { ArticleDynamicDataProvider } from "./ArticleDynamicDataProvider";
 
-//export const articleCache = new LRUCache({
-//    max: 1000,
-//    ttl: 1000 * 60 * 60, //1 hour
-//});
-
 export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
-    return [];
+    //pre-render the top X articles during build time
+    const topArticleIds = await prisma.article.findMany({
+        select: {
+            id: true
+        },
+        orderBy: [{ viewCount: "desc" }],
+        take: 100
+    });
+    if (logCaching)
+        console.log(`pre-rendering ${topArticleIds.length} articles`)
+    return topArticleIds;
 }
 
 export default async function Page({ params }) {
@@ -47,15 +52,13 @@ export default async function Page({ params }) {
 
 
 export const getArticleStaticData = async (id) => {
-    //if (articleCache.has(id))
-    //    return articleCache.get(id)
+    //the cache doesnt works, it still get fetched twice because it's pararrel
 
     if (logCaching)
         console.log(`fetching article static data ${id}`)
     const result = await prisma.article.findUnique({
         where: { id },
     });
-    //articleCache.set(id, result);
 
     return result;
 }
