@@ -9,6 +9,9 @@ import { notFound } from "next/navigation";
 import { ArticleOptions } from "./article options/ArticleOptions";
 import ArticleComments from "./ArticleComments";
 import { ArticleDynamicDataProvider } from "./ArticleDynamicDataProvider";
+import { ArticleLikes } from "./ArticleLikes";
+import LikeMenu from "./LikeMenu";
+import RelevantArticles from "./RelevantArticles";
 
 export const dynamic = 'force-static'
 
@@ -44,7 +47,11 @@ export default async function Page({ params }) {
                     Options={<ArticleOptions />}
                 />
                 <Toolbar />
+                <LikeMenu />
+                <Toolbar />
                 <ArticleComments />
+                <Toolbar/>
+                <RelevantArticles article={article}/>
             </ArticleDynamicDataProvider>
         </SingleColumn>
     );

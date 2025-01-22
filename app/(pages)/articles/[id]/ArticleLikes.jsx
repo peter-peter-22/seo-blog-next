@@ -1,83 +1,14 @@
-"use client";
+"use client"
 
-import CardActions from '@mui/material/CardActions';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Typography from "@mui/material/Typography";
-import formatNumber from '@/app/ui/utilities/formatNumber';
-import { useTransition, useCallback, useState } from 'react';
-import { likeAction } from '@/app/actions/likeActions';
-import { useSnackbar } from 'notistack';
-import Tooltip from '@mui/material/Tooltip';
+import { useArticleDynamicData } from "./ArticleDynamicDataProvider";
+import { ArticleLikesDynamic } from "./ArticleLikesDynamic";
+import { ArticleLikesSkeleton } from "./ArticleLikesSkeleton";
 
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-
-export default function ArticleLikes({ article }) {
-    const likeOfUser = article.VerifiedLike?.[0] || article.UnverifiedLike?.[0];
-    const originalLikeState = likeOfUser ? !likeOfUser.isDislike : undefined;
-
-    const originalLikes = article.likeCount;
-    const originalDislikes = article.dislikeCount;
-    const [localLikeState, setLocalLikeState] = useState(originalLikeState);
-    const [pending, startLikeAction] = useTransition();
-    const { enqueueSnackbar } = useSnackbar();
-
-    const executeLikeAction = useCallback((value) => {
-        startLikeAction(
-            async () => {
-                const res = await likeAction({
-                    articleId: article.id,
-                    isLike: value === true,
-                    isDislike: value === false
-                });
-                if (res?.error)
-                    return enqueueSnackbar(res.error.toString(), { variant: "error" });
-        
-                setLocalLikeState(value);
-            }
-        )
-    }, [article, enqueueSnackbar])
-
-    //adjust the like count on the client according to the state of the like buttons
-    let localLikes = originalLikes;
-    let localDislikes = originalDislikes;
-    if (localLikeState !== originalLikeState) {
-        if (localLikeState === true && !originalLikeState)
-            localLikes++;
-        else if (!localLikeState && originalLikeState === true)
-            localLikes--;
-        if (localLikeState === false && (originalLikeState === undefined || originalLikeState === true))
-            localDislikes++;
-        else if ((localLikeState === undefined || localLikeState === true) && originalLikeState === false)
-            localDislikes--;
-    }
-
-    const handleLike = useCallback((value) => () => {
-        if (pending)
-            return;
-        const newValue = localLikeState === value ? undefined : value;
-        executeLikeAction(newValue)
-    }, [localLikeState, pending, executeLikeAction]);
-
-    return (
-        <CardActions>
-            <Tooltip title={localLikeState === true ? "Remove like" : "Like"}>
-                <IconButton
-                    color={localLikeState === true ? "primary" : "default"}
-                    onClick={handleLike(true)}
-                >
-                    <ThumbUpIcon />
-                </IconButton>
-            </Tooltip>
-            <Typography>{formatNumber(localLikes)}</Typography>
-            <Divider orientation='vertical' flexItem variant="middle" />
-            <Typography>{formatNumber(localDislikes)}</Typography>
-            <Tooltip title={localLikeState === false ? "Remove dislike" : "Dislike"}>
-                <IconButton color={localLikeState === false ? "primary" : "default"} onClick={handleLike(false)}>
-                    <ThumbDownIcon />
-                </IconButton>
-            </Tooltip>
-        </CardActions>
+export function ArticleLikes() {
+    const { article, isMine, loading } = useArticleDynamicData();
+    return loading ? (
+        <ArticleLikesSkeleton />
+    ) : (
+        <ArticleLikesDynamic article={article} />
     )
 }

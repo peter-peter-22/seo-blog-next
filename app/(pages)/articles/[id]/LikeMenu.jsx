@@ -2,9 +2,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Typography from "@mui/material/Typography";
-import ArticleLikes from './ArticleLikes';
+import { ArticleLikes } from './ArticleLikes';
 
-export default function LikeMenu({ article }) {
+export default function LikeMenu() {
     return (
         <Card>
             <CardContent>
@@ -16,7 +16,7 @@ export default function LikeMenu({ article }) {
                     Authentication is <strong>not</strong> required
                 </Typography>
             </CardContent>
-            <ArticleLikes article={article} />
+            <ArticleLikes />
         </Card>
     )
 }
