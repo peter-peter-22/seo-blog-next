@@ -11,7 +11,7 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useState } from "react";
 import { useArticleDynamicData } from '../ArticleDynamicDataProvider';
 
-export default function ArticleDeleteButton() {
+export  function ArticleDeleteButton() {
     const { article, isMine } = useArticleDynamicData();
 
     const { enqueueSnackbar } = useSnackbar();

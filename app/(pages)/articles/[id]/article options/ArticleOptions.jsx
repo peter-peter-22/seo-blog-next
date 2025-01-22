@@ -8,8 +8,8 @@ import { useCallback, useState } from 'react';
 import { useArticleDynamicData } from '../ArticleDynamicDataProvider';
 import { ArticleCopyButton } from './ArticleCopyButton';
 import { ArticleFollowButton } from './ArticleFollowButton';
-import ArticleEditButton from './ArticleEditButton';
-import ArticleDeleteButton from './ArticleDeleteButton';
+import { ArticleEditButton } from './ArticleEditButton';
+import { ArticleDeleteButton } from './ArticleDeleteButton';
 
 export function ArticleOptions() {
     const [anchor, setAnchor] = useState(false);

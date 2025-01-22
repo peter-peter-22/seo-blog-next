@@ -1,23 +1,21 @@
+import { ProfileDynamicDataProvider } from "@/app/(pages)/authors/[id]/ProfileDynamicDataProvider";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from '@mui/material/CardActions';
 import CardContent from "@mui/material/CardContent";
-import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
-import TagContainer from "../components/articles/TagContainer";
 import formatDate from "../utilities/formatDate";
 import { RecentArticles, TopArticles } from "./Articles";
-import FollowProfile from "./FollowProfile";
 import HybridAvatar from "./HybridAvatar";
+import { UserStatistics } from "./UserStatistics";
+import { UserTags } from "./UserTags";
+import { ProfileActions } from "./profile options/ProfileActions";
 
-export default function ProfilePage({ user, isMe }) {
+export default function ProfilePage({ user }) {
     return (
-        <>
+        <ProfileDynamicDataProvider user={user}>
             <Box sx={{
                 display: { xs: "block", sm: "none" }
             }}>
@@ -63,48 +61,18 @@ export default function ProfilePage({ user, isMe }) {
                             />
                         </Box>
                     </Stack>
-                    {!isMe &&
-                        <FollowProfile
-                            user={user}
-                        />
-                    }
-                    {user.AuthorTag && user.AuthorTag.length > 0 ? (
-                        <>
-                            <Typography color="text.secondary" variant="body2">{user.articleCount} articles</Typography>
-                            <TagContainer sx={{ mt: 1 }}>
-                                {user.AuthorTag.map((tag, i) => (
-                                    <Chip
-                                        label={`${tag.name} - ${tag.count}`}
-                                        clickable
-                                        component={Link}
-                                        size="small"
-                                        href={`/browse?${new URLSearchParams({ tag: tag.name, author: user.id }).toString()}`}
-                                        key={i}
-                                    />
-                                ))}
-                            </TagContainer>
-                        </>
-                    ) : (
-                        <Typography color="text.secondary">No articles yet</Typography>
-                    )}
+
+                    <UserStatistics />
+                    <UserTags />
+
                 </CardContent>
-                {isMe &&
-                    <CardActions>
-                        <>
-                            <Button href="/profile/edit">
-                                Edit
-                            </Button>
-                            <Button href="/profile/changePassword">
-                                Change password
-                            </Button>
-                        </>
-                    </CardActions>
-                }
+
+                <ProfileActions />
             </Card>
             <Toolbar />
             <RecentArticles user={user} />
             <Toolbar />
             <TopArticles user={user} />
-        </>
+        </ProfileDynamicDataProvider>
     )
 }

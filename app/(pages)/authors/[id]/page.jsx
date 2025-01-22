@@ -1,17 +1,35 @@
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import { logCaching } from "@/app/lib/serverInfo";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
-import ProfileContainer from "@/app/ui/profile/ProfileContainer";
-import { auth } from "@/auth";
+import ProfilePage from "@/app/ui/profile/ProfilePage";
 import prisma from "@/utils/db";
+import { notFound } from "next/navigation";
+import { getUserProfile } from "./getUserProfile";
+
+export const dynamic = 'force-static'
+
+export async function generateStaticParams() {
+    //pre-render the top X profiles during build time
+    const topUserIds = await prisma.user.findMany({
+        select: {
+            id: true
+        },
+        orderBy: [{ articleCount: "desc" }],
+        take: 100
+    });
+    if (logCaching)
+        console.log(`pre-rendering ${topUserIds.length} profiles`)
+    return topUserIds;
+}
 
 export default async function Page({ params }) {
     const { id } = await params;
-    const session = await auth();
-    const isMe = session?.user?.id === id;
+    const user = await getUserProfile({ userId: id })
+    if (!user)
+        notFound();
     return (
         <SingleColumn>
-            <ProfileContainer userId={id} isMe={isMe} me={session?.user} />
+            <ProfilePage user={user} />
         </SingleColumn>
     )
 }
@@ -32,7 +50,7 @@ export async function generateMetadata({ params }) {
 
 async function getUser(id) {
     if (logCaching)
-        console.log("fetching metadata user")
+        console.log(`fetching metadata for user ${id}`)
 
     return await prisma.user.findUnique({
         where: {

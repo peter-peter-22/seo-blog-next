@@ -10,7 +10,7 @@ import { useCallback } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { useArticleDynamicData } from '../ArticleDynamicDataProvider';
 
-export default function ArticleEditButton() {
+export  function ArticleEditButton() {
     const router = useRouter();
     const { staticArticle, isMine } = useArticleDynamicData();
 

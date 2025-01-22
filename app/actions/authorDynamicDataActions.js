@@ -3,6 +3,7 @@
 import prisma from "@/utils/db";
 import { LRUCache } from "lru-cache";
 import { logCaching } from "../lib/serverInfo";
+import { auth } from "@/auth";
 
 const recentArticlesCache = new LRUCache({
     ttl: 1000 * 60 * 60,//1 hour
@@ -63,4 +64,35 @@ async function cached({ cache, user, create }) {
     const created = await create(user);
     cache.set(user.id, created);
     return created;
+}
+
+export async function getUserProfileDynamicData({ userId }) {
+    const me = (await auth()).user;
+
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            followerCount: true,
+            AuthorTag: {
+                orderBy: [
+                    { count: "desc" }
+                ]
+            },
+            ...me && {
+                Followers: {
+                    where: {
+                        followerId: me.id
+                    }
+                }
+            },
+            articleCount: true
+        }
+    });
+
+    if (!user)
+        notFound();
+
+    const isMe=me.id===userId;
+
+    return {user,isMe};
 }

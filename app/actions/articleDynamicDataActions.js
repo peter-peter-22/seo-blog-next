@@ -5,6 +5,12 @@ import { logCaching } from "@/app/lib/serverInfo";
 import { auth } from "@/auth";
 import prisma from "@/utils/db";
 import { handleErrors } from "../lib/handleErrors";
+import { LRUCache } from "lru-cache";
+
+const relevantArticlesCache = new LRUCache({
+    ttl: 1000 * 60 * 60,//1 hour
+    max: 100
+})
 
 export async function getArticleDynamicData(id) {
     return await handleErrors(async () => {
@@ -114,9 +120,9 @@ async function updateViews(articleId, session) {
     }
 }
 
-export async function getRelevantArticles(article) {
+async function getRelevantArticlesUncached(article) {
     if (logCaching)
-        console.log(`rendering and fetching relevant articles ${article.id}`)
+        console.log(`fetching relevant articles for ${article.id}`)
 
     const articles = await prisma.$queryRaw`
             SELECT             
@@ -151,4 +157,13 @@ export async function getRelevantArticles(article) {
             LIMIT 6`
 
     return articles;
+}
+
+export async function getRelevantArticles(article) {
+    const loaded = relevantArticlesCache.get(article.id);
+    if (loaded)
+        return loaded;
+    const created = await getRelevantArticlesUncached(article);
+    relevantArticlesCache.set(article.id, created);
+    return created;
 }

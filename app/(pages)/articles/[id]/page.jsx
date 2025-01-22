@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import { ArticleOptions } from "./article options/ArticleOptions";
 import ArticleComments from "./ArticleComments";
 import { ArticleDynamicDataProvider } from "./ArticleDynamicDataProvider";
-import { ArticleLikes } from "./ArticleLikes";
 import LikeMenu from "./LikeMenu";
 import RelevantArticles from "./RelevantArticles";
 
