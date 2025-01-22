@@ -10,6 +10,7 @@ import { ArticleCopyButton } from './ArticleCopyButton';
 import { ArticleFollowButton } from './ArticleFollowButton';
 import { ArticleEditButton } from './ArticleEditButton';
 import { ArticleDeleteButton } from './ArticleDeleteButton';
+import Tooltip from '@mui/material/Tooltip';
 
 export function ArticleOptions() {
     const [anchor, setAnchor] = useState(false);
@@ -21,9 +22,11 @@ export function ArticleOptions() {
     return (
         <>
             <div>
-                <IconButton size="small" onClick={handleOpen} aria-describedby={id} >
-                    <MoreHorizIcon />
-                </IconButton>
+                <Tooltip title="Manage article">
+                    <IconButton size="small" onClick={handleOpen} aria-describedby={id} >
+                        <MoreHorizIcon />
+                    </IconButton>
+                </Tooltip>
             </div>
             {!loading &&
                 <Popover
