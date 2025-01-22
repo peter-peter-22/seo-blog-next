@@ -102,9 +102,9 @@ export default function ProfilePage({ user, isMe }) {
                 }
             </Card>
             <Toolbar />
-            <RecentArticles user={user} title="Recent articles" filters={{ author: user.id }} />
+            <RecentArticles user={user} />
             <Toolbar />
-            <TopArticles user={user} title="Top articles" filters={{ author: user.id, sort: "likeCount" }} />
+            <TopArticles user={user} />
         </>
     )
 }

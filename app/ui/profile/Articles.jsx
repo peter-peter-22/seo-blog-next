@@ -1,64 +1,42 @@
-import prisma from "@/utils/db";
-//import { unstable_cacheLife } from "next/cache";
-import { Suspense } from "react";
-import { ArticleRowCSR } from "../components/articles/ArticleRowCSR";
+"use client"
+
+import { getRecentArticles, getTopArticles } from "@/app/actions/authorDynamicDataActions";
+import { useEffect, useState } from "react";
+import ArticleRow from "../components/articles/ArticleRow";
 import ArticleRowSkeleton from "../components/articles/ArticleRowSkeleton";
 
-export async function RecentArticles(props) {
+export function RecentArticles({ user }) {
     return (
-        <Suspense fallback={<ArticleRowSkeleton title={props.title} seeMore={true} />}>
-            <RecentArticlesInner {...props} />
-        </Suspense>
+        <ArticleLoader
+            title="Recent articles"
+            filters={{ author: user.id }}
+            getArticles={getRecentArticles}
+            user={user}
+        />
     )
 }
 
-async function RecentArticlesInner({ user, title, filters }) {
-    //"use cache"
-    //unstable_cacheLife("minutes")
-
-    const articles = await prisma.article.findMany({
-        where: {
-            userId: user.id,
-        },
-        orderBy: [
-            { createdAt: "desc" },
-            { id: "desc" }
-        ],
-        take: 6
-    })
-    articles.forEach(article => { article.user = user });
-
+export function TopArticles({ user }) {
     return (
-        <ArticleRowCSR {...{ articles, title, filters, seeMore: true }} />
+        <ArticleLoader
+            title="Top articles"
+            filters={{ author: user.id, sort: "likeCount" }}
+            getArticles={getTopArticles}
+            user={user}
+        />
     )
 }
 
+function ArticleLoader({ getArticles, title, filters, user }) {
+    const [articles, setArticles] = useState();
 
-export async function TopArticles(props) {
-    return (
-        <Suspense fallback={<ArticleRowSkeleton title={props.title} seeMore={true} />}>
-            <TopArticlesInner {...props} />
-        </Suspense>
-    )
-}
+    useEffect(() => {
+        getArticles(user).then(res => { setArticles(res) });
+    }, [getArticles]);
 
-async function TopArticlesInner({ user, title, filters }) {
-    //"use cache"
-    //unstable_cacheLife("minutes")
-
-    const articles = await prisma.article.findMany({
-        where: {
-            userId: user.id,
-        },
-        orderBy: [
-            { likeCount: "desc" },
-            { id: "desc" }
-        ],
-        take: 6
-    })
-    articles.forEach(article => { article.user = user });
-
-    return (
-        <ArticleRowCSR {...{ articles, title, filters, seeMore: true }} />
+    return articles ? (
+        <ArticleRow  {...{ articles, title, filters, seeMore: true }} />
+    ) : (
+        <ArticleRowSkeleton title={title} seeMore={true} />
     )
 }
