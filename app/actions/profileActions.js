@@ -6,6 +6,7 @@ import authOrThrow from '@/app/(pages)/auth/authOrThrow';
 import { bcryptSalt } from "@/app/(pages)/auth/authSettings";
 import bcrypt from 'bcrypt';
 import { handleErrors } from "@/app/lib/handleErrors";
+import { revalidatePath } from "next/cache";
 
 export async function updateProfileAction(values) {
     try {
@@ -30,6 +31,8 @@ export async function updateProfileAction(values) {
                 image: true
             }
         });
+
+        revalidatePath(`/authors/${id}`)
 
         return { updatedUser };
     }
