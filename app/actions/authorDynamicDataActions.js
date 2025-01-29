@@ -67,7 +67,7 @@ async function cached({ cache, user, create }) {
 }
 
 export async function getUserProfileDynamicData({ userId }) {
-    const me = (await auth()).user;
+    const me = (await auth())?.user;
 
     const user = await prisma.user.findUnique({
         where: { id: userId },
@@ -92,7 +92,7 @@ export async function getUserProfileDynamicData({ userId }) {
     if (!user)
         notFound();
 
-    const isMe=me.id===userId;
+    const isMe=me&&me.id===userId;
 
     return {user,isMe};
 }
