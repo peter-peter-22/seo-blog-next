@@ -21,6 +21,7 @@ import ForgotPasswordButton from '../ForgotPasswordButton';
 export default function RegisterPage() {
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
+    const successUrl = getSuccessUrl()
 
     const methods = useForm({
         resolver: zodResolver(RegisterSchema), // Apply the zodResolver
@@ -28,7 +29,7 @@ export default function RegisterPage() {
     const { handleSubmit, formState: { isSubmitting } } = methods;
 
     const onSubmit = async (data) => {
-        const error = await crendentialsRegisterAction(data, getSuccessUrl());
+        const error = await crendentialsRegisterAction(data, successUrl);
         if (error) {
             return enqueueSnackbar(error, { variant: "error" });
         }

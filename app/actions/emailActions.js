@@ -12,8 +12,6 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
     try {
         const parsedCredentials = RegisterSchema.parse(credentials);
         let { username, password, email } = parsedCredentials;
-        if (!callbackUrl || typeof (callbackUrl) != String)
-            callbackUrl = "/profile";
         password = bcrypt.hashSync(password, bcryptSalt);
 
         const { code } = await prisma.emailVerifications.upsert({
@@ -34,7 +32,7 @@ export async function crendentialsRegisterAction(credentials, callbackUrl) {
             }
         });
 
-        const url = `${baseUrl}/auth/register/verifyEmail/${email}/${code}/${encodeURIComponent(callbackUrl)}`;
+        const url = `${baseUrl}/auth/register/verifyEmail/${email}/${code}?${new URLSearchParams({callbackUrl}).toString()}`;
         //if (process.env.NODE_ENV == "development") {
         //    console.log(url);
         //    return;

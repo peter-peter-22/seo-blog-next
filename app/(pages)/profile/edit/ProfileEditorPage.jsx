@@ -1,5 +1,6 @@
 "use client";
 
+import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryLoadingButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
@@ -9,13 +10,16 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from '@mui/material/CardContent';
 import Divider from "@mui/material/Divider";
 import Typography from '@mui/material/Typography';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FormProvider } from 'react-hook-form';
 
 export default function ProfileEditorPage({ user }) {
     const router = useRouter()
-    const onSuccess = useCallback(() => { router.push("/profile") }, [router]);
+    const session = useSession();
+    const profileUrl = getProfileLink(session?.data?.user)
+    const onSuccess = useCallback(() => { router.push(profileUrl) }, [router]);
     const { onSubmit, methods } = useProfileEditorForm({ onSuccess, user });
     const { handleSubmit, formState: { isSubmitting } } = methods;
 
@@ -35,7 +39,7 @@ export default function ProfileEditorPage({ user }) {
                     <PrimaryLoadingButton type={"submit"} loading={isSubmitting}>
                         Update
                     </PrimaryLoadingButton>
-                    <SecondaryButton href={"/profile"}>
+                    <SecondaryButton href={profileUrl}>
                         Cancel
                     </SecondaryButton>
                 </CardActions>

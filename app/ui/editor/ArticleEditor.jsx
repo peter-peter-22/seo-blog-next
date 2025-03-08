@@ -18,12 +18,17 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTagsOnline from '../forms/components/FormTagsOnline';
+import { useSession } from 'next-auth/react';
+import getProfileLink from '../components/users/getProfileLink';
 
 export default function ArticleEditor({ updating }) {
   const loadedDraft = useGetDraft({ updating });
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const articleRef = useRef(loadedDraft.content);
+  const session = useSession();
+  const user = session?.data?.user;
+  const profileUrl = getProfileLink(user)
 
   const methods = useForm({
     resolver: zodResolver(PublishArticleSchema.omit({ content: true })), // Apply the zodResolver
@@ -118,7 +123,7 @@ export default function ArticleEditor({ updating }) {
             </FieldContainer>
           </CardContent>
           <CardActions>
-            <SecondaryButton href={updating ? `/articles/${updating}` : "/profile"}>Cancel</SecondaryButton>
+            <SecondaryButton href={updating ? `/articles/${updating}` : profileUrl}>Cancel</SecondaryButton>
             <SecondaryButton href={updating ? `/profile/write/preview/update/${updating}` : "/profile/write/preview"}>Preview</SecondaryButton>
             <PrimaryLoadingButton loading={isSubmitting} type="submit">{updating ? "Update" : "Publish"}</PrimaryLoadingButton>
           </CardActions>

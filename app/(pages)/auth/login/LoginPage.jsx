@@ -22,6 +22,7 @@ import ForgotPasswordButton from '../ForgotPasswordButton';
 export default function LoginPage() {
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
+    const successUrl=getSuccessUrl();
 
     const methods = useForm({
         resolver: zodResolver(LoginSchema), // Apply the zodResolver
@@ -34,7 +35,7 @@ export default function LoginPage() {
             const formated = formatAuthError(error);
             return enqueueSnackbar(formated, { variant: "error" });
         }
-        router.push(getSuccessUrl());
+        router.push(successUrl);
     }
 
     return (

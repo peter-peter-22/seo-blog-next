@@ -1,6 +1,7 @@
 "use server"
 
 import { handleErrors } from "@/app/lib/handleErrors";
+import getProfileLink from "@/app/ui/components/users/getProfileLink";
 import prisma from "@/utils/db";
 
 export default async function verifyEmailAction(params) {
@@ -8,9 +9,6 @@ export default async function verifyEmailAction(params) {
         const email = decodeURIComponent(params.email);
         const code = decodeURIComponent(params.code);
         const redirect = decodeURIComponent(params.callbackUrl);
-
-        const firstSignIn = "/profile/newUser";
-        const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${encodeURIComponent(redirect)}`);
 
         const registrationSession = await prisma.emailVerifications.findUnique({
             where: {
@@ -25,16 +23,21 @@ export default async function verifyEmailAction(params) {
 
         if (isCorrect) {
             //upsert user and delete the registration session
-            finalize(registrationSession);
+            const user = await finalize(registrationSession);
+
+            const firstSignIn = "/profile/newUser";
+            const callbackUrl = encodeURIComponent(`${firstSignIn}?callbackUrl=${encodeURIComponent(redirect||getProfileLink(user))}`);
+
+            return { callbackUrl, isCorrect, isExpired }
         }
 
-        return { callbackUrl, isCorrect, isExpired }
+        return { isCorrect, isExpired }
     })
 }
 
-function finalize(registrationSession) {
+async function finalize(registrationSession) {
     const { username: name, password, email, code } = registrationSession;
-    Promise.allSettled([
+    const [user] = await Promise.all([
         //upsert user
         prisma.user.upsert({
             where: { email },
@@ -55,7 +58,8 @@ function finalize(registrationSession) {
                 code
             }
         })
-    ]).catch(err => { console.error("error while finalizind registration session", err) })
+    ])
+    return user
 }
 
 function olderThanMinutes(date, minutes) {

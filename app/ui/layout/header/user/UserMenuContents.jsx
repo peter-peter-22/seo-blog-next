@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import { signOut, useSession } from 'next-auth/react';
 import UserProfile from "./UserProfile";
 import { useNotification } from "../../NotificationProvider";
+import getProfileLink from "@/app/ui/components/users/getProfileLink";
 
 import CreateIcon from '@mui/icons-material/Create';
 import LoginIcon from '@mui/icons-material/Login';
@@ -15,6 +16,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function UserMenuContents() {
     const session = useSession();
+    const user = session?.data?.user;
     const isLoggedIn = session.status === "authenticated";
     const { count } = useNotification();
 
@@ -26,7 +28,7 @@ export default function UserMenuContents() {
                 <>
                     <NavButton
                         name="Profile"
-                        url="/profile"
+                        url={getProfileLink(user)}
                         Icon={<PersonIcon />}
                     />
                     <NavButton

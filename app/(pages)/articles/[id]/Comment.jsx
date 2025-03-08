@@ -1,7 +1,6 @@
 "use client";
 
 import { deleteCommentAction } from '@/app/actions/commentActions';
-import { delay } from '@/app/lib/delay';
 import getProfileLink from '@/app/ui/components/users/getProfileLink';
 import ConfirmDialog from '@/app/ui/dialogs/ConfirmDialog';
 import HybridAvatar from '@/app/ui/profile/HybridAvatar';

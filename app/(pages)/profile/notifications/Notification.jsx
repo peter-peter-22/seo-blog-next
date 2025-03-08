@@ -1,3 +1,5 @@
+"use client"
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -8,6 +10,8 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ArticleIcon from '@mui/icons-material/Article';
 import React from "react";
+import { useSession } from "next-auth/react";
+import getProfileLink from "@/app/ui/components/users/getProfileLink";
 
 export default function Notification({ notification }) {
     return (
@@ -80,11 +84,14 @@ function Article({ notification: { articleId, article, sender, unread } }) {
 }
 
 function Follow({ notification: { count, startCount, unread } }) {
+    const session = useSession();
+    const user = session?.data?.user;
+    const profileUrl = getProfileLink(user)
     return (
         <ListItemButton
             selected={unread}
             LinkComponent={LinkNoPrefetch}
-            href={"/profile"}
+            href={profileUrl}
         >
             <ListItemIcon>
                 <PersonAddIcon />

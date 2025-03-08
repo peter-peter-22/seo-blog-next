@@ -20,6 +20,7 @@ export default function NewUserPage() {
     const user = session.data.user;
     const { onSubmit, methods } = useProfileEditorForm({ user });
     const { handleSubmit, formState: { isSubmitting } } = methods;
+    const successUrl = getSuccessUrl()
 
     return (
         <SingleColumn>
@@ -44,7 +45,7 @@ export default function NewUserPage() {
                         <LoadingButton type={"submit"} loading={isSubmitting}>
                             Update
                         </LoadingButton>
-                        <Button href={getSuccessUrl()}>
+                        <Button href={successUrl}>
                             Finish
                         </Button>
                     </CardActions>
