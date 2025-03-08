@@ -1,26 +1,15 @@
-import ProfileEditorPage from "./ProfileEditorPage";
-import prisma from "@/utils/db";
-import { auth } from "@/auth";
+import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import { SingleColumn } from "@/app/ui/layout/Layouts";
-import NoSsr from "@mui/material/NoSsr";
-import { PageLoading } from "@/app/ui/layout/PageLoading";
+import ProfileEditorPageHandler from "./ProfileEditorPageHandler";
 
-export default async function Page() {
-    const session = await auth();
-    const user = await prisma.user.findUnique({
-        where: { id: session.user.id },
-        select: {
-            id: true,
-            name: true,
-            image: true,
-            description: true
-        }
-    });
+export default function Page() {
     return (
-        <NoSsr fallback={<PageLoading />}>
-            <SingleColumn>
-                <ProfileEditorPage user={user} />
-            </SingleColumn>
-        </NoSsr>
+        <SingleColumn>
+            <ProfileEditorPageHandler />
+        </SingleColumn>
     )
 }
+
+export const metadata = metadataGenerator({
+    title: "Edit profile"
+})
