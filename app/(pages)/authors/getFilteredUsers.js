@@ -1,24 +1,31 @@
+"use server"
+
+import { handleErrors } from "@/app/lib/handleErrors";
+import { BrowseAuthorsSchema } from "@/app/ui/forms/schemas/BrowseAuthorsSchema";
 import prisma from "@/utils/db";
 
 export default async function getFilteredUsers(searchParams) {
-    const itemsPerPage = 24;
+    return await handleErrors(async () => {
+        const itemsPerPage = 24;
 
-    //getting the inputs
-    const { text, page } = await searchParams;
+        //getting the inputs
+        searchParams = BrowseAuthorsSchema.parse(searchParams);
+        const { text, page } = await searchParams;
 
-    //limit max offset
-    const offset = itemsPerPage * (page - 1);
-    if (offset > 1000)
-        throw new Error("Searching this deep in not permitted");
+        //limit max offset
+        const offset = itemsPerPage * (page - 1);
+        if (offset > 1000)
+            throw new Error("Searching this deep in not permitted");
 
-    //get rows
-    //if no text provided, return unfiltered rows
-    const { users, count } = text ? await filtered({ itemsPerPage, offset, text }) : await unfiltered({ itemsPerPage, offset });
+        //get rows
+        //if no text provided, return unfiltered rows
+        const { users, count } = text ? await filtered({ itemsPerPage, offset, text }) : await unfiltered({ itemsPerPage, offset });
 
-    //calculate page count
-    const pages = Math.ceil(count / itemsPerPage);
+        //calculate page count
+        const pages = Math.ceil(count / itemsPerPage);
 
-    return { page, pages, users, count };
+        return { page, pages, users, count };
+    })
 }
 
 //get all users with some ordering

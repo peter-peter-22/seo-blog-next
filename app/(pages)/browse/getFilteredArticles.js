@@ -5,12 +5,11 @@ import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
 import prisma from "@/utils/db";
 
 export default async function getFilteredArticles(searchParams) {
-    return handleErrors(async () => {
-        searchParams = BrowseSchema.parse(searchParams);
-
+    return await handleErrors(async () => {
         const itemsPerPage = 12;
-
+        
         //getting the inputs
+        searchParams = BrowseSchema.parse(searchParams);
         const { text, author, tag, page, sort, sortMode } = searchParams;
 
         //limit max offset

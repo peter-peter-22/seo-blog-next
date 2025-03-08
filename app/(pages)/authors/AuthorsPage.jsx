@@ -4,28 +4,28 @@ import ErrorPage from "@/app/ui/components/info pages/Error";
 import { PageLoading } from "@/app/ui/layout/PageLoading";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import BrowserLayout from "./BrowserLayout";
-import getFilteredArticles from './getFilteredArticles';
+import AuthorsLayout from "./AuthorsLayout";
+import getFilteredUsers from "./getFilteredUsers";
 
-export default function BrowserPage() {
+export default function AuthorsPage() {
     const searchParams = Object.fromEntries(useSearchParams().entries());
     const [data, setData] = useState()
     const loading = !data
     const error = data?.error
     useEffect(() => {
         (async () => {
-            const result = await getFilteredArticles(searchParams);
+            const result = await getFilteredUsers(searchParams);
             setData(result);
             if (result.error)
                 console.error(result.error)
         })()
-    }, [searchParams.text, searchParams.page, searchParams.tag, searchParams.sort, searchParams.sortMode])
+    }, [searchParams.text, searchParams.page])
 
     return loading ? (
         <PageLoading />
     ) : error ? (
         <ErrorPage secondary={error} />
     ) : (
-        <BrowserLayout {...{ searchParams, query: data }} />
+        <AuthorsLayout {...{ searchParams, query: data }} />
     )
 }
