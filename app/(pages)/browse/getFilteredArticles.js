@@ -1,26 +1,34 @@
+"use server"
+
+import { handleErrors } from "@/app/lib/handleErrors";
+import { BrowseSchema } from "@/app/ui/forms/schemas/BrowseSchema";
 import prisma from "@/utils/db";
 
 export default async function getFilteredArticles(searchParams) {
-    const itemsPerPage = 12;
+    return handleErrors(async () => {
+        searchParams = BrowseSchema.parse(searchParams);
 
-    //getting the inputs
-    const { text, author, tag, page, sort, sortMode } = searchParams;
+        const itemsPerPage = 12;
 
-    //limit max offset
-    const offset = itemsPerPage * (page - 1);
-    if (offset > 1000)
-        throw new Error("Searching this deep in not permitted");
+        //getting the inputs
+        const { text, author, tag, page, sort, sortMode } = searchParams;
 
-    //get the rows depending on the provided filters
-    const { articles, count } = text ?
-        await filtered({ text, offset, itemsPerPage })
-        :
-        await simpleFilter({ offset, itemsPerPage, tag, author, sort, sortMode });
+        //limit max offset
+        const offset = itemsPerPage * (page - 1);
+        if (offset > 1000)
+            throw new Error("Searching this deep in not permitted");
 
-    //calculate page count
-    const pages = Math.ceil(count / itemsPerPage);
+        //get the rows depending on the provided filters
+        const { articles, count } = text ?
+            await filtered({ text, offset, itemsPerPage })
+            :
+            await simpleFilter({ offset, itemsPerPage, tag, author, sort, sortMode });
 
-    return { page, pages, articles, count };
+        //calculate page count
+        const pages = Math.ceil(count / itemsPerPage);
+
+        return { page, pages, articles, count };
+    })
 }
 
 //get and sort the articles in a simple way what is not controlled by the user
@@ -66,9 +74,9 @@ async function simpleFilter({ tag, author, sort, sortMode, offset, itemsPerPage 
                 likeCount: true,
                 dislikeCount: true,
                 createdAt: true,
-                commentCount:true,
-                viewCount:true,
-                tags:true
+                commentCount: true,
+                viewCount: true,
+                tags: true
             },
             orderBy: [
                 { [sort]: sortMode },

@@ -57,12 +57,9 @@ export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, r
 
     return <>
         <Stack direction="row" justifyContent={"center"}>
-            {Left &&
+            {Left && showLeft &&
                 <Stack
                     direction="row"
-                    sx={theme => ({
-                        [theme.breakpoints.down(leftBreakpoint)]: { display: "none" },
-                    })}
                 >
                     <Container sx={{ m: 0 }}>
                         {Left}
@@ -75,12 +72,9 @@ export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, r
                 {Main}
             </SingleColumn>
 
-            {Right &&
+            {Right && showRight &&
                 <Stack
                     direction="row"
-                    sx={theme => ({
-                        [theme.breakpoints.down(rightBreakpoint)]: { display: "none" },
-                    })}
                 >
                     <Divider orientation="vertical" />
                     <Container sx={{ m: 0 }}>
@@ -89,9 +83,7 @@ export function ResponsiveLayout({ Left, Main, Right, LeftDrawer, RightDrawer, r
                 </Stack>
             }
         </Stack>
-        <NoSsr>
-            {LeftDrawer && !showLeft && <SideDrawer anchor="left" Content={LeftDrawer} ToggleButton={LeftButton} />}
-            {RightDrawer && !showRight && <SideDrawer anchor="right" Content={RightDrawer} ToggleButton={RightButton} />}
-        </NoSsr>
+        {LeftDrawer && !showLeft && <SideDrawer anchor="left" Content={LeftDrawer} ToggleButton={LeftButton} />}
+        {RightDrawer && !showRight && <SideDrawer anchor="right" Content={RightDrawer} ToggleButton={RightButton} />}
     </>
 }
