@@ -9,17 +9,18 @@ import getFilteredArticles from './getFilteredArticles';
 
 export default function BrowserPage() {
     const searchParams = Object.fromEntries(useSearchParams().entries());
+    const {text, page, tag, sort, sortMode} = searchParams
     const [data, setData] = useState()
     const loading = !data
     const error = data?.error
     useEffect(() => {
         (async () => {
-            const result = await getFilteredArticles(searchParams);
+            const result = await getFilteredArticles({ text, page, tag, sort, sortMode });
             setData(result);
             if (result.error)
                 console.error(result.error)
         })()
-    }, [searchParams.text, searchParams.page, searchParams.tag, searchParams.sort, searchParams.sortMode])
+    }, [text, page, tag, sort, sortMode])
 
     return loading ? (
         <PageLoading />

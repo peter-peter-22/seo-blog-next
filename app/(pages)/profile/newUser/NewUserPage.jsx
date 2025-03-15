@@ -1,6 +1,6 @@
 "use client";
 
-import { getSuccessUrl } from '@/app/(pages)/auth/authUtilities';
+import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { SingleColumn } from '@/app/ui/layout/Layouts';
 import UpdateProfile from "@/app/ui/profile/update/UpdateProfile";
@@ -17,10 +17,10 @@ import { FormProvider } from 'react-hook-form';
 
 export default function NewUserPage() {
     const session = useSession();
-    const user = session.data.user;
+    const user = session?.data?.user;
     const { onSubmit, methods } = useProfileEditorForm({ user });
     const { handleSubmit, formState: { isSubmitting } } = methods;
-    const successUrl = getSuccessUrl()
+    const successUrl = useSuccessUrl()
 
     return (
         <SingleColumn>

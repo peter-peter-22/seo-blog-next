@@ -9,17 +9,18 @@ import getFilteredUsers from "./getFilteredUsers";
 
 export default function AuthorsPage() {
     const searchParams = Object.fromEntries(useSearchParams().entries());
+    const {text, page}=searchParams
     const [data, setData] = useState()
     const loading = !data
     const error = data?.error
     useEffect(() => {
         (async () => {
-            const result = await getFilteredUsers(searchParams);
+            const result = await getFilteredUsers({text, page});
             setData(result);
             if (result.error)
                 console.error(result.error)
         })()
-    }, [searchParams.text, searchParams.page])
+    }, [text, page])
 
     return loading ? (
         <PageLoading />

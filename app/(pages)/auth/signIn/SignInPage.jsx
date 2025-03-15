@@ -1,6 +1,6 @@
 "use client";
 
-import { getSuccessUrl } from '@/app/(pages)/auth/authUtilities';
+import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import { PrimaryButton, SecondaryButton } from '@/app/ui/forms/components/FormButtons';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -17,7 +17,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export default function SignInPage() {
-    const successUrl = getSuccessUrl();
+    const successUrl = useSuccessUrl();
     return (
         <Container maxWidth="xs" component={"main"}>
             <Card>

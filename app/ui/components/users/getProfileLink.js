@@ -1,3 +1,3 @@
 export default function getProfileLink(user){
-    return `/authors/${user.id}`;
+    return `/authors/${user?.id}`;
 }

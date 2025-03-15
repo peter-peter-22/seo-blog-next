@@ -19,7 +19,7 @@ export default function ProfileEditorPage({ user }) {
     const router = useRouter()
     const session = useSession();
     const profileUrl = getProfileLink(session?.data?.user)
-    const onSuccess = useCallback(() => { router.push(profileUrl) }, [router]);
+    const onSuccess = useCallback(() => { router.push(profileUrl) }, [router,profileUrl]);
     const { onSubmit, methods } = useProfileEditorForm({ onSuccess, user });
     const { handleSubmit, formState: { isSubmitting } } = methods;
 

@@ -1,8 +1,9 @@
 import metadataGenerator from "@/app/lib/seo/metadataGenerator";
 import BrowserPage from "./BrowserPage";
+import { Suspense } from "react";
 
 export default function Page() {
-    return <BrowserPage/>
+    return <Suspense><BrowserPage /></Suspense>
 }
 
 export async function generateMetadata({ searchParams }) {

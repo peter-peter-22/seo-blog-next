@@ -9,18 +9,19 @@ import { VerifyPage } from "./VerifyPage";
 
 export default function VerifyPageHandler() {
     const params = useParams()
+    const { email, code } = params
     const { redirect } = Object.fromEntries(useSearchParams().entries());
     const [data, setData] = useState()
     const loading = !data
     const error = data?.error
     useEffect(() => {
         (async () => {
-            const result = await verifyEmailAction({ ...params, redirect });
+            const result = await verifyEmailAction({ email, code, redirect });
             setData(result);
             if (result.error)
                 console.error(result.error)
         })()
-    }, [])
+    }, [email, code, redirect])
 
     return loading ? (
         <PageLoading />

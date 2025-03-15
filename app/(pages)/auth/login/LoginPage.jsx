@@ -1,6 +1,6 @@
 "use client";
 
-import { getSuccessUrl } from '@/app/(pages)/auth/authUtilities';
+import { useSuccessUrl } from '@/app/(pages)/auth/authUtilities';
 import { formatAuthError } from '@/app/(pages)/auth/processAuthErrors';
 import FieldContainer from '@/app/ui/forms/components/FieldContainer';
 import { PrimaryLoadingButton } from '@/app/ui/forms/components/FormButtons';
@@ -22,7 +22,7 @@ import ForgotPasswordButton from '../ForgotPasswordButton';
 export default function LoginPage() {
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
-    const successUrl=getSuccessUrl();
+    const successUrl=useSuccessUrl();
 
     const methods = useForm({
         resolver: zodResolver(LoginSchema), // Apply the zodResolver

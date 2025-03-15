@@ -15,13 +15,13 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
-import { getSuccessUrl } from '../authUtilities';
+import { useSuccessUrl } from '../authUtilities';
 import ForgotPasswordButton from '../ForgotPasswordButton';
 
 export default function RegisterPage() {
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter()
-    const successUrl = getSuccessUrl()
+    const successUrl = useSuccessUrl()
 
     const methods = useForm({
         resolver: zodResolver(RegisterSchema), // Apply the zodResolver
